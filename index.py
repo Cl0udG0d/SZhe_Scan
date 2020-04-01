@@ -1,25 +1,91 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,redirect,url_for,session
 import config
+from models import User,Log
+from exts import db
+from decorators import login_required
 
 app=Flask(__name__)
 app.config.from_object(config)
+db.init_app(app)
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+def save_log(ip,email,password):
+    log = Log(ip=ip,email=email, password=password)
+    db.session.add(log)
+    db.session.commit()
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('login.html')
     else:
-        return "登录界面"
+        email=request.form.get('email')
+        password=request.form.get('password')
+        remeber=request.form.get('remeber')
+        save_log(request.remote_addr,email,password)
+        user=User.query.filter(User.email==email,User.password==password).first()
+        if user:
+            if remeber:
+                session.permanent = True
+            session['user_id']=user.id
+            return redirect(url_for('index'))
+        else:
+            return "邮箱或密码错误，请确认后重新登录"
 
 @app.route('/regist/',methods=['GET','POST'])
 def regist():
     if request.method=='GET':
         return render_template('regist.html')
     else:
-        return "注册界面"
+        email=request.form.get('email')
+        username=request.form.get('username')
+        password1=request.form.get('password1')
+        password2=request.form.get('password2')
+        #邮箱和用户名验证
+        user_email=User.query.filter(User.email==email).first()
+        user_name=User.query.filter(User.username==username).first()
+        if user_email:
+            return "该邮箱已被注册，请重新输入"
+        elif user_name:
+            return "用户名已被注册，请重新输入"
+        elif password1!=password2:
+            return "两次输入密码不一致，请重新输入"
+        else:
+            user=User(email=email,username=username,password=password1)
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('login'))
+
+@app.route('/logout/')
+@login_required
+def logout():
+    #session.pop('user_id')
+    #del session('user_id')
+    session.clear()
+    return redirect(url_for('login'))
+
+@app.route('/home/')
+@login_required
+def home():
+    return render_template('home.html')
+
+
+@app.route('/bug_list/')
+@login_required
+def bug_list():
+    return render_template('bug_list.html')
+
+@app.context_processor
+def my_comtext_processor():
+    user_id=session.get('user_id')
+    if user_id:
+        user=User.query.filter(User.id==user_id).first()
+        if user:
+            return {'user':user}
+    return {}
+
 if __name__=='__main__':
     app.run()
