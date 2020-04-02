@@ -1,0 +1,74 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: lightslategray;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #070707;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a:hover, .offcanvas a:focus{
+  color: oldlace;
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+@media screen and (max-height: 450px) {
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 18px;}
+}
+#publication
+{
+	width: 1340px;
+  background:red;
+	animation:mymove 5s infinite;
+	-webkit-animation:mymove 5s infinite;
+}
+@keyframes mymove
+{
+	from {background-color:papayawhip;}
+	to {background-color:palegreen;}
+}
+button.accordion {
+    background-color: rgb(190, 248, 248);
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+button.accordion.active, button.accordion:hover {
+    background-color: rgb(248, 214, 194);
+}
+div.panel {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}

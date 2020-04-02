@@ -1,0 +1,188 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #f1f1f1;
+}
+.context {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  min-height: 750px;
+  text-align: center;
+  font-size: 14px;
+  background-color: #f1f1f1;
+  box-sizing: border-box;
+}
+.dropdown-menu li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+.context .container {
+  width: 400px;
+  height: 440px;
+  margin: -40px auto 0;
+  padding: 40px 50px 30px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  vertical-align: middle;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.context .title {
+  margin: 0 auto 50px;
+  padding: 10px;
+  font-weight: 400;
+  color: #969696;
+}
+.context .normal-title {
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 20px;
+  color: #969696;
+}
+.context .normal-title a {
+  color: #969696;
+}
+.logo {
+  position: absolute;
+  margin-left: -610px;
+  margin-top: -340px;
+}
+.context .title a:hover {
+  border-bottom: 2px solid #ea6f5a;
+  color: #ea6f5a;
+}
+.context .title a {
+  padding: 10px;
+  color: #969696;
+}
+.context .title a:hover {
+  border-bottom: 2px solid #ea6f5a;
+}
+.context .title .active {
+  font-weight: 700;
+  color: #ea6f5a;
+  border-bottom: 2px solid #ea6f5a;
+}
+.context .title b {
+  padding: 10px;
+}
+.context form {
+  margin-bottom: 30px;
+}
+.context form .input-num {
+  position: relative;
+  width: 255px;
+}
+.context form .input-num input {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 0;
+  padding: 4px 12px 4px 35px;
+  border: 2px solid #c8c8c8;
+  border-radius: 0 0 4px 4px;
+  background-color: hsla(0, 0%, 71%, 0.1);
+  vertical-align: middle;
+}
+.context form .input-prepend span {
+  color: #333;
+}
+.context form .restyle {
+  margin-bottom: 0;
+}
+.context form .restyle input {
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+}
+.context .remember-btn {
+  float: left;
+  margin: 15px 0;
+}
+.context .remember-btn span {
+  margin-left: 5px;
+  font-size: 15px;
+  color: #969696;
+  vertical-align: middle;
+}
+.context .forget-btn {
+  float: right;
+  position: relative;
+  margin: 15px 0;
+  font-size: 14px;
+}
+.context .forget-btn a {
+  color: #999;
+}
+.context .forget-btn a:hover {
+  color: #333;
+}
+.login-form {
+  position: relative;
+}
+.context .sign-in-button {
+  position: absolute;
+  top: 120px;
+  width: 100%;
+  padding: 9px 18px;
+  font-size: 18px;
+  background: #42c02e;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  clear: both;
+  outline: none;
+}
+.context .sign-up-button {
+  margin-top: 40px;
+  width: 100%;
+  padding: 9px 18px;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  background: #42c02e;
+  cursor: pointer;
+  outline: none;
+  display: block;
+  clear: both;
+}
+.context .sign-in-button:hover,
+.context .sign-up-button:hover {
+  background: #3db922;
+}
+.context .sign-in-button {
+  background: #3194d0;
+}
+.context .sign-in-button:hover {
+  background: #187cb7;
+}
+
+.context .restyle {
+  position: relative;
+}
+.context .restyle i {
+  position: absolute;
+  float: left;
+  width: 80px;
+  font-size: 23px;
+  margin-top: -35px;
+  margin-left: -145px;
+  color: #969696;
+}
+.context .passw i {
+  position: absolute;
+  float: left;
+  width: 80px;
+  font-size: 21px;
+  margin-top: -37px;
+  margin-left: -145px;
+  color: #969696;
+}

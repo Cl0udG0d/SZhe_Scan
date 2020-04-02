@@ -1,0 +1,211 @@
+*{
+    margin: 0%;
+    font-family:Arial, Helvetica, sans-serif;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.head-dao{
+    width: 1519px;
+    height: 50px;
+    background-color:rgb(3, 0, 27);
+    position: fixed;
+    z-index: 100;
+}
+.dao-span{
+    width: 150px;
+    height: 32px;
+    margin-left: 20px;
+    float: left;
+    color: white;
+    padding-top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+.dao-user{
+    height: 32px;
+    width: auto;
+    color: white;
+    cursor: pointer;
+    text-align: right;
+    float: right;
+    margin-right: 152px;
+    font-size: 18px;
+    margin-top: 8px;
+}
+div.dao-span:hover{
+    border-bottom-style: solid;
+    border-bottom-color:tomato;
+    color:tomato;
+    /* transition: .5s; */
+}
+
+.hidden{
+    position: absolute;
+    top: 45px;
+    display: none;
+    width: auto;
+    height: auto;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.603);
+}
+ul{
+    padding: 0%;
+}
+.hidden li{
+    width: 300px;
+    height: 25px;
+    color: white;
+    text-align: left;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 16px;
+    list-style-type: none;
+}
+.hidden li:hover{
+    color: tomato;
+    transition: .3s;
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.842);
+}
+.dao-span:hover .hidden{
+    display:block;
+    transition: .5s;
+}
+.head{
+    width: 1519px;
+    height: 350px;
+    float: left;
+    background: url(..//图片/event-background.jpeg);
+    background-size: 100% 100%;
+}
+.head h1{
+    color: white;
+    font-size: 65px;
+    margin-left: 100px;
+    margin-top: 120px;
+}
+.head p{
+    margin-left: 100px;
+    margin-top: 5px;
+    font-size: 20px;
+    color: white;
+}
+.head hr{
+    background-color: white;
+    border-radius: 16px;
+    border-style: none;
+    margin-top: 5px;
+    margin-left: 100px;
+    width: 250px;
+    height: 3px;
+}
+.body{
+    width: 1318px;
+    height: 2000px;
+    margin-left: 100px;
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
+    float: left;
+}
+.body-list{
+    width: 310px;
+    height: auto;
+    margin-top: 10px;
+    float: left;
+}
+.body-list li{
+    list-style-type: none;
+    text-decoration: none;
+    width: 310px;
+    height: auto;
+    color: white;
+    background-color: teal;
+    font-size: 14px;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    line-height: 20px;
+}
+.body-list li:hover{
+    transition: .3s;
+    background-color: rgb(0, 88, 88);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.body-text{
+    width: 1000px;
+    height: auto;
+    margin-left: 318px;
+    margin-top: 10px;
+    position: absolute;
+    background-color: rgb(243, 243, 243);
+    padding-bottom: 20px;
+}
+.body-text hr{
+    border-style: none;
+    width: 900px;
+    height: 1px;
+    margin-left: 50px;
+    background-color: rgb(175, 175, 175);
+}
+.text-head{
+    margin-top: 10px;
+    width: 1000px;
+    height: 50px;
+    text-align: center;
+    color: rgb(0, 41, 41);
+    font-size: 40px;
+    font-weight: 700;
+    float: left;
+}
+.text-time{
+    width: 1000px;
+    height: 30px;
+    margin-top: 6px;
+    text-align: center;
+    color: rgb(109, 109, 109);
+    font-size: 14px;
+    float: left;
+}
+.text{
+    width: 900px;
+    height: auto;
+    margin-left: 50px;
+    margin-top: 10px;
+}
+.text-img{
+    width: 900px;
+    height: 600px;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(216, 216, 216);
+    padding-bottom: 1%;
+}
+.text-img img{
+    margin-left: 1%;
+    margin-top: 1%;
+    width: 98%;
+    height: 98%;
+    border-radius: 16px;
+}
+.tail{
+    margin-top: 20px;
+    width: 1519px;
+    height: 30px;
+    padding-top: 5px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: rgb(129, 129, 129);
+    background-color: rgb(238, 238, 238);
+    text-align: center;
+    color: rgb(90, 90, 90);
+    font-size: 14px;
+    float: left;
+}

@@ -20,7 +20,7 @@ def save_log(ip,email,password):
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('sign_in.html')
     else:
         email=request.form.get('email')
         password=request.form.get('password')
@@ -38,7 +38,7 @@ def login():
 @app.route('/regist/',methods=['GET','POST'])
 def regist():
     if request.method=='GET':
-        return render_template('regist.html')
+        return render_template('sign_up.html')
     else:
         email=request.form.get('email')
         username=request.form.get('username')

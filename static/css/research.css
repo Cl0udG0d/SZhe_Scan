@@ -1,0 +1,125 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: lightslategray;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #070707;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a:hover, .offcanvas a:focus{
+  color: oldlace;
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+@media screen and (max-height: 450px) {
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 18px;}
+}
+#research
+{
+	width: 1340px;
+    background:red;
+	animation:mymove 5s infinite;
+	-webkit-animation:mymove 5s infinite;
+}
+@keyframes mymove
+{
+	from {background-color:pink;}
+	to {background-color:lightblue;}
+}
+.items{
+	width: 1310px;
+	height: 500px;
+}
+.items-left {
+	height: 470px;
+	width: 650px;
+	float: left;
+}
+ .items-right2 {
+	float: right;
+}
+* {box-sizing:border-box}
+.mySlides {display:none}
+.slideshow-container {
+  max-width: 1340px;
+  position: relative;
+  margin: auto;
+}
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+.dot {
+  cursor:pointer;
+  height: 13px;
+  width: 13px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.active, .dot:hover {
+  background-color: #717171;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+.img-group { 
+   position: relative;  
+   display: inline-block;
+}        
+.img-tip{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background: #333;
+  color: #fff;
+  opacity: 0.6;
+  display: none;
+}
+.img-group:hover .img-tip {  
+  display: block;  
+  width: 100%;  
+  text-align: center;
+}
