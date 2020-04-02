@@ -81,8 +81,10 @@ def bug_list():
 @app.route('/log_detail/')
 @login_required
 def log_detail():
-    logs = Log.query.all()
-    return render_template('log_detail.html',logs=logs)
+    context={
+        'logs':Log.query.order_by(Log.date.desc()).all()
+    }
+    return render_template('log_detail.html',**context)
 
 @app.context_processor
 def my_comtext_processor():
