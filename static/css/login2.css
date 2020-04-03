@@ -21,7 +21,7 @@ a {
 }
 .context .container {
   width: 400px;
-  height: 460px;
+  height: 500px;
   margin: -40px auto 0;
   padding: 40px 50px 30px;
   background-color: #fff;
@@ -46,7 +46,7 @@ a {
 .context .normal-title a {
   color: #969696;
 }
-.logo {
+.context .logo {
   position: absolute;
   margin-left: -610px;
   margin-top: -340px;
@@ -97,11 +97,19 @@ a {
 .context form .restyle {
   margin-bottom: 0;
 }
+.context form .input-prepend {
+  border-bottom: none;
+  margin-bottom: 0;
+}
 .context form .restyle input {
   border-bottom: none;
   border-radius: 4px 4px 0 0;
 }
 .context form .passw input {
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+}
+.context form .setting input {
   border-bottom: none;
   border-radius: 4px 4px 0 0;
 }
@@ -149,7 +157,7 @@ a {
   position: absolute;
   float: left;
   width: 80px;
-  font-size: 20px;
+  font-size: 19px;
   margin-top: -33px;
   margin-left: -145px;
   color: #969696;
