@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from flask import Flask,render_template,request,redirect,url_for,session
 import config
 from models import User,Log
@@ -33,7 +34,7 @@ def login():
             session['user_id']=user.id
             return redirect(url_for('index'))
         else:
-            return "邮箱或密码错误，请确认后重新登录"
+            return "xxx"
 
 @app.route('/regist/',methods=['GET','POST'])
 def regist():
@@ -48,11 +49,11 @@ def regist():
         user_email=User.query.filter(User.email==email).first()
         user_name=User.query.filter(User.username==username).first()
         if user_email:
-            return "该邮箱已被注册，请重新输入"
+            return "xxx"
         elif user_name:
-            return "用户名已被注册，请重新输入"
+            return "xxx"
         elif password1!=password2:
-            return "两次输入密码不一致，请重新输入"
+            return "xxx"
         else:
             user=User(email=email,username=username,password=password1)
             db.session.add(user)
