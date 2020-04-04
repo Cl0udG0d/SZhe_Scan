@@ -46,9 +46,11 @@ a {
 .context .normal-title a {
   color: #969696;
 }
-.context .logo {
+.context .logo img {
   position: absolute;
-  margin-left: -610px;
+  width: 170px;
+  height: 90px;
+  margin-left: 70px;
   margin-top: -340px;
 }
 .context .title a:hover {
