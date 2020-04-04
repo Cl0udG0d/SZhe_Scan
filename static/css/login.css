@@ -49,7 +49,10 @@ a {
 .context .normal-title a {
   color: #969696;
 }
-.logo {
+.context .login-form {
+  clear: both;
+}
+.context .logo {
   position: absolute;
   margin-left: -610px;
   margin-top: -340px;
@@ -127,7 +130,7 @@ a {
 }
 .context .sign-in-button {
   position: absolute;
-  top: 120px;
+  top: 130px;
   width: 100%;
   padding: 9px 18px;
   font-size: 18px;
@@ -139,20 +142,6 @@ a {
   display: block;
   clear: both;
   outline: none;
-}
-.context .sign-up-button {
-  margin-top: 40px;
-  width: 100%;
-  padding: 9px 18px;
-  font-size: 18px;
-  border: none;
-  border-radius: 25px;
-  color: #fff;
-  background: #42c02e;
-  cursor: pointer;
-  outline: none;
-  display: block;
-  clear: both;
 }
 .context .sign-in-button:hover,
 .context .sign-up-button:hover {
