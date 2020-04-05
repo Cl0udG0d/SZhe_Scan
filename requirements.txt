@@ -40,6 +40,7 @@ query-string==2019.4.13
 regex==2019.12.19
 request==2019.4.13
 requests==2.22.0
+schedule==0.6.0
 selenium==3.141.0
 six==1.14.0
 soupsieve==1.9.4
