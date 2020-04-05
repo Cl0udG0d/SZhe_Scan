@@ -6,9 +6,12 @@ body {
   background-color: #f1f1f1;
 }
 .context {
+  display: -webkit-box;
   display: flex;
+  -webkit-box-align: center;
   align-items: center;
   height: 100vh;
+  -webkit-box-pack: center;
   justify-content: center;
   min-height: 750px;
   text-align: center;

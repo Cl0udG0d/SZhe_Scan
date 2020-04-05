@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../static/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}">
-    <script language="javascript" type="text/javascript" charset="utf-8">
+    <!-- <script language="javascript" type="text/javascript" charset="utf-8">
         function checkform() {
 
             if (myform.password.value !=  ) {
@@ -18,16 +18,16 @@
                 return false;
             }
         }
-    </script>
+    </script> -->
 </head>
 
 <body>
 
     <div class="context">
-        <div class="logo"><a href="/"> <img src="../static/images/logo.jpg" alt="logo">
+        <div class="logo"><a href="/"> <img src="{{url_for('static',filename='images/logo.jpg')}}" alt="logo">
 
 
-            </a></div><!-- <img src="{{url_for('static',filename='images/logo.jpg')}}"  -->
+            </a></div>
         <div class="container">
             <h4 class="title">
                 <div class="normal-title">
