@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f95e139d-1067-4c07-b310-cfb821c523e0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_message.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/sign_in.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sign_in.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/sign_up.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sign_up.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +43,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.get_message">
+  <component name="RunManager" selected="Python.index">
     <configuration name="get_message" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WebScan" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -107,8 +109,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.get_message" />
         <item itemvalue="Python.index" />
+        <item itemvalue="Python.get_message" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>

@@ -22,24 +22,21 @@
 </head>
 
 <body>
-
     <div class="context">
-        <div class="logo"><a href="/"> <img src="{{url_for('static',filename='images/logo.jpg')}}" alt="logo">
-
-
-            </a></div>
+        <div class="logo">
+            <a href="/">
+                <img src="{{url_for('static',filename='images/logo.jpg')}}" alt="logo">
+            </a>
+        </div>
         <div class="container">
             <h4 class="title">
                 <div class="normal-title">
                     <a class="active" href="{{url_for('login')}}">登录</a>
                     <b>·</b>
-<<<<<<< HEAD
                     <!-- <a id="js-sign-up-btn" class="" href="sign_up.html">注册</a> -->
-                    <a id="js-sign-up-btn" class="" href="{{url_for('regist')}}">注册</a>
-=======
-                    <a id="js-sign-up-btn" class="" href="sign_up.html">注册</a>
+                    <a class="" href="{{url_for('regist')}}">注册</a>
+<!--                    <a id="js-sign-up-btn" class="" href="sign_up.html">注册</a>-->
 <!--                    <a id="js-sign-up-btn" class="" href="{{url_for('regist')}}">注册</a>-->
->>>>>>> be03a1729cdbaca3c15683f350ddbe33cc2ad643
                 </div>
             </h4>
             <div class="login-form">

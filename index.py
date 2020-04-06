@@ -34,7 +34,7 @@ def login():
             session['user_id']=user.id
             return redirect(url_for('index'))
         else:
-            return "xxx"
+            return "邮箱或密码输入错误"
 
 @app.route('/regist/',methods=['GET','POST'])
 def regist():
@@ -49,11 +49,11 @@ def regist():
         user_email=User.query.filter(User.email==email).first()
         user_name=User.query.filter(User.username==username).first()
         if user_email:
-            return "xxx"
+            return "邮箱已被注册"
         elif user_name:
-            return "xxx"
+            return "用户名已被注册"
         elif password1!=password2:
-            return "xxx"
+            return "两次密码输入不一致"
         else:
             user=User(email=email,username=username,password=password1)
             db.session.add(user)
