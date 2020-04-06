@@ -1,9 +1,6 @@
 # -*- coding:utf-8 -*-
-<<<<<<< HEAD
 from flask import Flask, render_template, request, redirect, url_for, session
-=======
 from flask import Flask,render_template,request,redirect,url_for,session,flash
->>>>>>> 735a8be6c71371ff15a48a2f6b9fdf625edbf09f
 import config
 from models import User, Log
 from exts import db
@@ -66,7 +63,6 @@ def regist():
     if request.method == 'GET':
         return render_template('sign_up.html')
     else:
-<<<<<<< HEAD
         email = request.form.get('email')
         username = request.form.get('username')
         password1 = request.form.get('password1')
@@ -80,7 +76,6 @@ def regist():
             return "xxx"
         elif password1 != password2:
             return "xxx"
-=======
         email=request.form.get('email')
         username=request.form.get('username')
         password1=request.form.get('password1')
@@ -90,7 +85,6 @@ def regist():
         if message:
             flash(message)
             return render_template('sign_up.html')
->>>>>>> 735a8be6c71371ff15a48a2f6b9fdf625edbf09f
         else:
             user = User(email=email, username=username, password=password1)
             db.session.add(user)
