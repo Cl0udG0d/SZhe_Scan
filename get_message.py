@@ -3,10 +3,10 @@ from lxml import etree
 import time
 
 headers = {"User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.6) ",
-               "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-               "Accept-Language": "en-us",
-               "Connection": "keep-alive",
-               "Accept-Charset": "GB2312,utf-8;q=0.7,*;q=0.7"}
+           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+           "Accept-Language": "en-us",
+           "Connection": "keep-alive",
+           "Accept-Charset": "GB2312,utf-8;q=0.7,*;q=0.7"}
 '''
 whois get_message
 简单介绍
@@ -15,6 +15,8 @@ whois get_message
     通过whois来实现对域名信息的查询。
     get_whois : http://whois.bugscaner.com/
 '''
+
+
 def get_whois(domain):
     '''
     get_whois函数爬取http://whois.bugscaner.com/网站的英文搜索结果，并以字符串的方式将结果返回
@@ -23,13 +25,14 @@ def get_whois(domain):
     :param domain:
     :return:
     '''
-    whois_url='http://whois.bugscaner.com/'
-    rep=requests.get(whois_url+domain)
+    whois_url = 'http://whois.bugscaner.com/'
+    rep = requests.get(whois_url + domain)
     rep = etree.HTML(rep.text)
-    data=rep.xpath('//div[@class="stats_table_91bf7bf"]/b[not(@style)]/text()')[0:19]
-    str="\n".join(data)
+    data = rep.xpath('//div[@class="stats_table_91bf7bf"]/b[not(@style)]/text()')[0:19]
+    str = "\n".join(data)
     # print(str)
     return str
+
 
 '''
 每个域名的情况都不一样，，比如一个被爬虫收录很差的域名，我们采用搜索引擎搜索的话很难搜集到全部的子域名
@@ -40,31 +43,34 @@ def get_whois(domain):
     bing 模块未完成
     返回获取的子域名字符串
 '''
+
+
 def get_sundomain(domain):
-    chinaz_base_url='https://tool.chinaz.com/'
+    chinaz_base_url = 'https://tool.chinaz.com/'
     chinaz_url = 'https://tool.chinaz.com/subdomain?domain=' + domain + '&page=1'
-    ip138_url='https://site.ip138.com/'+domain+'/domain.htm'
-    context=[]
+    ip138_url = 'https://site.ip138.com/' + domain + '/domain.htm'
+    context = []
     while 1:
-        rep = requests.get(chinaz_url,headers=headers)
+        rep = requests.get(chinaz_url, headers=headers)
         rep = etree.HTML(rep.text)
         try:
             data = rep.xpath('//div[@class="w23-0"]/a[@href="javascript:"]/text()')
             context.extend(data)
             next_url = rep.xpath('//a[@title="下一页"]/@href')[0]
-            chinaz_url=chinaz_base_url+next_url
+            chinaz_url = chinaz_base_url + next_url
         except:
             break
-    rep=requests.get(ip138_url,headers=headers)
-    rep=etree.HTML(rep.text)
+    rep = requests.get(ip138_url, headers=headers)
+    rep = etree.HTML(rep.text)
     try:
-        data=rep.xpath('//div[@class="panel"]//a/text()')
+        data = rep.xpath('//div[@class="panel"]//a/text()')
         context.extend(data)
     except:
         pass
-    new_context=list(set(context))
+    new_context = list(set(context))
     str = "\n".join(new_context)
     return str
+
 
 '''
 CDN（content delivery network 或 content distribution network）即内容分发网络。
@@ -72,6 +78,8 @@ CDN（content delivery network 或 content distribution network）即内容分�
     这里使用查看解析历史的方法查找站点真实IP
     这是一种成功率极高的方法，站点可能创建之初并未添加CDN，这样就会存留下解析记录，通过查看解析历史可以寻找到服务器的真实ip
 '''
+
+
 def get_ip(domain):
     '''
     返回域名的历史解析记录字符串
@@ -79,14 +87,43 @@ def get_ip(domain):
     :return:
     '''
 
-    ip138_url='https://site.ip138.com/'+domain
-    rep = requests.get(ip138_url,headers=headers)
+    ip138_url = 'https://site.ip138.com/' + domain
+    rep = requests.get(ip138_url, headers=headers)
     rep = etree.HTML(rep.text)
-    context=rep.xpath('//div[@id="J_ip_history"]//a/text()')
+    context = rep.xpath('//div[@id="J_ip_history"]//a/text()')
     str = "\n".join(context)
     return str
 
-#测试数据
+
+def get_recordinfo(domain):
+    '''
+    返回域名的备案信息
+    :param domain:
+    :return:
+    '''
+    check_url = 'http://www.beianbeian.com/s-0/' + domain + '.html'
+    rep = requests.get(check_url, headers=headers)
+    rep = etree.HTML(rep.text)
+    thead = rep.xpath('//table[@class="layui-table res_table"]//th/text()')
+    td_4 = "".join(rep.xpath('//tbody[@id="table_tr"]//td[4]/a/text()'))
+    td_6 = " ".join(rep.xpath('//tbody[@id="table_tr"]//td[6]/a/text()'))
+    td_8 = "".join(rep.xpath('//tbody[@id="table_tr"]//td[8]/a/text()'))
+    tbody = rep.xpath('//tbody[@id="table_tr"]//td[1]/text()')
+    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[2]/text()')))
+    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[3]/text()')))
+    tbody.append(td_4)
+    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[5]/text()')))
+    tbody.append(td_6)
+    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[7]/text()')))
+    tbody.append(td_8)
+    # context2[3] = context3[0]+context3[1]
+    # context2[4] = homeURL
+    for i in zip(thead, tbody):
+        print(":".join(i))
+
+
+# 测试数据
 # get_whois("shkls.com")
 # get_sundomain("baidu.com")
 # get_ip("baidu.com")
+# get_recordinfo("baidu.com")
