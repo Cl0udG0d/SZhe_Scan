@@ -4,7 +4,6 @@
     <list default="true" id="f95e139d-1067-4c07-b310-cfb821c523e0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,12 +21,20 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ZmetfYsPYM2Bb7Os5CPMaAuMFY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
+<<<<<<< HEAD
+=======
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -40,6 +47,7 @@
       </list>
     </option>
   </component>
+>>>>>>> 735a8be6c71371ff15a48a2f6b9fdf625edbf09f
   <component name="RunManager" selected="Python.index">
     <configuration name="get_message" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="WebScan" />
@@ -137,5 +145,43 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="233" y="0" key="#Notifications" timestamp="1586151036605">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="0" key="#Notifications/0.0.1280.680@0.0.1280.680" timestamp="1586151036605" />
+    <state x="351" y="0" key="#get_message" timestamp="1586095228453">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="351" y="0" key="#get_message/0.0.1280.680@0.0.1280.680" timestamp="1586095228453" />
+    <state x="405" y="178" key="FileChooserDialogImpl" timestamp="1586150771819">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="405" y="178" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1586150771819" />
+    <state width="1259" height="267" key="GridCell.Tab.0.bottom" timestamp="1586151039981">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="267" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1586151039981" />
+    <state width="1259" height="267" key="GridCell.Tab.0.center" timestamp="1586151039980">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="267" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1586151039980" />
+    <state width="1259" height="267" key="GridCell.Tab.0.left" timestamp="1586151039980">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="267" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1586151039980" />
+    <state width="1259" height="267" key="GridCell.Tab.0.right" timestamp="1586151039980">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1259" height="267" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1586151039980" />
+    <state x="142" y="0" key="SettingsEditor" timestamp="1586152183114">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1586152183114" />
+    <state x="325" y="165" key="com.intellij.ide.util.TipDialog" timestamp="1586152149835">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="325" y="165" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1586152149835" />
   </component>
 </project>
