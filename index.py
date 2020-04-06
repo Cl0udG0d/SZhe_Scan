@@ -63,19 +63,6 @@ def regist():
     if request.method == 'GET':
         return render_template('sign_up.html')
     else:
-        email = request.form.get('email')
-        username = request.form.get('username')
-        password1 = request.form.get('password1')
-        password2 = request.form.get('password2')
-        # 邮箱和用户名验证
-        user_email = User.query.filter(User.email == email).first()
-        user_name = User.query.filter(User.username == username).first()
-        if user_email:
-            return "xxx"
-        elif user_name:
-            return "xxx"
-        elif password1 != password2:
-            return "xxx"
         email=request.form.get('email')
         username=request.form.get('username')
         password1=request.form.get('password1')
