@@ -1,75 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>新用户注册</title>
-    <link rel="stylesheet" href="../static/css/login2.css">
-    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
-    <!--<link rel="stylesheet" href="{{url_for('static',filename='css/login2.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}">-->
-    <script language="javascript" type="text/javascript" charset="utf-8">
-        function checkform() {
-            if (myform.username.value == "") {
-                alert("昵称不能为空！");
-                myform.username.focus();
-                return false;
+    <!-- <link rel="stylesheet" href="../static/css/login2.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/login2.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}"/>
+  </head>
 
-            }
-            if (myform.password1.value != myform.password2.value) {
-                alert("两次输入密码不一样！");
-                myform.password1.focus();
-                return false;
-            }
-        }
-    </script>
-</head>
-
-<body>
-
+  <body>
     <div class="context">
-        <div class="logo"><a href="/"> <img src="{{url_for('static',filename='images/logo.jpg')}}" alt="logo"
-                    style="width:170px;height:90px;position:absolute;"></a> </div>
-
-        <div class="container">
-            <h4 class="title">
-                <div class="normal-title">
-                    <a class="active" href="sign_in.html">登录</a>
-                    <!--<a class="active" href="{{url_for('login')}}">登录</a>-->
-                    <b>·</b>
-                    <a id="js-sign-up-btn" class="regist" href="{{url_for('regist')}}">注册</a>
-                </div>
-            </h4>
-            <div class="login-form">
-                <form action="" method="POST" id="form" name="myform" onsubmit="return checkform();">
-                    <div class="input-num restyle">
-                        <input type="text" placeholder="昵称" name="username" id="username">
-                        <i class="fa fa-user"></i>
-                    </div>
-                    <div class="input-num passw">
-                        <input type="email" placeholder="邮箱" name="email">
-                        <i class="fa fa-envelope"></i>
-                    </div>
-                    <div class=" input-num input-prepend setting">
-                        <input placeholder="设置密码" type="password" name="password1" id="user_password1" />
-                        <i class="fa fa-eye-slash"></i>
-                    </div>
-                    <div class=" input-num input-prepend">
-                        <input placeholder="确认密码" type="password" name="password2" id="user_password2" />
-                        <i class="fa fa-eye-slash"></i>
-                    </div>
-                    <p class="sign-up-msg">点击 “注册” 即表示您同意并愿意遵守扫描器<br> <a target="_blank" href="#">用户协议</a> 和 <a
-                            target="_blank" href="#">隐私政策</a> 。</p>
-                    <button class="sign-up-button" type="button">
-                        <span id=" sign-in-loading"></span>
-                        注册
-                    </button>
-                </form>
-
+      <div class="logo">
+        <a href="/">
+          <img src="{{url_for('static',filename='images/logo.jpg')}}" alt="logo"/>
+        </a>
+      </div>
+      <div class="container">
+        <h4 class="title">
+          <div class="normal-title">
+            <!-- <a class="active" href="sign_in.html">登录</a> -->
+            <a class="active" href="{{url_for('login')}}">登录</a>
+            <b>·</b>
+            <a id="js-sign-up-btn" class="regist" href="{{url_for('regist')}}">注册</a>
+          </div>
+        </h4>
+        <div class="login-form">
+          <form action="" method="POST" id="form" name="myform" onsubmit="return checkform();">
+            <div class="input-num restyle">
+              <input type="text" placeholder="昵称" name="username" id="username"/>
+              <i class="fa fa-user"></i>
             </div>
+            <div class="input-num passw">
+              <input type="email" placeholder="邮箱" name="email" />
+              <i class="fa fa-envelope"></i>
+            </div>
+            <div class="input-num input-prepend setting">
+              <input placeholder="设置密码" type="password" name="password1" id="user_password1"/>
+              <i class="fa fa-eye-slash"></i>
+            </div>
+            <div class="input-num input-prepend">
+              <input placeholder="确认密码" type="password" name="password2" id="user_password2"/>
+              <i class="fa fa-eye-slash"></i>
+            </div>
+            <p class="sign-up-msg">
+              点击 “注册” 即表示您同意并愿意遵守Web漏洞扫描器<br />
+              <a target="_blank" href="#">用户协议</a> 和
+              <a target="_blank" href="#">隐私政策</a> 。
+            </p>
+            <button class="sign-up-button">
+              <span id=" sign-in-loading"></span>
+              注册
+            </button>
+          </form>
         </div>
-    </div>
-</body>
 
+      </div>
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+  </body>
 </html>

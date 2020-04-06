@@ -5,35 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户登录</title>
-    <link rel="stylesheet" href="../static/css/login.css">
-    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
-    <!--<link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}">-->
-    <script language="javascript" type="text/javascript" charset="utf-8">
-        function checkform() {
-
-            if (myform.password.value !=   ) {
-                alert("邮箱或密码错误");
-                myform.password.focus();
-                return false;
-            }
-        }
-    </script>
+    <!-- <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}">
 </head>
 
 <body>
-
     <div class="context">
-        <div class="logo"><a href="/"><img src="../static/images/logo.jpg" alt="logo"
-                    style="width:170px;height:90px;position:absolute;">
-                <!--{{url_for('static',filename='images/logo.jpg')}}"-->
-            </a></div>
+        <div class="logo">
+            <a href="/">
+                <img src="{{url_for('static',filename='images/logo.jpg')}}" alt="logo">
+            </a>
+        </div>
         <div class="container">
             <h4 class="title">
                 <div class="normal-title">
                     <a class="active" href="{{url_for('login')}}">登录</a>
                     <b>·</b>
-                    <a id="js-sign-up-btn" class="" href="sign_up.html">注册</a>
+                    <!-- <a id="js-sign-up-btn" class="" href="sign_up.html">注册</a> -->
+                    <a class="" href="{{url_for('regist')}}">注册</a>
+<!--                    <a id="js-sign-up-btn" class="" href="sign_up.html">注册</a>-->
 <!--                    <a id="js-sign-up-btn" class="" href="{{url_for('regist')}}">注册</a>-->
                 </div>
             </h4>
@@ -62,6 +54,15 @@
             </div>
         </div>
     </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 </body>
 
 </html>
