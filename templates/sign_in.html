@@ -9,16 +9,6 @@
     <link rel="stylesheet" href="../static/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}">
-    <!-- <script language="javascript" type="text/javascript" charset="utf-8">
-        function checkform() {
-
-            if (myform.password.value !=  ) {
-                alert("邮箱或密码错误");
-                myform.password.focus();
-                return false;
-            }
-        }
-    </script> -->
 </head>
 
 <body>
@@ -64,6 +54,15 @@
             </div>
         </div>
     </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 </body>
 
 </html>

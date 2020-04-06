@@ -8,20 +8,6 @@
     <link rel="stylesheet" href="../static/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="{{url_for('static',filename='css/login2.css')}}"/>
     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}"/>
-    <script language="javascript" type="text/javascript" charset="utf-8">
-      function checkform() {
-        if (myform.username.value == "") {
-          alert("昵称不能为空！");
-          myform.username.focus();
-          return false;
-        }
-        if (myform.password1.value != myform.password2.value) {
-          alert("两次输入密码不一样！");
-          myform.password1.focus();
-          return false;
-        }
-      }
-    </script>
   </head>
 
   <body>
@@ -69,7 +55,17 @@
             </button>
           </form>
         </div>
+
       </div>
     </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
   </body>
 </html>
