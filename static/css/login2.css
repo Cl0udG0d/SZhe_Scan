@@ -191,3 +191,15 @@ a {
 #sign-in-form-submit-btn {
   position: absolute;
 }
+/* .error {
+  position: absolute;
+  margin-top: -30px;
+  width: 100%;
+  height: 10px;
+  margin-bottom: 0px;
+  border: 2px red solid;
+  font-size: 64px;
+  color: red;
+  z-index: 100;
+  border-radius: 4px 4px 0 0;
+} */
