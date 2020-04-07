@@ -1,76 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>用户登录</title>
-    <link
-      rel="stylesheet"
-      href="{{url_for('static',filename='css/login.css')}}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{url_for('static',filename='css/font-awesome.min.css')}}"
-    />
-  </head>
 
-  <body>
-    <div class="context">
-      <div class="logo">
-        <a href="/">
-          <img
-            src="{{url_for('static',filename='images/logo.jpg')}}"
-            alt="logo"
-          />
-        </a>
-      </div>
-      <div class="container">
-        <h4 class="title">
-          <div class="normal-title">
-            <a class="active" href="{{url_for('login')}}">登录</a>
-            <b>·</b>
-            <a id="js-sign-up-btn" class="" href="{{url_for('regist')}}"
-              >注册</a
-            >
-          </div>
-        </h4>
-        <div class="login-form">
-          <form
-            action=""
-            method="POST"
-            id="form"
-            name="myform"
-            onsubmit="checkform();"
-          >
-            <div class="input-num restyle">
-              <input type="text" placeholder="邮箱" name="email" />
-              <i class="fa fa-user"></i>
-            </div>
-            <div class="input-num passw">
-              <input type="password" placeholder="密码" name="password" />
-              <i class="fa fa-eye-slash"></i>
-            </div>
-            <div class="remember-btn">
-              <input
-                type="checkbox"
-                value="true"
-                checked="checked"
-                name="remeber"
-                id="session_remember_me"
-              /><span>记住我</span>
-            </div>
-            <div class="forget-btn">
-              <a class="" data-toggle="dropdown" href="">登录遇到问题?</a>
-            </div>
-            <button class="sign-in-button" style="margin-top: 40px;">
-              <span id="sign-in-loading"></span>
-              登录
-            </button>
-          </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用户登录</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+</head>
+
+<body>
+  <div class="context">
+    <div class="logo">
+      <a href="/">
+        <img src="{{url_for('static',filename='images/logo.jpg')}}" alt="logo" />
+      </a>
+    </div>
+    <div class="container">
+      <h4 class="title">
+        <div class="normal-title">
+          <a class="active" href="{{url_for('login')}}">登录</a>
+          <b>·</b>
+          <a id="js-sign-up-btn" class="" href="{{url_for('regist')}}">注册</a>
         </div>
-        <div
-          class="error"
-          style="
+      </h4>
+      <div class="login-form">
+        <form action="" method="POST" id="form" name="myform" onsubmit="checkform();">
+          <div class="input-num restyle">
+            <input type="text" placeholder="邮箱" name="email" />
+            <i class="fa fa-user"></i>
+          </div>
+          <div class="input-num passw">
+            <input type="password" placeholder="密码" name="password" />
+            <i class="fa fa-eye-slash"></i>
+          </div>
+          <div class="remember-btn">
+            <input type="checkbox" value="true" checked="checked" name="remeber"
+              id="session_remember_me" /><span>记住我</span>
+          </div>
+          <div class="forget-btn">
+            <a class="" data-toggle="dropdown" href="">登录遇到问题?</a>
+          </div>
+          <button class="sign-in-button" style="margin-top: 40px;">
+            <span id="sign-in-loading"></span>
+            登录
+          </button>
+        </form>
+      </div>
+      <div class="error" style="
             position: relative;
             top: 70px;
             left: -50px;
@@ -86,17 +63,17 @@
             border: 1px #f08080 solid;
             border-radius: 8px;
             */
-          "
-        >
-          {% with messages = get_flashed_messages() %} {% if messages %}
-          <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-          </ul>
-          {% endif %} {% endwith %}
-        </div>
+          ">
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
