@@ -4,17 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>新用户注册</title>
-    <!-- <link rel="stylesheet" href="../static/css/login2.css">
-    <link rel="stylesheet" href="../static/css/font-awesome.min.css"> -->
-    <link rel="stylesheet" href="{{url_for('static',filename='css/login2.css')}}"/>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}"/>
+    <!-- <link rel="stylesheet" href="../static/css/login2.css" />
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css" /> -->
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/login2.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/font-awesome.min.css')}}"
+    />
   </head>
 
   <body>
     <div class="context">
       <div class="logo">
         <a href="/">
-          <img src="{{url_for('static',filename='images/logo.jpg')}}" alt="logo"/>
+          <img
+            src="{{url_for('static',filename='images/logo.jpg')}}"
+            alt="logo"
+          />
         </a>
       </div>
       <div class="container">
@@ -23,13 +32,26 @@
             <!-- <a class="active" href="sign_in.html">登录</a> -->
             <a class="active" href="{{url_for('login')}}">登录</a>
             <b>·</b>
-            <a id="js-sign-up-btn" class="regist" href="{{url_for('regist')}}">注册</a>
+            <a id="js-sign-up-btn" class="regist" href="{{url_for('regist')}}"
+              >注册</a
+            >
           </div>
         </h4>
         <div class="login-form">
-          <form action="" method="POST" id="form" name="myform" onsubmit="return checkform();">
+          <form
+            action=""
+            method="POST"
+            id="form"
+            name="myform"
+            onsubmit="return checkform();"
+          >
             <div class="input-num restyle">
-              <input type="text" placeholder="昵称" name="username" id="username"/>
+              <input
+                type="text"
+                placeholder="昵称"
+                name="username"
+                id="username"
+              />
               <i class="fa fa-user"></i>
             </div>
             <div class="input-num passw">
@@ -37,11 +59,21 @@
               <i class="fa fa-envelope"></i>
             </div>
             <div class="input-num input-prepend setting">
-              <input placeholder="设置密码" type="password" name="password1" id="user_password1"/>
+              <input
+                placeholder="设置密码"
+                type="password"
+                name="password1"
+                id="user_password1"
+              />
               <i class="fa fa-eye-slash"></i>
             </div>
             <div class="input-num input-prepend">
-              <input placeholder="确认密码" type="password" name="password2" id="user_password2"/>
+              <input
+                placeholder="确认密码"
+                type="password"
+                name="password2"
+                id="user_password2"
+              />
               <i class="fa fa-eye-slash"></i>
             </div>
             <p class="sign-up-msg">
@@ -55,17 +87,34 @@
             </button>
           </form>
         </div>
-
+        <div
+          class="error"
+          style="
+            position: relative;
+            top: 35px;
+            left: -50px;
+            width: 400px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            overflow: hidden;
+            color: #b22222;
+            /* background-color: #ffe4e1;
+            list-style-type: none;
+            border: 1px #f08080 solid;
+            border-radius: 8px;
+            */
+          "
+        >
+          {% with messages = get_flashed_messages() %} {% if messages %}
+          <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %} {% endwith %}
+        </div>
       </div>
     </div>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-          {% for message in messages %}
-          <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
   </body>
 </html>
