@@ -122,8 +122,49 @@ def get_recordinfo(domain):
         print(":".join(i))
 
 
+def get_siteStation(ip):
+    """
+    旁站查询
+    查询网站1：https://www.webscan.cc/search/
+    查询网站2：http://stool.chinaz.com
+    查询网站3：http://www.114best.com/ip/114.aspx
+    :param ip:
+    :return:
+    """
+    data = {'domain': ip}
+    url_1 = 'https://www.webscan.cc/search/'
+    rep1 = requests.post(url_1, data=data, headers=headers)
+    rep1 = etree.HTML(rep1.text)
+    text1 = rep1.xpath('//a[@class="domain"]/text()')
+
+    url_2_base = 'http://stool.chinaz.com'
+    url_2 = 'http://stool.chinaz.com/same?s=' + ip + '&page=1'
+    text2 = []
+    while 1:
+        rep2 = requests.get(url_2, headers=headers)
+        rep2 = etree.HTML(rep2.text)
+        new_list = rep2.xpath('//div[@class="w30-0 overhid"]/a/text()')
+        if len(new_list) == 0:
+            break
+        text2 += new_list
+        next_url = "".join(rep2.xpath('//a[@title="下一页"]/@href'))
+        url_2 = url_2_base + next_url
+
+    url_3 = 'http://www.114best.com/ip/114.aspx?w=' + ip
+    rep3 = requests.get(url_3, headers=headers)
+    rep3 = etree.HTML(rep3.text)
+    text3 = rep3.xpath('//div[@id="rl"]/span/text()')
+    text3 = [x.strip() for x in text3]
+    text = list(set(text1).union(set(text2)).union(set(text3)))
+    for i in text:
+        if "屏蔽的关键字" in i:
+            text.remove(i)
+    str = "\n".join(text)
+    return str
+
 # 测试数据
 # get_whois("shkls.com")
 # get_sundomain("baidu.com")
 # get_ip("baidu.com")
 # get_recordinfo("baidu.com")
+# get_siteStation("172.217.27.142")
