@@ -23,12 +23,10 @@ def spider(url):
         rep = requests.get(url,headers=headers,timeout=1.5)
         rep = etree.HTML(rep.text)
         url_list = rep.xpath('//*[@href]/@href')
-
         for i in url_list:
-            if "http" in i:
-                new_url_list.append(i)
-            else:
-                new_url_list.append(url + i)
+            if not (i.startswith("http://") or i.startswith("https://")):
+                i = "http://" + i
+            new_url_list.append(url + i)
     except:
         pass
 
@@ -56,4 +54,4 @@ def depth_get(url):
     return all_lists
 
 #测试数据
-#depth_get("https://ask.hellobi.com/blog/bixtcexs/11983")
+# depth_get("https://ask.hellobi.com/blog/bixtcexs/11983")
