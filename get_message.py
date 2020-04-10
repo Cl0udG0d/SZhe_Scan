@@ -95,6 +95,15 @@ def get_ip(domain):
     return str
 
 
+'''
+域名备案DNICP（Domain Name Internet Content Provider）
+备案信息分为两种，一种是IPC备案信息查询，一种是公安部备案信息查询。
+在中华人民共和国境内提供非经营性互联网信息服务，应当办理备案。
+因此可以通过网站查询获取域名的备案信息。
+在线查询网站：http://www.beianbeian.com
+'''
+
+
 def get_recordinfo(domain):
     '''
     返回域名的备案信息
@@ -120,6 +129,8 @@ def get_recordinfo(domain):
     # context2[4] = homeURL
     for i in zip(thead, tbody):
         print(":".join(i))
+
+
 
 
 def get_siteStation(ip):
@@ -162,9 +173,46 @@ def get_siteStation(ip):
     str = "\n".join(text)
     return str
 
+
+def Subdomain_burst(domain, filename):
+    '''
+    子域名爆破
+    字典：dict\SUB_scan.txt
+    从字典读取子域名构造新的url进行访问，若返回状态码为200，则写入文件夹。
+    :param domain:
+    :param filename:
+    :return:
+    '''
+    file = open(r"dict\SUB_scan.txt", "r")
+    resultFile = open(filename, "a+")
+    for line in file.readlines():
+        url = 'http://' + line.replace("\n", '.' + domain)
+        r = requests.get(url, headers=headers)
+        if r.status_code == 200:
+            resultFile.write(url + "\n")
+
+
+def sensitive_scan(domain, filename):
+    '''
+    敏感文件、目录扫描
+    字典：dict\SEN_scan.txt
+    :param domain:
+    :param filename:
+    :return:
+    '''
+    file = open(r"dict\SEN_scan.txt", "r", encoding='utf-8')
+    resultFile = open(filename, "a+")
+    for line in file.readlines():
+        url = 'http://' + domain + line.replace("\n", '')
+        r = requests.get(url, headers=headers, allow_redirects=False)
+        if r.status_code == 200:
+            resultFile.write(url + "\n")
+
 # 测试数据
 # get_whois("shkls.com")
 # get_sundomain("baidu.com")
 # get_ip("baidu.com")
 # get_recordinfo("baidu.com")
 # get_siteStation("172.217.27.142")
+# Subdomain_burst("baidu.com", "dict\test1.txt")
+# sensitive_scan("www.anantest.com", "dict\test2.txt")
