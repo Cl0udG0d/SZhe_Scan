@@ -176,7 +176,7 @@ def get_siteStation(ip):
     return str
 
 
-<<<<<<< HEAD
+
 def Subdomain_burst(domain, filename):
     '''
     子域名爆破
@@ -210,7 +210,7 @@ def sensitive_scan(domain, filename):
         r = requests.get(url, headers=headers, allow_redirects=False)
         if r.status_code == 200:
             resultFile.write(url + "\n")
-=======
+
 def whatweb(url):
     try:
         response = requests.get(url,headers=headers,verify=False,timeout=3)
@@ -235,7 +235,7 @@ def cms_finger(url):
     print(request.headers["X-RateLimit-Remaining"])
     print(u"识别结果")
     print(request.json())
->>>>>>> d4f0d19501bcab845deca077b20564e3646d1365
+
 
 # 测试数据
 # get_whois("shkls.com")
@@ -243,9 +243,9 @@ def cms_finger(url):
 # get_ip("baidu.com")
 # get_recordinfo("baidu.com")
 # get_siteStation("172.217.27.142")
-<<<<<<< HEAD
+
 # Subdomain_burst("baidu.com", "dict\test1.txt")
 # sensitive_scan("www.anantest.com", "dict\test2.txt")
-=======
+
 #cms_finger("http://www.dedecms.com/")
->>>>>>> d4f0d19501bcab845deca077b20564e3646d1365
+
