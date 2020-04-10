@@ -1,7 +1,7 @@
 from changanya.simhash import Simhash
 import requests
 
-def is_similar_page(res1, res2, radio=0.85):
+def is_similar_page(res1, res2, radio):
     '''
     计算页面相似度函数
     :param res1:
@@ -11,14 +11,14 @@ def is_similar_page(res1, res2, radio=0.85):
     '''
     if res1 is None or res2 is None:
         return False
-    body1 = res1.text
-    body2 = res2.text
+    # body1 = res1.text
+    # body2 = res2.text
 
-    simhash1 = Simhash(body1)
-    simhash2 = Simhash(body2)
+    simhash1 = Simhash(str(res1))
+    simhash2 = Simhash(str(res2))
 
     calc_radio = simhash1.similarity(simhash2)
-    # print("[%s]与[%s]两个页面的相似度为:%s" % (url1, url2, calc_radio))
+    # print("两个页面的相似度为:%s" % (calc_radio))
     if calc_radio >= radio:
         return True
     else:
@@ -48,7 +48,7 @@ def is_404(true_404,check_url):
         return True
     else:
         true_404_rep=requests.get(check_url)
-        if is_similar_page(true_404_rep,check_url_rep):
+        if is_similar_page(true_404_rep,check_url_rep,radio=0.85):
             return True
         else:
             return False
