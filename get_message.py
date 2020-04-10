@@ -1,6 +1,8 @@
 import requests
 from lxml import etree
 import time
+import zlib
+import json
 
 headers = {"User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.6) ",
            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -174,6 +176,7 @@ def get_siteStation(ip):
     return str
 
 
+<<<<<<< HEAD
 def Subdomain_burst(domain, filename):
     '''
     子域名爆破
@@ -207,6 +210,32 @@ def sensitive_scan(domain, filename):
         r = requests.get(url, headers=headers, allow_redirects=False)
         if r.status_code == 200:
             resultFile.write(url + "\n")
+=======
+def whatweb(url):
+    try:
+        response = requests.get(url,headers=headers,verify=False,timeout=3)
+    except:
+        pass
+    whatweb_dict = {"url": response.url, "text": response.text, "headers": dict(response.headers)}
+    whatweb_dict = json.dumps(whatweb_dict)
+    whatweb_dict = whatweb_dict.encode()
+    whatweb_dict = zlib.compress(whatweb_dict)
+    data = {"info": whatweb_dict}
+    return requests.post("http://whatweb.bugscaner.com/api.go", files=data)
+'''
+传入url形式为http://www.dedecms.com/,requests能直接访问的网址
+返回数据为json格式的识别结果，每天在线识别的次数上限为1500次
+后续完善本地CMS指纹识别
+调用自bugscaner博客出品，在线指纹识别,在线cms识别小插件--在线工具API
+http://whatweb.bugscaner.com/look/
+'''
+def cms_finger(url):
+    request = whatweb(url)
+    print(u"今日识别剩余次数")
+    print(request.headers["X-RateLimit-Remaining"])
+    print(u"识别结果")
+    print(request.json())
+>>>>>>> d4f0d19501bcab845deca077b20564e3646d1365
 
 # 测试数据
 # get_whois("shkls.com")
@@ -214,5 +243,9 @@ def sensitive_scan(domain, filename):
 # get_ip("baidu.com")
 # get_recordinfo("baidu.com")
 # get_siteStation("172.217.27.142")
+<<<<<<< HEAD
 # Subdomain_burst("baidu.com", "dict\test1.txt")
 # sensitive_scan("www.anantest.com", "dict\test2.txt")
+=======
+#cms_finger("http://www.dedecms.com/")
+>>>>>>> d4f0d19501bcab845deca077b20564e3646d1365
