@@ -16,7 +16,7 @@ def injection_control(url):
     domain = url.split("?")[0]
     #获取域名和参数，用来构建payload
     queries = urlparse.urlparse(url).query.split("&")
-    if old_html or not any(queries):
+    if old_html and any(queries):
         e_vulnerable, e_db =error_injection.error_in(domain,queries,old_html)
         t_vulnerable, t_db =time_injection.time_in(domain,queries,old_html)
         b_vulnerable, b_db =bool_injection.bool_in(domain,queries,old_html)
@@ -30,6 +30,8 @@ def injection_control(url):
             return False,"waf"
         else:
             return False,None
+    else:
+        return False, None
 
 if __name__=='__main__':
     # injection_control("http://testphp.vulnweb.com:80/listproducts.php?cat=1")
