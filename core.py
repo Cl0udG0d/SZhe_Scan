@@ -4,10 +4,6 @@ import requests
 def is_similar_page(res1, res2, radio):
     '''
     计算页面相似度函数
-    :param res1:
-    :param res2:
-    :param radio:
-    :return:
     '''
     if res1 is None or res2 is None:
         return False
@@ -18,7 +14,7 @@ def is_similar_page(res1, res2, radio):
     simhash2 = Simhash(str(res2))
 
     calc_radio = simhash1.similarity(simhash2)
-    # print("两个页面的相似度为:%s" % (calc_radio))
+    print("两个页面的相似度为:%s" % (calc_radio))
     if calc_radio >= radio:
         return True
     else:

