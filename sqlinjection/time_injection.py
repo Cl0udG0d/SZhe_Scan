@@ -12,7 +12,7 @@ def time_in(domain,queries,old_html):
     for db,timepayloads in sql_times.items():
         for payload in timepayloads:
             website = domain + "?" + ("&".join([param + payload for param in queries]))
-            print(website)
+            # print(website)
             try:
                 start_time = time.time()
                 rep1=requests.get(domain)
