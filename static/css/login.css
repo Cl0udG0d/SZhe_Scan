@@ -156,10 +156,12 @@ a {
   background: #3db922;
 }
 .context .sign-in-button {
-  background: #3194d0;
+  /* background: #3194d0; */
+  background-color: #5352ed;
 }
 .context .sign-in-button:hover {
-  background: #187cb7;
+  /* background: #187cb7; */
+  background-color: #6a5acd;
 }
 
 .context .restyle {
