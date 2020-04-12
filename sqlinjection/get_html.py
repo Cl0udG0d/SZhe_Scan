@@ -1,10 +1,9 @@
-from fake_useragent import UserAgent
 import requests
+import core
 
-ua = UserAgent()
 
 def gethtml(url):
-    headers = {'User-Agent': ua.random}
+    headers = core.GetHeaders()
     if not (url.startswith("http://") or url.startswith("https://")):
         url="http://"+url
     try:

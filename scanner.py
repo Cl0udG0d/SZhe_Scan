@@ -1,11 +1,14 @@
 import signal
 import multiprocessing
+import time
 
+import get_message
 '''
 ====进程是资源分配的单位，线程是操作系统调度的单位====
 获取target目标url，进行同域名下的及网页中的输入源搜集
+scan函数传入扫描urls，单个或多个url，进入输入源获取函数
 输入形式都可，进行自主判断
-               创建进程池，多进程进行扫描，实现并行效果，配置文件config.py
+               创建进程池，多进程进行扫描，实现并行效果，默认进程为10,配置文件config.py
 输入源获取->清洗->进入扫描队列->通过扫描器黑盒扫描->扫描信息存储进入MySQL数据库
                                                ->扫描信息回显在页面上
 
@@ -30,14 +33,53 @@ import multiprocessing
 def init():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
-def index(url):
+def index(queue):
+    url=queue.get()
+    urllist=GetUrlToQueue(url)
 
-def scan(urls):
-    results={}
+    print(url)
+    return True,str(url)
+'''
+子域名搜集(被动搜集+主动搜集)->子域名页面url深度爬取(提取在子域名范围内的url)->加入队列
+'''
+def GetUrlToQueue(url):
+
+    list1=get_message.GetSubDomain(url)
+    list2=
+
+
+def UrlScan(urls):
+    vulnerables = [] #存储有漏洞的url
+    results = {} #存储扫描结果
     max_processes = 10
+    queue = multiprocessing.Manager().Queue()
     pool = multiprocessing.Pool(max_processes, init)
-    #将输入urls列表遍历放入进程池中，扫描结果放入results字典中
     for url in urls:
-        def callback(result,url=url):
-            results[url] = result
-        pool.apply_async(index, (url,), callback=callback)
+        queue.put(url)
+    def callback(result):
+        results[result[1]] = result[0]
+    #检测队列是否为空，空的话证明没有需要扫描的url了，停止扫描，否则进入index函数进行url调度扫描
+    #result存储两个结果，一个是是否存在漏洞，一个是漏洞的类型
+    try:
+        while not queue.empty():
+            pool.apply_async(index,(queue,),callback=callback)
+            time.sleep(0.5)
+    except Exception:
+        pool.terminate()
+        pool.join()
+    else:
+        pool.close()
+        pool.join()
+    for url, result in results.items():
+        if result:
+            # print(str(result)+url)
+            vulnerables.append((url, result))
+    return vulnerables
+
+#测试
+def main():
+    urls=[1,2,3,4,5,6,7,8,9,10,11,12,13]
+    UrlScan(urls)
+
+if __name__=='__main__':
+    main()
