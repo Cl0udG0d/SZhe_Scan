@@ -1,14 +1,10 @@
 import requests
 from lxml import etree
-import time
 import zlib
 import json
 
-headers = {"User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.6) ",
-           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-           "Accept-Language": "en-us",
-           "Connection": "keep-alive",
-           "Accept-Charset": "GB2312,utf-8;q=0.7,*;q=0.7"}
+import core
+
 '''
 whois get_message
 简单介绍
@@ -28,7 +24,7 @@ def get_whois(domain):
     :return:
     '''
     whois_url = 'http://whois.bugscaner.com/'
-    rep = requests.get(whois_url + domain)
+    rep = requests.get(whois_url + domain,headers=core.GetHeaders())
     rep = etree.HTML(rep.text)
     data = rep.xpath('//div[@class="stats_table_91bf7bf"]/b[not(@style)]/text()')[0:19]
     str = "\n".join(data)
@@ -47,13 +43,13 @@ def get_whois(domain):
 '''
 
 
-def get_sundomain(domain):
+def GetSubDomain(domain):
     chinaz_base_url = 'https://tool.chinaz.com/'
     chinaz_url = 'https://tool.chinaz.com/subdomain?domain=' + domain + '&page=1'
     ip138_url = 'https://site.ip138.com/' + domain + '/domain.htm'
     context = []
     while 1:
-        rep = requests.get(chinaz_url, headers=headers)
+        rep = requests.get(chinaz_url, headers=core.GetHeaders())
         rep = etree.HTML(rep.text)
         try:
             data = rep.xpath('//div[@class="w23-0"]/a[@href="javascript:"]/text()')
@@ -62,7 +58,7 @@ def get_sundomain(domain):
             chinaz_url = chinaz_base_url + next_url
         except:
             break
-    rep = requests.get(ip138_url, headers=headers)
+    rep = requests.get(ip138_url,headers=core.GetHeaders())
     rep = etree.HTML(rep.text)
     try:
         data = rep.xpath('//div[@class="panel"]//a/text()')
@@ -70,8 +66,9 @@ def get_sundomain(domain):
     except:
         pass
     new_context = list(set(context))
-    str = "\n".join(new_context)
-    return str
+    return new_context
+    # str = "\n".join(new_context)
+    # return str
 
 
 '''
@@ -90,7 +87,7 @@ def get_ip(domain):
     '''
 
     ip138_url = 'https://site.ip138.com/' + domain
-    rep = requests.get(ip138_url, headers=headers)
+    rep = requests.get(ip138_url,headers=core.GetHeaders())
     rep = etree.HTML(rep.text)
     context = rep.xpath('//div[@id="J_ip_history"]//a/text()')
     str = "\n".join(context)
@@ -113,7 +110,7 @@ def get_recordinfo(domain):
     :return:
     '''
     check_url = 'http://www.beianbeian.com/s-0/' + domain + '.html'
-    rep = requests.get(check_url, headers=headers)
+    rep = requests.get(check_url,headers=core.GetHeaders())
     rep = etree.HTML(rep.text)
     thead = rep.xpath('//table[@class="layui-table res_table"]//th/text()')
     td_4 = "".join(rep.xpath('//tbody[@id="table_tr"]//td[4]/a/text()'))
@@ -146,7 +143,7 @@ def get_siteStation(ip):
     """
     data = {'domain': ip}
     url_1 = 'https://www.webscan.cc/search/'
-    rep1 = requests.post(url_1, data=data, headers=headers)
+    rep1 = requests.post(url_1, data=data,headers=core.GetHeaders())
     rep1 = etree.HTML(rep1.text)
     text1 = rep1.xpath('//a[@class="domain"]/text()')
 
@@ -154,7 +151,7 @@ def get_siteStation(ip):
     url_2 = 'http://stool.chinaz.com/same?s=' + ip + '&page=1'
     text2 = []
     while 1:
-        rep2 = requests.get(url_2, headers=headers)
+        rep2 = requests.get(url_2,headers=core.GetHeaders())
         rep2 = etree.HTML(rep2.text)
         new_list = rep2.xpath('//div[@class="w30-0 overhid"]/a/text()')
         if len(new_list) == 0:
@@ -164,7 +161,7 @@ def get_siteStation(ip):
         url_2 = url_2_base + next_url
 
     url_3 = 'http://www.114best.com/ip/114.aspx?w=' + ip
-    rep3 = requests.get(url_3, headers=headers)
+    rep3 = requests.get(url_3,headers=core.GetHeaders())
     rep3 = etree.HTML(rep3.text)
     text3 = rep3.xpath('//div[@id="rl"]/span/text()')
     text3 = [x.strip() for x in text3]
@@ -177,7 +174,7 @@ def get_siteStation(ip):
 
 
 
-def Subdomain_burst(domain, filename):
+def SubDomainBurst(domain, filename="subdomainburst.txt"):
     '''
     子域名爆破
     字典：dict\SUB_scan.txt
@@ -190,9 +187,14 @@ def Subdomain_burst(domain, filename):
     resultFile = open(filename, "a+")
     for line in file.readlines():
         url = 'http://' + line.replace("\n", '.' + domain)
-        r = requests.get(url, headers=headers)
-        if r.status_code == 200:
-            resultFile.write(url + "\n")
+        try:
+            r = requests.get(url,headers=core.GetHeaders(),timeout=1.0)
+            if r.status_code == 200:
+                resultFile.write(url + "\n")
+        except Exception:
+            pass
+    resultFile.close()
+
 
 
 def sensitive_scan(domain, filename):
@@ -207,13 +209,13 @@ def sensitive_scan(domain, filename):
     resultFile = open(filename, "a+")
     for line in file.readlines():
         url = 'http://' + domain + line.replace("\n", '')
-        r = requests.get(url, headers=headers, allow_redirects=False)
+        r = requests.get(url,headers=core.GetHeaders(), allow_redirects=False)
         if r.status_code == 200:
             resultFile.write(url + "\n")
 
 def whatweb(url):
     try:
-        response = requests.get(url,headers=headers,verify=False,timeout=3)
+        response = requests.get(url,headers=core.GetHeaders(),verify=False,timeout=3)
     except:
         pass
     whatweb_dict = {"url": response.url, "text": response.text, "headers": dict(response.headers)}
@@ -249,3 +251,5 @@ def cms_finger(url):
 
 #cms_finger("http://www.dedecms.com/")
 
+if __name__=='__main__':
+    SubDomainBurst("baidu.com")

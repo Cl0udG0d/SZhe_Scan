@@ -1,5 +1,11 @@
 from changanya.simhash import Simhash
 import requests
+from fake_useragent import UserAgent
+
+ua = UserAgent()
+
+def GetHeaders():
+    return {'User-Agent': ua.random}
 
 def is_similar_page(res1, res2, radio):
     '''
