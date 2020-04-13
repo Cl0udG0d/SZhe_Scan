@@ -89,7 +89,7 @@ h1 a {
   top: 55.7px;
   /* margin: 0 20px; */
   /* display: flex; */
-  left: -50px;
+  left: -40px;
   background-color: #f8f8ff;
   height: 50px;
   text-align: center;
@@ -100,7 +100,7 @@ h1 a {
   float: left;
   text-align: center;
   /* margin-left: 18px;
-    position: absolute; */
+      position: absolute; */
 }
 .navList li {
   position: absolute;
@@ -200,33 +200,33 @@ h1 a {
 }
 
 /* .search-box {
-  /* flex: 1; */
+    /* flex: 1; */
 /* display: block;
-  position: absolute;
-  top: 10px;
-  right: 90px;
-  display: flex;
-  height: 30px;
-  width: 220px;
-}
-.search-box input {
-  border-radius: 5px;
-  z-index: 100;
-  outline: none;
-}
-.search-txt {
-  line-height: 30px;
-  width: 100%;
-}
-.search-btn {
-  position: absolute;
-  line-height: 30px;
-  font-size: 20px;
-  left: 190px;
-  color: #696969; */
+    position: absolute;
+    top: 10px;
+    right: 90px;
+    display: flex;
+    height: 30px;
+    width: 220px;
+  }
+  .search-box input {
+    border-radius: 5px;
+    z-index: 100;
+    outline: none;
+  }
+  .search-txt {
+    line-height: 30px;
+    width: 100%;
+  }
+  .search-btn {
+    position: absolute;
+    line-height: 30px;
+    font-size: 20px;
+    left: 190px;
+    color: #696969; */
 /* color: #5352ed; */
 /* z-index: 100;
-}  */
+  }  */
 
 /*新搜索框框*/
 .search-box {
@@ -260,7 +260,7 @@ h1 a {
   margin-right: 2px;
 }
 
-.search-box .search-btn {
+.search-box i {
   color: #0fbcf9;
   float: right;
   width: 25px;
@@ -288,151 +288,108 @@ h1 a {
   line-height: 25px;
   width: 0px;
 }
-
-/* i:hover {
-  /* color: #5352ed; */
-/* color: #0fbcf9; */
-/* } */
-header .burger {
-  display: none;
+.title {
+  width: 100vw;
+  position: absolute;
+  top: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title h1 {
+  text-align: center;
+  white-space: nowrap;
+  color: #696969;
 }
 .context {
-  display: flex;
-  flex-direction: row;
   position: absolute;
-  top: 120px;
+  top: 240px;
   width: 100vw;
-  height: 1300px;
-  background-color: #f1f1f1;
-}
-.left-context {
-  flex: 1;
-  background-color: #f1f1f1;
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-left: 40px;
-  margin-right: 10px;
+  align-items: center;
 }
-.statistic {
+.partner {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 95%;
-  /* height: 100px; */
-  z-index: 800;
-  border: 1px white solid;
-  margin: 0.75rem;
-  height: 250px;
-  background-color: #f8f8ff;
-  padding-top: 30px;
-  font-size: xx-large;
-}
-.statistic h5 {
-  position: absolute;
-  top: 25px;
-  left: 100px;
-  font-size: 26px;
-  font-weight: 700;
-}
-.skills {
-  width: 95%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 10px 40px 20px 40px;
-  /* border: 1px white solid; */
-  background: #f8f8ff;
-  margin: 0.75rem;
-}
-.skill h2 {
-  position: absolute;
-  font-size: 46px;
-  font-weight: 700;
-  align-items: center;
-}
-.skill-name {
-  font-size: 16px;
-  font-weight: 700;
-  margin: 20px 0;
-}
-.skill-bar {
-  height: 20px;
-  background: #cacaca;
-  border-radius: 8px;
-}
-.skill-per {
-  height: 20px;
-  background-color: #0fbcf9;
-  /* background-color: #5352ed; */
-  border-radius: 8px;
-  width: 0;
-  transition: 1s linear;
+  flex-direction: row;
   position: relative;
+  width: 33%;
+  float: left;
+  margin-left: 20px;
+  margin-bottom: 40px;
+  /* top: 120px;
+  width: 80%;
+  height: 500px;
+  margin-left: 60px; */
 }
-.skill-per::before {
-  content: attr(per);
-  position: absolute;
-  padding: 4px 6px;
-  background-color: #000;
-  color: #fff;
-  font-size: 12px;
-  border-radius: 4px;
-  top: -35px;
-  right: 0;
-  transform: translateX(50%);
+.partner {
+  margin: 30px;
+  background-color: #f8f8ff;
+  /* height: 500px; */
+  width: 300px;
 }
-.skill-per::after {
-  content: "";
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.intro1 {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #000;
-  top: -18px;
+  bottom: 100%;
+  left: 0;
   right: 0;
-  transform: translateX(50%) rotate(45deg);
-  border-radius: 2px;
+  /* background-color: rgb(40, 46, 49); */
+  background-color: #696969;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: 0.5s ease;
+}
+.partner:hover .intro1 {
+  bottom: 0;
+  height: 100%;
 }
 
-.right-context {
-  flex: 2;
-  background-color: #f1f1f1;
-  display: flex;
-  flex-direction: column;
-  margin-right: 40px;
+.intro1 p {
+  /* white-space: nowrap; */
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
-.newest {
-  flex: 1;
-  width: 94%;
-  background-color: #f8f8ff;
-  height: 180px;
-  z-index: 100;
-  margin: 20px 20px 0 20px;
-  padding: 10px 0 0 10px;
+.intro1 p {
+  white-space: nowrap;
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
-.right-context .first {
-  position: relative;
-  top: -6px;
-  margin-bottom: -6px;
-}
-.last {
-  margin-bottom: 80px;
-}
-.right-context .newest:hover {
-  position: relative;
-  transition: 0.4s;
-  margin-top: 15px;
-  box-shadow: 5px 5px 8px #7a7a7a;
-  cursor: pointer;
+.intro1 h1 {
+  white-space: nowrap;
+  color: white;
+  font-size: 35px;
+  position: absolute;
+  overflow: hidden;
+  top: 20%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
 .body-tail {
   position: absolute;
-  top: 1400px;
+  top: 700px;
   width: 100vw;
-  height: 35px;
+  height: 45px;
   display: flex;
   /*弹性布局*/
   justify-content: center;
