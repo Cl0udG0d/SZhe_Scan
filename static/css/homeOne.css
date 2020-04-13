@@ -231,14 +231,19 @@ h1 a {
 /*新搜索框框*/
 .search-box {
   position: absolute;
-  top: 30px;
-  right: 250px;
-  transform: translate(-50%, -50%);
+  top: 27px;
+  right: 100px;
+  transform: translate(20%, -50%);
   background: #696969;
-  height: 25px;
+  height: 30px;
   border-radius: 30px;
-  padding: 0px;
+  padding: 3px;
   z-index: 1001;
+  display: flex;
+  /*弹性布局*/
+  justify-content: center;
+  /*元素在页面上居中排列*/
+  align-items: center;
 }
 .search-box:hover {
   background: #f8f8ff;
@@ -251,10 +256,13 @@ h1 a {
 
 .search-box:hover > .search-btn {
   background: white;
+  margin: 4px;
+  margin-right: 2px;
 }
 
 .search-btn {
   color: #0fbcf9;
+  /* color: #f8f8ff; */
   float: right;
   width: 25px;
   height: 25px;
@@ -275,7 +283,7 @@ h1 a {
   float: left;
   padding: 0;
   color: #696969;
-  font-size: 10px;
+  font-size: 14px;
   transition: 0.4s;
   line-height: 25px;
   width: 0px;
@@ -419,4 +427,20 @@ header .burger {
   margin-top: 15px;
   box-shadow: 5px 5px 8px #7a7a7a;
   cursor: pointer;
+}
+.body-tail {
+  position: absolute;
+  top: 1400px;
+  width: 100vw;
+  height: 35px;
+  display: flex;
+  /*弹性布局*/
+  justify-content: center;
+  /*元素在页面上居中排列*/
+  align-items: center;
+  border-top: 1px rgb(129, 129, 129) solid;
+  background-color: rgb(238, 238, 238);
+  color: #7a7a7a;
+  font-size: 14px;
+  z-index: 101;
 }
