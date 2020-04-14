@@ -2,6 +2,7 @@ import requests
 from lxml import etree
 import zlib
 import json
+import nmap
 
 import core
 
@@ -24,7 +25,7 @@ def get_whois(domain):
     :return:
     '''
     whois_url = 'http://whois.bugscaner.com/'
-    rep = requests.get(whois_url + domain,headers=core.GetHeaders())
+    rep = requests.get(whois_url + domain, headers=core.GetHeaders())
     rep = etree.HTML(rep.text)
     data = rep.xpath('//div[@class="stats_table_91bf7bf"]/b[not(@style)]/text()')[0:19]
     str = "\n".join(data)
@@ -58,7 +59,7 @@ def GetSubDomain(domain):
             chinaz_url = chinaz_base_url + next_url
         except:
             break
-    rep = requests.get(ip138_url,headers=core.GetHeaders())
+    rep = requests.get(ip138_url, headers=core.GetHeaders())
     rep = etree.HTML(rep.text)
     try:
         data = rep.xpath('//div[@class="panel"]//a/text()')
@@ -87,7 +88,7 @@ def get_ip(domain):
     '''
 
     ip138_url = 'https://site.ip138.com/' + domain
-    rep = requests.get(ip138_url,headers=core.GetHeaders())
+    rep = requests.get(ip138_url, headers=core.GetHeaders())
     rep = etree.HTML(rep.text)
     context = rep.xpath('//div[@id="J_ip_history"]//a/text()')
     str = "\n".join(context)
@@ -110,7 +111,7 @@ def get_recordinfo(domain):
     :return:
     '''
     check_url = 'http://www.beianbeian.com/s-0/' + domain + '.html'
-    rep = requests.get(check_url,headers=core.GetHeaders())
+    rep = requests.get(check_url, headers=core.GetHeaders())
     rep = etree.HTML(rep.text)
     thead = rep.xpath('//table[@class="layui-table res_table"]//th/text()')
     td_4 = "".join(rep.xpath('//tbody[@id="table_tr"]//td[4]/a/text()'))
@@ -130,8 +131,6 @@ def get_recordinfo(domain):
         print(":".join(i))
 
 
-
-
 def get_siteStation(ip):
     """
     旁站查询
@@ -143,7 +142,7 @@ def get_siteStation(ip):
     """
     data = {'domain': ip}
     url_1 = 'https://www.webscan.cc/search/'
-    rep1 = requests.post(url_1, data=data,headers=core.GetHeaders())
+    rep1 = requests.post(url_1, data=data, headers=core.GetHeaders())
     rep1 = etree.HTML(rep1.text)
     text1 = rep1.xpath('//a[@class="domain"]/text()')
 
@@ -151,7 +150,7 @@ def get_siteStation(ip):
     url_2 = 'http://stool.chinaz.com/same?s=' + ip + '&page=1'
     text2 = []
     while 1:
-        rep2 = requests.get(url_2,headers=core.GetHeaders())
+        rep2 = requests.get(url_2, headers=core.GetHeaders())
         rep2 = etree.HTML(rep2.text)
         new_list = rep2.xpath('//div[@class="w30-0 overhid"]/a/text()')
         if len(new_list) == 0:
@@ -161,7 +160,7 @@ def get_siteStation(ip):
         url_2 = url_2_base + next_url
 
     url_3 = 'http://www.114best.com/ip/114.aspx?w=' + ip
-    rep3 = requests.get(url_3,headers=core.GetHeaders())
+    rep3 = requests.get(url_3, headers=core.GetHeaders())
     rep3 = etree.HTML(rep3.text)
     text3 = rep3.xpath('//div[@id="rl"]/span/text()')
     text3 = [x.strip() for x in text3]
@@ -171,7 +170,6 @@ def get_siteStation(ip):
             text.remove(i)
     str = "\n".join(text)
     return str
-
 
 
 def SubDomainBurst(domain, filename="subdomainburst.txt"):
@@ -188,16 +186,16 @@ def SubDomainBurst(domain, filename="subdomainburst.txt"):
     for line in file.readlines():
         url = 'http://' + line.replace("\n", '.' + domain)
         try:
-            r = requests.get(url,headers=core.GetHeaders(),timeout=1.0)
+            r = requests.get(url, headers=core.GetHeaders(), timeout=1.0)
             if r.status_code == 200:
                 resultFile.write(url + "\n")
         except Exception:
             pass
+    file.close()
     resultFile.close()
 
 
-
-def sensitive_scan(domain, filename):
+def SenFileScan(domain, filename="SenFileScan.txt"):
     '''
     敏感文件、目录扫描
     字典：dict\SEN_scan.txt
@@ -208,14 +206,20 @@ def sensitive_scan(domain, filename):
     file = open(r"dict\SEN_scan.txt", "r", encoding='utf-8')
     resultFile = open(filename, "a+")
     for line in file.readlines():
-        url = 'http://' + domain + line.replace("\n", '')
-        r = requests.get(url,headers=core.GetHeaders(), allow_redirects=False)
-        if r.status_code == 200:
-            resultFile.write(url + "\n")
+        try:
+            url = 'http://' + domain + line.replace("\n", '')
+            r = requests.get(url, headers=core.GetHeaders(), allow_redirects=False)
+            if r.status_code == 200:
+                resultFile.write(url + "\n")
+        except Exception:
+            pass
+    file.close()
+    resultFile.close()
+
 
 def whatweb(url):
     try:
-        response = requests.get(url,headers=core.GetHeaders(),verify=False,timeout=3)
+        response = requests.get(url, headers=core.GetHeaders(), verify=False, timeout=3)
     except:
         pass
     whatweb_dict = {"url": response.url, "text": response.text, "headers": dict(response.headers)}
@@ -224,6 +228,8 @@ def whatweb(url):
     whatweb_dict = zlib.compress(whatweb_dict)
     data = {"info": whatweb_dict}
     return requests.post("http://whatweb.bugscaner.com/api.go", files=data)
+
+
 '''
 传入url形式为http://www.dedecms.com/,requests能直接访问的网址
 返回数据为json格式的识别结果，每天在线识别的次数上限为1500次
@@ -231,12 +237,35 @@ def whatweb(url):
 调用自bugscaner博客出品，在线指纹识别,在线cms识别小插件--在线工具API
 http://whatweb.bugscaner.com/look/
 '''
+
+
 def cms_finger(url):
     request = whatweb(url)
     print(u"今日识别剩余次数")
     print(request.headers["X-RateLimit-Remaining"])
     print(u"识别结果")
     print(request.json())
+
+
+'''
+NMap(Network Mapper)
+调用nmap进行端口扫描，传入主机IP，实例化一个扫描对象nm
+获取所有扫描协议的列表，输出所有协议扫描的开放端口以及相应端口对应的服务
+'''
+
+
+def Port_scan(host):
+    nm = nmap.PortScanner()
+    try:
+        nm.scan(host, arguments='-Pn,-sS')
+        for proto in nm[host].all_protocols():
+            lport = list(nm[host][proto].keys())
+            for port in lport:
+                if nm[host][proto][port]['state'] == "open":
+                    service = nm[host][proto][port]['name']
+                    print('[*]主机' + host + ' 协议：' + proto + '\t开放端口号：' + str(port) + '\t端口服务：' + service)
+    except Exception as e:
+        nmap.sys.exit(0)
 
 
 # 测试数据
@@ -246,10 +275,11 @@ def cms_finger(url):
 # get_recordinfo("baidu.com")
 # get_siteStation("172.217.27.142")
 
-# Subdomain_burst("baidu.com", "dict\test1.txt")
-# sensitive_scan("www.anantest.com", "dict\test2.txt")
+# SubDomainBurst("baidu.com", "dict\test1.txt")
+# SenFileScan("www.anantest.com", "dict\test2.txt")
+# Port_scan('36.110.213.10')
 
-#cms_finger("http://www.dedecms.com/")
+# cms_finger("http://www.dedecms.com/")
 
-if __name__=='__main__':
+if __name__ == '__main__':
     SubDomainBurst("baidu.com")
