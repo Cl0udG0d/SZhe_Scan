@@ -39,8 +39,8 @@ function init() {
   //绘制饼图
   //比例数据和颜色
   var data_arr = [0.25, 0.25, 0.25, 0.25];
-  var color_arr = ["#0fbcf9", "#3366ff", "#ff0000", "#ff6633"];
-  var text_arr = ["低危", "中危", "高危", "危险"];
+  var color_arr = ["#6495ed", "#6a5acd", "#c63300", "#8b0000"];
+  var text_arr = ["低危", "中危", "高危", "严重"];
 
   drawCircle("canvas_circle", data_arr, color_arr, text_arr);
 }

@@ -260,7 +260,7 @@ h1 a {
   margin-right: 2px;
 }
 
-.search-box i {
+.search-box .search-btn {
   color: #0fbcf9;
   float: right;
   width: 25px;
