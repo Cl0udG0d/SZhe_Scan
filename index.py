@@ -13,15 +13,11 @@ db.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-
-@app.route('/testindex')
-def test_index():
-    return render_template('baseOne.html')
-
-@app.route('/testhome')
-def test_home():
     return render_template('homeOne.html')
+
+@app.route('/testnav')
+def test_home():
+    return render_template('baseOne.html')
 
 def save_log(ip, email, password):
     log = Log(ip=ip, email=email, password=password)
