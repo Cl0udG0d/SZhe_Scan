@@ -7,6 +7,15 @@ ua = UserAgent()
 def GetHeaders():
     return {'User-Agent': ua.random}
 
+def wordlistimport(file, lst):
+    try:
+        with open(file, 'r') as f:
+            for line in f:
+                final = str(line.replace("\n", ""))
+                lst.append(final)
+    except:
+        pass
+
 def is_similar_page(res1, res2, radio):
     '''
     计算页面相似度函数
