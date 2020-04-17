@@ -94,6 +94,9 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
+@app.route('/about/')
+def about():
+    return render_template('about.html')
 
 @app.route('/home/')
 @login_required
