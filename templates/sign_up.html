@@ -1,56 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>新用户注册</title>
-    <!-- <link rel="stylesheet" href="../static/css/login2.css" />
-    <link rel="stylesheet" href="../static/css/font-awesome.min.css" /> -->
-    <link
-      rel="stylesheet"
-      href="{{url_for('static',filename='css/login2.css')}}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{url_for('static',filename='css/font-awesome.min.css')}}"
-    />
-  </head>
 
-  <body>
-    <div class="context">
-      <div class="logo">
-        <a href="/">
-          <img
-            src="{{url_for('static',filename='images/logo.jpg')}}"
-            alt="logo"
-          />
-        </a>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新用户注册</title>
+  <!-- <link rel="stylesheet" href="../static/css/login2.css" />
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css" /> -->
+  <link rel="stylesheet" href="{{url_for('static',filename='css/login2.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+</head>
+
+<body>
+  <div class="context">
+    <div class="logo">
+      <h1>
+        <a href="#" title="Web漏洞扫描器"
+          style="position:absolute;top:40px;font-size:65px;color:black;left:50px;font-family:Arial, Helvetica, sans-serif;text-shadow: 5px 5px 3px #7a7a7a;">SZHE</a>
+      </h1>
       <div class="container">
         <h4 class="title">
           <div class="normal-title">
             <a class="active" href="{{url_for('login')}}">登录</a>
             <b>·</b>
-            <a id="js-sign-up-btn" class="regist" href="{{url_for('regist')}}"
-              >注册</a
-            >
+            <a id="js-sign-up-btn" class="regist" href="{{url_for('regist')}}">注册</a>
           </div>
         </h4>
         <div class="login-form">
-          <form
-            action=""
-            method="POST"
-            id="form"
-            name="myform"
-            onsubmit="return checkform();"
-          >
+          <form action="" method="POST" id="form" name="myform" onsubmit="return checkform();">
             <div class="input-num restyle">
-              <input
-                type="text"
-                placeholder="昵称"
-                name="username"
-                id="username"
-              />
+              <input type="text" placeholder="昵称" name="username" id="username" />
               <i class="fa fa-user"></i>
             </div>
             <div class="input-num passw">
@@ -58,21 +37,11 @@
               <i class="fa fa-envelope"></i>
             </div>
             <div class="input-num input-prepend setting">
-              <input
-                placeholder="设置密码"
-                type="password"
-                name="password1"
-                id="user_password1"
-              />
+              <input placeholder="设置密码" type="password" name="password1" id="user_password1" />
               <i class="fa fa-eye-slash"></i>
             </div>
             <div class="input-num input-prepend">
-              <input
-                placeholder="确认密码"
-                type="password"
-                name="password2"
-                id="user_password2"
-              />
+              <input placeholder="确认密码" type="password" name="password2" id="user_password2" />
               <i class="fa fa-eye-slash"></i>
             </div>
             <p class="sign-up-msg">
@@ -86,9 +55,7 @@
             </button>
           </form>
         </div>
-        <div
-          class="error"
-          style="
+        <div class="error" style="
             position: relative;
             top: 30px;
             left: -50px;
@@ -104,8 +71,7 @@
             border: 1px #f08080 solid;
             border-radius: 8px;
             */
-          "
-        >
+          ">
           {% with messages = get_flashed_messages() %} {% if messages %}
           <ul>
             {% for message in messages %}
@@ -116,5 +82,6 @@
         </div>
       </div>
     </div>
-  </body>
+</body>
+
 </html>

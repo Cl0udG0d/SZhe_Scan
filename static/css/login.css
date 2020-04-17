@@ -58,13 +58,14 @@ a {
 .context .login-form {
   clear: both;
 }
-.context .logo img {
-  position: absolute;
-  width: 170px;
-  height: 90px;
-  margin-left: 70px;
-  margin-top: -340px;
+h1 {
+  font-size: 45px;
+  color: black;
 }
+.context .logo h1 a {
+  color: black;
+}
+
 .context .titlse a:hover {
   border-bottom: 2px solid #ea6f5a;
   color: #ea6f5a;
