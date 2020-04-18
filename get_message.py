@@ -217,6 +217,48 @@ def SenFileScan(domain, filename="SenFileScan.txt"):
     resultFile.close()
 
 
+'''
+敏感信息泄露
+git泄露：当前大量开发人员使用git进行版本控制，对站点自动部署。如果配置不当,可能会将.git文件夹直接部署到线上环境。这就引起了git泄露漏洞。
+hg泄露：当开发人员使用Mercurial进行版本控制，对站点自动部署。如果配置不当,可能会将.hg文件夹直接部署到线上环境。这就引起了hg泄露漏洞。
+SVN泄露：当开发人员使用svn进行版本控制，对站点自动部署。如果配置不当,可能会将.svn文件夹直接部署到线上环境。这就引起了svn泄露漏洞。
+'''
+
+
+def InforLeakage(domain):
+    """
+    传入domain，构造新的url，进行访问，查看返回的状态码
+    如果状态码为200或者403则代表存在信息泄露
+    403：文件存在但没有访问权限
+    :param domain:
+    :return:
+    """
+    urlGit = domain+'/.git/'
+    urlSVN = domain+'/.svn/'
+    urlHG = domain+'/.hg/'
+    try:
+        Git = requests.get(urlGit)
+    except Exception:
+        pass
+    GitCode = Git.status_code
+    if GitCode == 200 or GitCode == 403:
+        print("存在Git泄露")
+    try:
+        HG = requests.get(urlHG)
+    except Exception:
+        pass
+    HGCode = HG.status_code
+    if HGCode == 200 or HGCode == 403:
+        print("存在HG泄露")
+    try:
+        SVN = requests.get(urlSVN)
+    except Exception:
+        pass
+    SVNCode = SVN.status_code
+    if SVNCode == 200 or SVNCode == 403:
+        print("存在SVN泄露")
+
+
 def whatweb(url):
     try:
         response = requests.get(url, headers=core.GetHeaders(), verify=False, timeout=3)
@@ -277,6 +319,8 @@ def Port_scan(host):
 
 # SubDomainBurst("baidu.com", "dict\test1.txt")
 # SenFileScan("www.anantest.com", "dict\test2.txt")
+
+# InforLeakage('http://www.anantest.com')
 # Port_scan('36.110.213.10')
 
 # cms_finger("http://www.dedecms.com/")
