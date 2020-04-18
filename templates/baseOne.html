@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nav</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/baseOne.css')}}" />
-    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
-    <!-- <link rel="stylesheet" href="../static/css/baseOne.css" />
+    <title>Homepage</title>
+      <link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
+     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+    <!-- <link rel="stylesheet" href="../static/css/homeOne.css" />
     <link rel="stylesheet" href="../static/css/font-awesome.min.css" /> -->
+    <script src="{{url_for('static',filename='js/home.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="../static/js/home.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 </head>
 
 <body style="overflow-x:hidden;">
@@ -52,16 +56,29 @@
             </div>
         </div>
     </header>
-    <div class="context">
-        <div class="left-context">
-        </div>
-        <div class="right-context">
-
-        </div>
-    </div>
+    {%block main%}{% endblock %}
     <div class="body-tail">
         Copyright @ SZHE Vulnerability Scanner
     </div>
+    <script>
+        $('.skill-per').each(function () {
+            var $this = $(this);
+            var per = $this.attr('per');
+            $this.css("width", per);
+            $({ animatedValue: 0 }).animate(
+                { animatedValue: per },
+                {
+                    duartion: 300,
+                    step: function () {
+                        $this.attr('per', Math.floor(this.animatedValue));
+                    },
+                    complete: function () {
+                        $this.attr('per', Math.floor(this.animatedValue));
+                    },
+                }
+            );
+        });
+    </script>
 </body>
 
 </html>
