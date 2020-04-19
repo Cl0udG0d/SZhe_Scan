@@ -1,17 +1,18 @@
-{% extends 'base.html' %}
-
-{%block title%}日志{% endblock %}
+{% extends 'baseOne.html' %}
 
 {%block main%}
-<h1>这是日志详情</h1>
+<div class="context">
+    <div class="left-context" style="display:block;">
+    <h1>这是日志详情</h1>
     {% for log in logs %}
     <tr>
         <td>id : {{log.id}}</td>
         <td>ip : {{log.ip}}</td>
         <td>email : {{log.email}}</td>
-        <td>password : {{log.password}}</td>
         <td>date : {{log.date}}</td>
         <hr>
     </tr>
     {% endfor %}
+    </div>
+</div>
 {% endblock %}

@@ -31,7 +31,6 @@ def login():
         return render_template('sign_in.html')
     else:
         email = request.form.get('email')
-        password = request.form.get('password')
         remeber = request.form.get('remeber')
         save_log(request.remote_addr, email, password)
         user = User.query.filter(User.email == email, User.password == password).first()
@@ -95,19 +94,19 @@ def about():
     return render_template('about.html')
 
 @app.route('/home/')
-@login_required
+# @login_required
 def home():
     return render_template('home.html')
 
 
 @app.route('/bug_list/')
-@login_required
+# @login_required
 def bug_list():
     return render_template('bug_list.html')
 
 
 @app.route('/log_detail/')
-@login_required
+# @login_required
 def log_detail():
     context = {
         'logs': Log.query.order_by(Log.date.desc()).all()
