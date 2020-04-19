@@ -130,6 +130,11 @@ h1 a {
   z-index: 1;
   transition: all ease, 0.4s;
 }
+.navList li .one {
+  /* color: #696969; */
+  color: white;
+  z-index: 100;
+}
 .navList li:nth-child(1) {
   left: 30px;
 }
@@ -159,7 +164,7 @@ h1 a {
   transition: 0.4s;
 }
 .navList li:nth-child(1):hover ~ .slider {
-  left: 100px;
+  left: 40px;
 }
 .navList li:nth-child(2):hover ~ .slider {
   left: 138px;
@@ -182,10 +187,7 @@ h1 a {
 .navList li:nth-child(8):hover ~ .slider {
   left: 738px;
 }
-.navList li .one {
-  color: white;
-  z-index: 100;
-}
+
 .navigation .navList li a {
   display: block;
   width: 120px;
@@ -302,7 +304,7 @@ header .burger {
   position: absolute;
   top: 120px;
   width: 100vw;
-  height: 1300px;
+  height: 1500px;
   background-color: #f1f1f1;
 }
 .left-context {
@@ -430,7 +432,7 @@ header .burger {
 }
 .body-tail {
   position: absolute;
-  top: 1400px;
+  top: 1600px;
   width: 100vw;
   height: 35px;
   display: flex;

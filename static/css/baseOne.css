@@ -159,7 +159,7 @@ h1 a {
   transition: 0.4s;
 }
 .navList li:nth-child(1):hover ~ .slider {
-  left: 100px;
+  left: 40px;
 }
 .navList li:nth-child(2):hover ~ .slider {
   left: 138px;

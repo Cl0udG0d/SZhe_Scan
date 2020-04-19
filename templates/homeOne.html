@@ -1,7 +1,62 @@
-{% extends 'baseOne.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{%block main%}
-<div class="context">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" /> -->
+    <link rel="stylesheet" href="../static/css/homeOne.css" />
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css" />
+    <!-- <script src="{{url_for('static',filename='js/home.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="../static/js/home.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body style="overflow-x:hidden;">
+    <header class="header" id="header">
+        <div class="container">
+            <div class="top">
+                <h1>
+                    <a href="#" title="Web漏洞扫描器">SZHE</a>
+                </h1>
+                <div class="userCenter">
+                    <ul class="userCenter-list" role="tablist">
+                        <li><a href="#" role="tab">个人中心</a></li>
+                        <li><a href="{{url_for('logout')}}" role="tab">注销</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <nav class="navigation" id="nav">
+                <ul class="navList" id="myTab" role="tabList">
+                    <li><a href="#" role="tab" class="one">主页</a></li>
+                    <li><a href="#" role="tab">控制台</a></li>
+                    <li><a href="#" role="tab" class="three">漏洞列表</a></li>
+                    <li><a href="#" role="tab">扫描队列</a></li>
+                    <li><a href="#" role="tab">信息搜集</a></li>
+                    <li><a href="#" role="tab">日志</a></li>
+                    <li><a href="#" role="tab">设置</a></li>
+                    <li><a href="{{url_for('about')}}" role="tab">关于</a></li>
+                    <div class="slider"></div>
+                </ul>
+                <div class="search-box">
+                    <input class="search-txt" type="text" name="" placeholder="  search..." />
+                    <a class="search-btn" href="#">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
+            </nav>
+            <div class="burger">
+                <div class="burger-line1"></div>
+                <div class="burger-line2"></div>
+                <div class="burger-line3"></div>
+            </div>
+        </div>
+    </header>
+    <div class="context">
         <div class="left-context" style="display:block;">
             <div class="statistic">
                 <h5>漏洞等级分布图</h5>
@@ -109,4 +164,28 @@
             <div class="newest last">漏洞十</div>
         </div>
     </div>
-{% endblock %}
+    <div class="body-tail">
+        Copyright @ SZHE Vulnerability Scanner
+    </div>
+    <script>
+        $('.skill-per').each(function () {
+            var $this = $(this);
+            var per = $this.attr('per');
+            $this.css("width", per);
+            $({ animatedValue: 0 }).animate(
+                { animatedValue: per },
+                {
+                    duartion: 300,
+                    step: function () {
+                        $this.attr('per', Math.floor(this.animatedValue));
+                    },
+                    complete: function () {
+                        $this.attr('per', Math.floor(this.animatedValue));
+                    },
+                }
+            );
+        });
+    </script>
+</body>
+
+</html>

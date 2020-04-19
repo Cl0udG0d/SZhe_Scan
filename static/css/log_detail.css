@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style-type: none;
+  text-decoration: none;
+}
+.right-context h1 {
+  white-space: nowrap;
+  display: block;
+  color: red;
+}
+.right-context {
+  flex: 2;
+  background-color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+}
