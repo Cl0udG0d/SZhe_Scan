@@ -83,7 +83,7 @@ def regist():
 
 
 @app.route('/logout/')
-@login_required
+# @login_required
 def logout():
     # session.pop('user_id')
     # del session('user_id')
