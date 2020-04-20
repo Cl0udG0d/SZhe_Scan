@@ -39,7 +39,7 @@ function init() {
   //绘制饼图
   //比例数据和颜色
   var data_arr = [0.25, 0.25, 0.25, 0.25];
-  var color_arr = ["#33ccff", "rgb(51, 204, 51)", "#fd7e14", "#cc0000"];
+  var color_arr = ["#2894ff", "#02c874", "#fd7e14", "#cc0000"];
   var text_arr = ["低危", "中危", "高危", "严重"];
 
   drawCircle("canvas_circle", data_arr, color_arr, text_arr);
@@ -55,7 +55,7 @@ $(".skill-per").each(function () {
   $({ animatedValue: 0 }).animate(
     { animatedValue: per },
     {
-      duartion: 1000,
+      duartion: 300,
       step: function () {
         $this.attr("per", Math.floor(this.animatedValue));
       },

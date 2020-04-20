@@ -5,13 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homepage</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/log_detail.css')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
     <!-- <link rel="stylesheet" href="../static/css/homeOne.css" />
+        <link rel="stylesheet" href="{{url_for('static',filename='css/log_detail.css')}}" />
     <link rel="stylesheet" href="../static/css/font-awesome.min.css" /> -->
     <script src="{{url_for('static',filename='js/home.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script> -->
     <!-- <script src="../static/js/home.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 </head>
@@ -153,19 +154,26 @@
             </div>
         </div>
         <div class="right-context">
-            <h1>这是日志详情</h1>
-            {% for log in logs %}
-            <div class="list" style="margin:20px 0px;">
+            <h1 style="text-align: center;">这是日志详情</h1>
+
+            <table border="1" width="90%" class="tab" id="myTab">
                 <tr>
-                    <td>id : {{log.id}}</td>
-                    <td>ip : {{log.ip}}</td>
-                    <td>email : {{log.email}}</td>
-                    <td>date : {{log.date}}</td>
+                    <th>id :</th>
+                    <th>ip :</th>
+                    <th>email :</th>
+                    <th>date :</th>
+                </tr>
+                {% for log in logs %}
+                <tr>
+                    <td>{{log.id}}</td>
+                    <td>{{log.ip}}</td>
+                    <td>{{log.email}}</td>
+                    <td>{{log.date}}</td>
                     <!-- <hr> -->
                 </tr>
                 {% endfor %}
-            </div>
         </div>
+    </div>
     </div>
     <div class="body-tail">
         Copyright @ SZHE Vulnerability Scanner
