@@ -152,16 +152,16 @@
                 </div>
             </div>
         </div>
-        <div class="right-context" style="display:block;background-color: #f1f1f1;">
+        <div class="right-context">
             <h1>这是日志详情</h1>
             {% for log in logs %}
-            <div class="list">
+            <div class="list" style="margin:20px 0px;">
                 <tr>
                     <td>id : {{log.id}}</td>
                     <td>ip : {{log.ip}}</td>
                     <td>email : {{log.email}}</td>
                     <td>date : {{log.date}}</td>
-                    <hr>
+                    <!-- <hr> -->
                 </tr>
                 {% endfor %}
             </div>

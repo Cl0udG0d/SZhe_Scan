@@ -39,7 +39,7 @@ function init() {
   //绘制饼图
   //比例数据和颜色
   var data_arr = [0.25, 0.25, 0.25, 0.25];
-  var color_arr = ["#6495ed", "#6a5acd", "#c63300", "#8b0000"];
+  var color_arr = ["#33ccff", "rgb(51, 204, 51)", "#fd7e14", "#cc0000"];
   var text_arr = ["低危", "中危", "高危", "严重"];
 
   drawCircle("canvas_circle", data_arr, color_arr, text_arr);

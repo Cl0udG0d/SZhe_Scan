@@ -120,12 +120,12 @@ h1 a {
 }
 .slider {
   width: 100px;
-  height: 33px;
+  height: 5px;
   /* background-color: #5352ed; */
   background-color: #0fbcf9;
   border-radius: 4px;
   position: absolute;
-  top: 8px;
+  top: 42px;
   left: 40px;
   z-index: 1;
   transition: all ease, 0.4s;
@@ -183,7 +183,7 @@ h1 a {
   left: 738px;
 }
 .navList li .one {
-  color: white;
+  color: #696969;
   z-index: 100;
 }
 .navigation .navList li a {
@@ -194,7 +194,7 @@ h1 a {
   position: absolute;
 }
 .navigation ul li a:hover {
-  color: white;
+  color: #666666;
   cursor: pointer;
   /* z-index: 200; */
 }

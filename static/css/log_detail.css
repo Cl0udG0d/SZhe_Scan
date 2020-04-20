@@ -9,12 +9,27 @@ li {
 .right-context h1 {
   white-space: nowrap;
   display: block;
-  color: red;
+  font-size: 35px;
+  margin: 5px 10px;
 }
 .right-context {
+  position: relative;
+  top: 10px;
   flex: 2;
-  background-color: #f1f1f1;
+  background-color: #f8f8ff;
   display: flex;
   flex-direction: column;
   margin-right: 40px;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+}
+.list {
+  margin: 20px 10px;
+  width: 80%;
+  background-color: #f8f8ff;
+  height: 35px;
+  line-height: 35px;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+  width: 100%;
 }

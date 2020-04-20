@@ -112,7 +112,7 @@ h1 a {
 .navList a {
   display: block;
   width: 100px;
-  height: 33px;
+  line-height: 50px;
 }
 .navList a,
 .userCenter-list a {
@@ -120,19 +120,19 @@ h1 a {
 }
 .slider {
   width: 100px;
-  height: 33px;
+  height: 5px;
   /* background-color: #5352ed; */
   background-color: #0fbcf9;
   border-radius: 4px;
   position: absolute;
-  top: 8px;
+  top: 42px;
   left: 40px;
   z-index: 1;
-  transition: all ease, 0.4s;
+  transition: all ease, 0.3s;
 }
 .navList li .one {
-  /* color: #696969; */
-  color: white;
+  color: #696969;
+  /* color: white; */
   z-index: 100;
 }
 .navList li:nth-child(1) {
@@ -196,7 +196,7 @@ h1 a {
   position: absolute;
 }
 .navigation ul li a:hover {
-  color: white;
+  color: #666666;
   cursor: pointer;
   /* z-index: 200; */
 }
@@ -236,7 +236,7 @@ h1 a {
   top: 27px;
   right: 100px;
   transform: translate(20%, -50%);
-  background: #696969;
+  background: #d3d3d3;
   height: 30px;
   border-radius: 30px;
   padding: 3px;
@@ -268,7 +268,7 @@ h1 a {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #696969;
+  background: #d3d3d3;
   display: flex;
   /*弹性布局*/
   justify-content: center;
@@ -330,6 +330,8 @@ header .burger {
   background-color: #f8f8ff;
   padding-top: 30px;
   font-size: xx-large;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
 }
 .statistic h5 {
   position: absolute;
@@ -349,6 +351,8 @@ header .burger {
   /* border: 1px white solid; */
   background: #f8f8ff;
   margin: 0.75rem;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
 }
 .skill h2 {
   position: absolute;
@@ -398,13 +402,42 @@ header .burger {
   transform: translateX(50%) rotate(45deg);
   border-radius: 2px;
 }
-
+.skills .ten {
+  margin-bottom: 40px;
+}
 .right-context {
-  flex: 2;
+  flex: 2.5;
   background-color: #f1f1f1;
   display: flex;
   flex-direction: column;
   margin-right: 40px;
+}
+.right-context .search-mid .search-text {
+  width: 25%;
+  height: 40px;
+  position: relative;
+  top: 13px;
+  left: 22px;
+  margin-bottom: 10px;
+  background-color: #f8f8ff;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+  z-index: 1110;
+}
+button {
+  position: relative;
+  left: 30px;
+  z-index: 1110;
+  width: 60px;
+  height: 38px;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  top: 13px;
+  background-color: #f8f8ff;
+}
+button:hover {
+  background-color: #d3d3d3;
 }
 .newest {
   flex: 1;
@@ -414,6 +447,8 @@ header .burger {
   z-index: 100;
   margin: 20px 20px 0 20px;
   padding: 10px 0 0 10px;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
 }
 .right-context .first {
   position: relative;
@@ -427,7 +462,7 @@ header .burger {
   position: relative;
   transition: 0.4s;
   margin-top: 15px;
-  box-shadow: 5px 5px 8px #7a7a7a;
+  box-shadow: 5px 5px 8px #d3d3d3;
   cursor: pointer;
 }
 .body-tail {
