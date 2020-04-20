@@ -19,8 +19,8 @@ def index():
 def test_home():
     return render_template('baseOne.html')
 
-def save_log(ip, email, password):
-    log = Log(ip=ip, email=email, password=password)
+def save_log(ip, email):
+    log = Log(ip=ip, email=email)
     db.session.add(log)
     db.session.commit()
 
@@ -32,8 +32,8 @@ def login():
     else:
         email = request.form.get('email')
         remeber = request.form.get('remeber')
-        save_log(request.remote_addr, email, password)
-        user = User.query.filter(User.email == email, User.password == password).first()
+        save_log(request.remote_addr, email)
+        user = User.query.filter(User.email == email).first()
         if user:
             if remeber:
                 session.permanent = True
