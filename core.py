@@ -8,21 +8,16 @@ def GetHeaders():
     return {'User-Agent': ua.random}
 
 def gethtml(url,timeout=2):
-    headers = GetHeaders()
     if not (url.startswith("http://") or url.startswith("https://")):
         url="http://"+url
     try:
-        rep = requests.get(url,headers=headers,timeout=timeout)
+        rep = requests.get(url,headers=GetHeaders(),timeout=timeout)
         html = rep.text
     except Exception as e:
         #不管其返回的是错误，null，都将其页面放入html，留给check_waf计算相似度
         html = str(e)
         pass
     return html
-
-if __name__ == '__main__':
-    html = gethtml("http://testphp.vulnweb.com:80/listproducts.php?cat=1'")
-    print(html)
 
 def wordlistimport(file, lst):
     try:
@@ -83,3 +78,7 @@ def is_404(true_404,check_url):
 
 #测试数据
 # print(is_404("https://www.baidu.com/search/error.html","https://www.baidu.com/xxxxxxxxxxxxxxxxxxxxxxxxxxxx"))
+
+if __name__ == '__main__':
+    html = gethtml("http://testphp.vulnweb.com:80/listproducts.php?cat=1'")
+    print(html)

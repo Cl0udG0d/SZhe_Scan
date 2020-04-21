@@ -1,8 +1,9 @@
 import signal
 import multiprocessing
 import time
-
 import get_message
+import re
+
 '''
 ====进程是资源分配的单位，线程是操作系统调度的单位====
 获取target目标url，进行同域名下的及网页中的输入源搜集
@@ -45,8 +46,7 @@ def index(queue):
 def GetUrlToQueue(url):
 
     list1=get_message.GetSubDomain(url)
-    list2=
-
+    # list2=
 
 def UrlScan(urls):
     vulnerables = [] #存储有漏洞的url
@@ -76,10 +76,30 @@ def UrlScan(urls):
             vulnerables.append((url, result))
     return vulnerables
 
-#测试
-def main():
-    urls=[1,2,3,4,5,6,7,8,9,10,11,12,13]
-    UrlScan(urls)
+#当为ip地址时返回true，否则认为是域名
+def Domain_IP_Check(url):
+    pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
+    if pattern.findall(url):
+        return True
+    else:
+        return False
+
+def IP_InQueue(ip):
+    return None
+
+def Domain_InQueue(domain):
+    return None
+
+#域名和IP地址进入不同的模块进行信息搜集
+def Input_Url(url):
+    if Domain_IP_Check(url):
+        IP_InQueue(url)
+    else:
+        Domain_InQueue(url)
+
+
 
 if __name__=='__main__':
-    main()
+    # urls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    # UrlScan(urls)
+    print(Domain_IP_Check("www.baidu.com"))

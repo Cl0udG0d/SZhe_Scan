@@ -1,11 +1,10 @@
 import requests
 from lxml import etree
-from fake_useragent import UserAgent
-import queue
-ua = UserAgent()
-
-
-
+import signal
+import multiprocessing
+import time
+import core
+import datetime
 '''
 因为每深入一层，链接数增大很多，所以截止层数暂定为2，添加多线程之后将层数提高
 爬取截止条件为：层数为2，或者队列中无新的链接
@@ -16,42 +15,120 @@ ua = UserAgent()
     https://lskreno.vip/2019/09/15/%E7%88%AC%E8%99%AB%E4%B9%8B%E6%88%98/
     https://github.com/sml2h3/python_collect_domain/blob/master/collect.py
 '''
-def spider(url):
-    headers = {'User-Agent': ua.random}
-    new_url_list = []
-    try:
-        rep = requests.get(url,headers=headers,timeout=1.5)
-        rep = etree.HTML(rep.text)
-        url_list = rep.xpath('//*[@href]/@href')
-        for i in url_list:
-            if not (i.startswith("http://") or i.startswith("https://")):
-                i = "http://" + i
-            new_url_list.append(url + i)
-    except:
-        pass
 
+
+def init():
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+
+#domain为传入网址网址
+def SortOut(urls,domain,queue):
+    new_url_list=[]
+    for url in urls:
+        if "." not in url and "javascript:;" not in url and "#" not in url:
+            url=domain+url
+        elif domain not in url:
+            continue
+        if not (url.startswith("http://") or url.startswith("https://")):
+            url = "http://" + url
+        new_url_list.append(url)
+    new_url_list = list(set(new_url_list))
+    for url in new_url_list:
+        print(url)
+        queue.put(url)
+
+
+def Spider(queue):
+    url=queue.get()
+    new_url_list=[]
+    try:
+        rep = core.gethtml(url,timeout=1)
+        rep = etree.HTML(rep)
+        url_list = rep.xpath('//*[@href]/@href')
+        for new_url in url_list:
+            new_url_list.append(new_url)
+    except Exception as e:
+        pass
     return new_url_list
+
+def normal(url):
+    count=0
+    start=datetime.datetime.now()
+    urls=[]
+    urls.append(url)
+    while (count < 2):
+        new_url_list=[]
+        count+=1
+        print("第%d层"%count+20*"=")
+        try:
+            for url in urls:
+                rep = core.gethtml(url, timeout=1)
+                rep = etree.HTML(rep)
+                url_list = rep.xpath('//*[@href]/@href')
+                for new_url in url_list:
+                    if new_url != "javascript:;" and new_url != "#":
+                        if not (new_url.startswith("http://") or new_url.startswith("https://")):
+                            new_url = "http://" + new_url
+                        new_url_list.append(new_url)
+        except Exception as e:
+            print(e)
+            pass
+        new_url_list=list(set(new_url_list))
+        urls=new_url_list
+    print("end")
+    end=datetime.datetime.now()
+    print(end-start)
 '''
 利用三个列表进行有层次地广度遍历url:all_lists储存所有获取到的url,new_lists储存这一层遍历时获取到的所有新的url，old_lists储存上一层的所有url
 用于下层的遍历
 '''
+
 def depth_get(url):
+    #最大进程数为4
+    max_processes = 4
+    queue = multiprocessing.Manager().Queue()
+    pool = multiprocessing.Pool(max_processes, init)
+    queue.put(url)
     count=0
-    all_lists=[]
-    new_lists=[]
-    new_lists.append(url)
-    while(count<2):
+    start=datetime.datetime.now()
+    while (count < 2):
+        new_url_list=[]
         count+=1
         print("第%d层"%count+20*"=")
-        old_lists=new_lists
-        new_lists=[]
-        for node in old_lists:
-            new_lists+=spider(node)
-        all_lists+=new_lists
-    all_lists = list(set(all_lists))
-    # for i in all_lists:
-    #     print(i)
-    return all_lists
+        try:
+            def callback(url_list):
+                new_url_list.extend(url_list)
+            while not queue.empty():
+                if count==1:
+                    pool.apply_async(Spider,(queue,),callback=callback)
+                    time.sleep(5)
+                else:
+                    pool.apply_async(Spider, (queue,), callback=callback)
+                    pool.apply_async(Spider, (queue,), callback=callback)
+                    pool.apply_async(Spider, (queue,), callback=callback)
+                    pool.apply_async(Spider, (queue,), callback=callback)
+                    time.sleep(0.5)
+        except Exception:
+            pass
+        SortOut(new_url_list,url,queue)
+        print("end")
+    pool.close()
+    pool.join()
+    print("end")
+    end=datetime.datetime.now()
+    print(end-start)
 
-#测试数据
-# depth_get("https://ask.hellobi.com/blog/bixtcexs/11983")
+
+'''
+测试数据
+    depth_get函数是广度遍历爬取url控制函数
+    SortOut是去重和整理冗余无用url函数
+    Spider是爬取页面的函数
+    normal是没有使用多进程的普通爬取函数
+    相比较于普通函数，多进程函数多了整理冗余数据和错误url的功能，对于网站：https://blog.csdn.net/
+    深度二重爬取url时间：（使用datetime.datetime.now()进行计算）
+        depth_get函数：0:00:28.969321
+        normal函数：0:00:01.031345
+'''
+if __name__=='__main__':
+    depth_get("https://blog.csdn.net/")
+    # normal("https://blog.csdn.net/")
