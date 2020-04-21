@@ -1,5 +1,4 @@
 import urllib.parse as urlparse
-from sqlinjection import get_html
 import core
 
 
@@ -24,7 +23,7 @@ def Get_XSS(url,flag=1):
         core.wordlistimport(wordlist, payloads)
         for payload in payloads:
             website = domain + "?" + ("&".join([param + payload for param in queries]))
-            source = get_html.gethtml(website)
+            source = core.gethtml(website)
             if payload in source:
                 print("(+)this url have xss bug {},payload is {}".format(url,payload))
                 return True,payload

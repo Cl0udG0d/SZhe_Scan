@@ -1,6 +1,6 @@
-from sqlinjection import get_html
 import urllib.parse as urlparse
 from changanya.simhash import Simhash
+import core
 
 def is_similar_page(res1, res2, radio):
     '''
@@ -26,13 +26,13 @@ def bool_in(domain,queries,old_html):
     for payload in payloads:
         website = domain + "?" + ("&".join([param + payload for param in queries]))
         # print(website)
-        source = get_html.gethtml(website)
+        source = core.gethtml(website)
         if source and is_similar_page(source,old_html,radio=0.3):
             return True,"unknown"
     return False,None
 
 def injection_control(url):
-    old_html=get_html.gethtml(url)
+    old_html=core.gethtml(url)
     domain = url.split("?")[0]
     #获取域名和参数，用来构建payload
     queries = urlparse.urlparse(url).query.split("&")

@@ -1,6 +1,6 @@
-from sqlinjection import get_html,error_injection,bool_injection,time_injection
+from sqlinjection import error_injection,bool_injection,time_injection
 import urllib.parse as urlparse
-
+import core
 
 '''
 传入url为http://www.xxx.com格式，或者是www.xxx.com 可带参数如www.xxx.com/index.php?id=1
@@ -12,7 +12,7 @@ import urllib.parse as urlparse
 三个注入检测函数传入检测url和正常访问时的html代码，加入payload之后通过计算页面相似度来判断是否遇到了waf
 '''
 def injection_control(url):
-    old_html=get_html.gethtml(url)
+    old_html=core.gethtml(url)
     domain = url.split("?")[0]
     #获取域名和参数，用来构建payload
     queries = urlparse.urlparse(url).query.split("&")

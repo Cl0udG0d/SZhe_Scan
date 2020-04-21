@@ -1,5 +1,6 @@
-from sqlinjection import get_html,check_waf
+from sqlinjection import check_waf
 import re
+import core
 
 def sqlerror(source):
     sql_errors = {"MySQL": (r"SQL syntax.*MySQL", r"Warning.*mysql_.*", r"MySQL Query fail.*", r"SQL syntax.*MariaDB server"),
@@ -25,7 +26,7 @@ def error_in(domain,queries,old_html):
                '`;', '\\', "%27", "%%2727", "%25%27", "%60", "%5C")
     for payload in payloads:
         website = domain + "?" + ("&".join([param + payload for param in queries]))
-        source = get_html.gethtml(website)
+        source = core.gethtml(website)
         if source:
             vulnerable,db=sqlerror(source)
             if vulnerable and db !=None:

@@ -1,6 +1,6 @@
 import urllib.parse as urlparse
-from sqlinjection import get_html
 import re
+import core
 
 '''
 payloads列表使用几个简单命令检测是否存在命令执行漏洞，并使用正则表达式进行url结果匹配
@@ -26,7 +26,7 @@ def Get_com(url):
     else:
         for payload in payloads:
             website = domain + "?" + ("&".join([param + payload for param in queries]))
-            source = get_html.gethtml(website)
+            source = core.gethtml(website)
             for test in check_have:
                 pattern = re.compile(test, re.I)
                 if pattern.findall(source):

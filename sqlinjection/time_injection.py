@@ -1,6 +1,7 @@
-from sqlinjection import get_html,check_waf
+from sqlinjection import check_waf
 import time
 import requests
+import core
 import urllib.parse as urlparse
 
 def time_in(domain,queries,old_html):
