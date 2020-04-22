@@ -173,6 +173,19 @@
                 </tr>
                 {% endfor %}
         </div>
+        当前页数:{{paginate.page}}
+        总页数:{{paginate.pages}}
+        一共有{{paginate.total}}条数据
+        {% if paginate.has_prev %}
+            <a href="{{url_for('log_detail',page=paginate.prev_num)}}">上一页</a>
+        {% endif %}
+        页码：
+        {% for i in paginate.iter_pages() %}
+            <a href="{{url_for('log_detail',page=i)}}">{{ i }}</a>
+        {% endfor %}
+        {% if paginate.has_next %}
+            <a href="{{url_for('log_detail',page=paginate.next_num)}}">下一页</a>
+        {% endif %}
     </div>
     </div>
     <div class="body-tail">

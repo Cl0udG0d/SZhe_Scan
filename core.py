@@ -54,7 +54,7 @@ elif 目标网页内容 与 网站404页面内容 相似：
 else:
     return this_is_not_404_page
 '''
-def is_404(true_404,check_url):
+def is_404(true_404_html,check_url_html):
     '''
     检测页面是否为404
         1,从状态码是否为404判断
@@ -66,12 +66,10 @@ def is_404(true_404,check_url):
         https://thief.one/2018/04/12/1/
     :return:
     '''
-    check_url_rep=requests.get(true_404)
-    if check_url_rep.status_code==404:
+    if true_404_html.status_code==404:
         return True
     else:
-        true_404_rep=requests.get(check_url)
-        if is_similar_page(true_404_rep,check_url_rep,radio=0.85):
+        if is_similar_page(true_404_html.text,check_url_html.text,radio=0.85):
             return True
         else:
             return False
