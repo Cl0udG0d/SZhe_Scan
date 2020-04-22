@@ -19,6 +19,10 @@ def index():
 def test_home():
     return render_template('baseOne.html')
 
+@app.route('/test_console')
+def console():
+    return render_template('console.html')
+
 def save_log(ip, email):
     log = Log(ip=ip, email=email)
     db.session.add(log)
