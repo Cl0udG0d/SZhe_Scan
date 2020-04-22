@@ -120,12 +120,12 @@ h1 a {
 }
 .slider {
   width: 100px;
-  height: 33px;
+  height: 5px;
   /* background-color: #5352ed; */
   background-color: #0fbcf9;
   border-radius: 4px;
   position: absolute;
-  top: 8px;
+  top: 42px;
   left: 40px;
   z-index: 1;
   transition: all ease, 0.4s;
@@ -183,7 +183,7 @@ h1 a {
   left: 738px;
 }
 .navList li .one {
-  color: white;
+  color: #696969;
   z-index: 100;
 }
 .navigation .navList li a {
@@ -194,39 +194,10 @@ h1 a {
   position: absolute;
 }
 .navigation ul li a:hover {
-  color: white;
+  color: #666666;
   cursor: pointer;
   /* z-index: 200; */
 }
-
-/* .search-box {
-    /* flex: 1; */
-/* display: block;
-    position: absolute;
-    top: 10px;
-    right: 90px;
-    display: flex;
-    height: 30px;
-    width: 220px;
-  }
-  .search-box input {
-    border-radius: 5px;
-    z-index: 100;
-    outline: none;
-  }
-  .search-txt {
-    line-height: 30px;
-    width: 100%;
-  }
-  .search-btn {
-    position: absolute;
-    line-height: 30px;
-    font-size: 20px;
-    left: 190px;
-    color: #696969; */
-/* color: #5352ed; */
-/* z-index: 100;
-  }  */
 
 /*新搜索框框*/
 .search-box {
@@ -234,7 +205,7 @@ h1 a {
   top: 27px;
   right: 100px;
   transform: translate(20%, -50%);
-  background: #696969;
+  background: #d3d3d3;
   height: 30px;
   border-radius: 30px;
   padding: 3px;
@@ -266,7 +237,7 @@ h1 a {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #696969;
+  background: #d3d3d3;
   display: flex;
   /*弹性布局*/
   justify-content: center;

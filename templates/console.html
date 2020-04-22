@@ -2,21 +2,15 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homepage</title>
-    <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
-    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" /> -->
-    <link rel="stylesheet" href="../static/css/baseOne.css" />
-    <link rel="stylesheet" href="../static/css/font-awesome.min.css" />
-    <!-- <script src="{{url_for('static',filename='js/home.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-    <!-- <script src="../static/js/home.js"></script> -->
-    <script src="../static/js/base.js"></script>
-    <script src="../static/js/home.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>consolePage</title>
+    <link rel="stylesheet" href="../static/css/console.css">
+    <link rel="stylesheet" href="../static/css/homeOne.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+    <script type="text/javascript" src="../static/js/home.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
-
 </head>
 
 <body style="overflow-x:hidden;">
@@ -63,10 +57,8 @@
     <div class="context">
         <div class="left-context" style="display:block;">
             <div class="statistic">
-                <h5>漏洞等级分布图</h5>
+                <h5 style="position:absolute;left:110px;">漏洞等级分布图</h5>
                 <div id="container" style="height: 200px;width:90%;top:10px;"></div>
-                <!-- <canvas id="canvas_circle">
-                    浏览器不支持canvas</canvas> -->
             </div>
             <div class="skills" style="display:block;">
                 <h2>漏洞类型统计</h2>
@@ -159,99 +151,95 @@
         <div class="right-context">
 
         </div>
-    </div>
-    {%block main%}{% endblock %}
-    <div class="body-tail">
-        Copyright @ SZHE Vulnerability Scanner
-    </div>
-
-
-    <script type="text/javascript">
-        $('.skill-per').each(function () {
-            var $this = $(this);
-            var per = $this.attr('per');
-            $this.css("width", per);
-            $({ animatedValue: 0 }).animate(
-                { animatedValue: per },
-                {
-                    duartion: 300,
-                    step: function () {
-                        $this.attr('per', Math.floor(this.animatedValue));
-                    },
-                    complete: function () {
-                        $this.attr('per', Math.floor(this.animatedValue));
-                    },
-                }
-            );
-        });
-
-        var dom = document.getElementById("container");
-        var myChart = echarts.init(dom);
-        var app = {};
-
-        app.title = "百分比";
-
-        var option = {
-            tooltip: {
-                trigger: "item",
-                formatter: "{a} <br/>{b}: {c} ({d}%)",
-            },
-            color: ["#90ee90", "#7342fa", "#fdb903", "#e9003a",],
-            legend: {
-                orient: "horizontal",
-                x: "top",
-                data: ["低危", "中危", "高危", "严重"],
-            },
-            series: [
-                {
-                    name: "漏洞属性",
-                    type: "pie",
-                    radius: ["30%", "70%"],
-                    avoidLabelOverlap: false,
-                    label: {
-                        normal: {
-                            show: false,
-                            position: "center",
+        <div class="body-tail">
+            Copyright @ SZHE Vulnerability Scanner
+        </div>
+        <script>
+            $('.skill-per').each(function () {
+                var $this = $(this);
+                var per = $this.attr('per');
+                $this.css("width", per);
+                $({ animatedValue: 0 }).animate(
+                    { animatedValue: per },
+                    {
+                        duartion: 300,
+                        step: function () {
+                            $this.attr('per', Math.floor(this.animatedValue));
                         },
-                        emphasis: {
-                            show: true,
-                            textStyle: {
-                                fontSize: "15",
-                                fontWeight: "bold",
+                        complete: function () {
+                            $this.attr('per', Math.floor(this.animatedValue));
+                        },
+                    }
+                );
+            });
+
+            var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            var app = {};
+
+            app.title = "百分比";
+
+            var option = {
+                tooltip: {
+                    trigger: "item",
+                    formatter: "{a} <br/>{b}: {c} ({d}%)",
+                },
+                color: ["#90ee90", "#7342fa", "#fdb903", "#e9003a",],
+                legend: {
+                    orient: "horizontal",
+                    x: "top",
+                    data: ["低危", "中危", "高危", "严重"],
+                },
+                series: [
+                    {
+                        name: "漏洞属性",
+                        type: "pie",
+                        radius: ["30%", "70%"],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: "center",
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: "15",
+                                    fontWeight: "bold",
+                                },
                             },
                         },
+                        labelLine: {
+                            normal: {
+                                show: false,
+                            },
+                        },
+                        data: [
+                            {
+                                value: 135,
+                                name: "低危",
+                            },
+                            {
+                                value: 170,
+                                name: "中危",
+                            },
+                            {
+                                value: 234,
+                                name: "高危",
+                            },
+                            {
+                                value: 265,
+                                name: "严重",
+                            },
+                        ],
                     },
-                    labelLine: {
-                        normal: {
-                            show: false,
-                        },
-                    },
-                    data: [
-                        {
-                            value: 135,
-                            name: "低危",
-                        },
-                        {
-                            value: 170,
-                            name: "中危",
-                        },
-                        {
-                            value: 234,
-                            name: "高危",
-                        },
-                        {
-                            value: 265,
-                            name: "严重",
-                        },
-                    ],
-                },
-            ],
-        };
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
-        }
+                ],
+            };
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
 
-    </script>
+        </script>
 </body>
 
 </html>
