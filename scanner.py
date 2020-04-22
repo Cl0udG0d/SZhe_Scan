@@ -3,8 +3,12 @@ import multiprocessing
 import time
 import get_message
 import re
-
+import signal
+import multiprocessing
+import SpiderGetUrl
+import get_message
 '''
+ip和域名进入不同的调度函数扫描
 ====进程是资源分配的单位，线程是操作系统调度的单位====
 获取target目标url，进行同域名下的及网页中的输入源搜集
 scan函数传入扫描urls，单个或多个url，进入输入源获取函数
@@ -84,22 +88,48 @@ def Domain_IP_Check(url):
     else:
         return False
 
-def IP_InQueue(ip):
+#对于IP进行页面深度搜集，C段扫描
+def IP_Console(ip,attack_list,attack_queue,pool):
+
     return None
 
-def Domain_InQueue(domain):
+#先进行子域名的主动和被动搜集
+def Domain_Console(domain):
+    max_processes = 3
+    attack_queue = multiprocessing.Manager().Queue()
+    pool = multiprocessing.Pool(max_processes, init)
+    def callback(attack_list):
+        for url in attack_list:
+            attack_queue.put(url)
+    true_domain=domain.split('.',1)[1]
+    #主动被动子域名搜集
+    pool.apply_async(get_message.GetSubDomain, (true_domain,), callback=callback)
+    pool.apply_async(get_message.SubDomainBurst, (true_domain,domain), callback=callback)
     return None
 
-#域名和IP地址进入不同的模块进行信息搜集
+'''
+输入IP格式为:127.0.0.1，输入域名格式为www.baidu.com
+域名和IP地址进入不同的模块进行信息搜集
+一个进程进入页面深度搜集，页面深度搜集页面会再开四个进程进行attack_url爬取
+'''
+
 def Input_Url(url):
+    # attack_list=[]
+    # max_processes = 3
+    # attack_queue = multiprocessing.Manager().Queue()
+    # pool = multiprocessing.Pool(max_processes, init)
+    # def callback(queue):
+    #     while not queue.empty():
+    #         attack_queue.put(queue.get())
+    # pool.apply_async(SpiderGetUrl.depth_get, (url,), callback=callback)
     if Domain_IP_Check(url):
-        IP_InQueue(url)
+        IP_Console(url)
     else:
-        Domain_InQueue(url)
-
-
+        Domain_Console(url)
 
 if __name__=='__main__':
     # urls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     # UrlScan(urls)
-    print(Domain_IP_Check("www.baidu.com"))
+    # Input_Url("https://blog.csdn.net/")
+    # print(Domain_IP_Check("127.0.0.1"))
+    Domain_Console("www.baidu.com")

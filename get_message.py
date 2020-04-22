@@ -3,7 +3,6 @@ from lxml import etree
 import zlib
 import json
 import nmap
-
 import core
 
 '''
@@ -41,6 +40,7 @@ def get_whois(domain):
     必应搜索引擎搜集：https://cn.bing.com/  必应爬取前15页
     bing 模块未完成
     返回获取的子域名字符串
+传入domain为 baidu.com形式
 '''
 
 
@@ -68,8 +68,6 @@ def GetSubDomain(domain):
         pass
     new_context = list(set(context))
     return new_context
-    # str = "\n".join(new_context)
-    # return str
 
 
 '''
@@ -172,28 +170,31 @@ def get_siteStation(ip):
     return str
 
 
-def SubDomainBurst(domain, filename="subdomainburst.txt"):
+def SubDomainBurst(true_domain,domain):
     '''
     子域名爆破
     字典：dict\SUB_scan.txt
-    从字典读取子域名构造新的url进行访问，若返回状态码为200，则写入文件夹。
+    从字典读取子域名构造新的url进行访问，若返回状态码为200，则返回可攻击列表attack_list
     :param domain:
-    :param filename:
     :return:
     '''
+    true_404="http://"+domain+'/abcdefghijklmn.html'
+    try:
+        true_404 = core.gethtml(true_404,timeout=1.0)
+    except:
+        pass
     file = open(r"dict\SUB_scan.txt", "r")
-    resultFile = open(filename, "a+")
+    attack_list=[]
     for line in file.readlines():
-        url = 'http://' + line.replace("\n", '.' + domain)
+        url = 'http://' + line.replace("\n", '.' + true_domain)
         try:
-            r = requests.get(url, headers=core.GetHeaders(), timeout=1.0)
-            if r.status_code == 200:
-                resultFile.write(url + "\n")
+            r = core.gethtml(url,timeout=1.0)
+            if r.status_code == 200 and not core.is_404(true_404.text,r.text):
+                attack_list.append(url)
         except Exception:
             pass
     file.close()
-    resultFile.close()
-
+    return attack_list
 
 def SenFileScan(domain, filename="SenFileScan.txt"):
     '''
