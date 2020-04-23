@@ -93,6 +93,18 @@ def IP_Console(ip,attack_list,attack_queue,pool):
 
     return None
 
+'''
+对于域名domain收集信息：
+    whois，解析IP，备案信息，旁站，cmd指纹
+'''
+def Domain_Message(domain,url):
+    WhoisMessage=get_message.get_whois(domain)
+    BindingIP=get_message.get_ip(domain)
+    DomainRecordinfo=get_message.get_recordinfo(domain)
+    SiteStation=get_message.get_siteStation(domain)
+    cms_finger=get_message.cms_finger(url)
+    return None
+
 #先进行子域名的主动和被动搜集
 def Domain_Console(domain):
     max_processes = 3
@@ -104,7 +116,8 @@ def Domain_Console(domain):
     true_domain=domain.split('.',1)[1]
     #主动被动子域名搜集
     pool.apply_async(get_message.GetSubDomain, (true_domain,), callback=callback)
-    pool.apply_async(get_message.SubDomainBurst, (true_domain,domain), callback=callback)
+    pool.apply_async(get_message.SubDomainBurst, (true_domain,domain,), callback=callback)
+    pool.apply_async(Domain_Message,(true_domain,domain,))
     return None
 
 '''
@@ -114,14 +127,6 @@ def Domain_Console(domain):
 '''
 
 def Input_Url(url):
-    # attack_list=[]
-    # max_processes = 3
-    # attack_queue = multiprocessing.Manager().Queue()
-    # pool = multiprocessing.Pool(max_processes, init)
-    # def callback(queue):
-    #     while not queue.empty():
-    #         attack_queue.put(queue.get())
-    # pool.apply_async(SpiderGetUrl.depth_get, (url,), callback=callback)
     if Domain_IP_Check(url):
         IP_Console(url)
     else:

@@ -5,7 +5,6 @@ import config
 from models import User, Log
 from exts import db
 from decorators import login_required
-from flask_paginate import Pagination
 
 app = Flask(__name__)
 app.config.from_object(config)
