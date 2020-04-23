@@ -7,6 +7,8 @@ import core
 
 '''
 whois get_message
+
+
 简单介绍
     whois（读作“Who is”，非缩写）是用来查询域名的IP以及所有者等信息的传输协议。
     简单说，whois就是一个用来查询域名是否已经被注册，以及注册域名的详细信息的数据库（如域名所有人、域名注册商）。
@@ -123,10 +125,10 @@ def get_recordinfo(domain):
     tbody.append(td_6)
     tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[7]/text()')))
     tbody.append(td_8)
-    # context2[3] = context3[0]+context3[1]
-    # context2[4] = homeURL
+    context=""
     for i in zip(thead, tbody):
-        print(":".join(i))
+        context+=":".join(i)+"\n"
+    return context
 
 
 def get_siteStation(ip):
@@ -143,7 +145,6 @@ def get_siteStation(ip):
     rep1 = requests.post(url_1, data=data, headers=core.GetHeaders())
     rep1 = etree.HTML(rep1.text)
     text1 = rep1.xpath('//a[@class="domain"]/text()')
-
     url_2_base = 'http://stool.chinaz.com'
     url_2 = 'http://stool.chinaz.com/same?s=' + ip + '&page=1'
     text2 = []
@@ -156,7 +157,6 @@ def get_siteStation(ip):
         text2 += new_list
         next_url = "".join(rep2.xpath('//a[@title="下一页"]/@href'))
         url_2 = url_2_base + next_url
-
     url_3 = 'http://www.114best.com/ip/114.aspx?w=' + ip
     rep3 = requests.get(url_3, headers=core.GetHeaders())
     rep3 = etree.HTML(rep3.text)
@@ -283,11 +283,13 @@ http://whatweb.bugscaner.com/look/
 
 
 def cms_finger(url):
+    if not (url.startswith("http://") or url.startswith("https://")):
+        url = "http://" + url
     request = whatweb(url)
-    print(u"今日识别剩余次数")
-    print(request.headers["X-RateLimit-Remaining"])
-    print(u"识别结果")
-    print(request.json())
+    # print(u"今日识别剩余次数")
+    # print(request.headers["X-RateLimit-Remaining"])
+    # print(u"识别结果")
+    return request.json()
 
 
 '''
@@ -311,20 +313,20 @@ def Port_scan(host):
         nmap.sys.exit(0)
 
 
-# 测试数据
-# get_whois("shkls.com")
-# get_sundomain("baidu.com")
-# get_ip("baidu.com")
-# get_recordinfo("baidu.com")
-# get_siteStation("172.217.27.142")
 
-# SubDomainBurst("baidu.com", "dict\test1.txt")
-# SenFileScan("www.anantest.com", "dict\test2.txt")
-
-# InforLeakage('http://www.anantest.com')
-# Port_scan('36.110.213.10')
-
-# cms_finger("http://www.dedecms.com/")
 
 if __name__ == '__main__':
-    SubDomainBurst("baidu.com")
+    # 测试数据
+    # get_recordinfo("baidu.com")
+    # get_siteStation("baidu.com")
+    # get_whois("shkls.com")
+    # get_sundomain("baidu.com")
+    # get_ip("baidu.com")
+    # get_recordinfo("baidu.com")
+    # get_siteStation("172.217.27.142")
+    # SubDomainBurst("baidu.com", "dict\test1.txt")
+    # SenFileScan("www.anantest.com", "dict\test2.txt")
+    # InforLeakage('http://www.anantest.com')
+    Port_scan('36.110.213.10')
+    # Port_scan('baidu.com')
+    # cms_finger("http://www.dedecms.com")
