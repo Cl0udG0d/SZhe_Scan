@@ -337,12 +337,12 @@ header .burger {
   margin: 20px 0;
 }
 .skill-bar {
-  height: 20px;
+  height: 15px;
   background: #cacaca;
   border-radius: 8px;
 }
 .skill-per {
-  height: 20px;
+  height: 15px;
   background-color: #0fbcf9;
   /* background-color: #7342fa; */
   /* background-color: #5352ed; */

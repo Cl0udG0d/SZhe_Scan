@@ -29,14 +29,25 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+.features h3,
+.features p {
   color: #f8f8ff;
+}
+.features p {
+  font-weight: 550;
+  font-size: 16px;
+}
+.features i {
+  /* color: #2e2e2e; */
+  opacity: 0.3;
 }
 .feature {
   position: relative;
   flex: 1;
   align-items: center;
   justify-content: center;
-  height: 110px;
+  height: 130px;
   margin: 0 10px;
   background-color: #f8f8ff;
   display: flex;
@@ -49,12 +60,12 @@
   cursor: pointer;
 }
 .features .one:hover i {
-  font-size: 60px;
+  font-size: 68px;
   transition: 0.4s;
 }
 .feature i {
   flex: 1;
-  font-size: 52px;
+  font-size: 60px;
   position: absolute;
   left: 30px;
 }
@@ -104,7 +115,11 @@
   font-size: 32px;
   position: absolute;
   left: 20px;
-  color: rgb(86, 86, 240);
+  color: rgb(22, 122, 253);
+  /* color: #098ddf;
+  color: #3c763d;
+  color: #428bca;
+  color: #098ddf; */
 }
 .content h3 {
   flex: 2;
@@ -132,10 +147,10 @@
   flex: 1;
   background-color: #f8f8ff;
   display: flex;
+  height: 500px;
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 500px;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
   box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.06);
@@ -147,6 +162,7 @@
   top: 20px;
   font-size: 24px;
   font-weight: 500;
+  color: #2e2e2e;
 }
 .curve-graph {
   flex: 1;
@@ -154,8 +170,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   height: 500px;
+  position: relative;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
   box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.06);
@@ -167,6 +183,7 @@
   top: 20px;
   font-size: 24px;
   font-weight: 500;
+  color: #2e2e2e;
 }
 .body-tail {
   top: 1450px;

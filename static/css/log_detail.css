@@ -362,7 +362,7 @@ header .burger {
 }
 .skill-name {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 20px 0;
 }
 .skill-bar {
@@ -433,6 +433,22 @@ li {
   font-weight: 600;
   color: #2e2e2e;
 }
+.page-number {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  transform: translateX(10%);
+  margin-bottom: 13px;
+}
+.page-number span {
+  flex: 1;
+  color: #2e2e2e;
+}
+.page-number span a:active {
+  color: #0fbcf9;
+}
 table {
   position: relative;
   left: 25px;
@@ -442,6 +458,7 @@ table {
 }
 table th {
   background: linear-gradient(#fff, #e2e5e5ea);
+  color: #2e2e2e;
 }
 table th,
 table td {
