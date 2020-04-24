@@ -3,6 +3,8 @@ from lxml import etree
 import zlib
 import json
 import nmap
+import re
+from bs4 import BeautifulSoup
 
 import core
 
@@ -233,9 +235,9 @@ def InforLeakage(domain):
     :param domain:
     :return:
     """
-    urlGit = domain+'/.git/'
-    urlSVN = domain+'/.svn/'
-    urlHG = domain+'/.hg/'
+    urlGit = domain + '/.git/'
+    urlSVN = domain + '/.svn/'
+    urlHG = domain + '/.hg/'
     try:
         Git = requests.get(urlGit)
     except Exception:
@@ -310,6 +312,30 @@ def Port_scan(host):
         nmap.sys.exit(0)
 
 
+def C_Scan(ip):
+    """
+    C段扫描
+    状态码为200有title时返回title
+    :param ip:
+    :return:
+    """
+    iplist = ip.split('.')
+    base_ip = iplist[0] + '.' + iplist[1] + '.' + iplist[2] + '.'
+    for i in range(1, 256):
+        try:
+            NewIp = 'http://' + base_ip + str(i)
+            rep = requests.get(NewIp, headers=core.GetHeaders(), timeout=1)
+            if rep.status_code == 200 and type(rep) != 'NoneType':
+                title = re.findall(r'<title>(.*?)</title>', rep.text)
+                if title:
+                    print("[T]" + NewIp + '：' + title[0])
+                else:
+                    print("[C]" + NewIp + '\n' + rep.text)
+        except Exception as e:
+            pass
+    print("End")
+
+
 # 测试数据
 # get_whois("shkls.com")
 # get_sundomain("baidu.com")
@@ -322,7 +348,7 @@ def Port_scan(host):
 
 # InforLeakage('http://www.anantest.com')
 # Port_scan('36.110.213.10')
-
+# C_Scan('36.110.213.10')
 # cms_finger("http://www.dedecms.com/")
 
 if __name__ == '__main__':
