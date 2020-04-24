@@ -81,15 +81,11 @@ def Spider(queue):
 用于下层的遍历
 '''
 
-def depth_get(url):
+def depth_get(domain,attck_queue):
     #最大进程数为4
     max_processes = 4
-    queue = multiprocessing.Manager().Queue()
     pool = multiprocessing.Pool(max_processes, init)
-    queue.put(url)
     count=0
-    if not (url.startswith("http://") or url.startswith("https://")):
-        url="http://" + url
     # start=datetime.datetime.now()
     while (count < 2):
         new_url_list=[]
@@ -98,23 +94,23 @@ def depth_get(url):
         try:
             def callback(url_list):
                 new_url_list.extend(url_list)
-            while not queue.empty():
+            while not attck_queue.empty():
                 if count==1:
-                    pool.apply_async(Spider,(queue,),callback=callback)
+                    pool.apply_async(Spider,(attck_queue,),callback=callback)
                     time.sleep(5)
                 else:
-                    pool.apply_async(Spider, (queue,), callback=callback)
-                    pool.apply_async(Spider, (queue,), callback=callback)
-                    pool.apply_async(Spider, (queue,), callback=callback)
-                    pool.apply_async(Spider, (queue,), callback=callback)
+                    pool.apply_async(Spider, (attck_queue,), callback=callback)
+                    pool.apply_async(Spider, (attck_queue,), callback=callback)
+                    pool.apply_async(Spider, (attck_queue,), callback=callback)
+                    pool.apply_async(Spider, (attck_queue,), callback=callback)
                     time.sleep(0.5)
         except Exception:
             pass
-        SortOut(new_url_list,url,queue)
+        SortOut(new_url_list,domain,attck_queue)
     pool.close()
     pool.join()
     print("end")
-    return queue
+    # return attck_queue
     # end=datetime.datetime.now()
     # print(end-start)
 
@@ -131,5 +127,7 @@ def depth_get(url):
         normal函数：0:00:01.031345
 '''
 if __name__=='__main__':
-    depth_get("https://blog.csdn.net/")
+    attack_queue = multiprocessing.Manager().Queue()
+    attack_queue.put("http://blog.csdn.net")
+    depth_get("blog.csdn.net",attack_queue)
     # normal("https://blog.csdn.net/")

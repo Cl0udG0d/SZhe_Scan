@@ -4,6 +4,7 @@ import zlib
 import json
 import nmap
 import core
+import re
 
 '''
 whois get_message
@@ -90,7 +91,11 @@ def get_ip(domain):
     ip138_url = 'https://site.ip138.com/' + domain
     rep = requests.get(ip138_url, headers=core.GetHeaders())
     rep = etree.HTML(rep.text)
-    context = rep.xpath('//div[@id="J_ip_history"]//a/text()')
+    pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
+    if pattern.findall(domain):
+        context = rep.xpath('//ul[@id="list"]/li/a/text()')
+    else:
+        context = rep.xpath('//div[@id="J_ip_history"]//a/text()')
     str = "\n".join(context)
     return str
 
@@ -287,8 +292,8 @@ def cms_finger(url):
         url = "http://" + url
     request = whatweb(url)
     # print(u"今日识别剩余次数")
-    # print(request.headers["X-RateLimit-Remaining"])
-    # print(u"识别结果")
+    if request.headers["X-RateLimit-Remaining"]==0:
+        return None
     return request.json()
 
 
@@ -301,8 +306,12 @@ NMap(Network Mapper)
 
 def Port_scan(host):
     nm = nmap.PortScanner()
+    pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
     try:
-        nm.scan(host, arguments='-Pn,-sS')
+        if pattern.findall(host):
+            nm.scan(host, arguments='-Pn,-sS')
+        else:
+            nm.scan(host)
         for proto in nm[host].all_protocols():
             lport = list(nm[host][proto].keys())
             for port in lport:
@@ -327,6 +336,8 @@ if __name__ == '__main__':
     # SubDomainBurst("baidu.com", "dict\test1.txt")
     # SenFileScan("www.anantest.com", "dict\test2.txt")
     # InforLeakage('http://www.anantest.com')
-    Port_scan('36.110.213.10')
+    # Port_scan('36.110.213.10')
+    Port_scan('www.baidu.com')
     # Port_scan('baidu.com')
     # cms_finger("http://www.dedecms.com")
+    # get_ip('220.181.38.148')

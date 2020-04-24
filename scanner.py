@@ -87,10 +87,33 @@ def Domain_IP_Check(url):
         return True
     else:
         return False
+'''
+对输入IP进行信息搜集
+获取同服IP站点列表，IP旁站查询
 
-#对于IP进行页面深度搜集，C段扫描
-def IP_Console(ip,attack_list,attack_queue,pool):
+'''
+def IP_Message(ip):
+    BindingDomain=get_message.get_ip(ip)
+    GetSiteStation=get_message.get_siteStation(ip)
 
+    return None
+
+'''
+对输入IP进行信息搜集，信息存入数据库
+最后对attack_queue队列中的页面url深度搜集，进入漏洞扫描
+漏洞扫描结果存入数据库
+页面按规定显示扫描结果
+'''
+def IP_Console(ip):
+    max_processes = 3
+    attack_queue = multiprocessing.Manager().Queue()
+    pool = multiprocessing.Pool(max_processes, init)
+    attack_queue.put(ip)
+    pool.apply_async(IP_Message, (ip,))
+    pool.apply_async(SpiderGetUrl.depth_get, (ip, attack_queue,))
+    pool.close()
+    pool.join()
+    print("end")
     return None
 
 '''
@@ -105,7 +128,13 @@ def Domain_Message(domain,url):
     cms_finger=get_message.cms_finger(url)
     return None
 
-#先进行子域名的主动和被动搜集
+'''
+进行子域名的主动和被动搜集，添加入attack_queue队列
+同时对输入域名进行信息搜集，信息存入数据库
+最后对attack_queue队列中的页面url深度搜集，进入漏洞扫描
+漏洞扫描结果存入数据库
+页面按规定显示扫描结果
+'''
 def Domain_Console(domain):
     max_processes = 3
     attack_queue = multiprocessing.Manager().Queue()
@@ -118,9 +147,14 @@ def Domain_Console(domain):
     pool.apply_async(get_message.GetSubDomain, (true_domain,), callback=callback)
     pool.apply_async(get_message.SubDomainBurst, (true_domain,domain,), callback=callback)
     pool.apply_async(Domain_Message,(true_domain,domain,))
+    pool.close()
+    pool.join()
+    pool.apply_async(SpiderGetUrl.depth_get, (domain,attack_queue,))
+    print("end")
     return None
 
 '''
+输入格式限制
 输入IP格式为:127.0.0.1，输入域名格式为www.baidu.com
 域名和IP地址进入不同的模块进行信息搜集
 一个进程进入页面深度搜集，页面深度搜集页面会再开四个进程进行attack_url爬取
