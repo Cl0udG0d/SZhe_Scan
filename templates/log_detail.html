@@ -10,8 +10,9 @@
     <!-- <link rel="stylesheet" href="../static/css/homeOne.css" />
         <link rel="stylesheet" href="{{url_for('static',filename='css/log_detail.css')}}" />
     <link rel="stylesheet" href="../static/css/font-awesome.min.css" /> -->
-    <script src="{{url_for('static',filename='js/home.js')}}"></script>
+    <script src="{{url_for('static',filename='js/log_detail.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
     <!-- <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script> -->
     <!-- <script src="../static/js/home.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
@@ -61,12 +62,11 @@
     <div class="context">
         <div class="left-context" style="display:block;">
             <div class="statistic">
-                <h5>漏洞等级分布图</h5>
-                <canvas id="canvas_circle">
-                    浏览器不支持canvas</canvas>
+                <h5 style="left:185px;position:absolute;font-weight: 520;">漏洞等级分布图</h5>
+                <div id="container" style="height: 250px;width:90%;top:20px;margin-bottom:20px;"></div>
             </div>
             <div class="skills" style="display:block;">
-                <h2>漏洞类型统计</h2>
+                <h2 style="font-weight: 600;">漏洞类型统计</h2>
                 <div class="skill">
                     <div class="skill-name">类型一</div>
                     <div class="skill-bar">
@@ -154,7 +154,7 @@
             </div>
         </div>
         <div class="right-context">
-            <h1 style="text-align: center;">这是日志详情</h1>
+            <h1 style="text-align: center;font-weight: 500;font-size: 34px;">这是日志详情</h1>
 
             <table border="1" width="90%" class="tab" id="myTab">
                 <tr>
@@ -172,7 +172,30 @@
                     <!-- <hr> -->
                 </tr>
                 {% endfor %}
+                <div class="page-number">
+                    <span>当前页数: {{paginate.page}}</span>
+                    <span>总页数: {{paginate.pages}}</span>
+                    <span>共有 {{paginate.total}} 条数据</span>
+                    <span style="position: relative;left:40px;">
+                        页码：
+                        {% for i in paginate.iter_pages() %}
+                        <a href="{{url_for('log_detail',page=i)}}"
+                            style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius:2px;">{{ i }}</a>
+                        {% endfor %}</span>
+                    <span style="position: relative;left:50px;">
+                        {% if paginate.has_prev %}
+                        <a href="{{url_for('log_detail',page=paginate.prev_num)}}"
+                            style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">上一页</a>
+                        {% endif %}</span>
+
+                    <span style="position: relative;left:20px;">
+                        {% if paginate.has_next %}
+                        <a href="{{url_for('log_detail',page=paginate.next_num)}}"
+                            style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">下一页</a>
+                        {% endif %}</span>
+                </div>
         </div>
+
     </div>
     </div>
     <div class="body-tail">
@@ -196,6 +219,71 @@
                 }
             );
         });
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+        var app = {};
+
+        app.title = "百分比";
+
+        var option = {
+            tooltip: {
+                trigger: "item",
+                formatter: "{a} <br/>{b}: {c} ({d}%)",
+            },
+            color: ["#90ee90", "#7342fa", "#fdb903", "#e9003a",],
+            legend: {
+                orient: "horizontal",
+                x: "center",
+                data: ["低危", "中危", "高危", "严重"],
+            },
+            series: [
+                {
+                    name: "漏洞属性",
+                    type: "pie",
+                    radius: ["40%", "80%"],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: "center",
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: "25",
+                                fontWeight: "bold",
+                            },
+                        },
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false,
+                        },
+                    },
+                    data: [
+                        {
+                            value: 135,
+                            name: "低危",
+                        },
+                        {
+                            value: 170,
+                            name: "中危",
+                        },
+                        {
+                            value: 234,
+                            name: "高危",
+                        },
+                        {
+                            value: 265,
+                            name: "严重",
+                        },
+                    ],
+                },
+            ],
+        };
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
     </script>
 </body>
 

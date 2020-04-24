@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from flask import Flask, render_template, request, redirect, url_for, session
 from flask import Flask,render_template,request,redirect,url_for,session,flash
+from flask_sqlalchemy import SQLAlchemy
 import config
 from models import User, Log
 from exts import db
@@ -18,6 +18,10 @@ def index():
 @app.route('/testnav')
 def test_home():
     return render_template('baseOne.html')
+
+@app.route('/test_console')
+def console():
+    return render_template('console.html')
 
 def save_log(ip, email):
     log = Log(ip=ip, email=email)
@@ -105,13 +109,22 @@ def bug_list():
     return render_template('bug_list.html')
 
 
+#日志每页显示30条
 @app.route('/log_detail/')
+@app.route('/log_detail/<int:page>', methods=['GET'])
 # @login_required
-def log_detail():
-    context = {
-        'logs': Log.query.order_by(Log.date.desc()).all()
-    }
-    return render_template('log_detail.html', **context)
+def log_detail(page=None):
+    # context = {
+    #     'logs': Log.query.order_by(Log.date.desc()).all()
+    # }
+    if not page:
+        page=1
+    # page = int(request.args.get('page', 1))
+    # per_page = int(request.args.get('per_page', 2))
+    per_page=30
+    paginate=Log.query.order_by(Log.date.desc()).paginate(page, per_page, error_out=False)
+    logs = paginate.items
+    return render_template('log_detail.html', paginate=paginate,logs=logs)
 
 
 @app.context_processor

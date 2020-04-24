@@ -3,13 +3,18 @@ from lxml import etree
 import zlib
 import json
 import nmap
+<<<<<<< HEAD
 import re
 from bs4 import BeautifulSoup
 
+=======
+>>>>>>> de9d4395b982bcc2c06a491742f969f04c4c13fc
 import core
 
 '''
 whois get_message
+
+
 简单介绍
     whois（读作“Who is”，非缩写）是用来查询域名的IP以及所有者等信息的传输协议。
     简单说，whois就是一个用来查询域名是否已经被注册，以及注册域名的详细信息的数据库（如域名所有人、域名注册商）。
@@ -43,6 +48,7 @@ def get_whois(domain):
     必应搜索引擎搜集：https://cn.bing.com/  必应爬取前15页
     bing 模块未完成
     返回获取的子域名字符串
+传入domain为 baidu.com形式
 '''
 
 
@@ -70,8 +76,6 @@ def GetSubDomain(domain):
         pass
     new_context = list(set(context))
     return new_context
-    # str = "\n".join(new_context)
-    # return str
 
 
 '''
@@ -127,10 +131,10 @@ def get_recordinfo(domain):
     tbody.append(td_6)
     tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[7]/text()')))
     tbody.append(td_8)
-    # context2[3] = context3[0]+context3[1]
-    # context2[4] = homeURL
+    context=""
     for i in zip(thead, tbody):
-        print(":".join(i))
+        context+=":".join(i)+"\n"
+    return context
 
 
 def get_siteStation(ip):
@@ -147,7 +151,6 @@ def get_siteStation(ip):
     rep1 = requests.post(url_1, data=data, headers=core.GetHeaders())
     rep1 = etree.HTML(rep1.text)
     text1 = rep1.xpath('//a[@class="domain"]/text()')
-
     url_2_base = 'http://stool.chinaz.com'
     url_2 = 'http://stool.chinaz.com/same?s=' + ip + '&page=1'
     text2 = []
@@ -160,7 +163,6 @@ def get_siteStation(ip):
         text2 += new_list
         next_url = "".join(rep2.xpath('//a[@title="下一页"]/@href'))
         url_2 = url_2_base + next_url
-
     url_3 = 'http://www.114best.com/ip/114.aspx?w=' + ip
     rep3 = requests.get(url_3, headers=core.GetHeaders())
     rep3 = etree.HTML(rep3.text)
@@ -174,28 +176,31 @@ def get_siteStation(ip):
     return str
 
 
-def SubDomainBurst(domain, filename="subdomainburst.txt"):
+def SubDomainBurst(true_domain,domain):
     '''
     子域名爆破
     字典：dict\SUB_scan.txt
-    从字典读取子域名构造新的url进行访问，若返回状态码为200，则写入文件夹。
+    从字典读取子域名构造新的url进行访问，若返回状态码为200，则返回可攻击列表attack_list
     :param domain:
-    :param filename:
     :return:
     '''
+    true_404="http://"+domain+'/abcdefghijklmn.html'
+    try:
+        true_404 = core.gethtml(true_404,timeout=1.0)
+    except:
+        pass
     file = open(r"dict\SUB_scan.txt", "r")
-    resultFile = open(filename, "a+")
+    attack_list=[]
     for line in file.readlines():
-        url = 'http://' + line.replace("\n", '.' + domain)
+        url = 'http://' + line.replace("\n", '.' + true_domain)
         try:
-            r = requests.get(url, headers=core.GetHeaders(), timeout=1.0)
-            if r.status_code == 200:
-                resultFile.write(url + "\n")
+            r = core.gethtml(url,timeout=1.0)
+            if r.status_code == 200 and not core.is_404(true_404.text,r.text):
+                attack_list.append(url)
         except Exception:
             pass
     file.close()
-    resultFile.close()
-
+    return attack_list
 
 def SenFileScan(domain, filename="SenFileScan.txt"):
     '''
@@ -284,11 +289,13 @@ http://whatweb.bugscaner.com/look/
 
 
 def cms_finger(url):
+    if not (url.startswith("http://") or url.startswith("https://")):
+        url = "http://" + url
     request = whatweb(url)
-    print(u"今日识别剩余次数")
-    print(request.headers["X-RateLimit-Remaining"])
-    print(u"识别结果")
-    print(request.json())
+    # print(u"今日识别剩余次数")
+    # print(request.headers["X-RateLimit-Remaining"])
+    # print(u"识别结果")
+    return request.json()
 
 
 '''
@@ -312,6 +319,7 @@ def Port_scan(host):
         nmap.sys.exit(0)
 
 
+<<<<<<< HEAD
 def C_Scan(ip):
     """
     C段扫描
@@ -350,6 +358,22 @@ def C_Scan(ip):
 # Port_scan('36.110.213.10')
 # C_Scan('36.110.213.10')
 # cms_finger("http://www.dedecms.com/")
+=======
+
+>>>>>>> de9d4395b982bcc2c06a491742f969f04c4c13fc
 
 if __name__ == '__main__':
-    SubDomainBurst("baidu.com")
+    # 测试数据
+    # get_recordinfo("baidu.com")
+    # get_siteStation("baidu.com")
+    # get_whois("shkls.com")
+    # get_sundomain("baidu.com")
+    # get_ip("baidu.com")
+    # get_recordinfo("baidu.com")
+    # get_siteStation("172.217.27.142")
+    # SubDomainBurst("baidu.com", "dict\test1.txt")
+    # SenFileScan("www.anantest.com", "dict\test2.txt")
+    # InforLeakage('http://www.anantest.com')
+    Port_scan('36.110.213.10')
+    # Port_scan('baidu.com')
+    # cms_finger("http://www.dedecms.com")

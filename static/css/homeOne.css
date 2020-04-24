@@ -81,6 +81,7 @@ h1 a {
 .userCenter li a:hover {
   /* color: #5352ed; */
   color: #0fbcf9;
+  /* color: #7342fa; */
 }
 .navigation {
   width: 100%;
@@ -112,7 +113,7 @@ h1 a {
 .navList a {
   display: block;
   width: 100px;
-  line-height: 50px;
+  height: 33px;
 }
 .navList a,
 .userCenter-list a {
@@ -123,17 +124,13 @@ h1 a {
   height: 5px;
   /* background-color: #5352ed; */
   background-color: #0fbcf9;
+  /* background-color: #7342fa; */
   border-radius: 4px;
   position: absolute;
   top: 42px;
   left: 40px;
   z-index: 1;
-  transition: all ease, 0.3s;
-}
-.navList li .one {
-  color: #696969;
-  /* color: white; */
-  z-index: 100;
+  transition: all ease, 0.4s;
 }
 .navList li:nth-child(1) {
   left: 30px;
@@ -187,7 +184,10 @@ h1 a {
 .navList li:nth-child(8):hover ~ .slider {
   left: 738px;
 }
-
+.navList li .one {
+  color: #696969;
+  z-index: 100;
+}
 .navigation .navList li a {
   display: block;
   width: 120px;
@@ -200,36 +200,6 @@ h1 a {
   cursor: pointer;
   /* z-index: 200; */
 }
-
-/* .search-box {
-  /* flex: 1; */
-/* display: block;
-  position: absolute;
-  top: 10px;
-  right: 90px;
-  display: flex;
-  height: 30px;
-  width: 220px;
-}
-.search-box input {
-  border-radius: 5px;
-  z-index: 100;
-  outline: none;
-}
-.search-txt {
-  line-height: 30px;
-  width: 100%;
-}
-.search-btn {
-  position: absolute;
-  line-height: 30px;
-  font-size: 20px;
-  left: 190px;
-  color: #696969; */
-/* color: #5352ed; */
-/* z-index: 100;
-}  */
-
 /*新搜索框框*/
 .search-box {
   position: absolute;
@@ -263,6 +233,7 @@ h1 a {
 }
 
 .search-box .search-btn {
+  /* color: #7342fa; */
   color: #0fbcf9;
   float: right;
   width: 25px;
@@ -326,7 +297,7 @@ header .burger {
   z-index: 800;
   border: 1px white solid;
   margin: 0.75rem;
-  height: 250px;
+  height: 300px;
   background-color: #f8f8ff;
   padding-top: 30px;
   font-size: xx-large;
@@ -335,8 +306,9 @@ header .burger {
 }
 .statistic h5 {
   position: absolute;
+
   top: 25px;
-  left: 100px;
+  left: 140px;
   font-size: 26px;
   font-weight: 700;
 }
@@ -373,6 +345,7 @@ header .burger {
 .skill-per {
   height: 20px;
   background-color: #0fbcf9;
+  /* background-color: #7342fa; */
   /* background-color: #5352ed; */
   border-radius: 8px;
   width: 0;

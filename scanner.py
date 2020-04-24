@@ -1,9 +1,14 @@
 import signal
 import multiprocessing
 import time
-
+import get_message
+import re
+import signal
+import multiprocessing
+import SpiderGetUrl
 import get_message
 '''
+ip和域名进入不同的调度函数扫描
 ====进程是资源分配的单位，线程是操作系统调度的单位====
 获取target目标url，进行同域名下的及网页中的输入源搜集
 scan函数传入扫描urls，单个或多个url，进入输入源获取函数
@@ -45,8 +50,7 @@ def index(queue):
 def GetUrlToQueue(url):
 
     list1=get_message.GetSubDomain(url)
-    list2=
-
+    # list2=
 
 def UrlScan(urls):
     vulnerables = [] #存储有漏洞的url
@@ -76,10 +80,61 @@ def UrlScan(urls):
             vulnerables.append((url, result))
     return vulnerables
 
-#测试
-def main():
-    urls=[1,2,3,4,5,6,7,8,9,10,11,12,13]
-    UrlScan(urls)
+#当为ip地址时返回true，否则认为是域名
+def Domain_IP_Check(url):
+    pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
+    if pattern.findall(url):
+        return True
+    else:
+        return False
+
+#对于IP进行页面深度搜集，C段扫描
+def IP_Console(ip,attack_list,attack_queue,pool):
+
+    return None
+
+'''
+对于域名domain收集信息：
+    whois，解析IP，备案信息，旁站，cmd指纹
+'''
+def Domain_Message(domain,url):
+    WhoisMessage=get_message.get_whois(domain)
+    BindingIP=get_message.get_ip(domain)
+    DomainRecordinfo=get_message.get_recordinfo(domain)
+    SiteStation=get_message.get_siteStation(domain)
+    cms_finger=get_message.cms_finger(url)
+    return None
+
+#先进行子域名的主动和被动搜集
+def Domain_Console(domain):
+    max_processes = 3
+    attack_queue = multiprocessing.Manager().Queue()
+    pool = multiprocessing.Pool(max_processes, init)
+    def callback(attack_list):
+        for url in attack_list:
+            attack_queue.put(url)
+    true_domain=domain.split('.',1)[1]
+    #主动被动子域名搜集
+    pool.apply_async(get_message.GetSubDomain, (true_domain,), callback=callback)
+    pool.apply_async(get_message.SubDomainBurst, (true_domain,domain,), callback=callback)
+    pool.apply_async(Domain_Message,(true_domain,domain,))
+    return None
+
+'''
+输入IP格式为:127.0.0.1，输入域名格式为www.baidu.com
+域名和IP地址进入不同的模块进行信息搜集
+一个进程进入页面深度搜集，页面深度搜集页面会再开四个进程进行attack_url爬取
+'''
+
+def Input_Url(url):
+    if Domain_IP_Check(url):
+        IP_Console(url)
+    else:
+        Domain_Console(url)
 
 if __name__=='__main__':
-    main()
+    # urls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    # UrlScan(urls)
+    # Input_Url("https://blog.csdn.net/")
+    # print(Domain_IP_Check("127.0.0.1"))
+    Domain_Console("www.baidu.com")

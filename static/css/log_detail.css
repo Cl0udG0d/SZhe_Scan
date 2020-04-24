@@ -43,8 +43,8 @@ h1 {
   font-size: 45px;
   display: inline-block;
 }
-h1 a {
-  color: black;
+.top h1 a {
+  color: #2e2e2e;
 }
 .container,
 .container .top {
@@ -362,7 +362,7 @@ header .burger {
 }
 .skill-name {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 20px 0;
 }
 .skill-bar {
@@ -431,16 +431,34 @@ li {
 }
 .right-context h1 {
   font-weight: 600;
+  color: #2e2e2e;
+}
+.page-number {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  transform: translateX(10%);
+  margin-bottom: 13px;
+}
+.page-number span {
+  flex: 1;
+  color: #2e2e2e;
+}
+.page-number span a:active {
+  color: #0fbcf9;
 }
 table {
   position: relative;
-  left: 34px;
+  left: 25px;
   border: 1px solid #cad9ea;
   font-family: Futura, Arial, sans-serif;
-  width: 93%;
+  width: 95%;
 }
 table th {
-  background: linear-gradient(#fff, #afeeee);
+  background: linear-gradient(#fff, #e2e5e5ea);
+  color: #2e2e2e;
 }
 table th,
 table td {
@@ -452,7 +470,7 @@ table tr {
   flex-direction: row;
 }
 table tr:hover {
-  background: linear-gradient(#fff, #afeeee);
+  background: linear-gradient(#fff, #dde0e0f8);
   color: black;
   cursor: pointer;
   transition: 0.4s;

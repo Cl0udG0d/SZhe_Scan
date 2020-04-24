@@ -4,16 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
+    <title>consolePage</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/baseOne.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/console.css')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
-    <!-- <link rel="stylesheet" href="../static/css/homeOne.css" />
-    <link rel="stylesheet" href="../static/css/font-awesome.min.css" /> -->
     <script src="{{url_for('static',filename='js/home.js')}}"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-    <!-- <script src="../static/js/home.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.js"></script>
 </head>
 
 <body style="overflow-x:hidden;">
@@ -33,12 +31,12 @@
             <hr />
             <nav class="navigation" id="nav">
                 <ul class="navList" id="myTab" role="tabList">
-                    <li><a href="#" role="tab" class="one">主页</a></li>
+                    <li><a href="{{url_for('index')}}" role="tab" class="one">主页</a></li>
                     <li><a href="#" role="tab">控制台</a></li>
-                    <li><a href="#" role="tab" class="three">漏洞列表</a></li>
+                    <li><a href="#" role="tab">漏洞列表</a></li>
                     <li><a href="#" role="tab">扫描队列</a></li>
                     <li><a href="#" role="tab">信息搜集</a></li>
-                    <li><a href="#" role="tab">日志</a></li>
+                    <li><a href="{{url_for('log_detail')}}" role="tab">日志</a></li>
                     <li><a href="#" role="tab">设置</a></li>
                     <li><a href="{{url_for('about')}}" role="tab">关于</a></li>
                     <div class="slider"></div>
@@ -60,8 +58,8 @@
     <div class="context">
         <div class="left-context" style="display:block;">
             <div class="statistic">
-                <h5 style="left:165px;position:absolute;">漏洞等级分布图</h5>
-                <div id="container" style="height: 250px;width:90%;top:20px;"></div>
+                <h5 style="left:145px;position:absolute;">漏洞等级分布图</h5>
+                <div id="container" style="height: 200px;width:90%;top:10px;"></div>
             </div>
             <div class="skills" style="display:block;">
                 <h2>漏洞类型统计</h2>
@@ -76,7 +74,7 @@
                 <div class="skill">
                     <div class="skill-name">类型二</div>
                     <div class="skill-bar">
-                        <div class="skill-per" per="78">
+                        <div class="skill-per" per="30">
                         </div>
                     </div>
                 </div>
@@ -92,7 +90,7 @@
                 <div class="skill">
                     <div class="skill-name">类型四</div>
                     <div class="skill-bar">
-                        <div class="skill-per" per="235">
+                        <div class="skill-per" per="35">
                         </div>
                     </div>
                 </div>
@@ -100,7 +98,7 @@
                 <div class="skill">
                     <div class="skill-name">类型五</div>
                     <div class="skill-bar">
-                        <div class="skill-per" per="90">
+                        <div class="skill-per" per="60">
                         </div>
                     </div>
                 </div>
@@ -108,7 +106,7 @@
                 <div class="skill">
                     <div class="skill-name">类型六</div>
                     <div class="skill-bar">
-                        <div class="skill-per" per="61">
+                        <div class="skill-per" per="78">
                         </div>
                     </div>
                 </div>
@@ -152,33 +150,73 @@
             </div>
         </div>
         <div class="right-context">
-            <div class="search-mid">
-                <input class="search-text" type="text" name="" placeholder=" 添加需要扫描的域名" />
-                <button class="search-mid-btn" style="position: relative;
-                left: 30px;
-                z-index: 1110;
-                width: 60px;
-                height:35px; border: #d3d3d3 solid 1px;
-  border-radius: 4px;
-  cursor:pointer;
-">添加</button>
+            <div class="content-wrapper">
+                <div class="features">
+                    <div class="feature one" style="background-color:#e9003a">
+                        <i class="fa fa-tags"></i>
+                        <h3 class="right-title">域名</h3>
+                        <p class="right-content">总数:</p>
+                    </div>
+
+                    <div class="feature one" style="background-color:#fdb903">
+                        <i class="fa fa-magnet"></i>
+                        <h3 class="right-title">IP</h3>
+                        <p class="right-content">总数:</p>
+                    </div>
+                    <div class="feature one" style="background-color:#7342fa">
+                        <i class="fa fa-bug" "></i>
+                        <h3 class=" right-title">漏洞</h3>
+                            <p class="right-content">总数：</p>
+                    </div>
+                    <div class="feature one" style="background-color:#90ee90">
+                        <i class="fa fa-clipboard"></i>
+                        <h3 class="right-title">POC</h3>
+                        <p class="right-content">总数：</p>
+                    </div>
+                </div>
+                <div class="contents">
+                    <div class="content">
+                        <i class="fa fa-bar-chart"></i>
+                        <h3>本周扫描数</h3>
+                        <h5>111</h5>
+                    </div>
+                    <div class="content">
+                        <i class="fa fa-desktop"></i>
+                        <h3>受影响主机</h3>
+                        <h5>111</h5>
+                    </div>
+                    <div class="content">
+                        <i class="fa fa-exclamation-circle" style="font-size: 38px;"></i>
+                        <h3>严重漏洞</h3>
+                        <h5>111</h5>
+                    </div>
+                    <div class="content">
+                        <i class="fa fa-github" style="font-size: 38px;"></i>
+                        <h3>泄露总数</h3>
+                        <h5>111</h5>
+                    </div>
+
+                </div>
             </div>
-            <div class="newest first">漏洞一</div>
-            <div class="newest">漏洞二</div>
-            <div class="newest">漏洞三</div>
-            <div class="newest">漏洞四</div>
-            <div class="newest">漏洞五</div>
-            <div class="newest">漏洞六</div>
-            <div class="newest">漏洞七</div>
-            <div class="newest">漏洞八</div>
-            <div class="newest">漏洞九</div>
-            <div class="newest last">漏洞十</div>
+            <div class="charts">
+                <div class="bar-graph">
+                    <h5 class="bar-title">开放端口</h5>
+                    <canvas id="myChart" width="450" height="350"></canvas>
+                </div>
+                <div class="curve-graph">
+                    <h5 class="bar-title">任务报告
+                    </h5>
+                    <canvas id="myCurveChart" width="450" height="350"></canvas>
+                </div>
+            </div>
         </div>
     </div>
     <div class="body-tail">
         Copyright @ SZHE Vulnerability Scanner
     </div>
-    <script type="text/javascript">
+    <script>
+
+        //漏洞类型部分
         $('.skill-per').each(function () {
             var $this = $(this);
             var per = $this.attr('per');
@@ -197,6 +235,7 @@
             );
         });
 
+        //饼状图部分
         var dom = document.getElementById("container");
         var myChart = echarts.init(dom);
         var app = {};
@@ -218,7 +257,7 @@
                 {
                     name: "漏洞属性",
                     type: "pie",
-                    radius: ["30%", "70%"],
+                    radius: ["40%", "80%"],
                     avoidLabelOverlap: false,
                     label: {
                         normal: {
@@ -228,7 +267,7 @@
                         emphasis: {
                             show: true,
                             textStyle: {
-                                fontSize: "15",
+                                fontSize: "25",
                                 fontWeight: "bold",
                             },
                         },
@@ -262,6 +301,88 @@
         if (option && typeof option === "object") {
             myChart.setOption(option, true);
         }
+
+        // 柱状图部分
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var data = {
+            /// 表现在X轴上的数据，数组形式
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            /// 第一条线
+            datasets: [
+                {
+                    /// 曲线的填充颜色
+                    fillColor: " rgb(86, 86, 240)",
+                    /// 填充块的边框线的颜色
+                    strokeColor: " rgb(22, 122, 253);",
+                    /// 表示数据的圆圈的颜色
+                    pointColor: " rgb(86, 86, 240)",
+                    /// 表示数据的圆圈的边的颜色
+                    pointStrokeColor: "#fff",
+                    data: [65.5, 59.2, 90, 81, 56, 55, 40]
+                },
+                /// 第二条线
+                {
+
+                    /// 曲线的填充颜色
+                    fillColor: "#d3d3d3",
+                    /// 填充块的边框线的颜色
+                    strokeColor: "rgba(220,220,220,1)",
+                    /// 表示数据的圆圈的颜色
+                    pointColor: "rgba(220,220,220,1)",
+                    /// 表示数据的圆圈的边的颜色
+                    pointStrokeColor: "#fff",
+                    data: [27, 48, 40, 19, 96, 27, 10]
+
+                }
+            ]
+        }
+        /// 动画效果call
+        var options = {
+            scaleFontStyle: "normal"
+        }
+        //生成柱状图
+        new Chart(ctx).Bar(data);
+
+
+        // 折线图部分
+        var ctx = document.getElementById("myCurveChart").getContext("2d");
+        var data = {
+            /// 表现在X轴上的数据，数组形式
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            /// 第一条线
+            datasets: [
+                {
+                    /// 曲线的填充颜色
+                    fillColor: " #f8f8ff",
+                    /// 填充块的边框线的颜色
+                    strokeColor: " rgb(86, 86, 240)",
+                    /// 表示数据的圆圈的颜色
+                    pointColor: " rgb(86, 86, 240)",
+                    /// 表示数据的圆圈的边的颜色
+                    pointStrokeColor: "#fff",
+                    data: [65.5, 59.2, 90, 81, 56, 55, 40]
+                },
+                /// 第二条线
+                {
+                    /// 曲线的填充颜色
+                    fillColor: "#e3e3e3",
+                    /// 填充块的边框线的颜色
+                    strokeColor: "rgba(220,220,220,1)",
+                    /// 表示数据的圆圈的颜色
+                    pointColor: "rgba(220,220,220,1)",
+                    /// 表示数据的圆圈的边的颜色
+                    pointStrokeColor: "#fff",
+                    data: [27, 48, 40, 19, 96, 27, 10]
+
+                }
+            ]
+        }
+        /// 动画效果call
+        var options = {
+            scaleFontStyle: "normal"
+        }
+        /// 创建对象，生成折线图表
+        new Chart(ctx).Line(data, options);
     </script>
 </body>
 

@@ -81,6 +81,7 @@ h1 a {
 .userCenter li a:hover {
   /* color: #5352ed; */
   color: #0fbcf9;
+  /* color: #7342fa; */
 }
 .navigation {
   width: 100%;
@@ -123,6 +124,7 @@ h1 a {
   height: 5px;
   /* background-color: #5352ed; */
   background-color: #0fbcf9;
+  /* background-color: #7342fa; */
   border-radius: 4px;
   position: absolute;
   top: 42px;
@@ -204,7 +206,7 @@ h1 a {
   top: 27px;
   right: 100px;
   transform: translate(20%, -50%);
-  background: #696969;
+  background: #d3d3d3;
   height: 30px;
   border-radius: 30px;
   padding: 3px;
@@ -231,12 +233,13 @@ h1 a {
 }
 
 .search-box .search-btn {
+  /* color: #7342fa; */
   color: #0fbcf9;
   float: right;
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #696969;
+  background: #d3d3d3;
   display: flex;
   /*弹性布局*/
   justify-content: center;
@@ -266,9 +269,124 @@ h1 a {
 header .burger {
   display: none;
 }
+.context {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 120px;
+  width: 100vw;
+  height: 1500px;
+  background-color: #f1f1f1;
+}
+.left-context {
+  flex: 1;
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 40px;
+  margin-right: 10px;
+}
+.statistic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  /* height: 100px; */
+  z-index: 800;
+  border: 1px white solid;
+  margin: 0.75rem;
+  height: 260px;
+  background-color: #f8f8ff;
+  padding-top: 30px;
+  font-size: xx-large;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+}
+.statistic h5 {
+  position: absolute;
+  top: 25px;
+  left: 120px;
+  font-size: 26px;
+  font-weight: 700;
+}
+.skills {
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 40px 20px 40px;
+  /* border: 1px white solid; */
+  background: #f8f8ff;
+  margin: 0.75rem;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+}
+.skill h2 {
+  position: absolute;
+  font-size: 46px;
+  font-weight: 700;
+  align-items: center;
+}
+.skill-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 20px 0;
+}
+.skill-bar {
+  height: 15px;
+  background: #cacaca;
+  border-radius: 8px;
+}
+.skill-per {
+  height: 15px;
+  background-color: #0fbcf9;
+  /* background-color: #7342fa; */
+  /* background-color: #5352ed; */
+  border-radius: 8px;
+  width: 0;
+  transition: 1s linear;
+  position: relative;
+}
+.skill-per::before {
+  content: attr(per);
+  position: absolute;
+  padding: 4px 6px;
+  background-color: #000;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 4px;
+  top: -35px;
+  right: 0;
+  transform: translateX(50%);
+}
+.skill-per::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  top: -18px;
+  right: 0;
+  transform: translateX(50%) rotate(45deg);
+  border-radius: 2px;
+}
+.skills .ten {
+  margin-bottom: 40px;
+}
+.right-context {
+  flex: 2.5;
+  background-color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+}
 .body-tail {
   position: absolute;
-  top: 1400px;
+  top: 1600px;
   width: 100vw;
   height: 35px;
   display: flex;
