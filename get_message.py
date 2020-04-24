@@ -3,12 +3,8 @@ from lxml import etree
 import zlib
 import json
 import nmap
-<<<<<<< HEAD
 import re
 from bs4 import BeautifulSoup
-
-=======
->>>>>>> de9d4395b982bcc2c06a491742f969f04c4c13fc
 import core
 import re
 
@@ -328,7 +324,7 @@ def Port_scan(host):
         nmap.sys.exit(0)
 
 
-<<<<<<< HEAD
+
 def C_Scan(ip):
     """
     C段扫描
@@ -352,24 +348,6 @@ def C_Scan(ip):
             pass
     print("End")
 
-
-# 测试数据
-# get_whois("shkls.com")
-# get_sundomain("baidu.com")
-# get_ip("baidu.com")
-# get_recordinfo("baidu.com")
-# get_siteStation("172.217.27.142")
-
-# SubDomainBurst("baidu.com", "dict\test1.txt")
-# SenFileScan("www.anantest.com", "dict\test2.txt")
-
-# InforLeakage('http://www.anantest.com')
-# Port_scan('36.110.213.10')
-# C_Scan('36.110.213.10')
-# cms_finger("http://www.dedecms.com/")
-=======
-
->>>>>>> de9d4395b982bcc2c06a491742f969f04c4c13fc
 
 if __name__ == '__main__':
     # 测试数据
