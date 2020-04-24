@@ -308,12 +308,8 @@ NMap(Network Mapper)
 
 def Port_scan(host):
     nm = nmap.PortScanner()
-    pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
     try:
-        if pattern.findall(host):
-            nm.scan(host, arguments='-Pn,-sS')
-        else:
-            nm.scan(host)
+        nm.scan(host, arguments='-Pn,-sS')
         for proto in nm[host].all_protocols():
             lport = list(nm[host][proto].keys())
             for port in lport:
