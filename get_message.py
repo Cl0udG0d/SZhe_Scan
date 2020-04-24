@@ -3,10 +3,13 @@ from lxml import etree
 import zlib
 import json
 import nmap
-import re
-from bs4 import BeautifulSoup
 import core
 import re
+import multiprocessing
+import signal
+
+def init():
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
 
 '''
 whois get_message
@@ -18,7 +21,6 @@ whois get_message
     通过whois来实现对域名信息的查询。
     get_whois : http://whois.bugscaner.com/
 '''
-
 
 def get_whois(domain):
     '''
@@ -81,7 +83,6 @@ CDN（content delivery network 或 content distribution network）即内容分�
     这里使用查看解析历史的方法查找站点真实IP
     这是一种成功率极高的方法，站点可能创建之初并未添加CDN，这样就会存留下解析记录，通过查看解析历史可以寻找到服务器的真实ip
 '''
-
 
 def get_ip(domain):
     '''
@@ -194,6 +195,7 @@ def SubDomainBurst(true_domain,domain):
     attack_list=[]
     for line in file.readlines():
         url = 'http://' + line.replace("\n", '.' + true_domain)
+        print(url)
         try:
             r = core.gethtml(url,timeout=1.0)
             if r.status_code == 200 and not core.is_404(true_404.text,r.text):
@@ -320,6 +322,26 @@ def Port_scan(host):
         nmap.sys.exit(0)
 
 
+def C_Scan_Console(ip):
+    C_Message=""
+    ip = ip.split('.')
+    max_processes = 8
+    pool = multiprocessing.Pool(max_processes, init)
+    # start=datetime.datetime.now()
+    def callback(message):
+        nonlocal C_Message
+        if message:
+            C_Message+=message
+    for tmpCip in range(1, 256):
+        ip[-1] = str(tmpCip)
+        host=".".join(ip)
+        pool.apply_async(C_Scan, (host,),callback=callback)
+    pool.close()
+    pool.join()
+    # print(C_Message)
+    # end=datetime.datetime.now()
+    # print(end-start)
+    return C_Message
 
 def C_Scan(ip):
     """
@@ -328,21 +350,19 @@ def C_Scan(ip):
     :param ip:
     :return:
     """
-    iplist = ip.split('.')
-    base_ip = iplist[0] + '.' + iplist[1] + '.' + iplist[2] + '.'
-    for i in range(1, 256):
-        try:
-            NewIp = 'http://' + base_ip + str(i)
-            rep = requests.get(NewIp, headers=core.GetHeaders(), timeout=1)
-            if rep.status_code == 200 and type(rep) != 'NoneType':
-                title = re.findall(r'<title>(.*?)</title>', rep.text)
-                if title:
-                    print("[T]" + NewIp + '：' + title[0])
-                else:
-                    print("[C]" + NewIp + '\n' + rep.text)
-        except Exception as e:
-            pass
-    print("End")
+    print(ip)
+    try:
+        rep = requests.get("http://"+ip, headers=core.GetHeaders(), timeout=1)
+        if rep.status_code == 200 and type(rep) != 'NoneType':
+            title = re.findall(r'<title>(.*?)</title>', rep.text)
+            if title:
+                return "[T]" + ip + ' : ' + title[0]+"\n"
+            else:
+                return "[H]" + ip + " : have reason\n"
+        else:
+            return None
+    except Exception as e:
+        pass
 
 
 if __name__ == '__main__':
@@ -358,7 +378,9 @@ if __name__ == '__main__':
     # SenFileScan("www.anantest.com", "dict\test2.txt")
     # InforLeakage('http://www.anantest.com')
     # Port_scan('36.110.213.10')
-    Port_scan('www.baidu.com')
+    # Port_scan('www.baidu.com')
     # Port_scan('baidu.com')
     # cms_finger("http://www.dedecms.com")
     # get_ip('220.181.38.148')
+    C_Scan_Console('220.181.38.148')
+    # test('127.0.0.1')

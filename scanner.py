@@ -38,24 +38,17 @@ scan函数传入扫描urls，单个或多个url，进入输入源获取函数
 def init():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
-def index(queue):
-    url=queue.get()
-    urllist=GetUrlToQueue(url)
-
-    print(url)
-    return True,str(url)
 '''
 子域名搜集(被动搜集+主动搜集)->子域名页面url深度爬取(提取在子域名范围内的url)->加入队列
 '''
 def GetUrlToQueue(url):
-
     list1=get_message.GetSubDomain(url)
     # list2=
 
 def UrlScan(urls):
     vulnerables = [] #存储有漏洞的url
     results = {} #存储扫描结果
-    max_processes = 10
+    max_processes = 8
     queue = multiprocessing.Manager().Queue()
     pool = multiprocessing.Pool(max_processes, init)
     for url in urls:
@@ -89,12 +82,13 @@ def Domain_IP_Check(url):
         return False
 '''
 对输入IP进行信息搜集
-获取同服IP站点列表，IP旁站查询
+获取同服IP站点列表，IP旁站查询,IP C段扫描
 
 '''
 def IP_Message(ip):
     BindingDomain=get_message.get_ip(ip)
     GetSiteStation=get_message.get_siteStation(ip)
+    CMessage=get_message.C_Scan_Console(ip)
 
     return None
 
@@ -105,7 +99,7 @@ def IP_Message(ip):
 页面按规定显示扫描结果
 '''
 def IP_Console(ip):
-    max_processes = 3
+    max_processes = 2
     attack_queue = multiprocessing.Manager().Queue()
     pool = multiprocessing.Pool(max_processes, init)
     attack_queue.put(ip)
@@ -113,8 +107,7 @@ def IP_Console(ip):
     pool.apply_async(SpiderGetUrl.depth_get, (ip, attack_queue,))
     pool.close()
     pool.join()
-    print("end")
-    return None
+    return attack_queue
 
 '''
 对于域名domain收集信息：
@@ -143,15 +136,15 @@ def Domain_Console(domain):
         for url in attack_list:
             attack_queue.put(url)
     true_domain=domain.split('.',1)[1]
-    #主动被动子域名搜集
     pool.apply_async(get_message.GetSubDomain, (true_domain,), callback=callback)
-    pool.apply_async(get_message.SubDomainBurst, (true_domain,domain,), callback=callback)
+    # pool.apply_async(get_message.SubDomainBurst, (true_domain,domain,), callback=callback)
     pool.apply_async(Domain_Message,(true_domain,domain,))
     pool.close()
     pool.join()
-    pool.apply_async(SpiderGetUrl.depth_get, (domain,attack_queue,))
+    print("xxx")
+    attack_queue=SpiderGetUrl.depth_get(domain,attack_queue)
     print("end")
-    return None
+    return attack_queue
 
 '''
 输入格式限制
@@ -160,15 +153,19 @@ def Domain_Console(domain):
 一个进程进入页面深度搜集，页面深度搜集页面会再开四个进程进行attack_url爬取
 '''
 
-def Input_Url(url):
+def ConsoleUrl(url):
     if Domain_IP_Check(url):
         IP_Console(url)
     else:
         Domain_Console(url)
+
+
+
 
 if __name__=='__main__':
     # urls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     # UrlScan(urls)
     # Input_Url("https://blog.csdn.net/")
     # print(Domain_IP_Check("127.0.0.1"))
-    Domain_Console("www.baidu.com")
+    ConsoleUrl("www.baidu.com")
+    # Domain_Message("baidu.com","www.baidu.com")
