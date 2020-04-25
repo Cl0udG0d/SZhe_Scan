@@ -33,7 +33,6 @@ def SortOut(urls,domain,queue):
         new_url_list.append(url)
     new_url_list = list(set(new_url_list))
     for url in new_url_list:
-        print(url)
         queue.put(url)
 
 
@@ -51,44 +50,16 @@ def Spider(queue):
         pass
     return new_url_list
 
-# def normal(url):
-#     count=0
-#     start=datetime.datetime.now()
-#     urls=[]
-#     urls.append(url)
-#     while (count < 2):
-#         new_url_list=[]
-#         count+=1
-#         print("第%d层"%count+20*"=")
-#         try:
-#             for url in urls:
-#                 rep = core.gethtml(url, timeout=1)
-#                 rep = etree.HTML(rep)
-#                 url_list = rep.xpath('//*[@href]/@href')
-#                 for new_url in url_list:
-#                     if new_url != "javascript:;" and new_url != "#":
-#                         if not (new_url.startswith("http://") or new_url.startswith("https://")):
-#                             new_url = "http://" + new_url
-#                         new_url_list.append(new_url)
-#         except Exception as e:
-#             print(e)
-#             pass
-#         new_url_list=list(set(new_url_list))
-#         urls=new_url_list
-#     print("end")
-#     end=datetime.datetime.now()
-#     print(end-start)
 '''
 利用三个列表进行有层次地广度遍历url:all_lists储存所有获取到的url,new_lists储存这一层遍历时获取到的所有新的url，old_lists储存上一层的所有url
 用于下层的遍历
 '''
 
-def depth_get(domain,attck_queue):
+def depth_get(domain,attack_queue):
     #最大进程数为4
     max_processes = 4
     pool = multiprocessing.Pool(max_processes, init)
     count=0
-    # start=datetime.datetime.now()
     def callback(url_list):
         new_url_list.extend(url_list)
     while (count < 2):
@@ -100,23 +71,19 @@ def depth_get(domain,attck_queue):
                 url_list=Spider(attack_queue)
                 new_url_list.extend(url_list)
             else:
-                while not attck_queue.empty():
-                    pool.apply_async(Spider, (attck_queue,), callback=callback)
-                    pool.apply_async(Spider, (attck_queue,), callback=callback)
-                    pool.apply_async(Spider, (attck_queue,), callback=callback)
-                    pool.apply_async(Spider, (attck_queue,), callback=callback)
+                while not attack_queue.empty():
+                    pool.apply_async(Spider, (attack_queue,), callback=callback)
+                    pool.apply_async(Spider, (attack_queue,), callback=callback)
+                    pool.apply_async(Spider, (attack_queue,), callback=callback)
+                    pool.apply_async(Spider, (attack_queue,), callback=callback)
                     time.sleep(0.5)
         except Exception:
             pass
-        SortOut(new_url_list,domain,attck_queue)
+        SortOut(new_url_list,domain,attack_queue)
     pool.close()
     pool.join()
     print("end")
     return attack_queue
-    # return attck_queue
-    # end=datetime.datetime.now()
-    # print(end-start)
-
 
 '''
 测试数据

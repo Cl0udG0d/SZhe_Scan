@@ -178,7 +178,7 @@ def get_siteStation(ip):
     return str
 
 
-def SubDomainBurst(true_domain,domain):
+def SubDomainBurst(true_domain):
     '''
     子域名爆破
     字典：dict\SUB_scan.txt
@@ -186,26 +186,20 @@ def SubDomainBurst(true_domain,domain):
     :param domain:
     :return:
     '''
-    true_404="http://"+domain+'/abcdefghijklmn.html'
-    try:
-        true_404 = core.gethtml(true_404,timeout=1.0)
-    except:
-        pass
     file = open(r"dict\SUB_scan.txt", "r")
     attack_list=[]
     for line in file.readlines():
         url = 'http://' + line.replace("\n", '.' + true_domain)
-        print(url)
         try:
             r = core.gethtml(url,timeout=1.0)
-            if r.status_code == 200 and not core.is_404(true_404.text,r.text):
+            if r.status_code == 200:
                 attack_list.append(url)
         except Exception:
             pass
     file.close()
     return attack_list
 
-def SenFileScan(domain, filename="SenFileScan.txt"):
+def SenFileScan(domain):
     '''
     敏感文件、目录扫描
     字典：dict\SEN_scan.txt
@@ -214,17 +208,17 @@ def SenFileScan(domain, filename="SenFileScan.txt"):
     :return:
     '''
     file = open(r"dict\SEN_scan.txt", "r", encoding='utf-8')
-    resultFile = open(filename, "a+")
+    result=""
     for line in file.readlines():
         try:
             url = 'http://' + domain + line.replace("\n", '')
-            r = requests.get(url, headers=core.GetHeaders(), allow_redirects=False)
+            r = core.gethtml(url, timeout=1)
             if r.status_code == 200:
-                resultFile.write(url + "\n")
+                result+=url + "\n"
         except Exception:
             pass
     file.close()
-    resultFile.close()
+    return domain,result
 
 
 '''
@@ -243,31 +237,32 @@ def InforLeakage(domain):
     :param domain:
     :return:
     """
-    urlGit = domain + '/.git/'
-    urlSVN = domain + '/.svn/'
-    urlHG = domain + '/.hg/'
+    url="http://"+domain
+    urlGit = url + '/.git/'
+    urlSVN = url + '/.svn/'
+    urlHG = url + '/.hg/'
     try:
         Git = requests.get(urlGit)
     except Exception:
         pass
     GitCode = Git.status_code
     if GitCode == 200 or GitCode == 403:
-        print("存在Git泄露")
+        return domain,domain+" 或许存在Git泄露"
     try:
         HG = requests.get(urlHG)
     except Exception:
         pass
     HGCode = HG.status_code
     if HGCode == 200 or HGCode == 403:
-        print("存在HG泄露")
+        return domain,domain+"存在HG泄露"
     try:
         SVN = requests.get(urlSVN)
     except Exception:
         pass
     SVNCode = SVN.status_code
     if SVNCode == 200 or SVNCode == 403:
-        print("存在SVN泄露")
-
+        return domain,domain+"或许存在SVN泄露"
+    return domain,None
 
 def whatweb(url):
     try:
@@ -382,5 +377,6 @@ if __name__ == '__main__':
     # Port_scan('baidu.com')
     # cms_finger("http://www.dedecms.com")
     # get_ip('220.181.38.148')
-    C_Scan_Console('220.181.38.148')
+    # C_Scan_Console('220.181.38.148')
     # test('127.0.0.1')
+    SubDomainBurst("baidu.com")

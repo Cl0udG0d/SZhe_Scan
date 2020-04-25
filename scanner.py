@@ -38,12 +38,63 @@ scan函数传入扫描urls，单个或多个url，进入输入源获取函数
 def init():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
+def SQLScan(url):
+    return None
+
+def XSSScan(url):
+    return None
+
+def ComInScan(url):
+    return None
+
+def FileIncScan(url):
+    return None
+
+def WebLogicScan(url):
+    return None
+
+def SaveBug(domain,AttackUrl,IsLogin,SQLBug,XSSBug,ComIn,FileInc,WebLogic):
+    return None
+
+def SaveDomainSen(domain,result):
+    return None
+
+def CheckLogin(url):
+    return None
 '''
-子域名搜集(被动搜集+主动搜集)->子域名页面url深度爬取(提取在子域名范围内的url)->加入队列
+对于输入的url进行漏洞扫描:
+    1,敏感文件泄露
+    2,敏感目录发现
+    3,SQL注入漏洞
+    4,XSS漏洞检测
+    5,命令执行漏洞检测
+    6,文件包含漏洞检测
+    7,weblogic漏洞检测
+    SenFile = SenFileScan(AttackUrl)
+    SenDir = SenDirScan(AttackUrl)
 '''
-def GetUrlToQueue(url):
-    list1=get_message.GetSubDomain(url)
-    # list2=
+
+def BugScan(domain,AttackUrl):
+    BugList={}
+    IsLogin=CheckLogin(AttackUrl)
+
+    SQLBug = SQLScan(AttackUrl)
+    XSSBug = XSSScan(AttackUrl)
+    ComIn = ComInScan(AttackUrl)
+    FileInc = FileIncScan(AttackUrl)
+    WebLogic = WebLogicScan(AttackUrl)
+    SaveBug(domain,AttackUrl,IsLogin,SQLBug,XSSBug,ComIn,FileInc,WebLogic)
+
+
+def BugScanConsole(domain,AttackQueue):
+    max_processes = 8
+    pool = multiprocessing.Pool(max_processes, init)
+    pool.apply_async(get_message.SenFileScan, (domain,),callback=SaveDomainSen)
+    pool.apply_async(get_message.InforLeakage, (domain,),callback=SaveDomainSen)
+    while not AttackQueue.empty():
+        AttackUrl=AttackQueue.put()
+        pool.apply_async(BugScan, (domain,AttackUrl,))
+        time.sleep(0.5)
 
 def UrlScan(urls):
     vulnerables = [] #存储有漏洞的url
@@ -137,14 +188,15 @@ def Domain_Console(domain):
             attack_queue.put(url)
     true_domain=domain.split('.',1)[1]
     pool.apply_async(get_message.GetSubDomain, (true_domain,), callback=callback)
-    # pool.apply_async(get_message.SubDomainBurst, (true_domain,domain,), callback=callback)
+    pool.apply_async(get_message.SubDomainBurst, (true_domain,), callback=callback)
     pool.apply_async(Domain_Message,(true_domain,domain,))
     pool.close()
     pool.join()
-    print("xxx")
+    print("StartSpider")
     attack_queue=SpiderGetUrl.depth_get(domain,attack_queue)
+    print("Start BugScan")
+    BugScanConsole(attack_queue)
     print("end")
-    return attack_queue
 
 '''
 输入格式限制
@@ -158,8 +210,6 @@ def ConsoleUrl(url):
         IP_Console(url)
     else:
         Domain_Console(url)
-
-
 
 
 if __name__=='__main__':
