@@ -212,7 +212,7 @@ def SenFileScan(domain):
     for line in file.readlines():
         try:
             url = 'http://' + domain + line.replace("\n", '')
-            r = core.gethtml(url, timeout=1)
+            r = requests.get(url, headers=core.GetHeaders(),timeout=1)
             if r.status_code == 200:
                 result+=url + "\n"
         except Exception:
