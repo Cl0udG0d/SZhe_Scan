@@ -264,17 +264,17 @@ def InforLeakage(domain):
         return domain,domain+"或许存在SVN泄露"
     return domain,None
 
-def whatweb(url):
-    try:
-        response = requests.get(url, headers=core.GetHeaders(), verify=False, timeout=3)
-    except:
-        pass
-    whatweb_dict = {"url": response.url, "text": response.text, "headers": dict(response.headers)}
-    whatweb_dict = json.dumps(whatweb_dict)
-    whatweb_dict = whatweb_dict.encode()
-    whatweb_dict = zlib.compress(whatweb_dict)
-    data = {"info": whatweb_dict}
-    return requests.post("http://whatweb.bugscaner.com/api.go", files=data)
+# def whatweb(url):
+#     try:
+#         response = requests.get(url, headers=core.GetHeaders(), verify=False, timeout=3)
+#     except:
+#         pass
+#     whatweb_dict = {"url": response.url, "text": response.text, "headers": dict(response.headers)}
+#     whatweb_dict = json.dumps(whatweb_dict)
+#     whatweb_dict = whatweb_dict.encode()
+#     whatweb_dict = zlib.compress(whatweb_dict)
+#     data = {"info": whatweb_dict}
+#     return requests.post("http://whatweb.bugscaner.com/api.go", files=data)
 
 
 '''
@@ -285,15 +285,15 @@ def whatweb(url):
 http://whatweb.bugscaner.com/look/
 '''
 
-
-def cms_finger(url):
-    if not (url.startswith("http://") or url.startswith("https://")):
-        url = "http://" + url
-    request = whatweb(url)
-    # print(u"今日识别剩余次数")
-    if request.headers["X-RateLimit-Remaining"]==0:
-        return None
-    return request.json()
+#
+# def cms_finger(url):
+#     if not (url.startswith("http://") or url.startswith("https://")):
+#         url = "http://" + url
+#     request = whatweb(url)
+#     # print(u"今日识别剩余次数")
+#     if request.headers["X-RateLimit-Remaining"]==0:
+#         return None
+#     return request.json()
 
 
 '''
