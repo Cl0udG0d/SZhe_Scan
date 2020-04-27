@@ -97,7 +97,6 @@ def GetBindingIP(domain):
             context = rep.xpath('//div[@id="J_ip_history"]//a/text()')
         str = "\n".join(context)
     except:
-        str=None
         pass
     return str
 
@@ -268,38 +267,6 @@ def InforLeakage(domain):
         return domain,domain+"或许存在SVN泄露"
     return domain,None
 
-# def whatweb(url):
-#     try:
-#         response = requests.get(url, headers=core.GetHeaders(), verify=False, timeout=3)
-#     except:
-#         pass
-#     whatweb_dict = {"url": response.url, "text": response.text, "headers": dict(response.headers)}
-#     whatweb_dict = json.dumps(whatweb_dict)
-#     whatweb_dict = whatweb_dict.encode()
-#     whatweb_dict = zlib.compress(whatweb_dict)
-#     data = {"info": whatweb_dict}
-#     return requests.post("http://whatweb.bugscaner.com/api.go", files=data)
-
-
-'''
-传入url形式为http://www.dedecms.com/,requests能直接访问的网址
-返回数据为json格式的识别结果，每天在线识别的次数上限为1500次
-后续完善本地CMS指纹识别
-调用自bugscaner博客出品，在线指纹识别,在线cms识别小插件--在线工具API
-http://whatweb.bugscaner.com/look/
-'''
-
-#
-# def cms_finger(url):
-#     if not (url.startswith("http://") or url.startswith("https://")):
-#         url = "http://" + url
-#     request = whatweb(url)
-#     # print(u"今日识别剩余次数")
-#     if request.headers["X-RateLimit-Remaining"]==0:
-#         return None
-#     return request.json()
-
-
 '''
 NMap(Network Mapper)
 调用nmap进行端口扫描，传入主机IP，实例化一个扫描对象nm
@@ -307,8 +274,9 @@ NMap(Network Mapper)
 '''
 
 
-def Port_scan(host):
+def PortScan(host):
     pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
+    content=""
     if not pattern.findall(host):
         host=socket.gethostbyname(host)
     nm = nmap.PortScanner()
@@ -319,17 +287,17 @@ def Port_scan(host):
             for port in lport:
                 if nm[host][proto][port]['state'] == "open":
                     service = nm[host][proto][port]['name']
-                    print('[*]主机' + host + ' 协议：' + proto + '\t开放端口号：' + str(port) + '\t端口服务：' + service)
+                    content+='[*]主机' + host + ' 协议：' + proto + '\t开放端口号：' + str(port) + '\t端口服务：' + service+"\n"
+        return content
     except Exception as e:
         nmap.sys.exit(0)
 
 
-def C_Scan_Console(ip):
+def CScanConsole(ip):
     C_Message=""
     ip = ip.split('.')
     max_processes = 8
     pool = multiprocessing.Pool(max_processes, init)
-    # start=datetime.datetime.now()
     def callback(message):
         nonlocal C_Message
         if message:
@@ -337,25 +305,22 @@ def C_Scan_Console(ip):
     for tmpCip in range(1, 256):
         ip[-1] = str(tmpCip)
         host=".".join(ip)
-        pool.apply_async(C_Scan, (host,),callback=callback)
+        pool.apply_async(CScan, (host,),callback=callback)
     pool.close()
     pool.join()
-    # print(C_Message)
-    # end=datetime.datetime.now()
-    # print(end-start)
     return C_Message
 
-def C_Scan(ip):
+
+def CScan(ip):
     """
     C段扫描
     状态码为200有title时返回title
     :param ip:
     :return:
     """
-    print(ip)
     try:
-        rep = requests.get("http://"+ip, headers=core.GetHeaders(), timeout=1)
-        if rep.status_code == 200 and type(rep) != 'NoneType':
+        rep = requests.get("http://"+ip, headers=core.GetHeaders(), timeout=1,verify=False)
+        if rep.status_code == 200:
             title = re.findall(r'<title>(.*?)</title>', rep.text)
             if title:
                 return "[T]" + ip + ' : ' + title[0]+"\n"
@@ -367,23 +332,48 @@ def C_Scan(ip):
         pass
 
 
+'''
+ip和域名真实地址查询
+'''
+
+
+def FindDomainAdd(domain):
+    """
+    查找域名真实地址
+    :param domain:
+    :return:
+    """
+    url = "http://ip.yqie.com/ip.aspx?ip="+domain
+    try:
+        rep = requests.get(url, headers=core.GetHeaders())
+        rep = etree.HTML(rep.text)
+        context = rep.xpath('//div[@style="text-align: center; line-height: 30px;"]/text()')
+        str = "\n".join(context)
+    except:
+        pass
+    return str.lstrip()
+
+
+def FindIpAdd(ip):
+    """
+    查找IP真实地址
+    :param ip:
+    :return:
+    """
+    url = "http://ip.yqie.com/ip.aspx?ip="+ip
+    try:
+        rep = requests.get(url, headers=core.GetHeaders(),timeout=2)
+        rep = etree.HTML(rep.text)
+        context = rep.xpath('//input[@id="AddressInfo"]/@value')
+        str = "\n".join(context)
+    except:
+        pass
+    return str
+
+
 if __name__ == '__main__':
     # 测试数据
-    # get_recordinfo("baidu.com")
-    # get_siteStation("baidu.com")
-    print(GetWhois("www.baidu.com"))
-    # get_sundomain("baidu.com")
-    # get_ip("baidu.com")
-    # get_recordinfo("baidu.com")
-    # get_siteStation("172.217.27.142")
-    # SubDomainBurst("baidu.com", "dict\test1.txt")
-    # SenFileScan("www.anantest.com", "dict\test2.txt")
-    # InforLeakage('http://www.anantest.com')
-    # Port_scan('36.110.213.10')
-    # Port_scan('www.baidu.com')
-    # Port_scan('baidu.com')
-    # cms_finger("http://www.dedecms.com")
-    # get_ip('220.181.38.148')
-    # C_Scan_Console('220.181.38.148')
-    # test('127.0.0.1')
-    # Port_scan("220.181.38.148")
+    # print(GetBindingIP('202.202.157.110'))
+    # print(GetSiteStation('202.202.157.110'))
+    # print(CScanConsole('202.202.157.110'))
+    print(FindIpAdd('202.202.157.110'))

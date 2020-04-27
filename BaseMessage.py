@@ -3,6 +3,7 @@ import core
 import re
 import time
 from Wappalyzer import WebPage
+import get_message
 
 '''
 获取输入网址基础信息:
@@ -14,6 +15,7 @@ from Wappalyzer import WebPage
 '''
 class GetBaseMessage:
     def __init__(self,url):
+        self.domain=url
         try:
             if not (url.startswith("http://") or url.startswith("https://")):
                 self.url = "http://" + url
@@ -40,16 +42,20 @@ class GetBaseMessage:
         return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
     def GetResponse(self):
-        return self.rep.text
+        return self.rep.headers
 
     def GetFinger(self):
         return WebPage(self.url,self.rep).info()
 
+    def PortScan(self):
+        return get_message.PortScan(self.domain)
+
 
 if __name__=='__main__':
-    test=GetBaseMessage("github.com")
+    test=GetBaseMessage("www.baidu.com")
     print(test.GetDate())
     print(test.GetResponse())
     print(test.GetTitle())
     print(test.GetStatus())
     print(test.GetFinger())
+    print(test.PortScan())
