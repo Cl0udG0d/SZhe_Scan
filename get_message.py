@@ -345,6 +345,7 @@ def C_Scan_Console(ip):
     # print(end-start)
     return C_Message
 
+
 def C_Scan(ip):
     """
     C段扫描
@@ -367,6 +368,39 @@ def C_Scan(ip):
         pass
 
 
+'''
+ip和域名真实地址查询
+'''
+
+
+def FindDomainAdd(domain):
+    """
+    查找域名真实地址
+    :param domain:
+    :return:
+    """
+    url = "http://ip.yqie.com/ip.aspx?ip="+domain
+    rep = requests.get(url, headers=core.GetHeaders())
+    rep = etree.HTML(rep.text)
+    context = rep.xpath('//div[@style="text-align: center; line-height: 30px;"]/text()')
+    str = "\n".join(context)
+    print("域名：" + domain + "\t" + str.lstrip())
+
+
+def FindIpAdd(ip):
+    """
+    查找IP真实地址
+    :param ip:
+    :return:
+    """
+    url = "http://ip.yqie.com/ip.aspx?ip="+ip
+    rep = requests.get(url, headers=core.GetHeaders())
+    rep = etree.HTML(rep.text)
+    context = rep.xpath('//input[@id="AddressInfo"]/@value')
+    str = "\n".join(context)
+    print("IP：" + ip + "\t地理位置：" + str)
+
+
 if __name__ == '__main__':
     # 测试数据
     # get_recordinfo("baidu.com")
@@ -387,3 +421,5 @@ if __name__ == '__main__':
     # C_Scan_Console('220.181.38.148')
     # test('127.0.0.1')
     # Port_scan("220.181.38.148")
+    # FindDomainAdd("360.cn")
+    # FindIpAdd('36.110.213.10')
