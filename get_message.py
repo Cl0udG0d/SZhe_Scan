@@ -7,6 +7,7 @@ import core
 import re
 import multiprocessing
 import signal
+import socket
 
 def init():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
@@ -22,7 +23,7 @@ whois get_message
     get_whois : http://whois.bugscaner.com/
 '''
 
-def get_whois(domain):
+def GetWhois(domain):
     '''
     get_whois函数爬取http://whois.bugscaner.com/网站的英文搜索结果，并以字符串的方式将结果返回
     需要传入一个合法的域名domain
@@ -31,10 +32,14 @@ def get_whois(domain):
     :return:
     '''
     whois_url = 'http://whois.bugscaner.com/'
-    rep = requests.get(whois_url + domain, headers=core.GetHeaders())
-    rep = etree.HTML(rep.text)
-    data = rep.xpath('//div[@class="stats_table_91bf7bf"]/b[not(@style)]/text()')[0:19]
-    str = "\n".join(data)
+    try:
+        rep = requests.get(whois_url + domain, headers=core.GetHeaders(),timeout=2.0)
+        rep = etree.HTML(rep.text)
+        data = rep.xpath('//div[@class="stats_table_91bf7bf"]/b[not(@style)]/text()')[0:19]
+        str = "\n".join(data)
+    except:
+        str=None
+        pass
     # print(str)
     return str
 
@@ -54,27 +59,18 @@ def get_whois(domain):
 def GetSubDomain(domain):
     chinaz_base_url = 'https://tool.chinaz.com/'
     chinaz_url = 'https://tool.chinaz.com/subdomain?domain=' + domain + '&page=1'
-    ip138_url = 'https://site.ip138.com/' + domain + '/domain.htm'
-    context = []
+    attacklist = []
     while 1:
-        rep = requests.get(chinaz_url, headers=core.GetHeaders())
-        rep = etree.HTML(rep.text)
         try:
+            rep = requests.get(chinaz_url, headers=core.GetHeaders(),timeout=2.0)
+            rep = etree.HTML(rep.text)
             data = rep.xpath('//div[@class="w23-0"]/a[@href="javascript:"]/text()')
-            context.extend(data)
+            attacklist.extend(data)
             next_url = rep.xpath('//a[@title="下一页"]/@href')[0]
             chinaz_url = chinaz_base_url + next_url
         except:
             break
-    rep = requests.get(ip138_url, headers=core.GetHeaders())
-    rep = etree.HTML(rep.text)
-    try:
-        data = rep.xpath('//div[@class="panel"]//a/text()')
-        context.extend(data)
-    except:
-        pass
-    new_context = list(set(context))
-    return new_context
+    return attacklist
 
 
 '''
@@ -84,22 +80,25 @@ CDN（content delivery network 或 content distribution network）即内容分�
     这是一种成功率极高的方法，站点可能创建之初并未添加CDN，这样就会存留下解析记录，通过查看解析历史可以寻找到服务器的真实ip
 '''
 
-def get_ip(domain):
+def GetBindingIP(domain):
     '''
     返回域名的历史解析记录字符串
     :param domain:
     :return:
     '''
-
-    ip138_url = 'https://site.ip138.com/' + domain
-    rep = requests.get(ip138_url, headers=core.GetHeaders())
-    rep = etree.HTML(rep.text)
     pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
-    if pattern.findall(domain):
-        context = rep.xpath('//ul[@id="list"]/li/a/text()')
-    else:
-        context = rep.xpath('//div[@id="J_ip_history"]//a/text()')
-    str = "\n".join(context)
+    ip138_url = 'https://site.ip138.com/' + domain
+    try:
+        rep = requests.get(ip138_url, headers=core.GetHeaders(),timeout=1.0)
+        rep = etree.HTML(rep.text)
+        if pattern.findall(domain):
+            context = rep.xpath('//ul[@id="list"]/li/a/text()')
+        else:
+            context = rep.xpath('//div[@id="J_ip_history"]//a/text()')
+        str = "\n".join(context)
+    except:
+        str=None
+        pass
     return str
 
 
@@ -112,7 +111,7 @@ def get_ip(domain):
 '''
 
 
-def get_recordinfo(domain):
+def GetRecordInfo(domain):
     '''
     返回域名的备案信息
     :param domain:
@@ -136,10 +135,12 @@ def get_recordinfo(domain):
     context=""
     for i in zip(thead, tbody):
         context+=":".join(i)+"\n"
+    if "没有符合条件的记录" in context:
+        return None
     return context
 
 
-def get_siteStation(ip):
+def GetSiteStation(ip):
     """
     旁站查询
     查询网站1：https://www.webscan.cc/search/
@@ -150,27 +151,30 @@ def get_siteStation(ip):
     """
     data = {'domain': ip}
     url_1 = 'https://www.webscan.cc/search/'
-    rep1 = requests.post(url_1, data=data, headers=core.GetHeaders())
-    rep1 = etree.HTML(rep1.text)
-    text1 = rep1.xpath('//a[@class="domain"]/text()')
     url_2_base = 'http://stool.chinaz.com'
     url_2 = 'http://stool.chinaz.com/same?s=' + ip + '&page=1'
     text2 = []
-    while 1:
-        rep2 = requests.get(url_2, headers=core.GetHeaders())
-        rep2 = etree.HTML(rep2.text)
-        new_list = rep2.xpath('//div[@class="w30-0 overhid"]/a/text()')
-        if len(new_list) == 0:
-            break
-        text2 += new_list
-        next_url = "".join(rep2.xpath('//a[@title="下一页"]/@href'))
-        url_2 = url_2_base + next_url
-    url_3 = 'http://www.114best.com/ip/114.aspx?w=' + ip
-    rep3 = requests.get(url_3, headers=core.GetHeaders())
-    rep3 = etree.HTML(rep3.text)
-    text3 = rep3.xpath('//div[@id="rl"]/span/text()')
-    text3 = [x.strip() for x in text3]
-    text = list(set(text1).union(set(text2)).union(set(text3)))
+    try:
+        rep1 = requests.post(url_1, data=data, headers=core.GetHeaders(),timeout=2.0)
+        rep1 = etree.HTML(rep1.text)
+        text1 = rep1.xpath('//a[@class="domain"]/text()')
+    except:
+        text1=[]
+        pass
+    try:
+        while 1:
+            rep2 = requests.get(url_2, headers=core.GetHeaders(),timeout=2.0)
+            rep2 = etree.HTML(rep2.text)
+            new_list = rep2.xpath('//div[@class="w30-0 overhid"]/a/text()')
+            if len(new_list) == 0:
+                break
+            text2 += new_list
+            next_url = "".join(rep2.xpath('//a[@title="下一页"]/@href'))
+            url_2 = url_2_base + next_url
+    except:
+        text2=[]
+        pass
+    text = list(set(text1).union(set(text2)))
     for i in text:
         if "屏蔽的关键字" in i:
             text.remove(i)
@@ -191,7 +195,7 @@ def SubDomainBurst(true_domain):
     for line in file.readlines():
         url = 'http://' + line.replace("\n", '.' + true_domain)
         try:
-            r = core.gethtml(url,timeout=1.0)
+            r = requests.get(url,headers=core.GetHeaders(),timeout=1.0)
             if r.status_code == 200:
                 attack_list.append(url)
         except Exception:
@@ -304,6 +308,9 @@ NMap(Network Mapper)
 
 
 def Port_scan(host):
+    pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
+    if not pattern.findall(host):
+        host=socket.gethostbyname(host)
     nm = nmap.PortScanner()
     try:
         nm.scan(host, arguments='-Pn,-sS')
@@ -364,7 +371,7 @@ if __name__ == '__main__':
     # 测试数据
     # get_recordinfo("baidu.com")
     # get_siteStation("baidu.com")
-    # get_whois("shkls.com")
+    print(GetWhois("www.baidu.com"))
     # get_sundomain("baidu.com")
     # get_ip("baidu.com")
     # get_recordinfo("baidu.com")
@@ -379,4 +386,4 @@ if __name__ == '__main__':
     # get_ip('220.181.38.148')
     # C_Scan_Console('220.181.38.148')
     # test('127.0.0.1')
-    SubDomainBurst("baidu.com")
+    # Port_scan("220.181.38.148")
