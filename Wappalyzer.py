@@ -10,7 +10,7 @@ class WebPage(object):
     from any particular HTTP library's API.
     """
 
-    def __init__(self, url, verify=True):
+    def __init__(self, url,rep):
         """
         Initialize a new WebPage object.
         Parameters
@@ -22,11 +22,10 @@ class WebPage(object):
         headers : dict
             The HTTP response headers
         """
-        response = requests.get(url, verify=verify, timeout=30)
-        self.url = url
+        self.url=url
         # if use response.text, could have some error
-        self.html = response.content.decode('utf8')
-        self.headers = response.headers
+        self.html = rep.content.decode('utf8')
+        self.headers = rep.headers
 
         # Parse the HTML with BeautifulSoup to find <script> and <meta> tags.
         self.parsed_html = soup = BeautifulSoup(self.html, "html.parser")
@@ -38,7 +37,7 @@ class WebPage(object):
                     'meta', attrs=dict(name=True, content=True))
         }
 
-        self.title = soup.title.string if soup.title else 'None'
+        # self.title = soup.title.string if soup.title else 'None'
 
         wappalyzer = Wappalyzer()
         self.apps = wappalyzer.analyze(self)
@@ -46,7 +45,7 @@ class WebPage(object):
     def info(self):
         return {
             "apps": ';'.join(self.apps),
-            "title": self.title,
+            # "title": self.title,
         }
 
 
@@ -216,7 +215,3 @@ class Wappalyzer(object):
             categorised_apps[app_name] = {"categories": cat_names}
 
         return categorised_apps
-
-if __name__=='__main__':
-    test=WebPage("https://www.freebuf.com")
-    print(test.info())

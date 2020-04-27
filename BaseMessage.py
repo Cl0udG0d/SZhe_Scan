@@ -19,20 +19,22 @@ class GetBaseMessage:
                 self.url = "http://" + url
             else:
                 self.url = url
-            self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=2)
+            self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3)
         except:
             pass
         finally:
             if self.rep==None:
                 self.url="https://"+url
-                self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=2)
+                self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3)
 
     def GetStatus(self):
         return self.rep.status_code
 
     def GetTitle(self):
-        title = re.findall('<title>(.*?)</title>', self.rep.text)
-        return title
+        if self.rep!=None:
+            title = re.findall('<title>(.*?)</title>', self.rep.text)
+            return title
+        return None
 
     def GetDate(self):
         return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -41,7 +43,7 @@ class GetBaseMessage:
         return self.rep.text
 
     def GetFinger(self):
-        return WebPage(self.url).info()
+        return WebPage(self.url,self.rep).info()
 
 
 if __name__=='__main__':
