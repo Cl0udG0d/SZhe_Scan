@@ -20,13 +20,18 @@ class DomainMessage:
 
     def GetSiteStation(self):
         return get_message.GetSiteStation(self.domain)
+
     def GetRecordInfo(self):
         return get_message.GetRecordInfo(self.domain)
 
+    def FindDomainAdd(self):
+        return get_message.FindDomainAdd(self.domain)
+
 if __name__=='__main__':
-    test=DomainMessage("blog.csdn.net")
+    test=DomainMessage("github.com")
     print(test.GetSiteStation())
     print(test.GetBindingIP())
     print(test.GetWhoisMessage())
     print(test.GetRecordInfo())
+    print(test.FindDomainAdd())
     print(test.GetSubDomain())
