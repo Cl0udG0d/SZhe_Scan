@@ -514,10 +514,10 @@ table tr td {
 }
 table tr th {
   vertical-align: middle;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 30px;
-  font-weight: 12px;
-  color: rgb(22, 122, 253);
+  font-weight: 500;
+  background-color: rgba(211, 211, 211, 0.3);
 }
 table tr td {
   vertical-align: middle;

@@ -201,12 +201,12 @@
             <div class="charts">
                 <div class="bar-graph">
                     <h5 class="bar-title">开放端口</h5>
-                    <canvas id="myChart" width="450" height="350"></canvas>
+                    <canvas id="myChart" width="1100" height="450"></canvas>
                 </div>
                 <div class="curve-graph">
                     <h5 class="bar-title">任务报告
                     </h5>
-                    <canvas id="myCurveChart" width="450" height="350"></canvas>
+                    <canvas id="myCurveChart" width="1100" height="450"></canvas>
                 </div>
             </div>
         </div>
@@ -306,7 +306,7 @@
         var ctx = document.getElementById("myChart").getContext("2d");
         var data = {
             /// 表现在X轴上的数据，数组形式
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: ["http", "ssh", "mysql", "http-proxy", "mongod", "ftp", "wap-wsp", "http-alt", "ms-wbt-server", "https", "redis"],
             /// 第一条线
             datasets: [
                 {
@@ -318,7 +318,7 @@
                     pointColor: " rgb(86, 86, 240)",
                     /// 表示数据的圆圈的边的颜色
                     pointStrokeColor: "#fff",
-                    data: [65.5, 59.2, 90, 81, 56, 55, 40]
+                    data: [95.5, 59.2, 43, 41, 36, 25, 20, 19, 17, 11, 3]
                 },
                 /// 第二条线
                 {
@@ -331,7 +331,7 @@
                     pointColor: "rgba(220,220,220,1)",
                     /// 表示数据的圆圈的边的颜色
                     pointStrokeColor: "#fff",
-                    data: [27, 48, 40, 19, 96, 27, 10]
+                    data: [27, 48, 40, 19, 36, 27, 10, 8, 5, 3, 2]
 
                 }
             ]
@@ -348,7 +348,7 @@
         var ctx = document.getElementById("myCurveChart").getContext("2d");
         var data = {
             /// 表现在X轴上的数据，数组形式
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: ["http", "ssh", "mysql", "http-proxy", "mongod", "ftp", "wap-wsp", "http-alt", "ms-wbt-server", "https", "redis"],
             /// 第一条线
             datasets: [
                 {
@@ -360,7 +360,7 @@
                     pointColor: " rgb(86, 86, 240)",
                     /// 表示数据的圆圈的边的颜色
                     pointStrokeColor: "#fff",
-                    data: [65.5, 59.2, 90, 81, 56, 55, 40]
+                    data: [65.5, 59.2, 90, 81, 56, 55, 40, 38, 33, 29, 14]
                 },
                 /// 第二条线
                 {
@@ -372,7 +372,7 @@
                     pointColor: "rgba(220,220,220,1)",
                     /// 表示数据的圆圈的边的颜色
                     pointStrokeColor: "#fff",
-                    data: [27, 48, 40, 19, 96, 27, 10]
+                    data: [27, 48, 40, 19, 96, 27, 10, 8, 5, 3, 2]
 
                 }
             ]

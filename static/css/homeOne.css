@@ -44,7 +44,7 @@ h1 {
   display: inline-block;
 }
 h1 a {
-  color: black;
+  color: #2e2e2e;
 }
 .container,
 .container .top {
@@ -54,7 +54,7 @@ h1 a {
   width: 100vw;
 }
 .container hr {
-  background-color: black;
+  background-color: #8b8b8b;
   border-style: none;
   font-size: 2px;
   /* font-weight: 700; */
