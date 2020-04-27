@@ -34,15 +34,15 @@
             </div>
             <hr />
             <nav class="navigation" id="nav">
-                <ul class="navList" id="myTab" role="tabList">
-                    <li><a href="#" role="tab" class="one">主页</a></li>
-                    <li><a href="#" role="tab">控制台</a></li>
-                    <li><a href="#" role="tab">漏洞列表</a></li>
-                    <li><a href="#" role="tab">扫描队列</a></li>
-                    <li><a href="#" role="tab">信息搜集</a></li>
-                    <li><a href="#" role="tab">日志</a></li>
-                    <li><a href="#" role="tab">设置</a></li>
-                    <li><a href="{{url_for('about')}}" role="tab">关于</a></li>
+                <ul class="navList fitler-btns" id="myTab" role="tabList">
+                    <li><a href="#" role="tab" class="one filter-btn" data-filter=".btn">主页</a></li>
+                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">控制台</a></li>
+                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">漏洞列表</a></li>
+                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">扫描队列</a></li>
+                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">信息搜集</a></li>
+                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">日志</a></li>
+                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">设置</a></li>
+                    <li><a href="{{url_for('about')}}" role="tab" class="filter-btn" data-filter=".btnn">关于</a></li>
                     <div class="slider"></div>
                 </ul>
                 <div class="search-box">
@@ -154,17 +154,17 @@
             </div>
         </div>
         <div class="right-context">
-            <h1 style="text-align: center;font-weight: 500;font-size: 34px;">这是日志详情</h1>
+            <!-- <h1 style="text-align: center;font-weight: 500;font-size: 34px;">这是日志详情</h1> -->
 
-            <table border="1" width="90%" class="tab" id="myTab">
-                <tr>
+            <table width="100%" class="tab" id="myTab" style="top:10px;border-color: #e3e3e3;" frame=void>
+                <tr style="border-bottom:1px solid #e3e3e3;">
                     <th>id :</th>
                     <th>ip :</th>
                     <th>email :</th>
                     <th>date :</th>
                 </tr>
                 {% for log in logs %}
-                <tr>
+                <tr style="border-bottom:1px solid #e3e3e3;">
                     <td>{{log.id}}</td>
                     <td>{{log.ip}}</td>
                     <td>{{log.email}}</td>
@@ -172,30 +172,33 @@
                     <!-- <hr> -->
                 </tr>
                 {% endfor %}
-                <div class="page-number">
-                    <span>当前页数: {{paginate.page}}</span>
-                    <span>总页数: {{paginate.pages}}</span>
-                    <span>共有 {{paginate.total}} 条数据</span>
-                    <span style="position: relative;left:40px;">
-                        页码：
-                        {% for i in paginate.iter_pages() %}
-                        <a href="{{url_for('log_detail',page=i)}}"
-                            style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius:2px;">{{ i }}</a>
-                        {% endfor %}</span>
-                    <span style="position: relative;left:50px;">
+                <table frame=void class="page-number" style="position: absolute;top:1200px;background-color: #f8f8ff;;">
+
+                    <tr>
+                        <td class="td">当前页数: {{paginate.page}}</td>
+                        <td class="td">总页数: {{paginate.pages}}</td>
+                        <td class="td" style="position: relative;left:-100px;">共有 {{paginate.total}} 条数据</td>
+                        <td class="td">
+                            页码：
+                            {% for i in paginate.iter_pages() %}
+                            <a href="{{url_for('log_detail',page=i)}}"
+                                style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius:2px;">{{ i }}</a>
+                            {% endfor %}</td>
                         {% if paginate.has_prev %}
-                        <a href="{{url_for('log_detail',page=paginate.prev_num)}}"
-                            style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">上一页</a>
-                        {% endif %}</span>
+                        <td class="td">
+                            <a href="{{url_for('log_detail',page=paginate.prev_num)}}"
+                                style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">上一页</a>
+                            {% endif %}</td>
 
-                    <span style="position: relative;left:20px;">
-                        {% if paginate.has_next %}
-                        <a href="{{url_for('log_detail',page=paginate.next_num)}}"
-                            style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">下一页</a>
-                        {% endif %}</span>
-                </div>
+                        <td class="td">
+                            {% if paginate.has_next %}
+                            <a href="{{url_for('log_detail',page=paginate.next_num)}}"
+                                style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">下一页</a>
+                            {% endif %}</td>
+                    </tr>
+                </table>
+
         </div>
-
     </div>
     </div>
     <div class="body-tail">

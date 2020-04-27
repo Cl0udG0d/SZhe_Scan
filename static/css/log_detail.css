@@ -126,7 +126,7 @@ h1 {
   border-radius: 4px;
   position: absolute;
   top: 42px;
-  left: 40px;
+  left: -140px;
   z-index: 1;
   transition: all ease, 0.3s;
 }
@@ -200,7 +200,33 @@ h1 {
   cursor: pointer;
   /* z-index: 200; */
 }
+.navigation ul li::after {
+  content: "";
+  display: none;
+  background-color: #0fbcf9;
+  width: 100px;
+  height: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 42px;
+  left: 40px;
+  z-index: 1;
+  transition: all ease, 0.3s;
+}
 
+.navigation ul li a:focus::after {
+  content: "";
+  display: block;
+  background-color: #0fbcf9;
+  width: 100px;
+  height: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 42px;
+  left: 10px;
+  z-index: 1;
+  transition: all ease, 0.3s;
+}
 /* .search-box {
   /* flex: 1; */
 /* display: block;
@@ -428,41 +454,45 @@ li {
   margin-right: 80px;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
+  align-items: center;
+  justify-items: center;
 }
-.right-context h1 {
-  font-weight: 600;
-  color: #2e2e2e;
-}
-.page-number {
+table .page-number {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  width: 80%;
-  transform: translateX(10%);
+  justify-items: center;
+  width: 95%;
   margin-bottom: 13px;
+  line-height: 40px;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
 }
-.page-number span {
+table .page-number td {
   flex: 1;
   color: #2e2e2e;
 }
-.page-number span a:active {
+/* .page-number td a {
+  flex: 1;
+} */
+table .page-number td a:active {
   color: #0fbcf9;
+}
+table .page-number:hover {
+  background-color: #f8f8ff;
 }
 table {
   position: relative;
-  left: 25px;
-  border: 1px solid #cad9ea;
+  /* border: 1px solid #cad9ea; */
   font-family: Futura, Arial, sans-serif;
   width: 95%;
 }
-table th {
+/* table th {
   background: linear-gradient(#fff, #e2e5e5ea);
   color: #2e2e2e;
-}
-table th,
-table td {
-  border: 1px solid #cad9ea;
+} */
+table th {
+  border-top: none;
 }
 table tr {
   height: 30px;
@@ -470,10 +500,11 @@ table tr {
   flex-direction: row;
 }
 table tr:hover {
-  background: linear-gradient(#fff, #dde0e0f8);
+  /* background: rgb(245, 245, 245); */
+  /* background-color: #f0f8ff; */
+  background-color: rgba(211, 211, 211, 0.2);
   color: black;
   cursor: pointer;
-  transition: 0.4s;
 }
 table tr:hover ~ table tr th,
 table tr td {
@@ -485,7 +516,8 @@ table tr th {
   vertical-align: middle;
   font-size: 20px;
   line-height: 30px;
-  font-weight: 15px;
+  font-weight: 12px;
+  color: rgb(22, 122, 253);
 }
 table tr td {
   vertical-align: middle;
@@ -537,8 +569,7 @@ table tr td:nth-child(4) {
 }
 .body-tail {
   position: absolute;
-  left: -550px;
-  top: 1400px;
+  top: 1500px;
   width: 100vw;
   height: 40px;
   display: flex;

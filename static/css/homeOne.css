@@ -128,7 +128,7 @@ h1 a {
   border-radius: 4px;
   position: absolute;
   top: 42px;
-  left: 40px;
+  left: -140px;
   z-index: 1;
   transition: all ease, 0.4s;
 }
@@ -200,6 +200,34 @@ h1 a {
   cursor: pointer;
   /* z-index: 200; */
 }
+.navigation ul li::after {
+  content: "";
+  display: none;
+  background-color: #0fbcf9;
+  width: 100px;
+  height: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 42px;
+  left: 40px;
+  z-index: 1;
+  transition: all ease, 0.3s;
+}
+
+.navigation ul li a:focus::after {
+  content: "";
+  display: block;
+  background-color: #0fbcf9;
+  width: 100px;
+  height: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 42px;
+  left: 10px;
+  z-index: 1;
+  transition: all ease, 0.3s;
+}
+
 /*新搜索框框*/
 .search-box {
   position: absolute;
@@ -297,7 +325,7 @@ header .burger {
   z-index: 800;
   border: 1px white solid;
   margin: 0.75rem;
-  height: 300px;
+  height: 350px;
   background-color: #f8f8ff;
   padding-top: 30px;
   font-size: xx-large;
@@ -306,7 +334,7 @@ header .burger {
 }
 .statistic h5 {
   position: absolute;
-
+  color: #2e2e2e;
   top: 25px;
   left: 140px;
   font-size: 26px;
@@ -314,11 +342,11 @@ header .burger {
 }
 .skills {
   width: 95%;
-  height: auto;
+  height: 1050px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
   padding: 10px 40px 20px 40px;
   /* border: 1px white solid; */
   background: #f8f8ff;
@@ -326,16 +354,22 @@ header .burger {
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
 }
-.skill h2 {
+.skills h2 {
   position: absolute;
-  font-size: 46px;
-  font-weight: 700;
+  color: #2e2e2e;
+  font-size: 24px;
+  font-weight: 600;
   align-items: center;
+  text-align: center;
 }
 .skill-name {
   font-size: 16px;
-  font-weight: 700;
-  margin: 20px 0;
+  font-weight: 600;
+  margin: 22px 0;
+  color: #2e2e2e;
+}
+.skill-one {
+  margin-top: 40px;
 }
 .skill-bar {
   height: 20px;
@@ -418,7 +452,7 @@ button:hover {
   background-color: #f8f8ff;
   height: 180px;
   z-index: 100;
-  margin: 20px 20px 0 20px;
+  margin: 15px 20px 0 20px;
   padding: 10px 0 0 10px;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
@@ -434,7 +468,7 @@ button:hover {
 .right-context .newest:hover {
   position: relative;
   transition: 0.4s;
-  margin-top: 15px;
+  margin-top: 10px;
   box-shadow: 5px 5px 8px #d3d3d3;
   cursor: pointer;
 }

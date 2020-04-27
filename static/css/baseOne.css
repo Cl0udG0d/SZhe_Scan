@@ -128,7 +128,7 @@ h1 a {
   border-radius: 4px;
   position: absolute;
   top: 42px;
-  left: 40px;
+  left: -140px;
   z-index: 1;
   transition: all ease, 0.4s;
 }
@@ -199,6 +199,33 @@ h1 a {
   color: #666666;
   cursor: pointer;
   /* z-index: 200; */
+}
+.navigation ul li::after {
+  content: "";
+  display: none;
+  background-color: #0fbcf9;
+  width: 100px;
+  height: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 42px;
+  left: 40px;
+  z-index: 1;
+  transition: all ease, 0.3s;
+}
+
+.navigation ul li a:focus::after {
+  content: "";
+  display: block;
+  background-color: #0fbcf9;
+  width: 100px;
+  height: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 42px;
+  left: 10px;
+  z-index: 1;
+  transition: all ease, 0.3s;
 }
 /*新搜索框框*/
 .search-box {
