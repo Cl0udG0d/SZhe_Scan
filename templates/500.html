@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/500.css')}}" />
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>500!</h1>
+        <h4>服务器挂了，OnePan要被扣工资啦^_^</h4>
+        <h5>你被丢到天上了，送只猫咪陪你以表慰问</h5>
+        <a href="">Go Home</a>
+        <div id="page_end_html">
+            <canvas id="catw" width="400" height="400" style="position: fixed; bottom: 0;right:0;z-index:100;"></canvas>
+            <script src="https://cdn.zhangxinxu.com/sp/demo/live2d/live2d/js/live2d.js"></script>
+            <script type="text/javascript">
+                loadlive2d("catw", "https://cdn.jsdelivr.net/gh/QiShaoXuan/live2DModel@1.0.0/live2d-widget-model-tororo/assets/tororo.model.json");
+            </script>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -3,7 +3,11 @@
   padding: 0;
 }
 body {
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
+  background-image: url("../images/1.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 .context {
   display: -webkit-box;
@@ -15,7 +19,11 @@ body {
   min-height: 750px;
   text-align: center;
   font-size: 14px;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1;
+  background: url("../images/1.jpg");
+  background-repeat: no-repeat; */
+  /* background-attachment: fixed;
+  object-fit: cover; */
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -27,11 +35,12 @@ a {
   text-decoration: none;
 }
 .context .container {
-  width: 400px;
-  height: 440px;
-  margin: -40px auto 0;
-  padding: 40px 50px 30px;
+  width: 430px;
+  height: 400px;
+  margin: -20px auto 0;
+  padding: 25px 50px 25px;
   background-color: #fff;
+  opacity: 0.9;
   border-radius: 4px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   vertical-align: middle;
@@ -60,10 +69,12 @@ a {
 }
 h1 {
   font-size: 45px;
-  color: black;
+  /* color: black; */
+  color: white;
 }
 .context .logo h1 a {
-  color: black;
+  /* color: black; */
+  color: white;
 }
 
 .context .titlse a:hover {
@@ -97,9 +108,10 @@ h1 {
   height: 40px;
   margin-bottom: 0;
   padding: 4px 12px 4px 35px;
-  border: 2px solid #c8c8c8;
+  border: 1px solid #d3d3d3;
   border-radius: 0 0 4px 4px;
   background-color: hsla(0, 0%, 71%, 0.1);
+  background-color: #f8f8ff;
   vertical-align: middle;
 }
 .context form .input-prepend span {
@@ -136,14 +148,17 @@ h1 {
 }
 .login-form {
   position: relative;
+  left: 15px;
 }
 .context .sign-in-button {
   position: absolute;
+  left: -15px;
   top: 130px;
   width: 100%;
   padding: 9px 18px;
   font-size: 18px;
-  background: #42c02e;
+  /* background-color: #5352ed; */
+  background-color: rgb(22, 122, 253);
   border: none;
   border-radius: 25px;
   color: #fff;
@@ -152,21 +167,18 @@ h1 {
   clear: both;
   outline: none;
 }
-.context .sign-in-button:hover,
-.context .sign-up-button:hover {
-  background: #3db922;
-}
-.context .sign-in-button {
-  /* background: #3194d0; */
-  background-color: #5352ed;
-}
 .context .sign-in-button:hover {
   /* background: #187cb7; */
-  background-color: #6a5acd;
+  background-color: rgb(10, 108, 236);
 }
 
 .context .restyle {
   position: relative;
+  top: -15px;
+}
+.context .passw {
+  position: relative;
+  top: -15px;
 }
 .context .restyle i {
   position: absolute;

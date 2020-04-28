@@ -2,9 +2,14 @@
   margin: 0;
   padding: 0;
 }
+
 body {
-  background-color: #f1f1f1;
+  background-image: url("../images/9.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
+
 .context {
   display: -webkit-box;
   display: flex;
@@ -16,39 +21,42 @@ body {
   min-height: 750px;
   text-align: center;
   font-size: 14px;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
   box-sizing: border-box;
 }
+
 a {
   text-decoration: none;
 }
+
 .context .container {
-  width: 400px;
-  height: 500px;
-  margin: -40px auto 0;
-  padding: 40px 50px 30px;
+  width: 430px;
+  height: 450px;
+  margin: -10px auto 0px;
+  padding: 20px 50px 25px;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   vertical-align: middle;
   display: inline-block;
   box-sizing: border-box;
+  opacity: 0.9;
 }
+
 .context .title {
-  margin: 0 auto 50px;
+  margin: 0 auto 40px;
   padding: 10px;
   font-weight: 400;
   color: #969696;
 }
+
 .context .normal-title {
   margin: 0 auto;
   padding: 10px;
   font-size: 20px;
   color: #969696;
 }
-.context .normal-title a {
-  color: #969696;
-}
+
 .context .logo img {
   position: absolute;
   width: 170px;
@@ -56,73 +64,93 @@ a {
   margin-left: 70px;
   margin-top: -340px;
 }
+
 .context .title a:hover {
   border-bottom: 2px solid #ea6f5a;
   color: #ea6f5a;
 }
+
 .context .title a {
   padding: 10px;
   color: #969696;
 }
+
 .context .title a:hover {
   border-bottom: 2px solid #ea6f5a;
 }
+
 .context .title .regist {
   font-weight: 700;
   color: #ea6f5a;
   border-bottom: 2px solid #ea6f5a;
 }
+
 .context .title b {
   padding: 10px;
 }
+
 .context form {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
+
 .login-form {
   position: relative;
   margin-top: -15px;
 }
+
 .context form .input-num {
   position: relative;
   width: 255px;
 }
+
 .context form .input-num input {
   width: 100%;
   height: 40px;
   margin-bottom: 0;
   padding: 4px 12px 4px 35px;
-  border: 2px solid #c8c8c8;
+  border: 1px solid #d3d3d3;
   border-radius: 0 0 4px 4px;
   background-color: hsla(0, 0%, 71%, 0.1);
+  background-color: #f8f8ff;
   vertical-align: middle;
 }
+
 .context form .input-prepend span {
   color: #333;
 }
+
 .context form .restyle {
   margin-bottom: 0;
 }
+
 .context form .input-prepend {
   border-bottom: none;
   margin-bottom: 0;
 }
+
 .context form .restyle input {
   border-bottom: none;
   border-radius: 4px 4px 0 0;
 }
+
 .context form .passw input {
   border-bottom: none;
   border-radius: 4px 4px 0 0;
 }
+
 .context form .setting input {
   border-bottom: none;
   border-radius: 4px 4px 0 0;
 }
+
 .login-form {
   position: relative;
+  left: 17px;
 }
+
 .context .sign-up-button {
   position: absolute;
+  left: -10px;
   margin-top: 15px;
   width: 100%;
   padding: 9px 18px;
@@ -131,24 +159,22 @@ a {
   border-radius: 25px;
   color: #fff;
   background: #42c02e;
+  background-color: rgb(22, 122, 253);
   cursor: pointer;
   outline: none;
   display: block;
   clear: both;
 }
-.context .sign-in-button:hover,
+
 .context .sign-up-button:hover {
   background: #3db922;
+  background-color: rgb(10, 108, 236);
 }
-.context .sign-in-button {
-  background: #3194d0;
-}
-.context .sign-in-button:hover {
-  background: #187cb7;
-}
+
 .context .restyle {
   position: relative;
 }
+
 .context .restyle i {
   position: absolute;
   float: left;
@@ -158,6 +184,7 @@ a {
   margin-left: -145px;
   color: #969696;
 }
+
 .context .passw i {
   position: absolute;
   float: left;
@@ -167,6 +194,7 @@ a {
   margin-left: -145px;
   color: #969696;
 }
+
 .context .input-prepend i {
   position: absolute;
   float: left;
@@ -176,6 +204,7 @@ a {
   margin-left: -145px;
   color: #969696;
 }
+
 .context .sign-up-msg {
   margin: 10px 0 0 0;
   padding: 0;
@@ -183,11 +212,15 @@ a {
   font-size: 12px;
   line-height: 20px;
   color: #969696;
+  position: relative;
+  left: -12px;
 }
+
 .context .sign-up-msg a,
 .context .sign-up-msg a:hover {
   color: #3194d0;
 }
+
 #sign-in-form-submit-btn {
   position: absolute;
 }

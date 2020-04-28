@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Helvetica, "PingFag SC", "Microsoft YeHei", sans-serif;
+}
+
+body {
+  background-image: url("14.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.container h1,
+.container h4,
+.container h5 {
+  color: white;
+  display: block;
+}
+
+.content h1 {
+  position: absolute;
+  top: 10%;
+  left: 45%;
+  font-size: 54px;
+}
+
+.content h4 {
+  position: absolute;
+  top: 30%;
+  left: 37%;
+  font-size: 20px;
+}
+
+.content h5 {
+  position: absolute;
+  top: 42%;
+  left: 36%;
+  font-size: 20px;
+}
+
+.content a {
+  position: absolute;
+  top: 60%;
+  left: 46%;
+  border: 2px solid white;
+  border-radius: 24px;
+  padding: 10px 16px;
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+}
