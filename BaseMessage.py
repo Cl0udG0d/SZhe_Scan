@@ -4,6 +4,7 @@ import re
 import time
 from Wappalyzer import WebPage
 import get_message
+import redis
 
 '''
 获取输入网址基础信息:
@@ -61,9 +62,9 @@ class GetBaseMessage:
 
 if __name__=='__main__':
     test=GetBaseMessage("www.baidu.com")
-    print(test.GetDate())
-    print(test.GetResponse())
-    print(test.GetTitle())
-    print(test.GetStatus())
-    print(test.GetFinger())
-    print(test.PortScan())
+    # print(test.GetDate())
+    # print(test.GetResponse())
+    # print(test.GetTitle())
+    # print(test.GetStatus())
+    # print(test.GetFinger())
+    # print(test.PortScan())
