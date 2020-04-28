@@ -215,13 +215,13 @@ def SenFileScan(domain):
     for line in file.readlines():
         try:
             url = 'http://' + domain + line.replace("\n", '')
-            r = requests.get(url, headers=core.GetHeaders(),timeout=1)
+            r = requests.get(url, headers=core.GetHeaders(),timeout=1,verify=False)
             if r.status_code == 200:
                 result+=url + "\n"
         except Exception:
             pass
     file.close()
-    return domain,result
+    return result
 
 
 '''
@@ -245,27 +245,27 @@ def InforLeakage(domain):
     urlSVN = url + '/.svn/'
     urlHG = url + '/.hg/'
     try:
-        Git = requests.get(urlGit)
+        Git = requests.get(urlGit,headers=core.GetHeaders(),timeout=2,verify=False)
     except Exception:
         pass
     GitCode = Git.status_code
     if GitCode == 200 or GitCode == 403:
-        return domain,domain+" 或许存在Git泄露"
+        return True,domain+" 或许存在Git泄露"
     try:
-        HG = requests.get(urlHG)
+        HG = requests.get(urlHG,headers=core.GetHeaders(),timeout=2,verify=False)
     except Exception:
         pass
     HGCode = HG.status_code
     if HGCode == 200 or HGCode == 403:
-        return domain,domain+"存在HG泄露"
+        return True,domain+"或许存在HG泄露"
     try:
-        SVN = requests.get(urlSVN)
+        SVN = requests.get(urlSVN,headers=core.GetHeaders(),timeout=2,verify=False)
     except Exception:
         pass
     SVNCode = SVN.status_code
     if SVNCode == 200 or SVNCode == 403:
-        return domain,domain+"或许存在SVN泄露"
-    return domain,None
+        return True,domain+"或许存在SVN泄露"
+    return False,None
 
 '''
 NMap(Network Mapper)

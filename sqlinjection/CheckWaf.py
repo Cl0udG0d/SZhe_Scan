@@ -1,7 +1,7 @@
 from core import is_similar_page
 
 
-def check_have_waf(old_html,new_html):
+def CheckHaveWaf(old_html,new_html):
     if not old_html or not new_html:
         return True
     if is_similar_page(old_html,new_html,radio=0.4):

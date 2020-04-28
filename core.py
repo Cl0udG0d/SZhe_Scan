@@ -11,7 +11,7 @@ def gethtml(url,timeout=2):
     if not (url.startswith("http://") or url.startswith("https://")):
         url="http://"+url
     try:
-        rep = requests.get(url,headers=GetHeaders(),timeout=timeout)
+        rep = requests.get(url,headers=GetHeaders(),timeout=timeout,verify=False)
         html = rep.text
     except Exception as e:
         #不管其返回的是错误，null，都将其页面放入html，留给check_waf计算相似度
@@ -19,13 +19,16 @@ def gethtml(url,timeout=2):
         pass
     return html
 
-def wordlistimport(file, lst):
+def wordlistimport(file):
+    payloadlist=[]
     try:
         with open(file, 'r') as f:
             for line in f:
                 final = str(line.replace("\n", ""))
-                lst.append(final)
-    except:
+                payloadlist.append(final)
+        return payloadlist
+    except Exception as e:
+        print(e)
         pass
 
 def is_similar_page(res1, res2, radio):

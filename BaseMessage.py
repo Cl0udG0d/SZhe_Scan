@@ -12,6 +12,8 @@ import get_message
     3,标题 Title
     4,收录扫描时间 Date
     5,响应包 response
+    6,端口开放信息
+    
 '''
 class GetBaseMessage:
     def __init__(self,url):
@@ -49,6 +51,12 @@ class GetBaseMessage:
 
     def PortScan(self):
         return get_message.PortScan(self.domain)
+    def SenMessage(self):
+        vulnerable, result=get_message.InforLeakage(self.domain)
+        return vulnerable,result
+    def SenDir(self):
+        result=get_message.SenFileScan(self.domain)
+        return result
 
 
 if __name__=='__main__':

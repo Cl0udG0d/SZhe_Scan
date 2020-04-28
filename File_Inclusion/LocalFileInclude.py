@@ -28,15 +28,15 @@ def CheckLocalFileInclude(url):
     domain = url.split("?")[0]
     queries = urlparse.urlparse(url).query.split("&")
     if not any(queries):
-        return False, None
+        return False, None,None
     else:
         for inj, fingerprint in paths:
             website = domain + "?" + ("&".join([params.split("=")[0]+"=" + inj for params in queries]))
             source = core.gethtml(website,timeout=5)
             if re.search(fingerprint, source):
-                print("(+)this url have fileinclude bug {},payload is {}".format(url,website))
-                return True,inj
-    return False,None
+                # print("(+)this url have fileinclude bug {},payload is {}".format(url,website))
+                return True,website,inj
+    return False,None,None
 
 if __name__=='__main__':
     CheckLocalFileInclude("http://127.0.0.1/Cl0ud.php?page=1")
