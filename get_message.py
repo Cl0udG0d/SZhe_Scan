@@ -5,12 +5,14 @@ import json
 import nmap
 import core
 import re
-import multiprocessing
+from multiprocessing.pool import ThreadPool
 import signal
 import socket
 
+
 def init():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
+
 
 '''
 whois get_message
@@ -23,6 +25,7 @@ whois get_message
     get_whois : http://whois.bugscaner.com/
 '''
 
+
 def GetWhois(domain):
     '''
     get_whois函数爬取http://whois.bugscaner.com/网站的英文搜索结果，并以字符串的方式将结果返回
@@ -33,12 +36,12 @@ def GetWhois(domain):
     '''
     whois_url = 'http://whois.bugscaner.com/'
     try:
-        rep = requests.get(whois_url + domain, headers=core.GetHeaders(),timeout=2.0)
+        rep = requests.get(whois_url + domain, headers=core.GetHeaders(), timeout=2.0)
         rep = etree.HTML(rep.text)
         data = rep.xpath('//div[@class="stats_table_91bf7bf"]/b[not(@style)]/text()')[0:19]
         str = "\n".join(data)
     except:
-        str=None
+        str = None
         pass
     # print(str)
     return str
@@ -62,7 +65,7 @@ def GetSubDomain(domain):
     attacklist = []
     while 1:
         try:
-            rep = requests.get(chinaz_url, headers=core.GetHeaders(),timeout=2.0)
+            rep = requests.get(chinaz_url, headers=core.GetHeaders(), timeout=2.0)
             rep = etree.HTML(rep.text)
             data = rep.xpath('//div[@class="w23-0"]/a[@href="javascript:"]/text()')
             attacklist.extend(data)
@@ -80,6 +83,7 @@ CDN（content delivery network 或 content distribution network）即内容分�
     这是一种成功率极高的方法，站点可能创建之初并未添加CDN，这样就会存留下解析记录，通过查看解析历史可以寻找到服务器的真实ip
 '''
 
+
 def GetBindingIP(domain):
     '''
     返回域名的历史解析记录字符串
@@ -89,7 +93,7 @@ def GetBindingIP(domain):
     pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
     ip138_url = 'https://site.ip138.com/' + domain
     try:
-        rep = requests.get(ip138_url, headers=core.GetHeaders(),timeout=1.0)
+        rep = requests.get(ip138_url, headers=core.GetHeaders(), timeout=1.0)
         rep = etree.HTML(rep.text)
         if pattern.findall(domain):
             context = rep.xpath('//ul[@id="list"]/li/a/text()')
@@ -131,9 +135,9 @@ def GetRecordInfo(domain):
     tbody.append(td_6)
     tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[7]/text()')))
     tbody.append(td_8)
-    context=""
+    context = ""
     for i in zip(thead, tbody):
-        context+=":".join(i)+"\n"
+        context += ":".join(i) + "\n"
     if "没有符合条件的记录" in context:
         return None
     return context
@@ -154,15 +158,15 @@ def GetSiteStation(ip):
     url_2 = 'http://stool.chinaz.com/same?s=' + ip + '&page=1'
     text2 = []
     try:
-        rep1 = requests.post(url_1, data=data, headers=core.GetHeaders(),timeout=2.0)
+        rep1 = requests.post(url_1, data=data, headers=core.GetHeaders(), timeout=2.0)
         rep1 = etree.HTML(rep1.text)
         text1 = rep1.xpath('//a[@class="domain"]/text()')
     except:
-        text1=[]
+        text1 = []
         pass
     try:
         while 1:
-            rep2 = requests.get(url_2, headers=core.GetHeaders(),timeout=2.0)
+            rep2 = requests.get(url_2, headers=core.GetHeaders(), timeout=2.0)
             rep2 = etree.HTML(rep2.text)
             new_list = rep2.xpath('//div[@class="w30-0 overhid"]/a/text()')
             if len(new_list) == 0:
@@ -171,7 +175,7 @@ def GetSiteStation(ip):
             next_url = "".join(rep2.xpath('//a[@title="下一页"]/@href'))
             url_2 = url_2_base + next_url
     except:
-        text2=[]
+        text2 = []
         pass
     text = list(set(text1).union(set(text2)))
     for i in text:
@@ -181,43 +185,58 @@ def GetSiteStation(ip):
     return str
 
 
+'''
+多线程
+'''
+
+
+def UrlRequest(url):
+    attack_list = []
+    try:
+        r = requests.get(url, headers=core.GetHeaders(), timeout=1.0)
+        if r.status_code == 200:
+            attack_list.append(url)
+    except Exception:
+        pass
+
+
 def SubDomainBurst(true_domain):
-    '''
+    """
     子域名爆破
     字典：dict\SUB_scan.txt
     从字典读取子域名构造新的url进行访问，若返回状态码为200，则返回可攻击列表attack_list
-    :param domain:
+    :param true_domain:
     :return:
-    '''
+    """
+    pools = 10
+    urlList = []
     file = open(r"dict\SUB_scan.txt", "r")
-    attack_list=[]
     for line in file.readlines():
         url = 'http://' + line.replace("\n", '.' + true_domain)
-        try:
-            r = requests.get(url,headers=core.GetHeaders(),timeout=1.0)
-            if r.status_code == 200:
-                attack_list.append(url)
-        except Exception:
-            pass
+        urlList.append(url)
     file.close()
-    return attack_list
+    pool = ThreadPool(pools)
+    pool.map(UrlRequest, urlList)
+    pools.close()
+    pools.join()
+
 
 def SenFileScan(domain):
-    '''
+    """
     敏感文件、目录扫描
     字典：dict\SEN_scan.txt
     :param domain:
-    :param filename:
+    :param
     :return:
-    '''
+    """
     file = open(r"dict\SEN_scan.txt", "r", encoding='utf-8')
-    result=""
+    result = ""
     for line in file.readlines():
         try:
             url = 'http://' + domain + line.replace("\n", '')
-            r = requests.get(url, headers=core.GetHeaders(),timeout=1,verify=False)
+            r = requests.get(url, headers=core.GetHeaders(), timeout=1, verify=False)
             if r.status_code == 200:
-                result+=url + "\n"
+                result += url + "\n"
         except Exception:
             pass
     file.close()
@@ -240,32 +259,33 @@ def InforLeakage(domain):
     :param domain:
     :return:
     """
-    url="http://"+domain
+    url = "http://" + domain
     urlGit = url + '/.git/'
     urlSVN = url + '/.svn/'
     urlHG = url + '/.hg/'
     try:
-        Git = requests.get(urlGit,headers=core.GetHeaders(),timeout=2,verify=False)
+        Git = requests.get(urlGit, headers=core.GetHeaders(), timeout=2, verify=False)
     except Exception:
         pass
     GitCode = Git.status_code
     if GitCode == 200 or GitCode == 403:
-        return True,domain+" 或许存在Git泄露"
+        return True, domain + " 或许存在Git泄露"
     try:
-        HG = requests.get(urlHG,headers=core.GetHeaders(),timeout=2,verify=False)
+        HG = requests.get(urlHG, headers=core.GetHeaders(), timeout=2, verify=False)
     except Exception:
         pass
     HGCode = HG.status_code
     if HGCode == 200 or HGCode == 403:
-        return True,domain+"或许存在HG泄露"
+        return True, domain + "或许存在HG泄露"
     try:
-        SVN = requests.get(urlSVN,headers=core.GetHeaders(),timeout=2,verify=False)
+        SVN = requests.get(urlSVN, headers=core.GetHeaders(), timeout=2, verify=False)
     except Exception:
         pass
     SVNCode = SVN.status_code
     if SVNCode == 200 or SVNCode == 403:
-        return True,domain+"或许存在SVN泄露"
-    return False,None
+        return True, domain + "或许存在SVN泄露"
+    return False, None
+
 
 '''
 NMap(Network Mapper)
@@ -276,9 +296,9 @@ NMap(Network Mapper)
 
 def PortScan(host):
     pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
-    content=""
+    content = ""
     if not pattern.findall(host):
-        host=socket.gethostbyname(host)
+        host = socket.gethostbyname(host)
     nm = nmap.PortScanner()
     try:
         nm.scan(host, arguments='-Pn,-sS')
@@ -287,25 +307,27 @@ def PortScan(host):
             for port in lport:
                 if nm[host][proto][port]['state'] == "open":
                     service = nm[host][proto][port]['name']
-                    content+='[*]主机' + host + ' 协议：' + proto + '\t开放端口号：' + str(port) + '\t端口服务：' + service+"\n"
+                    content += '[*]主机' + host + ' 协议：' + proto + '\t开放端口号：' + str(port) + '\t端口服务：' + service + "\n"
         return content
     except Exception as e:
         nmap.sys.exit(0)
 
 
 def CScanConsole(ip):
-    C_Message=""
+    C_Message = ""
     ip = ip.split('.')
     max_processes = 8
     pool = multiprocessing.Pool(max_processes, init)
+
     def callback(message):
         nonlocal C_Message
         if message:
-            C_Message+=message
+            C_Message += message
+
     for tmpCip in range(1, 256):
         ip[-1] = str(tmpCip)
-        host=".".join(ip)
-        pool.apply_async(CScan, (host,),callback=callback)
+        host = ".".join(ip)
+        pool.apply_async(CScan, (host,), callback=callback)
     pool.close()
     pool.join()
     return C_Message
@@ -319,11 +341,11 @@ def CScan(ip):
     :return:
     """
     try:
-        rep = requests.get("http://"+ip, headers=core.GetHeaders(), timeout=1,verify=False)
+        rep = requests.get("http://" + ip, headers=core.GetHeaders(), timeout=1, verify=False)
         if rep.status_code == 200:
             title = re.findall(r'<title>(.*?)</title>', rep.text)
             if title:
-                return "[T]" + ip + ' : ' + title[0]+"\n"
+                return "[T]" + ip + ' : ' + title[0] + "\n"
             else:
                 return "[H]" + ip + " : have reason\n"
         else:
@@ -343,7 +365,7 @@ def FindDomainAdd(domain):
     :param domain:
     :return:
     """
-    url = "http://ip.yqie.com/ip.aspx?ip="+domain
+    url = "http://ip.yqie.com/ip.aspx?ip=" + domain
     try:
         rep = requests.get(url, headers=core.GetHeaders())
         rep = etree.HTML(rep.text)
@@ -360,9 +382,9 @@ def FindIpAdd(ip):
     :param ip:
     :return:
     """
-    url = "http://ip.yqie.com/ip.aspx?ip="+ip
+    url = "http://ip.yqie.com/ip.aspx?ip=" + ip
     try:
-        rep = requests.get(url, headers=core.GetHeaders(),timeout=2)
+        rep = requests.get(url, headers=core.GetHeaders(), timeout=2)
         rep = etree.HTML(rep.text)
         context = rep.xpath('//input[@id="AddressInfo"]/@value')
         str = "\n".join(context)
