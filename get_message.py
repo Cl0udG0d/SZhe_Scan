@@ -8,7 +8,7 @@ import re
 from multiprocessing.pool import ThreadPool
 import signal
 import socket
-
+import multiprocessing
 
 def init():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
@@ -212,14 +212,14 @@ def SubDomainBurst(true_domain):
     urlList = []
     file = open(r"dict\SUB_scan.txt", "r")
     for line in file.readlines():
-        url = 'http://' + line.replace("\n", '.' + true_domain)
+        url = 'http://' + line.strip('\n')+'.'+true_domain
+        print(url)
         urlList.append(url)
     file.close()
     pool = ThreadPool(pools)
     pool.map(UrlRequest, urlList)
-    pools.close()
-    pools.join()
-
+    pool.close()
+    pool.join()
 
 def SenFileScan(domain):
     """
@@ -382,6 +382,7 @@ def FindIpAdd(ip):
     :param ip:
     :return:
     """
+    str=""
     url = "http://ip.yqie.com/ip.aspx?ip=" + ip
     try:
         rep = requests.get(url, headers=core.GetHeaders(), timeout=2)
@@ -398,4 +399,5 @@ if __name__ == '__main__':
     # print(GetBindingIP('202.202.157.110'))
     # print(GetSiteStation('202.202.157.110'))
     # print(CScanConsole('202.202.157.110'))
-    print(FindIpAdd('202.202.157.110'))
+    # print(FindIpAdd('202.202.157.110'))
+    SubDomainBurst('baidu.com')
