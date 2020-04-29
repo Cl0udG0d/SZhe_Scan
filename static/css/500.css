@@ -5,14 +5,6 @@
   font-family: Helvetica, "PingFag SC", "Microsoft YeHei", sans-serif;
 }
 
-body {
-  background-image: url("14.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  text-align: center;
-}
-
 .container {
   display: flex;
   align-items: center;
@@ -58,4 +50,11 @@ body {
   font-size: 16px;
   color: white;
   text-decoration: none;
+}
+body {
+  background-image: url("../images/14.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
 }
