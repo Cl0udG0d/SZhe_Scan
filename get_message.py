@@ -1,24 +1,15 @@
 import requests
 from lxml import etree
-import zlib
-import json
 import nmap
 import core
 import re
 from multiprocessing.pool import ThreadPool
 import signal
 import socket
-import multiprocessing
 import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-
 # 禁用安全警告
-
-def init():
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
-
 
 '''
 whois get_message
@@ -194,15 +185,14 @@ def GetSiteStation(ip):
 '''
 多线程
 '''
-context = ""
+
 
 
 def UrlRequest(url):
-    global context
     try:
         r = requests.get(url, headers=core.GetHeaders(), timeout=1.0, verify=False)
         if r.status_code == 200:
-            context += url + '\n'
+            return url+'\n'
     except Exception:
         pass
 
@@ -223,10 +213,10 @@ def SubDomainBurst(true_domain):
         urlList.append(url)
     file.close()
     pool = ThreadPool(pools)
-    pool.map(UrlRequest, urlList)
+    SubDomainMessage=pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
-    return context
+    return "".join(list(filter(None,SubDomainMessage)))
 
 
 def SenFileScan(domain):
@@ -240,16 +230,15 @@ def SenFileScan(domain):
     pools = 20
     urlList = []
     file = open(r"dict\SEN_scan.txt", "r", encoding='utf-8')
-    result = ""
     for line in file.readlines():
         url = 'http://' + domain + line.replace("\n", '')
         urlList.append(url)
     file.close()
     pool = ThreadPool(pools)
-    pool.map(UrlRequest, urlList)
+    SenFileMessage=pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
-    return context
+    return "".join(list(filter(None,SenFileMessage)))
 
 
 '''
@@ -325,7 +314,7 @@ def PortScan(host):
 def CScanConsole(ip):
     hostList = []
     ip = ip.split('.')
-    pools = 10
+    pools = 20
     for tmpCip in range(1, 256):
         ip[-1] = str(tmpCip)
         host = ".".join(ip)
@@ -334,7 +323,7 @@ def CScanConsole(ip):
     C_Message = pool.map(CScan, hostList)
     pool.close()
     pool.join()
-    return C_Message
+    return "".join(list(filter(None,C_Message)))
 
 
 def CScan(ip):
@@ -352,8 +341,6 @@ def CScan(ip):
                 return "[T]" + ip + ' : ' + title[0] + "\n"
             else:
                 return "[H]" + ip + " : have reason\n"
-        else:
-            return None
     except Exception as e:
         pass
 
@@ -404,4 +391,6 @@ if __name__ == '__main__':
     # print(GetSiteStation('202.202.157.110'))
     # print(CScanConsole('202.202.157.110'))
     # print(FindIpAdd('202.202.157.110'))
-    SubDomainBurst('baidu.com')
+    # SubDomainBurst('baidu.com')
+    # print(CScanConsole('202.202.157.110'))
+    print(SenFileScan("www.baidu.com"))
