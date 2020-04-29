@@ -10,11 +10,15 @@ import signal
 import socket
 import multiprocessing
 import urllib3
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-#禁用安全警告
+
+
+# 禁用安全警告
 
 def init():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
+
 
 '''
 whois get_message
@@ -190,14 +194,15 @@ def GetSiteStation(ip):
 '''
 多线程
 '''
-context=""
+context = ""
+
 
 def UrlRequest(url):
     global context
     try:
-        r = requests.get(url, headers=core.GetHeaders(), timeout=1.0,verify=False)
+        r = requests.get(url, headers=core.GetHeaders(), timeout=1.0, verify=False)
         if r.status_code == 200:
-            context+=url+'\n'
+            context += url + '\n'
     except Exception:
         pass
 
@@ -214,7 +219,7 @@ def SubDomainBurst(true_domain):
     urlList = []
     file = open(r"dict\SUB_scan.txt", "r")
     for line in file.readlines():
-        url = 'http://' + line.strip('\n')+'.'+true_domain
+        url = 'http://' + line.strip('\n') + '.' + true_domain
         urlList.append(url)
     file.close()
     pool = ThreadPool(pools)
@@ -222,6 +227,7 @@ def SubDomainBurst(true_domain):
     pool.close()
     pool.join()
     return context
+
 
 def SenFileScan(domain):
     """
@@ -231,18 +237,19 @@ def SenFileScan(domain):
     :param
     :return:
     """
+    pools = 20
+    urlList = []
     file = open(r"dict\SEN_scan.txt", "r", encoding='utf-8')
     result = ""
     for line in file.readlines():
-        try:
-            url = 'http://' + domain + line.replace("\n", '')
-            r = requests.get(url, headers=core.GetHeaders(), timeout=1, verify=False)
-            if r.status_code == 200:
-                result += url + "\n"
-        except Exception:
-            pass
+        url = 'http://' + domain + line.replace("\n", '')
+        urlList.append(url)
     file.close()
-    return result
+    pool = ThreadPool(pools)
+    pool.map(UrlRequest, urlList)
+    pool.close()
+    pool.join()
+    return context
 
 
 '''
@@ -316,20 +323,15 @@ def PortScan(host):
 
 
 def CScanConsole(ip):
-    C_Message = ""
+    hostList = []
     ip = ip.split('.')
-    max_processes = 8
-    pool = multiprocessing.Pool(max_processes, init)
-
-    def callback(message):
-        nonlocal C_Message
-        if message:
-            C_Message += message
-
+    pools = 10
     for tmpCip in range(1, 256):
         ip[-1] = str(tmpCip)
         host = ".".join(ip)
-        pool.apply_async(CScan, (host,), callback=callback)
+        hostList.append(host)
+    pool = ThreadPool(pools)
+    C_Message = pool.map(CScan, hostList)
     pool.close()
     pool.join()
     return C_Message
@@ -384,7 +386,7 @@ def FindIpAdd(ip):
     :param ip:
     :return:
     """
-    str=""
+    str = ""
     url = "http://ip.yqie.com/ip.aspx?ip=" + ip
     try:
         rep = requests.get(url, headers=core.GetHeaders(), timeout=2)
