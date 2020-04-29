@@ -9,10 +9,12 @@ from multiprocessing.pool import ThreadPool
 import signal
 import socket
 import multiprocessing
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+#禁用安全警告
 
 def init():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
-
 
 '''
 whois get_message
@@ -188,14 +190,14 @@ def GetSiteStation(ip):
 '''
 多线程
 '''
-
+context=""
 
 def UrlRequest(url):
-    attack_list = []
+    global context
     try:
-        r = requests.get(url, headers=core.GetHeaders(), timeout=1.0)
+        r = requests.get(url, headers=core.GetHeaders(), timeout=1.0,verify=False)
         if r.status_code == 200:
-            attack_list.append(url)
+            context+=url+'\n'
     except Exception:
         pass
 
@@ -208,18 +210,18 @@ def SubDomainBurst(true_domain):
     :param true_domain:
     :return:
     """
-    pools = 10
+    pools = 20
     urlList = []
     file = open(r"dict\SUB_scan.txt", "r")
     for line in file.readlines():
         url = 'http://' + line.strip('\n')+'.'+true_domain
-        print(url)
         urlList.append(url)
     file.close()
     pool = ThreadPool(pools)
     pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
+    return context
 
 def SenFileScan(domain):
     """
