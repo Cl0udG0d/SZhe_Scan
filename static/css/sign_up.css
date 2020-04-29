@@ -4,7 +4,7 @@
 }
 
 body {
-  background-image: url("../images/9.jpg");
+  background-image: url("../images/27.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -30,10 +30,10 @@ a {
 }
 
 .context .container {
-  width: 430px;
+  width: 450px;
   height: 450px;
   margin: -10px auto 0px;
-  padding: 20px 50px 25px;
+  padding: 20px 50px 20px;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
@@ -53,7 +53,7 @@ a {
 .context .normal-title {
   margin: 0 auto;
   padding: 10px;
-  font-size: 20px;
+  font-size: 24px;
   color: #969696;
 }
 
@@ -95,12 +95,12 @@ a {
 
 .login-form {
   position: relative;
-  margin-top: -15px;
+  margin-top: -20px;
 }
 
 .context form .input-num {
   position: relative;
-  width: 255px;
+  width: 275px;
 }
 
 .context form .input-num input {
@@ -109,7 +109,7 @@ a {
   margin-bottom: 0;
   padding: 4px 12px 4px 35px;
   border: 1px solid #d3d3d3;
-  border-radius: 0 0 4px 4px;
+  border-radius: 4px;
   background-color: hsla(0, 0%, 71%, 0.1);
   background-color: #f8f8ff;
   vertical-align: middle;
@@ -123,24 +123,24 @@ a {
   margin-bottom: 0;
 }
 
-.context form .input-prepend {
+/* .context form .input-prepend {
   border-bottom: none;
   margin-bottom: 0;
-}
+} */
 
 .context form .restyle input {
-  border-bottom: none;
-  border-radius: 4px 4px 0 0;
+  /* border-bottom: none; */
+  border-radius: 4px;
 }
 
 .context form .passw input {
-  border-bottom: none;
-  border-radius: 4px 4px 0 0;
+  /* border-bottom: none; */
+  border-radius: 4px;
 }
 
 .context form .setting input {
-  border-bottom: none;
-  border-radius: 4px 4px 0 0;
+  /* border-bottom: none; */
+  border-radius: 4px;
 }
 
 .login-form {
@@ -159,7 +159,8 @@ a {
   border-radius: 25px;
   color: #fff;
   background: #42c02e;
-  background-color: rgb(22, 122, 253);
+  /* background-color: rgb(22, 122, 253); */
+  background-color: rgb(5, 5, 65);
   cursor: pointer;
   outline: none;
   display: block;
@@ -167,8 +168,9 @@ a {
 }
 
 .context .sign-up-button:hover {
-  background: #3db922;
-  background-color: rgb(10, 108, 236);
+  /* background: #3db922;
+  background-color: rgb(10, 108, 236); */
+  background-color: rgb(3, 3, 54);
 }
 
 .context .restyle {
@@ -181,7 +183,7 @@ a {
   width: 80px;
   font-size: 23px;
   margin-top: -35px;
-  margin-left: -145px;
+  margin-left: -155px;
   color: #969696;
 }
 
@@ -191,7 +193,7 @@ a {
   width: 80px;
   font-size: 19px;
   margin-top: -33px;
-  margin-left: -145px;
+  margin-left: -155px;
   color: #969696;
 }
 
@@ -201,7 +203,7 @@ a {
   width: 80px;
   font-size: 21px;
   margin-top: -37px;
-  margin-left: -145px;
+  margin-left: -155px;
   color: #969696;
 }
 
