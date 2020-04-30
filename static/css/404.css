@@ -4,6 +4,12 @@
   box-sizing: border-box;
   font-family: Helvetica, "PingFag SC", "Microsoft YeHei", sans-serif;
 }
+/* body {
+  background-image: url("../images/3.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+} */
 .container {
   display: flex;
   flex-direction: column;
