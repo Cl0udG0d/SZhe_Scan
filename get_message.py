@@ -385,7 +385,7 @@ def FindIpAdd(ip):
     return str
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # 测试数据
     # print(GetBindingIP('202.202.157.110'))
     # print(GetSiteStation('202.202.157.110'))
@@ -393,4 +393,4 @@ if __name__ == '__main__':
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
-    print(SenFileScan("www.baidu.com"))
+    # print(SenFileScan("www.baidu.com"))
