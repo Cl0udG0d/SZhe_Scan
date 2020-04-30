@@ -267,22 +267,22 @@ def InforLeakage(domain):
         pass
     GitCode = Git.status_code
     if GitCode == 200 or GitCode == 403:
-        return True, domain + " 或许存在Git泄露"
+        return domain + " 或许存在Git泄露"
     try:
         HG = requests.get(urlHG, headers=core.GetHeaders(), timeout=2, verify=False)
     except Exception:
         pass
     HGCode = HG.status_code
     if HGCode == 200 or HGCode == 403:
-        return True, domain + "或许存在HG泄露"
+        return domain + "或许存在HG泄露"
     try:
         SVN = requests.get(urlSVN, headers=core.GetHeaders(), timeout=2, verify=False)
     except Exception:
         pass
     SVNCode = SVN.status_code
     if SVNCode == 200 or SVNCode == 403:
-        return True, domain + "或许存在SVN泄露"
-    return False, None
+        return domain + "或许存在SVN泄露"
+    return None
 
 
 '''
@@ -385,7 +385,7 @@ def FindIpAdd(ip):
     return str
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # 测试数据
     # print(GetBindingIP('202.202.157.110'))
     # print(GetSiteStation('202.202.157.110'))
@@ -393,4 +393,4 @@ if __name__ == '__main__':
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
-    print(SenFileScan("www.baidu.com"))
+    # print(SenFileScan("www.baidu.com"))

@@ -1,6 +1,8 @@
+from queue import Queue
 from lxml import etree
 import signal
 import multiprocessing
+import threading
 import time
 import core
 
@@ -16,16 +18,14 @@ import core
 '''
 
 
-def init():
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
 
-#domain为传入网址网址
-def SortOut(urls,domain,queue):
-    new_url_list=[]
+# domain为传入网址网址
+def SortOut(urls, domain, queue):
+    new_url_list = []
     for url in urls:
-        url=url.strip()
+        url = url.strip()
         if ("." not in url) and ("javascript:;" not in url) and ("#" not in url):
-            url=domain+url
+            url = domain + url
         elif domain not in url:
             continue
         if not url.startswith("http://") and not url.startswith("https://"):
@@ -37,8 +37,8 @@ def SortOut(urls,domain,queue):
 
 
 def Spider(queue):
-    url=queue.get()
-    new_url_list=[]
+    url = queue.get()
+    new_url_list = []
     try:
         rep = core.gethtml(url)
         rep = etree.HTML(rep)
@@ -50,40 +50,53 @@ def Spider(queue):
         pass
     return new_url_list
 
+
 '''
 利用三个列表进行有层次地广度遍历url:all_lists储存所有获取到的url,new_lists储存这一层遍历时获取到的所有新的url，old_lists储存上一层的所有url
 用于下层的遍历
 '''
 
-def depth_get(domain,attack_queue):
-    #最大进程数为4
-    max_processes = 4
-    pool = multiprocessing.Pool(max_processes, init)
-    count=0
-    def callback(url_list):
-        new_url_list.extend(url_list)
-    while (count < 2):
-        new_url_list=[]
-        count+=1
-        print("第%d层"%count+20*"=")
+
+class Spyder(threading.Thread):
+    def __init__(self, func, queue):
+        threading.Thread.__init__(self)
+        self.func = func
+        self.queue = queue
+
+    def run(self):
+        self.result = self.func(self.queue)
+
+    def get_result(self):
+        return self.result
+
+
+def depth_get(domain, attack_queue):
+    threads = []
+    count = 0
+    new_url_list = []
+    while count < 3:
+        count += 1
+        print("第%d层" % count + 20 * "=")
         try:
-            if count==1:
-                url_list=Spider(attack_queue)
+            if count == 1:
+                url_list = SpiderGet(attack_queue)
                 new_url_list.extend(url_list)
             else:
                 while not attack_queue.empty():
-                    pool.apply_async(Spider, (attack_queue,), callback=callback)
-                    pool.apply_async(Spider, (attack_queue,), callback=callback)
-                    pool.apply_async(Spider, (attack_queue,), callback=callback)
-                    pool.apply_async(Spider, (attack_queue,), callback=callback)
+                    for i in range(1, 4):
+                        t = Spyder(SpyderGet, attack_queue)
+                        threads.append(t)
+                        t.start()
+                    for t in threads:
+                        t.join()
+                        new_url_list.append(t.get_result())
                     time.sleep(0.5)
         except Exception:
             pass
-        SortOut(new_url_list,domain,attack_queue)
-    pool.close()
-    pool.join()
+        SortOut(new_url_list, domain, attack_queue)
     print("end")
     return attack_queue
+
 
 '''
 测试数据
@@ -96,8 +109,9 @@ def depth_get(domain,attack_queue):
         depth_get函数：0:00:28.969321
         normal函数：0:00:01.031345
 '''
-if __name__=='__main__':
-    attack_queue = multiprocessing.Manager().Queue()
+
+if __name__ == '__main__':
+    attack_queue = Queue()
     attack_queue.put("http://www.dedecms.com/")
-    depth_get("www.dedecms.com",attack_queue)
+    depth_get("www.dedecms.com", attack_queue)
     # normal("https://blog.csdn.net/")

@@ -44,7 +44,7 @@ def is_similar_page(res1, res2, radio):
     simhash2 = Simhash(str(res2))
 
     calc_radio = simhash1.similarity(simhash2)
-    print("两个页面的相似度为:%s" % (calc_radio))
+    # print("两个页面的相似度为:%s" % (calc_radio))
     if calc_radio >= radio:
         return True
     else:
