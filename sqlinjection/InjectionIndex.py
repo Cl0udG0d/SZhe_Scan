@@ -1,6 +1,7 @@
 from sqlinjection import ErrorInjection,BoolInjection,TimeInjection
 import urllib.parse as urlparse
 import core
+import json
 
 '''
 传入url为http://www.xxx.com格式，或者是www.xxx.com 可带参数如www.xxx.com/index.php?id=1
@@ -27,11 +28,11 @@ def InjectionControl(url):
         if b_vulnerable:
             return True,b_db,b_payload
         if e_db:
-            return False,"waf"
+            return False,"waf",None
         else:
-            return False,None
+            return False,None,None
     else:
-        return False, None
+        return False, None,None
 
 if __name__=='__main__':
     # injection_control("http://testphp.vulnweb.com:80/listproducts.php?cat=1")

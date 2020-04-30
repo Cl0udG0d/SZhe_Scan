@@ -6,15 +6,18 @@ import core
 使用XSS的payload对目标进行请求，在返回文本中查找关键字，存在输入的payload，证明存在反射型xss漏洞
 Get_XSS函数传入url和flag参数
 url为传入的检测是否存在XSS漏洞的网站，形如http://xxx.xxx.xxx/test.php?search=jack 或者xxx.xxx.xxx/test.php?search=jack
-flag为选择xss_payload的文本，XSS_bug目录下存在hard_payload和normal_payload两个文件，默认flag=1，即normal_paylaod普通xss_payload文件
 '''
 
-def GetXSS(url,payloads):
+def GetXSS(url):
     domain = url.split("?")[0]
     queries = urlparse.urlparse(url).query.split("&")
     if not any(queries):
         return False,None,None
     else:
+        payloads=[]
+        file = open(r"XSSBug/normal_payload.txt", 'r')
+        for line in file.readlines():
+            payloads.append(line)
         for payload in payloads:
             website = domain + "?" + ("&".join([param + payload for param in queries]))
             source = core.gethtml(website)
