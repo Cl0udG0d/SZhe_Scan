@@ -5,11 +5,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='css/user-center.css')}}" />
+    <!-- <link rel="stylesheet" href="../static/css/user-center.css" /> -->
     <title>Document</title>
 </head>
 
-<body>
+<body style="overflow-x:hidden;">
+    <header class="header" id="header">
+        <div class="container">
+            <div class="top">
+                <h1>
+                    <a href="#" title="Web漏洞扫描器">SZHE</a>
+                </h1>
+                <div class="userCenter">
+                    <ul class="userCenter-list" role="tablist">
+                        <li><a href="#" role="tab">个人中心</a></li>
+                        <li><a href="{{url_for('logout')}}" role="tab">注销</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <nav class="navigation" id="nav">
+                <ul class="navList" id="myTab" role="tabList">
+                    <li><a href="{{url_for('index')}}" role="tab" class="one">主页</a></li>
+                    <li><a href="#" role="tab">控制台</a></li>
+                    <li><a href="#" role="tab">漏洞列表</a></li>
+                    <li><a href="#" role="tab">扫描队列</a></li>
+                    <li><a href="#" role="tab">信息搜集</a></li>
+                    <li><a href="{{url_for('log_detail')}}" role="tab">日志</a></li>
+                    <li><a href="#" role="tab">设置</a></li>
+                    <li><a href="{{url_for('about')}}" role="tab">关于</a></li>
+                    <div class="slider"></div>
+                </ul>
+                <div class="search-box">
+                    <input class="search-txt" type="text" name="" placeholder="  search..." />
+                    <a class="search-btn" href="#">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
+            </nav>
+            <div class="burger">
+                <div class="burger-line1"></div>
+                <div class="burger-line2"></div>
+                <div class="burger-line3"></div>
+            </div>
+        </div>
+    </header>
+    <div class="context">
+        <div class="left-context" style="display:block;">
+            <div class="statistic">
+                <h5>漏洞等级分布图</h5>
+                <div id="container" style="height: 200px;width:90%;top:10px;"></div>
+                <!-- <canvas id="canvas_circle">
+                    浏览器不支持canvas</canvas> -->
+            </div>
+            <div class="skills" style="display:block;">
+                <h2>漏洞类型统计</h2>
+                <div class="skill">
+                    <div class="skill-name">类型一</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="90">
+                        </div>
+                    </div>
+                </div>
 
+                <div class="skill">
+                    <div class="skill-name">类型二</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="30">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-name">类型三</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="164">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-name">类型四</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="35">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-name">类型五</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="60">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-name">类型六</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="78">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-name">类型七</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="39">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <div class="skill-name">类型七</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="21">
+                        </div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <div class="skill-name">类型八</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="58">
+                        </div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <div class="skill-name">类型九</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="73">
+                        </div>
+                    </div>
+                </div>
+                <div class="skill ten">
+                    <div class="skill-name">类型十</div>
+                    <div class="skill-bar">
+                        <div class="skill-per" per="84">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-context">
+            <div class="self-form">
+                <form action="" method="POST" id="form" name="myform" onsubmit="return checkform();">
+                    <div class="self-list">
+                        <label>UserName</label>
+                        <input type="text" placeholder="username" name="username" id="username" />
+                    </div>
+                    <div class="self-list">
+                        <label>Email</label>
+                        <input type="text" placeholder="email" name="email" id="email" />
+                    </div>
+                    <div class="self-list">
+                        <label>New Password</label>
+                        <input type="text" placeholder="new password" name="email" id="email" />
+                    </div>
+                    <div class="self-list">
+                        <label>Confirm Password</label>
+                        <input type="text" placeholder="confirm password" name="email" id="email" />
+                    </div>
+                    <div class="sub">
+                        <input type="submit" name="submit" value="Submit"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {%block main%}{% endblock %}
+    <div class="body-tail">
+        Copyright @ SZHE Vulnerability Scanner
+    </div>
+
+
+    <script type="text/javascript">
+        $('.skill-per').each(function () {
+            var $this = $(this);
+            var per = $this.attr('per');
+            $this.css("width", per);
+            $({ animatedValue: 0 }).animate(
+                { animatedValue: per },
+                {
+                    duartion: 300,
+                    step: function () {
+                        $this.attr('per', Math.floor(this.animatedValue));
+                    },
+                    complete: function () {
+                        $this.attr('per', Math.floor(this.animatedValue));
+                    },
+                }
+            );
+        });
+
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+        var app = {};
+
+        app.title = "百分比";
+
+        var option = {
+            tooltip: {
+                trigger: "item",
+                formatter: "{a} <br/>{b}: {c} ({d}%)",
+            },
+            color: ["#90ee90", "#7342fa", "#fdb903", "#e9003a",],
+            legend: {
+                orient: "horizontal",
+                x: "top",
+                data: ["低危", "中危", "高危", "严重"],
+            },
+            series: [
+                {
+                    name: "漏洞属性",
+                    type: "pie",
+                    radius: ["30%", "70%"],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: "center",
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: "15",
+                                fontWeight: "bold",
+                            },
+                        },
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false,
+                        },
+                    },
+                    data: [
+                        {
+                            value: 135,
+                            name: "低危",
+                        },
+                        {
+                            value: 170,
+                            name: "中危",
+                        },
+                        {
+                            value: 234,
+                            name: "高危",
+                        },
+                        {
+                            value: 265,
+                            name: "严重",
+                        },
+                    ],
+                },
+            ],
+        };
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+
+    </script>
 </body>
 
 </html>
