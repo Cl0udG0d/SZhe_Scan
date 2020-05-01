@@ -13,17 +13,19 @@ class User(db.Model):
     username=db.Column(db.String(50),nullable=False)
     password=db.Column(db.String(100),nullable=False)
 
-class Bug(db.Model):
-    __tablename__='bug'
+class BaseInfo(db.Model):
+    __tablename__='baseinfo'
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
-    domain=db.Column(db.String(20),nullable=False)
-    ip=db.Column(db.String(20),nullable=False)
-    address=db.Column(db.String(30),nullable=False)
-    title=db.Column(db.String(50),nullable=False)
-    status_code=db.Column(db.Integer,nullable=False)
-    Server=db.Column(db.String(30),nullable=False)
-    bugdetail=db.Column(db.Text,nullable=False)
-    response=db.Column(db.Text,nullable=False)
+    url=db.Column(db.String(50),nullable=False)
+    status=db.Column(db.String(3),nullable=False)
+    title=db.Column(db.String(50),nullable=True)
+    date=db.Column(db.String(30),nullable=False)
+    responseheader=db.Column(db.Text,nullable=False)
+    Server = db.Column(db.String(100),nullable=True)
+    portserver = db.Column(db.Text,nullable=True)
+    senmessage = db.Column(db.Text,nullable=True)
+    sendir = db.Column(db.Text,nullable=True)
+
 
 class Log(db.Model):
     __tablename__='log'

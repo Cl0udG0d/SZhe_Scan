@@ -33,6 +33,7 @@ def SortOut(urls, domain, queue):
         new_url_list.append(url)
     new_url_list = list(set(new_url_list))
     for url in new_url_list:
+        print(url)
         queue.put(url)
 
 
@@ -64,6 +65,7 @@ class Spyder(threading.Thread):
         self.queue = queue
 
     def run(self):
+        print('xxx')
         self.result = self.func(self.queue)
 
     def get_result(self):
@@ -79,12 +81,12 @@ def depth_get(domain, attack_queue):
         print("第%d层" % count + 20 * "=")
         try:
             if count == 1:
-                url_list = SpiderGet(attack_queue)
+                url_list = Spider(attack_queue)
                 new_url_list.extend(url_list)
             else:
                 while not attack_queue.empty():
                     for i in range(1, 4):
-                        t = Spyder(SpyderGet, attack_queue)
+                        t = Spyder(Spider, attack_queue)
                         threads.append(t)
                         t.start()
                     for t in threads:

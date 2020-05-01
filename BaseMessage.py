@@ -4,8 +4,9 @@ import re
 import time
 from Wappalyzer import WebPage
 import get_message
-import redis
 import json
+from models import BaseInfo
+
 
 '''
 获取输入网址基础信息:
@@ -18,10 +19,8 @@ import json
     
 '''
 class GetBaseMessage:
-    def __init__(self,url,redispool):
+    def __init__(self,url):
         self.domain=url
-        self.redispool=redispool
-        self.RedisConnect()
         try:
             if not (url.startswith("http://") or url.startswith("https://")):
                 self.url = "http://" + url
@@ -36,12 +35,9 @@ class GetBaseMessage:
                 self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3, verify=False)
             except:
                 pass
-        self.redis.hmset(self.domain,{'WebFinger':json.dumps(self.GetFinger()),'WebStatus':self.GetStatus(),'WebTitle':self.GetTitle(),'Date':self.GetDate(),'ResponseHeader':json.dumps(dict(self.GetResponseHeader())),'PortMessage':self.PortScan(),'SenMessage':self.SenMessage(),'SenDir':self.SenDir()})
-    def RedisConnect(self):
-        self.redis=redis.Redis(connection_pool=self.redispool)
 
     def GetStatus(self):
-        return self.rep.status_code
+        return str(self.rep.status_code)
 
     def GetTitle(self):
         if self.rep!=None:
@@ -49,10 +45,10 @@ class GetBaseMessage:
         return None
 
     def GetDate(self):
-        return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        return str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
     def GetResponseHeader(self):
-        return self.rep.headers
+        return str(self.rep.headers)
 
     def GetFinger(self):
         return WebPage(self.url,self.rep).info()
@@ -68,12 +64,6 @@ class GetBaseMessage:
 
 
 if __name__=='__main__':
-    redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
-    test=GetBaseMessage("www.baidu.com",redispool)
+    # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
+    test=GetBaseMessage("www.baidu.com")
     print("end!")
-    # print(test.GetDate())
-    # print(test.GetResponse())
-    # print(test.GetTitle())
-    # print(test.GetStatus())
-    # print(test.GetFinger())
-    # print(test.PortScan())
