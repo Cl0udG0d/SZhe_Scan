@@ -2,9 +2,7 @@ from exts import db
 from datetime import datetime
 
 '''
-    存放所有的模型
-        1，admin登录用户模型
-        2，bug漏洞模型
+存放模型
 '''
 class User(db.Model):
     __tablename__='user'
@@ -26,6 +24,48 @@ class BaseInfo(db.Model):
     senmessage = db.Column(db.Text,nullable=True)
     sendir = db.Column(db.Text,nullable=True)
 
+class IPInfo(db.Model):
+    __tablename__='ipinfo'
+    id=db.Column(db.Integer,primary_key=True,autoincrement=True)
+    bindingdomain=db.Column(db.Text,nullable=True)
+    sitestation=db.Column(db.Text,nullable=True)
+    CMessage=db.Column(db.Text,nullable=False)
+    ipaddr=db.Column(db.String(100),nullable=False)
+
+class DomainInfo(db.Model):
+    __tablename__='domaininfo'
+    id=db.Column(db.Integer,primary_key=True,autoincrement=True)
+    subdomain=db.Column(db.Text,nullable=True)
+    whois=db.Column(db.Text,nullable=True)
+    bindingip=db.Column(db.Text,nullable=True)
+    sitestation=db.Column(db.Text,nullable=True)
+    recordinfo=db.Column(db.String(100),nullable=True)
+    domainaddr=db.Column(db.String(100),nullable=True)
+
+class BugList(db.Model):
+    __tablename__='buglist'
+    id=db.Column(db.Integer,primary_key=True,autoincrement=True)
+    oldurl=db.Column(db.String(50),nullable=True)
+    bugurl=db.Column(db.String(50),nullable=True)
+    bugtype=db.Column(db.Text,nullable=True)
+    buggrade=db.Column(db.String(10),nullable=True)
+    bugdetail=db.Column(db.Text,nullable=True)
+
+class SeriousBug(db.Model):
+    __tablename__='seriousbug'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+class HighBug(db.Model):
+    __tablename__='highbug'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+class MediumBug(db.Model):
+    __tablename__='mediumbug'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+class LowBug(db.Model):
+    __tablename__='lowbug'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
 class Log(db.Model):
     __tablename__='log'
