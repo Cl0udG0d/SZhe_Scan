@@ -5,10 +5,11 @@
   font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
 .statistic {
-  text-align: center;
+  text-align: left;
 }
 .statistic h5 {
   text-align: center;
+  text-align: left;
 }
 .context {
   height: 1200px;

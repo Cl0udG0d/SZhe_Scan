@@ -101,10 +101,10 @@ a {
   position: relative;
   left: 17px;
 }
-::-webkit-input-placeholder,
-:-moz-placeholder,
-:-ms-input-placeholde,
-::-moz-placeholder {
+input::-webkit-input-placeholder,
+input:-moz-placeholder,
+input:-ms-input-placeholde,
+input::-moz-placeholder {
   color: white;
   font-size: 24px;
 }
@@ -144,7 +144,6 @@ a {
   font-size: 23px;
   margin-top: -45px;
   margin-left: -163px;
-  color: #969696;
   color: #fff;
 }
 
@@ -155,7 +154,6 @@ a {
   font-size: 19px;
   margin-top: -45px;
   margin-left: -163px;
-  color: #969696;
   color: #fff;
 }
 
@@ -166,7 +164,6 @@ a {
   font-size: 21px;
   margin-top: -45px;
   margin-left: -163px;
-  color: #969696;
   color: #fff;
 }
 
