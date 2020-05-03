@@ -18,13 +18,12 @@ import core
 '''
 
 
-
 # domain为传入网址网址
 def SortOut(urls, domain, queue):
     new_url_list = []
     for url in urls:
-        url = url.strip()
-        if ("." not in url) and ("javascript:;" not in url) and ("#" not in url):
+        url = str(url).strip()
+        if ("." not in url) and ("javascript:" not in url) and ("#" not in url):
             url = domain + url
         elif domain not in url:
             continue
@@ -33,6 +32,7 @@ def SortOut(urls, domain, queue):
         new_url_list.append(url)
     new_url_list = list(set(new_url_list))
     for url in new_url_list:
+        print(url)
         queue.put(url)
 
 
@@ -60,11 +60,12 @@ def Spider(queue):
 class Spyder(threading.Thread):
     def __init__(self, func, queue):
         threading.Thread.__init__(self)
+        self.result = self.func(self.queue)
         self.func = func
         self.queue = queue
 
     def run(self):
-        self.result = self.func(self.queue)
+        pass
 
     def get_result(self):
         return self.result
@@ -79,12 +80,12 @@ def depth_get(domain, attack_queue):
         print("第%d层" % count + 20 * "=")
         try:
             if count == 1:
-                url_list = SpiderGet(attack_queue)
+                url_list = Spider(attack_queue)
                 new_url_list.extend(url_list)
             else:
                 while not attack_queue.empty():
-                    for i in range(1, 4):
-                        t = Spyder(SpyderGet, attack_queue)
+                    for i in range(1, 26):
+                        t = Spyder(Spider, attack_queue)
                         threads.append(t)
                         t.start()
                     for t in threads:
@@ -111,7 +112,10 @@ def depth_get(domain, attack_queue):
 '''
 
 if __name__ == '__main__':
+    s = time.time()
     attack_queue = Queue()
-    attack_queue.put("http://www.dedecms.com/")
-    depth_get("www.dedecms.com", attack_queue)
+    attack_queue.put("https://www.csdn.net/")
+    depth_get("www.csdn.net/", attack_queue)
+    e = time.time()
+    print(e-s)
     # normal("https://blog.csdn.net/")

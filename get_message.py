@@ -4,9 +4,9 @@ import nmap
 import core
 import re
 from multiprocessing.pool import ThreadPool
-import signal
 import socket
 import urllib3
+import ImportToRedis
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # 禁用安全警告
@@ -187,12 +187,11 @@ def GetSiteStation(ip):
 '''
 
 
-
 def UrlRequest(url):
     try:
         r = requests.get(url, headers=core.GetHeaders(), timeout=1.0, verify=False)
         if r.status_code == 200:
-            return url+'\n'
+            return url + '\n'
     except Exception:
         pass
 
@@ -200,23 +199,20 @@ def UrlRequest(url):
 def SubDomainBurst(true_domain):
     """
     子域名爆破
-    字典：dict\SUB_scan.txt
     从字典读取子域名构造新的url进行访问，若返回状态码为200，则返回可攻击列表attack_list
     :param true_domain:
     :return:
     """
     pools = 20
     urlList = []
-    file = open(r"dict\SUB_scan.txt", "r")
-    for line in file.readlines():
-        url = 'http://' + line.strip('\n') + '.' + true_domain
+    for i in range(0, r.llen("SubScan")):
+        url = 'http://' + r.lindex("SubScan", i) + '.' + true_domain
         urlList.append(url)
-    file.close()
     pool = ThreadPool(pools)
-    SubDomainMessage=pool.map(UrlRequest, urlList)
+    SubDomainMessage = pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
-    return "".join(list(filter(None,SubDomainMessage)))
+    return "".join(list(filter(None, SubDomainMessage)))
 
 
 def SenFileScan(domain):
@@ -229,16 +225,14 @@ def SenFileScan(domain):
     """
     pools = 20
     urlList = []
-    file = open(r"dict\SEN_scan.txt", "r", encoding='utf-8')
-    for line in file.readlines():
-        url = 'http://' + domain + line.replace("\n", '')
+    for i in range(0, r.llen("SenScan")):
+        url = 'http://' + domain + r.lindex("SenScan", i)
         urlList.append(url)
-    file.close()
     pool = ThreadPool(pools)
-    SenFileMessage=pool.map(UrlRequest, urlList)
+    SenFileMessage = pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
-    return "".join(list(filter(None,SenFileMessage)))
+    return "".join(list(filter(None, SenFileMessage)))
 
 
 '''
@@ -323,7 +317,7 @@ def CScanConsole(ip):
     C_Message = pool.map(CScan, hostList)
     pool.close()
     pool.join()
-    return "".join(list(filter(None,C_Message)))
+    return "".join(list(filter(None, C_Message)))
 
 
 def CScan(ip):
@@ -386,6 +380,7 @@ def FindIpAdd(ip):
 
 
 if __name__ == "__main__":
+    r = ImportToRedis.ConRedis()
     # 测试数据
     # print(GetBindingIP('202.202.157.110'))
     # print(GetSiteStation('202.202.157.110'))
