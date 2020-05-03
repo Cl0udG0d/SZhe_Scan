@@ -2,7 +2,7 @@ import re
 import json
 import requests
 from bs4 import BeautifulSoup
-
+import core
 
 class WebPage(object):
     """
@@ -43,10 +43,11 @@ class WebPage(object):
         self.apps = wappalyzer.analyze(self)
 
     def info(self):
-        return {
-            "apps": ';'.join(self.apps),
-            # "title": self.title,
-        }
+        return "\n".join(self.apps)
+        # return {
+        #     "apps": ';'.join(self.apps),
+        #     # "title": self.title,
+        # }
 
 
 class Wappalyzer(object):
@@ -215,3 +216,9 @@ class Wappalyzer(object):
             categorised_apps[app_name] = {"categories": cat_names}
 
         return categorised_apps
+
+if __name__=='__main__':
+    url='https://www.cnblogs.com/'
+    rep=requests.get(url,headers=core.GetHeaders(),timeout=2)
+    finger=WebPage(url,rep)
+    print(finger.info())

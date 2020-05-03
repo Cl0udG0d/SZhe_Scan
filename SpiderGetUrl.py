@@ -5,7 +5,7 @@ import multiprocessing
 import threading
 import time
 import core
-
+import urllib3
 '''
 因为每深入一层，链接数增大很多，所以截止层数暂定为2，添加多线程之后将层数提高
 爬取截止条件为：层数为2，或者队列中无新的链接
@@ -18,17 +18,35 @@ import core
 '''
 
 
+<<<<<<< HEAD
+=======
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
 # domain为传入网址网址
 def SortOut(urls, domain, queue):
     new_url_list = []
     for url in urls:
+<<<<<<< HEAD
         url = str(url).strip()
         if ("." not in url) and ("javascript:" not in url) and ("#" not in url):
             url = domain + url
         elif domain not in url:
+=======
+        if type(url)==list:
             continue
-        if not url.startswith("http://") and not url.startswith("https://"):
-            url = "http://" + url
+        url = url.strip()
+        if not url.startswith("http://") and not url.startswith("https://") and ("javascript:" not in url) and ("#" not in url):
+            if not domain.endswith("/") and not url.startswith("/"):
+                url=domain+"/"+url
+            else:
+                url=domain+url
+            if not url.startswith("http://") and not url.startswith("https://"):
+                url = "http://" + url
+        if domain not in url:
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
+            continue
         new_url_list.append(url)
     new_url_list = list(set(new_url_list))
     for url in new_url_list:
@@ -40,7 +58,7 @@ def Spider(queue):
     url = queue.get()
     new_url_list = []
     try:
-        rep = core.gethtml(url)
+        rep = core.gethtml(url,timeout=1)
         rep = etree.HTML(rep)
         url_list = rep.xpath('//*[@href]/@href')
         for new_url in url_list:
@@ -84,7 +102,11 @@ def depth_get(domain, attack_queue):
                 new_url_list.extend(url_list)
             else:
                 while not attack_queue.empty():
+<<<<<<< HEAD
                     for i in range(1, 26):
+=======
+                    for i in range(1, 4):
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
                         t = Spyder(Spider, attack_queue)
                         threads.append(t)
                         t.start()
@@ -99,23 +121,16 @@ def depth_get(domain, attack_queue):
     return attack_queue
 
 
-'''
-测试数据
-    depth_get函数是广度遍历爬取url控制函数
-    SortOut是去重和整理冗余无用url函数
-    Spider是爬取页面的函数
-    normal是没有使用多进程的普通爬取函数
-    相比较于普通函数，多进程函数多了整理冗余数据和错误url的功能，对于网站：https://blog.csdn.net/
-    深度二重爬取url时间：（使用datetime.datetime.now()进行计算）
-        depth_get函数：0:00:28.969321
-        normal函数：0:00:01.031345
-'''
-
 if __name__ == '__main__':
     s = time.time()
     attack_queue = Queue()
+<<<<<<< HEAD
     attack_queue.put("https://www.csdn.net/")
     depth_get("www.csdn.net/", attack_queue)
     e = time.time()
     print(e-s)
+=======
+    attack_queue.put("https://www.luckyharvest.cn/")
+    depth_get("www.luckyharvest.cn", attack_queue)
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
     # normal("https://blog.csdn.net/")

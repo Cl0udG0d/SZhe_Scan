@@ -2,20 +2,47 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 import config
-from models import User, Log
+from models import User, Log,BaseInfo
 from exts import db
 from decorators import login_required
+<<<<<<< HEAD
 import ImportToRedis
+=======
+from BaseMessage import GetBaseMessage
+import json
+from concurrent.futures import ThreadPoolExecutor
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
 
 app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
+executor = ThreadPoolExecutor()
 
 
 @app.route('/')
 def index():
     return render_template('homeOne.html')
 
+def InfoCommit(url):
+    Info=GetBaseMessage(url)
+    try:
+        with app.app_context():
+            db.session.add(BaseInfo(url=url,status=Info.GetStatus(),title=Info.GetTitle(),date=Info.GetDate(),responseheader=Info.GetResponseHeader(),
+                                    Server=Info.GetFinger(),portserver=Info.PortScan(),senmessage=Info.SenMessage(),sendir="test"))
+            db.session.commit()
+    except Exception:
+        pass
+
+@app.route('/testMySQL')
+def testmysql():
+    url = "blog.csdn.net"
+    executor.submit(InfoCommit,url)
+    # Info = BaseInfo.query.filter(BaseInfo.id == 2).first()
+    return "hi!"
+
+@app.route('/user')
+def user():
+    return render_template('uesr-center.html')
 
 @app.route('/testnav')
 def test_home():
@@ -121,9 +148,6 @@ def bug_list():
 @app.route('/log_detail/<int:page>', methods=['GET'])
 # @login_required
 def log_detail(page=None):
-    # context = {
-    #     'logs': Log.query.order_by(Log.date.desc()).all()
-    # }
     if not page:
         page = 1
     # page = int(request.args.get('page', 1))
@@ -143,7 +167,10 @@ def page_not_found(e):
 def test500():
     return render_template('500.html')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500

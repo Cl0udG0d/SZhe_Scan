@@ -319,6 +319,7 @@ header .burger {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   width: 95%;
   /* height: 100px; */
   z-index: 800;

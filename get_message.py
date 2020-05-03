@@ -388,4 +388,8 @@ if __name__ == "__main__":
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
+<<<<<<< HEAD
     # print(SenFileScan("www.baidu.com"))
+=======
+    print(SenFileScan("www.baidu.com"))
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
