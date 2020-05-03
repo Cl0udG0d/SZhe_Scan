@@ -11,9 +11,11 @@ class User(db.Model):
     username=db.Column(db.String(50),nullable=False)
     password=db.Column(db.String(100),nullable=False)
 
+#boolcheck  ->true 即 ip       ->false 即 domain
 class BaseInfo(db.Model):
     __tablename__='baseinfo'
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
+    boolcheck=db.Column(db.Boolean,nullable=True)
     url=db.Column(db.String(50),nullable=False)
     status=db.Column(db.String(3),nullable=False)
     title=db.Column(db.String(50),nullable=True)
@@ -24,9 +26,11 @@ class BaseInfo(db.Model):
     senmessage = db.Column(db.Text,nullable=True)
     sendir = db.Column(db.Text,nullable=True)
 
+
 class IPInfo(db.Model):
     __tablename__='ipinfo'
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
+    baseinfoid=db.Column(db.Integer,nullable=False)
     bindingdomain=db.Column(db.Text,nullable=True)
     sitestation=db.Column(db.Text,nullable=True)
     CMessage=db.Column(db.Text,nullable=False)
@@ -35,6 +39,7 @@ class IPInfo(db.Model):
 class DomainInfo(db.Model):
     __tablename__='domaininfo'
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
+    baseinfoid=db.Column(db.Integer,nullable=False)
     subdomain=db.Column(db.Text,nullable=True)
     whois=db.Column(db.Text,nullable=True)
     bindingip=db.Column(db.Text,nullable=True)

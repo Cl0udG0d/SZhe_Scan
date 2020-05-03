@@ -4,9 +4,9 @@ import nmap
 import core
 import re
 from multiprocessing.pool import ThreadPool
-import signal
 import socket
 import urllib3
+import ImportToRedis
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # 禁用安全警告
@@ -108,6 +108,8 @@ def GetBindingIP(domain):
 在中华人民共和国境内提供非经营性互联网信息服务，应当办理备案。
 因此可以通过网站查询获取域名的备案信息。
 在线查询网站：http://www.beianbeian.com
+
+上面这个备案网站不能用了 ，换成站长之家备案在线查询 https://icp.chinaz.com/
 '''
 
 
@@ -117,26 +119,21 @@ def GetRecordInfo(domain):
     :param domain:
     :return:
     '''
-    check_url = 'http://www.beianbeian.com/s-0/' + domain + '.html'
-    rep = requests.get(check_url, headers=core.GetHeaders())
-    rep = etree.HTML(rep.text)
-    thead = rep.xpath('//table[@class="layui-table res_table"]//th/text()')
-    td_4 = "".join(rep.xpath('//tbody[@id="table_tr"]//td[4]/a/text()'))
-    td_6 = " ".join(rep.xpath('//tbody[@id="table_tr"]//td[6]/a/text()'))
-    td_8 = "".join(rep.xpath('//tbody[@id="table_tr"]//td[8]/a/text()'))
-    tbody = rep.xpath('//tbody[@id="table_tr"]//td[1]/text()')
-    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[2]/text()')))
-    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[3]/text()')))
-    tbody.append(td_4)
-    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[5]/text()')))
-    tbody.append(td_6)
-    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[7]/text()')))
-    tbody.append(td_8)
-    context = ""
-    for i in zip(thead, tbody):
-        context += ":".join(i) + "\n"
-    if "没有符合条件的记录" in context:
-        return None
+    icpurl='https://icp.chinaz.com/'+domain
+    context=""
+    try:
+        rep = requests.get(icpurl, headers=core.GetHeaders(),timeout=4)
+        rep = etree.HTML(rep.text)
+        companyname=rep.xpath('//ul[@id="first"]/li/p/text()')[0]
+        type=rep.xpath('//ul[@id="first"]/li/p/strong/text()')[0]
+        icpnum=rep.xpath('//ul[@id="first"]/li/p/font/text()')[0]
+        wwwname=rep.xpath('//ul[@id="first"]/li/p/text()')[1]
+        wwwurl=rep.xpath('//ul[@id="first"]/li/p/text()')[2]
+        icpdate=rep.xpath('//ul[@id="first"]/li/p/text()')[3]
+        context='''主办单位名称:{}\n主办单位性质:{}\n网站备案许可证号:{}\n网站名称:{}\n网站首页地址:{}\n审核时间:{}\n'''.format(companyname,type,icpnum,wwwname,wwwurl,icpdate)
+    except Exception as e:
+        print(e)
+        pass
     return context
 
 
@@ -187,12 +184,11 @@ def GetSiteStation(ip):
 '''
 
 
-
 def UrlRequest(url):
     try:
         r = requests.get(url, headers=core.GetHeaders(), timeout=1.0, verify=False)
         if r.status_code == 200:
-            return url+'\n'
+            return url + '\n'
     except Exception:
         pass
 
@@ -200,23 +196,20 @@ def UrlRequest(url):
 def SubDomainBurst(true_domain):
     """
     子域名爆破
-    字典：dict\SUB_scan.txt
     从字典读取子域名构造新的url进行访问，若返回状态码为200，则返回可攻击列表attack_list
     :param true_domain:
     :return:
     """
     pools = 20
     urlList = []
-    file = open(r"dict\SUB_scan.txt", "r")
-    for line in file.readlines():
-        url = 'http://' + line.strip('\n') + '.' + true_domain
+    for i in range(0, r.llen("SubScan")):
+        url = 'http://' + r.lindex("SubScan", i) + '.' + true_domain
         urlList.append(url)
-    file.close()
     pool = ThreadPool(pools)
-    SubDomainMessage=pool.map(UrlRequest, urlList)
+    SubDomainMessage = pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
-    return "".join(list(filter(None,SubDomainMessage)))
+    return "".join(list(filter(None, SubDomainMessage)))
 
 
 def SenFileScan(domain):
@@ -229,16 +222,14 @@ def SenFileScan(domain):
     """
     pools = 20
     urlList = []
-    file = open(r"dict\SEN_scan.txt", "r", encoding='utf-8')
-    for line in file.readlines():
-        url = 'http://' + domain + line.replace("\n", '')
+    for i in range(0, r.llen("SenScan")):
+        url = 'http://' + domain + r.lindex("SenScan", i)
         urlList.append(url)
-    file.close()
     pool = ThreadPool(pools)
-    SenFileMessage=pool.map(UrlRequest, urlList)
+    SenFileMessage = pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
-    return "".join(list(filter(None,SenFileMessage)))
+    return "".join(list(filter(None, SenFileMessage)))
 
 
 '''
@@ -323,7 +314,7 @@ def CScanConsole(ip):
     C_Message = pool.map(CScan, hostList)
     pool.close()
     pool.join()
-    return "".join(list(filter(None,C_Message)))
+    return "".join(list(filter(None, C_Message)))
 
 
 def CScan(ip):
@@ -386,6 +377,7 @@ def FindIpAdd(ip):
 
 
 if __name__ == "__main__":
+    r = ImportToRedis.ConRedis()
     # 测试数据
     # print(GetBindingIP('202.202.157.110'))
     # print(GetSiteStation('202.202.157.110'))
@@ -393,4 +385,5 @@ if __name__ == "__main__":
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
-    print(SenFileScan("www.baidu.com"))
+    # print(SenFileScan("www.baidu.com"))
+    print(GetRecordInfo("www.taobao.com"))

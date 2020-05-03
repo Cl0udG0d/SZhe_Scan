@@ -5,6 +5,7 @@ import config
 from models import User, Log,BaseInfo
 from exts import db
 from decorators import login_required
+import ImportToRedis
 from BaseMessage import GetBaseMessage
 import json
 from concurrent.futures import ThreadPoolExecutor
@@ -153,17 +154,21 @@ def log_detail(page=None):
     logs = paginate.items
     return render_template('log_detail.html', paginate=paginate, logs=logs)
 
+
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'),404
+    return render_template('404.html'), 404
+
 
 @app.route('/test500')
 def test500():
     return render_template('500.html')
 
+
 @app.errorhandler(500)
 def internal_server_error(e):
-    return render_template('500.html'),500
+    return render_template('500.html'), 500
+
 
 @app.context_processor
 def my_comtext_processor():
@@ -176,4 +181,5 @@ def my_comtext_processor():
 
 
 if __name__ == '__main__':
+    ImportToRedis.ToRedis()
     app.run()

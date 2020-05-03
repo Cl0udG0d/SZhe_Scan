@@ -18,13 +18,22 @@ import urllib3
 '''
 
 
+<<<<<<< HEAD
+=======
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
 # domain为传入网址网址
 def SortOut(urls, domain, queue):
     new_url_list = []
     for url in urls:
+<<<<<<< HEAD
+        url = str(url).strip()
+        if ("." not in url) and ("javascript:" not in url) and ("#" not in url):
+            url = domain + url
+        elif domain not in url:
+=======
         if type(url)==list:
             continue
         url = url.strip()
@@ -36,6 +45,7 @@ def SortOut(urls, domain, queue):
             if not url.startswith("http://") and not url.startswith("https://"):
                 url = "http://" + url
         if domain not in url:
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
             continue
         new_url_list.append(url)
     new_url_list = list(set(new_url_list))
@@ -68,11 +78,12 @@ def Spider(queue):
 class Spyder(threading.Thread):
     def __init__(self, func, queue):
         threading.Thread.__init__(self)
+        self.result = self.func(self.queue)
         self.func = func
         self.queue = queue
 
     def run(self):
-        self.result = self.func(self.queue)
+        pass
 
     def get_result(self):
         return self.result
@@ -91,7 +102,11 @@ def depth_get(domain, attack_queue):
                 new_url_list.extend(url_list)
             else:
                 while not attack_queue.empty():
+<<<<<<< HEAD
+                    for i in range(1, 26):
+=======
                     for i in range(1, 4):
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
                         t = Spyder(Spider, attack_queue)
                         threads.append(t)
                         t.start()
@@ -107,7 +122,15 @@ def depth_get(domain, attack_queue):
 
 
 if __name__ == '__main__':
+    s = time.time()
     attack_queue = Queue()
+<<<<<<< HEAD
+    attack_queue.put("https://www.csdn.net/")
+    depth_get("www.csdn.net/", attack_queue)
+    e = time.time()
+    print(e-s)
+=======
     attack_queue.put("https://www.luckyharvest.cn/")
     depth_get("www.luckyharvest.cn", attack_queue)
+>>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
     # normal("https://blog.csdn.net/")

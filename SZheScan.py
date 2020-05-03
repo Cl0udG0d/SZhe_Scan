@@ -1,22 +1,14 @@
- import json
+import json
 from sqlinjection import InjectionIndex
 from XSSBug import XSSCheck
 from ComIn import ComCheck
 from File_Inclusion import LocalFileInclude
 import redis
 # from BaseMessage import GetBaseMessage
-# from index import app
-# from exts import db
-# from models import BaseInfo
-class SZheScan():
-    def __init__(self,url,redispool):
-        self.url=url
-        self.redispool=redispool
-        self.RedisConnect()
-        self.redis.hmset(self.url,{'SQLScan':self.SQLScan(),'XSSScan':self.XSSScan(),'ComIn':self.ComIn(),'FileInclude':self.FileInclude()})
 
-    def RedisConnect(self):
-        self.redis=redis.Redis(connection_pool=self.redispool)
+class SZheScan():
+    def __init__(self,url):
+        self.url=url
 
     def SQLScan(self):
         return json.dumps(InjectionIndex.InjectionControl(self.url))
