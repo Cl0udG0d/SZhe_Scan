@@ -5,13 +5,10 @@ import config
 from models import User, Log,BaseInfo
 from exts import db
 from decorators import login_required
-<<<<<<< HEAD
 import ImportToRedis
-=======
 from BaseMessage import GetBaseMessage
 import json
 from concurrent.futures import ThreadPoolExecutor
->>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -42,7 +39,7 @@ def testmysql():
 
 @app.route('/user')
 def user():
-    return render_template('uesr-center.html')
+    return render_template('user-center.html')
 
 @app.route('/testnav')
 def test_home():
@@ -167,10 +164,7 @@ def page_not_found(e):
 def test500():
     return render_template('500.html')
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500

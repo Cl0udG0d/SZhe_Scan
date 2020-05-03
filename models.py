@@ -11,9 +11,12 @@ class User(db.Model):
     username=db.Column(db.String(50),nullable=False)
     password=db.Column(db.String(100),nullable=False)
 
+#boolcheck  ->true 即 ip ->false 即 domain
 class BaseInfo(db.Model):
     __tablename__='baseinfo'
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
+    deepinfoid=db.Column(db.Integer,nullable=True)
+    boolcheck=db.Column(db.Boolean,nullable=True)
     url=db.Column(db.String(50),nullable=False)
     status=db.Column(db.String(3),nullable=False)
     title=db.Column(db.String(50),nullable=True)
@@ -23,6 +26,7 @@ class BaseInfo(db.Model):
     portserver = db.Column(db.Text,nullable=True)
     senmessage = db.Column(db.Text,nullable=True)
     sendir = db.Column(db.Text,nullable=True)
+
 
 class IPInfo(db.Model):
     __tablename__='ipinfo'
