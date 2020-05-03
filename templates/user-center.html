@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='css/user-center.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+
     <!-- <link rel="stylesheet" href="../static/css/user-center.css" /> -->
     <title>Document</title>
+    <script type="text/javascript" src="../static/js/user-center.js"></script>
 </head>
 
 <body style="overflow-x:hidden;">
@@ -51,124 +54,100 @@
         </div>
     </header>
     <div class="context">
-        <div class="left-context" style="display:block;">
-            <div class="statistic">
-                <h5>漏洞等级分布图</h5>
-                <div id="container" style="height: 200px;width:90%;top:10px;"></div>
-                <!-- <canvas id="canvas_circle">
-                    浏览器不支持canvas</canvas> -->
+        <div class="title">
+            <hr style=" width:43%;float:left;" />
+            <h2>个人中心</h2>
+            <hr style=" width:47%; float:left;text-align: right;" />
+        </div>
+        <div class="user-self">
+            <div class="user-left">
+                <img src="../static/images/dn.jpg">
+                <button>修改头像</button>
             </div>
-            <div class="skills" style="display:block;">
-                <h2>漏洞类型统计</h2>
-                <div class="skill">
-                    <div class="skill-name">类型一</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="90">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型二</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="30">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型三</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="164">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型四</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="35">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型五</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="60">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型六</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="78">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型七</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="39">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型七</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="21">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name">类型八</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="58">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name">类型九</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="73">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill ten">
-                    <div class="skill-name">类型十</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="84">
-                        </div>
-                    </div>
-                </div>
+            <div class="user-right">
+                <h2>水兵月</h2>
+                <ul class="user-list">
+                    <li class="detail"><i class="fa fa-mars" style="color:#ff0080;"></i></li>
+                    <li class="detail">2000-0-0</li>
+                    <li class="detail">QQ:1868686668</li>
+                    <li class="detail">邮箱:88688868@qq.com</li>
+                    <li class="detail">个人网站:www.zhenkaixin.com</li>
+                </ul>
+                <p>个人简介:个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介</p>
             </div>
         </div>
-        <div class="right-context">
-            <div class="self-form">
-                <form action="" method="POST" id="form" name="myform" onsubmit="return checkform();">
-                    <div class="self-list">
-                        <label>UserName</label>
-                        <input type="text" placeholder="username" name="username" id="username" />
+        <div class="user-bottom">
+            <div class="container-list">
+                <div class="tab-custom">
+                    <div class="tab">
+                        <button class="tablinks active" onclick="openList(event, 'tab_1')">
+                            <p style="font-size: 18px;">个人资料</p>
+                        </button>
+                        <button class="tablinks" onclick="openList(event, 'tab_2')">
+                            <p style="font-size: 18px;">收藏列表</p>
+                        </button>
+                        <button class="tablinks" onclick="openList(event, 'tab_3')">
+                            <p style="font-size: 18px;">关注列表</p>
+                        </button>
+
                     </div>
-                    <div class="self-list">
-                        <label>Email</label>
-                        <input type="text" placeholder="email" name="email" id="email" />
+                    <div class="tab-content">
+                        <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')"
+                            onmouseout="hideAlter('alter')" style="display:block;">
+                            <form class="myDate">
+                                <ol>
+                                    <li>
+                                        <label>UserName</label>
+                                        <input type="text" name="username" placeholder="username" id="username">
+                                    </li>
+                                    <li>
+                                        <label>PassWord</label>
+                                        <input type="text" name="username" placeholder="username" id="username">
+                                    </li>
+                                    <li>
+                                        <label>New Password</label>
+                                        <input type="text" name="username" placeholder="username" id="username">
+                                    </li>
+                                    <li>
+                                        <label>Confirm Password</label>
+                                        <input type="text" name="username" placeholder="username" id="username">
+                                    </li>
+                                </ol>
+                                <input class="sub" type="submit" name="submit" value="Submit">
+                            </form>
+                        </div>
+                        <div class="tabPane" id="tab_2" style="display:none;">
+                            <ul class="collect-list">
+                                <li>收藏一</li>
+                                <li>收藏一</li>
+                                <li>收藏一</li>
+                                <li>收藏一</li>
+                                <li>收藏一</li>
+                                <li>收藏一</li>
+                                <li>收藏一</li>
+                                <li>收藏一</li>
+                                <li>收藏一</li>
+                                <li>收藏一</li>
+                            </ul>
+                        </div>
+                        <div class="tabPane" id="tab_3" style="display:none;">
+                            <ul class="collect-list">
+                                <li>关注列表一</li>
+                                <li>关注列表一</li>
+                                <li>关注列表一</li>
+                                <li>关注列表一</li>
+                                <li>关注列表一</li>
+                                <li>关注列表一</li>
+                                <li>关注列表一</li>
+                                <li>关注列表一</li>
+                                <li>关注列表一</li>
+                                <li>关注列表一</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="self-list">
-                        <label>New Password</label>
-                        <input type="text" placeholder="new password" name="email" id="email" />
-                    </div>
-                    <div class="self-list">
-                        <label>Confirm Password</label>
-                        <input type="text" placeholder="confirm password" name="email" id="email" />
-                    </div>
-                    <div class="sub">
-                        <input type="submit" name="submit" value="Submit"></div>
-                </form>
+                </div>
             </div>
+            <div class="whatever">whatever</div>
         </div>
     </div>
     {%block main%}{% endblock %}
@@ -177,92 +156,7 @@
     </div>
 
 
-    <script type="text/javascript">
-        $('.skill-per').each(function () {
-            var $this = $(this);
-            var per = $this.attr('per');
-            $this.css("width", per);
-            $({ animatedValue: 0 }).animate(
-                { animatedValue: per },
-                {
-                    duartion: 300,
-                    step: function () {
-                        $this.attr('per', Math.floor(this.animatedValue));
-                    },
-                    complete: function () {
-                        $this.attr('per', Math.floor(this.animatedValue));
-                    },
-                }
-            );
-        });
 
-        var dom = document.getElementById("container");
-        var myChart = echarts.init(dom);
-        var app = {};
-
-        app.title = "百分比";
-
-        var option = {
-            tooltip: {
-                trigger: "item",
-                formatter: "{a} <br/>{b}: {c} ({d}%)",
-            },
-            color: ["#90ee90", "#7342fa", "#fdb903", "#e9003a",],
-            legend: {
-                orient: "horizontal",
-                x: "top",
-                data: ["低危", "中危", "高危", "严重"],
-            },
-            series: [
-                {
-                    name: "漏洞属性",
-                    type: "pie",
-                    radius: ["30%", "70%"],
-                    avoidLabelOverlap: false,
-                    label: {
-                        normal: {
-                            show: false,
-                            position: "center",
-                        },
-                        emphasis: {
-                            show: true,
-                            textStyle: {
-                                fontSize: "15",
-                                fontWeight: "bold",
-                            },
-                        },
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false,
-                        },
-                    },
-                    data: [
-                        {
-                            value: 135,
-                            name: "低危",
-                        },
-                        {
-                            value: 170,
-                            name: "中危",
-                        },
-                        {
-                            value: 234,
-                            name: "高危",
-                        },
-                        {
-                            value: 265,
-                            name: "严重",
-                        },
-                    ],
-                },
-            ],
-        };
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
-        }
-
-    </script>
 </body>
 
 </html>

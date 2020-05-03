@@ -381,7 +381,7 @@ img {
   overflow: hidden;
   top: 20%;
   left: 60%;
-  transform: translate(-50%, -50%);
+  transform: translate(50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
 .body-tail {

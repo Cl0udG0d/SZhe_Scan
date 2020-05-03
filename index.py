@@ -38,7 +38,7 @@ def testmysql():
 
 @app.route('/user')
 def user():
-    return render_template('uesr-center.html')
+    return render_template('user-center.html')
 
 @app.route('/testnav')
 def test_home():
