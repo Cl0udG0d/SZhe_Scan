@@ -312,39 +312,44 @@ header .burger {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 40px;
+  margin-left: 20px;
   margin-right: 10px;
 }
 .statistic {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
   width: 95%;
   /* height: 100px; */
   z-index: 800;
   border: 1px white solid;
   margin: 0.75rem;
-  height: 350px;
+  height: 300px;
   background-color: #f8f8ff;
-  padding-top: 30px;
+  padding-top: 10px;
   font-size: xx-large;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
   text-align: center;
 }
-.statistic h5 {
-  position: absolute;
+.statistic .h5 {
+  flex: 1;
+  position: relative;
   color: #2e2e2e;
-  top: 25px;
-  left: 140px;
+  /* top: 10px;
+  left: -70px; */
   font-size: 26px;
   font-weight: 700;
   text-align: center;
+  vertical-align: middle;
+}
+.statistic .container {
+  flex: 3;
 }
 .skills {
   width: 95%;
-  height: 1050px;
+  height: 1100px;
   display: flex;
   flex-direction: column;
   align-items: center;

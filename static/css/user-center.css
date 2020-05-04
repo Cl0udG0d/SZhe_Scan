@@ -307,7 +307,6 @@ header .burger {
   align-items: center;
   justify-content: center;
 }
-
 .context .title {
   /* display: inline-block; */
   position: absolute;
@@ -347,22 +346,23 @@ header .burger {
 }
 .user-left img {
   flex: 4;
-  width: 80px;
-  height: 80px;
-  border-radius: 80px;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
   display: block;
-  margin-top: 30px;
+  margin-top: 8px;
+  margin-bottom: 10px;
 }
 .user-left button {
   flex: 1;
   margin-top: 5px;
   display: block;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   background-color: aliceblue;
   color: #2e2e2e;
-  border: 1px solid #d3d3d3;
+  /* border: 1px solid #d3d3d3;
   border-radius: 2px;
-  box-shadow: 2px 2px 4px #727272;
+  box-shadow: 2px 2px 4px #727272; */
 }
 .user-left button:hover {
   cursor: pointer;
@@ -457,9 +457,9 @@ form ol li {
 }
 form ol li label {
   display: inline-block;
-  width: 300px;
+  width: 200px;
   text-align: left;
-  font-size: 26px;
+  font-size: 16px;
   color: #2e2e2e;
 }
 form ol li input {
@@ -472,7 +472,7 @@ form ol li input {
 form .sub {
   display: block;
   position: absolute;
-  left: 190px;
+  left: 230px;
   top: 320px;
   width: 80px;
   height: 35px;
