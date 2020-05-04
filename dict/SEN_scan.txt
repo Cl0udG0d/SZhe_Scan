@@ -154,9 +154,11 @@ files.php
 Files.php
 frags/Utils.php
 ftp.txt
+.git
 .git/index
 .git/config
 .git/logs
+.hg
 game.rar
 gameroot.rar
 game.tar.gz
@@ -383,6 +385,7 @@ sql2.txt
 sql.tar.gz
 SQL_System.jsp
 SQL_System.php
+.svn
 _svn/entries
 .svn/entries
 sxd1.rar

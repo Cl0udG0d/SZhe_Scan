@@ -188,7 +188,7 @@ def GetSiteStation(ip):
 def UrlRequest(url):
     try:
         r = requests.get(url, headers=core.GetHeaders(), timeout=1.0, verify=False)
-        if r.status_code == 200:
+        if r.status_code == 200 or r.status_code==403:
             return url + '\n'
     except Exception:
         pass
@@ -239,42 +239,42 @@ git泄露：当前大量开发人员使用git进行版本控制，对站点自�
 hg泄露：当开发人员使用Mercurial进行版本控制，对站点自动部署。如果配置不当,可能会将.hg文件夹直接部署到线上环境。这就引起了hg泄露漏洞。
 SVN泄露：当开发人员使用svn进行版本控制，对站点自动部署。如果配置不当,可能会将.svn文件夹直接部署到线上环境。这就引起了svn泄露漏洞。
 '''
-
-
-def InforLeakage(domain):
-    """
-    传入domain，构造新的url，进行访问，查看返回的状态码
-    如果状态码为200或者403则代表存在信息泄露
-    403：文件存在但没有访问权限
-    :param domain:
-    :return:
-    """
-    url = "http://" + domain
-    urlGit = url + '/.git/'
-    urlSVN = url + '/.svn/'
-    urlHG = url + '/.hg/'
-    try:
-        Git = requests.get(urlGit, headers=core.GetHeaders(), timeout=2, verify=False)
-    except Exception:
-        pass
-    GitCode = Git.status_code
-    if GitCode == 200 or GitCode == 403:
-        return domain + " 或许存在Git泄露"
-    try:
-        HG = requests.get(urlHG, headers=core.GetHeaders(), timeout=2, verify=False)
-    except Exception:
-        pass
-    HGCode = HG.status_code
-    if HGCode == 200 or HGCode == 403:
-        return domain + "或许存在HG泄露"
-    try:
-        SVN = requests.get(urlSVN, headers=core.GetHeaders(), timeout=2, verify=False)
-    except Exception:
-        pass
-    SVNCode = SVN.status_code
-    if SVNCode == 200 or SVNCode == 403:
-        return domain + "或许存在SVN泄露"
-    return None
+#
+#
+# def InforLeakage(domain):
+#     """
+#     传入domain，构造新的url，进行访问，查看返回的状态码
+#     如果状态码为200或者403则代表存在信息泄露
+#     403：文件存在但没有访问权限
+#     :param domain:
+#     :return:
+#     """
+#     url = "http://" + domain
+#     urlGit = url + '/.git/'
+#     urlSVN = url + '/.svn/'
+#     urlHG = url + '/.hg/'
+#     try:
+#         Git = requests.get(urlGit, headers=core.GetHeaders(), timeout=2, verify=False)
+#     except Exception:
+#         pass
+#     GitCode = Git.status_code
+#     if GitCode == 200 or GitCode == 403:
+#         return domain + " 或许存在Git泄露"
+#     try:
+#         HG = requests.get(urlHG, headers=core.GetHeaders(), timeout=2, verify=False)
+#     except Exception:
+#         pass
+#     HGCode = HG.status_code
+#     if HGCode == 200 or HGCode == 403:
+#         return domain + "或许存在HG泄露"
+#     try:
+#         SVN = requests.get(urlSVN, headers=core.GetHeaders(), timeout=2, verify=False)
+#     except Exception:
+#         pass
+#     SVNCode = SVN.status_code
+#     if SVNCode == 200 or SVNCode == 403:
+#         return domain + "或许存在SVN泄露"
+#     return None
 
 
 '''
@@ -386,9 +386,6 @@ if __name__ == "__main__":
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
-<<<<<<< HEAD
     # print(SenFileScan("www.baidu.com"))
-=======
     # print(SenFileScan("www.baidu.com"))
     print(GetRecordInfo("www.taobao.com"))
->>>>>>> acc28775469f446efbeee505a2189089eb8e0257
