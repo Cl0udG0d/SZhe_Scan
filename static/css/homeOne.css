@@ -331,6 +331,7 @@ header .burger {
   font-size: xx-large;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
+  text-align: center;
 }
 .statistic h5 {
   position: absolute;
@@ -339,6 +340,7 @@ header .burger {
   left: 140px;
   font-size: 26px;
   font-weight: 700;
+  text-align: center;
 }
 .skills {
   width: 95%;

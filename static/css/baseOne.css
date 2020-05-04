@@ -331,13 +331,18 @@ header .burger {
   font-size: xx-large;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
+  vertical-align: middle;
 }
 .statistic h5 {
   position: absolute;
   top: 25px;
-  left: 120px;
+  left: 140px;
   font-size: 26px;
   font-weight: 700;
+  vertical-align: middle;
+}
+.statistic .container {
+  vertical-align: middle;
 }
 .skills {
   width: 95%;
@@ -406,7 +411,7 @@ header .burger {
   margin-bottom: 40px;
 }
 .right-context {
-  flex: 2.5;
+  flex: 1;
   background-color: #f1f1f1;
   display: flex;
   flex-direction: column;

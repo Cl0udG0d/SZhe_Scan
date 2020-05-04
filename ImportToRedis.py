@@ -1,8 +1,8 @@
 import redis
 
-PASSWORD = "123456"
-# PASSWORD = ""
-HOST = "192.168.88.128"
+# PASSWORD = "123456"
+PASSWORD = ""
+HOST = "127.0.0.1"
 # HOST = ""
 
 '''

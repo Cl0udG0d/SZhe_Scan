@@ -109,6 +109,8 @@ def GetBindingIP(domain):
 在中华人民共和国境内提供非经营性互联网信息服务，应当办理备案。
 因此可以通过网站查询获取域名的备案信息。
 在线查询网站：http://www.beianbeian.com
+
+上面这个备案网站不能用了 ，换成站长之家备案在线查询 https://icp.chinaz.com/
 '''
 
 
@@ -118,26 +120,21 @@ def GetRecordInfo(domain):
     :param domain:
     :return:
     '''
-    check_url = 'http://www.beianbeian.com/s-0/' + domain + '.html'
-    rep = requests.get(check_url, headers=core.GetHeaders())
-    rep = etree.HTML(rep.text)
-    thead = rep.xpath('//table[@class="layui-table res_table"]//th/text()')
-    td_4 = "".join(rep.xpath('//tbody[@id="table_tr"]//td[4]/a/text()'))
-    td_6 = " ".join(rep.xpath('//tbody[@id="table_tr"]//td[6]/a/text()'))
-    td_8 = "".join(rep.xpath('//tbody[@id="table_tr"]//td[8]/a/text()'))
-    tbody = rep.xpath('//tbody[@id="table_tr"]//td[1]/text()')
-    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[2]/text()')))
-    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[3]/text()')))
-    tbody.append(td_4)
-    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[5]/text()')))
-    tbody.append(td_6)
-    tbody.append("".join(rep.xpath('//tbody[@id="table_tr"]//td[7]/text()')))
-    tbody.append(td_8)
-    context = ""
-    for i in zip(thead, tbody):
-        context += ":".join(i) + "\n"
-    if "没有符合条件的记录" in context:
-        return None
+    icpurl='https://icp.chinaz.com/'+domain
+    context=""
+    try:
+        rep = requests.get(icpurl, headers=core.GetHeaders(),timeout=4)
+        rep = etree.HTML(rep.text)
+        companyname=rep.xpath('//ul[@id="first"]/li/p/text()')[0]
+        type=rep.xpath('//ul[@id="first"]/li/p/strong/text()')[0]
+        icpnum=rep.xpath('//ul[@id="first"]/li/p/font/text()')[0]
+        wwwname=rep.xpath('//ul[@id="first"]/li/p/text()')[1]
+        wwwurl=rep.xpath('//ul[@id="first"]/li/p/text()')[2]
+        icpdate=rep.xpath('//ul[@id="first"]/li/p/text()')[3]
+        context='''主办单位名称:{}\n主办单位性质:{}\n网站备案许可证号:{}\n网站名称:{}\n网站首页地址:{}\n审核时间:{}\n'''.format(companyname,type,icpnum,wwwname,wwwurl,icpdate)
+    except Exception as e:
+        print(e)
+        pass
     return context
 
 
@@ -389,4 +386,9 @@ if __name__ == "__main__":
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
+<<<<<<< HEAD
     # print(SenFileScan("www.baidu.com"))
+=======
+    # print(SenFileScan("www.baidu.com"))
+    print(GetRecordInfo("www.taobao.com"))
+>>>>>>> acc28775469f446efbeee505a2189089eb8e0257

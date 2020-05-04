@@ -108,16 +108,16 @@ a {
   vertical-align: middle;
   color: white;
 }
-::-webkit-input-placeholder {
+input::-webkit-input-placeholder {
   color: white;
 }
-::-moz-placeholder {
+input::-moz-placeholder {
   color: white;
 }
-:-ms-input-placeholde {
+input:-ms-input-placeholde {
   color: white;
 }
-:-moz-placeholder {
+input:-moz-placeholder {
   color: white;
 }
 .context .remember-btn {

@@ -4,18 +4,56 @@
   box-sizing: border-box;
   font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
+
+.left-context {
+  flex: 1;
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+  margin-right: 10px;
+}
 .statistic {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  width: 95%;
+  /* height: 100px; */
+  z-index: 800;
+  border: 1px white solid;
+  margin: 0.75rem;
+  height: 260px;
+  background-color: #f8f8ff;
+  padding-top: 30px;
+  font-size: xx-large;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+  text-align: center;
+  vertical-align: middle;
 }
 .statistic h5 {
+  flex: 1;
+  position: relative;
+  color: #2e2e2e;
+  top: -25px;
+  left: 0px;
+  font-size: 26px;
+  font-weight: 700;
   text-align: center;
-  text-align: left;
+  vertical-align: middle;
 }
+/* .statistic .container {
+  flex: 3;
+  vertical-align: middle;
+  margin: 10px auto;
+} */
 .context {
   height: 1200px;
 }
 .right-context {
-  flex: 3;
+  flex: 2.5;
   position: relative;
 }
 .content-wrapper {
