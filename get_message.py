@@ -3,6 +3,7 @@ from lxml import etree
 import nmap
 import core
 import re
+import redis
 from multiprocessing.pool import ThreadPool
 import socket
 import urllib3
@@ -24,13 +25,13 @@ whois get_message
 
 
 def GetWhois(domain):
-    '''
+    """
     get_whois函数爬取http://whois.bugscaner.com/网站的英文搜索结果，并以字符串的方式将结果返回
     需要传入一个合法的域名domain
     爬取使用的requests 和 xpath 库
     :param domain:
     :return:
-    '''
+    """
     whois_url = 'http://whois.bugscaner.com/'
     try:
         rep = requests.get(whois_url + domain, headers=core.GetHeaders(), timeout=2.0)
@@ -380,7 +381,7 @@ def FindIpAdd(ip):
 
 
 if __name__ == "__main__":
-    r = ImportToRedis.ConRedis()
+    r = redis.Redis(connection_pool=ImportToRedis.redisPool)
     # 测试数据
     # print(GetBindingIP('202.202.157.110'))
     # print(GetSiteStation('202.202.157.110'))
@@ -388,8 +389,4 @@ if __name__ == "__main__":
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
-<<<<<<< HEAD
     # print(SenFileScan("www.baidu.com"))
-=======
-    print(SenFileScan("www.baidu.com"))
->>>>>>> 3d9597ebd8053b715e06ac594f97a63ff9b8bdc8
