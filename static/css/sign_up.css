@@ -101,6 +101,25 @@ a {
   position: relative;
   left: 17px;
 }
+.login-form input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #fff;
+}
+.login-form input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #fff;
+}
+.login-form input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #fff;
+}
+.login-form input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #fff;
+}
+.login-form input::placeholder {
+  color: #fff;
+}
 input::-webkit-input-placeholder,
 input:-moz-placeholder,
 input:-ms-input-placeholde,

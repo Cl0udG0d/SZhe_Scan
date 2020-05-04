@@ -427,6 +427,10 @@ header .burger {
 .user-bottom .container-list .tab button {
   flex: 1;
   height: 50px;
+  border: none;
+  border-right: 3px solid #f8f8ff;
+  border-top: 1px solid #d3d3d3;
+  border-radius: 4px 4px 0 0;
 }
 .user-bottom .container-list .tab:hover {
   cursor: pointer;
@@ -483,12 +487,16 @@ form .sub {
   color: #2e2e2e;
 }
 .collect-list {
-  width: 95%;
+  position: relative;
+  top: 30px;
+  /* margin-top: 10px; */
+  width: 97%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: auto;
+  height: 400px;
 }
 .collect-list li {
   width: 90%;
@@ -499,11 +507,16 @@ form .sub {
   border-radius: 4px;
   background-color: #f8f8ff;
 }
+.collect-list .one {
+  position: relative;
+  margin-top: 100px;
+}
 .user-bottom .whatever {
   flex: 1;
   background-color: #f8f8ff;
   height: 500px;
 }
+
 .body-tail {
   position: absolute;
   top: 1000px;
