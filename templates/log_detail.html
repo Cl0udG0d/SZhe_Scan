@@ -62,7 +62,7 @@
     <div class="context">
         <div class="left-context" style="display:block;">
             <div class="statistic">
-                <h5 style="left:185px;position:absolute;font-weight: 520;">漏洞等级分布图</h5>
+                <h5 style="font-weight: 520;">漏洞等级分布图</h5>
                 <div id="container" style="height: 250px;width:90%;top:20px;margin-bottom:20px;"></div>
             </div>
             <div class="skills" style="display:block;">
@@ -175,8 +175,8 @@
                 <table frame=void class="page-number" style="position: absolute;top:1200px;background-color: #f8f8ff;;">
 
                     <tr>
-                        <td class="td">当前页数: {{paginate.page}}</td>
-                        <td class="td">总页数: {{paginate.pages}}</td>
+                        <td class="td" style="margin-right:10px;white-space: nowrap;">当前页数: {{paginate.page}}</td>
+                        <td class="td" style="margin-right:20px;">总页数: {{paginate.pages}}</td>
                         <td class="td" style="position: relative;left:-100px;">共有 {{paginate.total}} 条数据</td>
                         <td class="td">
                             页码：
@@ -185,12 +185,12 @@
                                 style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius:2px;">{{ i }}</a>
                             {% endfor %}</td>
                         {% if paginate.has_prev %}
-                        <td class="td">
+                        <td class="td" style="margin-right:20px;">
                             <a href="{{url_for('log_detail',page=paginate.prev_num)}}"
                                 style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">上一页</a>
                             {% endif %}</td>
 
-                        <td class="td">
+                        <td class="td" style="margin-right:20px;">
                             {% if paginate.has_next %}
                             <a href="{{url_for('log_detail',page=paginate.next_num)}}"
                                 style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">下一页</a>

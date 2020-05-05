@@ -346,7 +346,7 @@ header .burger {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
   width: 95%;
   /* height: 100px; */
   z-index: 800;
@@ -360,12 +360,13 @@ header .burger {
   border-radius: 4px;
 }
 .statistic h5 {
-  position: absolute;
-  top: 25px;
-  left: 100px;
   font-size: 26px;
   font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  margin-top: -20px;
 }
+
 .skills {
   width: 95%;
   height: auto;
@@ -508,22 +509,23 @@ table tr:hover {
 }
 table tr:hover ~ table tr th,
 table tr td {
-  font-size: 35px;
+  font-size: 30px;
   cursor: pointer;
   transition: 0.4s;
 }
 table tr th {
   vertical-align: middle;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 30px;
   font-weight: 500;
-  background-color: rgba(211, 211, 211, 0.3);
+  background-color: rgba(211, 211, 211, 0.2);
 }
 table tr td {
   vertical-align: middle;
-  font-size: 15px;
+  font-size: 12px;
   line-height: 30px;
   font-weight: 100;
+  color: #2e2e2e;
 }
 table tr th:nth-child(1) {
   flex: 1;
