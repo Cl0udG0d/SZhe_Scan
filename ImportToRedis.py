@@ -16,14 +16,19 @@ def ToRedis():
     # r.flushdb()
     r.delete("SubScan")
     r.delete("SenScan")
-    file1 = open(r"dict\SUB_scan.txt", "r", encoding='utf-8')
-    file2 = open(r"dict\SEN_scan.txt", "r", encoding='utf-8')
+    r.delete("XSSpayloads")
+    file1 = open(r"dict/SUB_scan.txt", "r", encoding='utf-8')
+    file2 = open(r"dict/SEN_scan.txt", "r", encoding='utf-8')
+    file3=open('XSSBug/normal_payload.txt', 'r')
     for line1 in file1.readlines():
         r.lpush("SubScan", line1.replace("\n", ''))
     file1.close()
     for line2 in file2.readlines():
         r.lpush("SenScan", line2.replace("\n", ""))
     file2.close()
+    for line3 in file3.readlines():
+        r.lpush("XSSpayloads",line3.replace("\n",""))
+    file3.close()
 
 
 ToRedis()

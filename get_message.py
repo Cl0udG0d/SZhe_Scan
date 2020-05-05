@@ -41,8 +41,6 @@ def GetWhois(domain):
     except:
         str = None
         pass
-    # print(str)
-    print("222")
     return str
 
 
@@ -102,7 +100,6 @@ def GetBindingIP(domain):
         str = "\n".join(context)
     except:
         pass
-    print("333")
     return str
 
 
@@ -138,7 +135,6 @@ def GetRecordInfo(domain):
     except Exception as e:
         print(e)
         pass
-    print("555")
     return context
 
 
@@ -181,7 +177,6 @@ def GetSiteStation(ip):
         if "屏蔽的关键字" in i:
             text.remove(i)
     str = "\n".join(text)
-    print("444")
     return str
 
 
@@ -318,7 +313,6 @@ def FindDomainAdd(domain):
         str = "\n".join(context)
     except:
         pass
-    print("666")
     return str.lstrip()
 
 

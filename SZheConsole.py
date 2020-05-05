@@ -8,7 +8,7 @@ from models import BaseInfo,IPInfo,DomainInfo
 import ImportToRedis
 import redis
 import  get_message
-
+from XSSBug.XSSCheck import GetXSS
 '''
 获取baseinfo ->MySQL
  ip->获取ipinfo->MySQL
@@ -44,5 +44,6 @@ def SZheConsole(url,redispool):
 
 if __name__=='__main__':
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
-    SZheConsole('www.taobao.com',redispool)
+    # SZheConsole('www.taobao.com',redispool)
+    GetXSS("http://leettime.net/xsslab1/chalg1.php?name=1",redispool)
     # print(get_message.SubDomainBurst("www.taobao.com",redispool))

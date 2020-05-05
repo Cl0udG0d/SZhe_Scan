@@ -2,24 +2,19 @@ from sqlinjection.InjectionIndex import InjectionControl
 from XSSBug.XSSCheck import GetXSS
 from ComIn.ComCheck import GetComIn
 from File_Inclusion.LocalFileInclude import CheckLocalFileInclude
+
+
 class BugScan:
-    def __init__(self,url):
+    def __init__(self,url,reaidspool):
         self.url=url
-        self.XSSPayload = []
-        try:
-            with open('XSSBug/normal_payload.txt', 'r') as f:
-                for line in f:
-                    final = str(line.replace("\n", ""))
-                    self.XSSPayload.append(final)
-        except Exception as e:
-            pass
+        self.redispool=reaidspool
 
     def SQLBugScan(self):
         vulnerable, db, payload =InjectionControl(self.url)
         return vulnerable,db,payload
 
     def XSSBugScan(self):
-        vulnerable, website, payload=GetXSS(self.url,self.XSSPayload)
+        vulnerable, website, payload=GetXSS(self.url,self.redispool)
         return vulnerable, website, payload
 
     def ComInScan(self):
@@ -29,8 +24,10 @@ class BugScan:
     def FileIncludeScan(self):
         vulnerable, website, payload=CheckLocalFileInclude(self.url)
         return vulnerable, website, payload
+
     def WebLogicScan(self):
         return None
+
     def POCScan(self):
         return None
 

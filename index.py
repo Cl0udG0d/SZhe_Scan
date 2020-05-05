@@ -2,7 +2,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from lxml.html.builder import HEAD
-
 import config
 from models import User, Log, BaseInfo
 from exts import db

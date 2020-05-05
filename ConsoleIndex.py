@@ -6,7 +6,6 @@ import redis
 from BaseMessage import GetBaseMessage
 from IPMessage import IPMessage
 from DomainMessage import DomainMessage
-from SZheScan import SZheScan
 
 '''
 ip和域名进入不同的调度函数扫描
