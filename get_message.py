@@ -42,6 +42,7 @@ def GetWhois(domain):
         str = None
         pass
     # print(str)
+    print("222")
     return str
 
 
@@ -60,7 +61,7 @@ def GetWhois(domain):
 def GetSubDomain(domain):
     chinaz_base_url = 'https://tool.chinaz.com/'
     chinaz_url = 'https://tool.chinaz.com/subdomain?domain=' + domain + '&page=1'
-    attacklist = []
+    attacklist=[]
     while 1:
         try:
             rep = requests.get(chinaz_url, headers=core.GetHeaders(), timeout=2.0)
@@ -71,7 +72,8 @@ def GetSubDomain(domain):
             chinaz_url = chinaz_base_url + next_url
         except:
             break
-    return attacklist
+    attacklist[0]="http://"+attacklist[0]
+    return "\nhttp://".join(attacklist)
 
 
 '''
@@ -100,6 +102,7 @@ def GetBindingIP(domain):
         str = "\n".join(context)
     except:
         pass
+    print("333")
     return str
 
 
@@ -135,6 +138,7 @@ def GetRecordInfo(domain):
     except Exception as e:
         print(e)
         pass
+    print("555")
     return context
 
 
@@ -177,6 +181,7 @@ def GetSiteStation(ip):
         if "屏蔽的关键字" in i:
             text.remove(i)
     str = "\n".join(text)
+    print("444")
     return str
 
 
@@ -189,12 +194,12 @@ def UrlRequest(url):
     try:
         r = requests.get(url, headers=core.GetHeaders(), timeout=1.0, verify=False)
         if r.status_code == 200 or r.status_code==403:
-            return url + '\n'
+            return url
     except Exception:
         pass
 
 
-def SubDomainBurst(true_domain):
+def SubDomainBurst(true_domain,redispool):
     """
     子域名爆破
     从字典读取子域名构造新的url进行访问，若返回状态码为200，则返回可攻击列表attack_list
@@ -203,17 +208,17 @@ def SubDomainBurst(true_domain):
     """
     pools = 20
     urlList = []
-    for i in range(0, r.llen("SubScan")):
-        url = 'http://' + r.lindex("SubScan", i) + '.' + true_domain
+    for i in range(0, redispool.llen("SubScan")):
+        url="http://{}.{}".format(redispool.lindex("SubScan", i),true_domain)
         urlList.append(url)
     pool = ThreadPool(pools)
-    SubDomainMessage = pool.map(UrlRequest, urlList)
+    SubDomain = pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
-    return "".join(list(filter(None, SubDomainMessage)))
+    return "\n".join(list(filter(None, SubDomain)))
 
 
-def SenFileScan(domain):
+def SenFileScan(domain,redispool):
     """
     敏感文件、目录扫描
     字典：dict\SEN_scan.txt
@@ -223,58 +228,14 @@ def SenFileScan(domain):
     """
     pools = 20
     urlList = []
-    for i in range(0, r.llen("SenScan")):
-        url = 'http://' + domain + r.lindex("SenScan", i)
+    for i in range(0, redispool.llen("SenScan")):
+        url="http://{}/{}".format(domain,redispool.lindex("SenScan", i))
         urlList.append(url)
     pool = ThreadPool(pools)
     SenFileMessage = pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
     return "".join(list(filter(None, SenFileMessage)))
-
-
-'''
-敏感信息泄露
-git泄露：当前大量开发人员使用git进行版本控制，对站点自动部署。如果配置不当,可能会将.git文件夹直接部署到线上环境。这就引起了git泄露漏洞。
-hg泄露：当开发人员使用Mercurial进行版本控制，对站点自动部署。如果配置不当,可能会将.hg文件夹直接部署到线上环境。这就引起了hg泄露漏洞。
-SVN泄露：当开发人员使用svn进行版本控制，对站点自动部署。如果配置不当,可能会将.svn文件夹直接部署到线上环境。这就引起了svn泄露漏洞。
-'''
-#
-#
-# def InforLeakage(domain):
-#     """
-#     传入domain，构造新的url，进行访问，查看返回的状态码
-#     如果状态码为200或者403则代表存在信息泄露
-#     403：文件存在但没有访问权限
-#     :param domain:
-#     :return:
-#     """
-#     url = "http://" + domain
-#     urlGit = url + '/.git/'
-#     urlSVN = url + '/.svn/'
-#     urlHG = url + '/.hg/'
-#     try:
-#         Git = requests.get(urlGit, headers=core.GetHeaders(), timeout=2, verify=False)
-#     except Exception:
-#         pass
-#     GitCode = Git.status_code
-#     if GitCode == 200 or GitCode == 403:
-#         return domain + " 或许存在Git泄露"
-#     try:
-#         HG = requests.get(urlHG, headers=core.GetHeaders(), timeout=2, verify=False)
-#     except Exception:
-#         pass
-#     HGCode = HG.status_code
-#     if HGCode == 200 or HGCode == 403:
-#         return domain + "或许存在HG泄露"
-#     try:
-#         SVN = requests.get(urlSVN, headers=core.GetHeaders(), timeout=2, verify=False)
-#     except Exception:
-#         pass
-#     SVNCode = SVN.status_code
-#     if SVNCode == 200 or SVNCode == 403:
-#         return domain + "或许存在SVN泄露"
-#     return None
 
 
 '''
@@ -348,14 +309,16 @@ def FindDomainAdd(domain):
     :param domain:
     :return:
     """
+    str=""
     url = "http://ip.yqie.com/ip.aspx?ip=" + domain
     try:
-        rep = requests.get(url, headers=core.GetHeaders())
+        rep = requests.get(url, headers=core.GetHeaders(),timeout=2)
         rep = etree.HTML(rep.text)
         context = rep.xpath('//div[@style="text-align: center; line-height: 30px;"]/text()')
         str = "\n".join(context)
     except:
         pass
+    print("666")
     return str.lstrip()
 
 
@@ -386,6 +349,7 @@ if __name__ == "__main__":
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
-    # print(SenFileScan("www.baidu.com"))
-    # print(SenFileScan("www.baidu.com"))
-    print(GetRecordInfo("www.taobao.com"))
+    list=GetSubDomain("www.taobao.com")
+    print(list)
+    # for i in list:
+    #     print(i)

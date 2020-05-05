@@ -6,6 +6,8 @@ from index import app
 from exts import db
 from models import BaseInfo,IPInfo,DomainInfo
 import ImportToRedis
+import redis
+import  get_message
 
 '''
 获取baseinfo ->MySQL
@@ -14,23 +16,19 @@ import ImportToRedis
 页面url深度遍历 ->从redis里读取->bugscan->MySQL
     未设置外键，用程序来保证逻辑的正确性
 '''
-def SZheConsole(url):
-    print("aaa")
-    baseinfo=GetBaseMessage(url)
-    print("bbb")
+def SZheConsole(url,redispool):
+    baseinfo=GetBaseMessage(url,redispool)
     pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
     if pattern.findall(url):
         boolcheck=True
         ipinfo=IPMessage(url)
-        print("ccc")
     else:
         boolcheck=False
-        domaininfo=DomainMessage(url)
-        print("ddd")
+        domaininfo=DomainMessage(url,redispool)
     try:
         with app.app_context():
             info=BaseInfo(url=url,boolcheck=boolcheck,status=baseinfo.GetStatus(),title=baseinfo.GetTitle(),date=baseinfo.GetDate(),responseheader=baseinfo.GetResponseHeader(),
-                                    Server=baseinfo.GetFinger(),portserver=baseinfo.PortScan(),senmessage=baseinfo.SenMessage(),sendir="test")
+                                    Server=baseinfo.GetFinger(),portserver=baseinfo.PortScan(),sendir=baseinfo.SenDir())
             db.session.add(info)
             db.session.flush()
             if boolcheck:
@@ -45,4 +43,6 @@ def SZheConsole(url):
         pass
 
 if __name__=='__main__':
-    SZheConsole('www.taobao.com')
+    redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
+    SZheConsole('www.taobao.com',redispool)
+    # print(get_message.SubDomainBurst("www.taobao.com",redispool))

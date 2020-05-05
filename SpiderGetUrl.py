@@ -21,17 +21,16 @@ import redis
 '''
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-re = redis.Redis(connection_pool=ImportToRedis.redisPool)
+
 
 
 # domain为传入网址网址
-def SortOut(urls, domain):
+def SortOut(urls, domain,redispool):
     new_url_list = []
     for url in urls:
         url = str(url).strip()
-        if ("." not in url) and ("javascript:" not in url) and ("#" not in url):
+        if ("." not in url) and ("javascript:" not in url) and ("#" not in url) and (domain not in url):
             url = domain + url
-        # elif domain not in url:
         if type(url) == list:
             continue
         url = url.strip()
@@ -47,11 +46,12 @@ def SortOut(urls, domain):
             continue
         new_url_list.append(url)
     for url in new_url_list:
-        re.sadd("queue", url)
+        print(url)
+        redispool.sadd("queue", url)
 
 
-def Spider():
-    url = re.spop("queue")
+def Spider(redispool):
+    url = redispool.spop("queue")
     new_url_list = []
     try:
         rep = core.gethtml(url, timeout=1)
@@ -84,7 +84,7 @@ class Spyder(threading.Thread):
         return self.result
 
 
-def depth_get(domain):
+def depth_get(domain,redispool):
     threads = []
     count = 0
     new_url_list = []
@@ -93,10 +93,10 @@ def depth_get(domain):
         print("第%d层" % count + 20 * "=")
         try:
             if count == 1:
-                url_list = Spider()
+                url_list = Spider(redispool)
                 new_url_list.extend(url_list)
             else:
-                while re.scard("queue") != 0:
+                while redispool.scard("queue") != 0:
                     for i in range(1, 26):
                         t = Spyder(Spider)
                         threads.append(t)
@@ -107,21 +107,14 @@ def depth_get(domain):
                     time.sleep(0.5)
         except Exception:
             pass
-        SortOut(new_url_list, domain)
+        SortOut(new_url_list, domain,redispool)
     print("end")
-    for url in re.smembers("queue"):
+    for url in redispool.smembers("queue"):
         print(url)
 
 
 if __name__ == '__main__':
-    # attack_queue = Queue()
-    re.delete("queue")
-    re.sadd("queue", "https://www.csdn.net/")
-    # attack_queue.put("https://www.csdn.net/")
-    # depth_get("www.csdn.net/", attack_queue)
-    depth_get("www.csdn.net/")
-    # r.sadd("queue", "https://www.luckyharvest.cn/")
-    # attack_queue.put("https://www.luckyharvest.cn/")
-    # depth_get("www.luckyharvest.cn", attack_queue)
-    # depth_get("www.luckyharvest.cn")
-    # normal("https://blog.csdn.net/")
+    redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
+    redispool.delete("queue")
+    redispool.sadd("queue", "https://blog.csdn.net/")
+    depth_get("blog.csdn.net",redispool)

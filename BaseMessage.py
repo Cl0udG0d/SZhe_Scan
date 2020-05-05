@@ -19,8 +19,9 @@ from models import BaseInfo
     
 '''
 class GetBaseMessage:
-    def __init__(self,url):
+    def __init__(self,url,redispool):
         self.domain=url
+        self.redispool=redispool
         try:
             if not (url.startswith("http://") or url.startswith("https://")):
                 self.url = "http://" + url
@@ -28,6 +29,7 @@ class GetBaseMessage:
                 self.url = url
             self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3, verify=False)
         except:
+            self.rep=None
             pass
         if self.rep==None:
             try:
@@ -56,11 +58,8 @@ class GetBaseMessage:
     def PortScan(self):
         return get_message.PortScan(self.domain)
 
-    def SenMessage(self):
-        return get_message.InforLeakage(self.domain)
-
     def SenDir(self):
-        return get_message.SenFileScan(self.domain)
+        return get_message.SenFileScan(self.domain,self.redispool)
 
 
 if __name__=='__main__':

@@ -1,15 +1,18 @@
 import get_message
-
+import redis
+import ImportToRedis
 
 class DomainMessage:
-    def __init__(self,domain):
+    def __init__(self,domain,redispool):
         self.domain=domain
+        self.redispool=redispool
         self.TrueDomain=self.domain.split('.',1)[1]
 
     def GetSubDomain(self):
-        SubDomainBurst=get_message.SubDomainBurst(self.TrueDomain)
+        SubDomainBurst=get_message.SubDomainBurst(self.TrueDomain,self.redispool)
         SubDomainOnline=get_message.GetSubDomain(self.domain)
-        SubDomain=list(set(SubDomainBurst.extend(SubDomainOnline)))
+        SubDomain=SubDomainBurst+SubDomainOnline
+        print("111")
         return SubDomain
 
     def GetWhoisMessage(self):
@@ -28,10 +31,11 @@ class DomainMessage:
         return get_message.FindDomainAdd(self.domain)
 
 if __name__=='__main__':
-    test=DomainMessage("github.com")
-    print(test.GetSiteStation())
-    print(test.GetBindingIP())
-    print(test.GetWhoisMessage())
-    print(test.GetRecordInfo())
-    print(test.FindDomainAdd())
+    redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
+    test=DomainMessage("www.taobao.com",redispool)
+    # print(test.GetSiteStation())
+    # print(test.GetBindingIP())
+    # print(test.GetWhoisMessage())
+    # print(test.GetRecordInfo())
+    # print(test.FindDomainAdd())
     print(test.GetSubDomain())

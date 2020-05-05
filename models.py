@@ -23,7 +23,6 @@ class BaseInfo(db.Model):
     responseheader=db.Column(db.Text,nullable=False)
     Server = db.Column(db.String(100),nullable=True)
     portserver = db.Column(db.Text,nullable=True)
-    senmessage = db.Column(db.Text,nullable=True)
     sendir = db.Column(db.Text,nullable=True)
 
 
@@ -44,7 +43,7 @@ class DomainInfo(db.Model):
     whois=db.Column(db.Text,nullable=True)
     bindingip=db.Column(db.Text,nullable=True)
     sitestation=db.Column(db.Text,nullable=True)
-    recordinfo=db.Column(db.String(100),nullable=True)
+    recordinfo=db.Column(db.Text,nullable=True)
     domainaddr=db.Column(db.String(100),nullable=True)
 
 class BugList(db.Model):
