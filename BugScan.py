@@ -10,26 +10,26 @@ class BugScan:
         self.redispool=reaidspool
 
     def SQLBugScan(self):
-        vulnerable, db, payload =InjectionControl(self.url)
-        return vulnerable,db,payload
+        vulnerable, payload,bugdetail =InjectionControl(self.url)
+        return vulnerable,payload,bugdetail
 
     def XSSBugScan(self):
-        vulnerable, website, payload=GetXSS(self.url,self.redispool)
-        return vulnerable, website, payload
+        vulnerable, payload,bugdetail=GetXSS(self.url,self.redispool)
+        return vulnerable, payload,bugdetail
 
     def ComInScan(self):
-        vulnerable, website, payload=GetComIn(self.url)
-        return vulnerable, website, payload
+        vulnerable, payload,bugdetail=GetComIn(self.url)
+        return vulnerable, payload,bugdetail
 
     def FileIncludeScan(self):
-        vulnerable, website, payload=CheckLocalFileInclude(self.url)
-        return vulnerable, website, payload
+        vulnerable, payload,bugdetail=CheckLocalFileInclude(self.url)
+        return vulnerable, payload,bugdetail
 
     def WebLogicScan(self):
-        return None
+        return False,None,None
 
     def POCScan(self):
-        return None
+        return False,None,None
 
 if __name__=='__main__':
     # test=BugScan('http://testphp.vulnweb.com/listproducts.php?cat=1')

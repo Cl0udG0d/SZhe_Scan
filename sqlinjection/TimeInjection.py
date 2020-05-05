@@ -13,7 +13,6 @@ def TimeIn(domain,queries,old_html):
     for db,timepayloads in sql_times.items():
         for payload in timepayloads:
             website = domain + "?" + ("&".join([param + payload for param in queries]))
-            # print(website)
             try:
                 start_time = time.time()
                 rep1=requests.get(domain)
@@ -23,9 +22,9 @@ def TimeIn(domain,queries,old_html):
                 delta1 = end_time_1 - start_time
                 delta2 = end_time_2 - end_time_1
                 if (delta2 - delta1) > 4:
-                    return True,db,website
+                    return True,website,db+"\n"+rep2.text
                 elif CheckWaf.CheckHaveWaf(old_html, rep1.text):
-                    return False, "waf",website
+                    return False,website,"waf"
             except:
                 pass
     return False,None,None

@@ -22,10 +22,9 @@ def BoolIn(domain,queries,old_html):
     payloads= (" and 8590=8591--+","' and 8590=8591--+",'''" and 8590=8591--+''',") and 8590=8591--+","') and 8590=8591--+",'''") and 8590=8591--+''')
     for payload in payloads:
         website = domain + "?" + ("&".join([param + payload for param in queries]))
-        # print(website)
         source = core.gethtml(website)
         if source and IsSimilarPage(source,old_html,radio=0.3):
-            return True,"unknown",website
+            return True,website,source
     return False,None,None
 
 # def InjectionControl(url):

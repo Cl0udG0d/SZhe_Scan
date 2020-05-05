@@ -18,19 +18,21 @@ def InjectionControl(url):
     #获取域名和参数，用来构建payload
     queries = urlparse.urlparse(url).query.split("&")
     if old_html and any(queries):
-        e_vulnerable, e_db,e_payload =ErrorInjection.ErrorIn(domain, queries, old_html)
-        if e_vulnerable:
-            return True,e_db,e_payload
-        t_vulnerable, t_db,t_payload =TimeInjection.TimeIn(domain, queries, old_html)
-        if t_vulnerable:
-            return True,t_db,t_payload
-        b_vulnerable, b_db ,b_payload=BoolInjection.BoolIn(domain, queries, old_html)
-        if b_vulnerable:
-            return True,b_db,b_payload
-        if e_db:
-            return False,"waf",None
-        else:
+        vulnerable, payload,bugdetail =ErrorInjection.ErrorIn(domain, queries, old_html)
+        if vulnerable:
+            return True,payload,bugdetail
+        #存在WAF直接返回
+        if bugdetail:
             return False,None,None
+        vulnerable, payload,bugdetail=TimeInjection.TimeIn(domain, queries, old_html)
+        if vulnerable:
+            return True,payload,bugdetail
+        if bugdetail:
+            return False,None,None
+        vulnerable, payload,bugdetail=BoolInjection.BoolIn(domain, queries, old_html)
+        if vulnerable:
+            return True,payload,bugdetail
+        return False,None,None
     else:
         return False, None,None
 

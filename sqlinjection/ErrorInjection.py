@@ -26,13 +26,13 @@ def ErrorIn(domain,queries,old_html):
                '`;', '\\', "%27", "%%2727", "%25%27", "%60", "%5C")
     for payload in payloads:
         website = domain + "?" + ("&".join([param + payload for param in queries]))
-        source = core.gethtml(website)
+        source = core.gethtml(website,timeout=3)
         if source:
             vulnerable,db=SQLError(source)
             if vulnerable and db !=None:
-                return True,db,website
+                return True,website,db+"\n"+source
         if CheckWaf.CheckHaveWaf(old_html, source):
-            return False,"waf",website
+            return False,website,"waf"
         else:
             return False,None,None
 

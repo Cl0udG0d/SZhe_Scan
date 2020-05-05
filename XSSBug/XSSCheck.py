@@ -21,7 +21,7 @@ def GetXSS(url,redispool):
             source = core.gethtml(website)
             if payload in source:
                 # print("(+)this url have xss bug {},payload is {}".format(url,payload))
-                return True,website,payload
+                return True,website,source
     # print("(-)this url haven't xss bug {}".format(url))
     return False,None,None
 

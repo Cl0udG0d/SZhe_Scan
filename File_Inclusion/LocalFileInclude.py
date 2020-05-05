@@ -35,7 +35,7 @@ def CheckLocalFileInclude(url):
             source = core.gethtml(website,timeout=5)
             if re.search(fingerprint, source):
                 # print("(+)this url have fileinclude bug {},payload is {}".format(url,website))
-                return True,website,inj
+                return True,website,source
     return False,None,None
 
 if __name__=='__main__':

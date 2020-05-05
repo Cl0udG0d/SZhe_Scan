@@ -53,6 +53,7 @@ class BugList(db.Model):
     bugurl=db.Column(db.String(50),nullable=True)
     bugtype=db.Column(db.Text,nullable=True)
     buggrade=db.Column(db.String(10),nullable=True)
+    payload=db.Column(db.String(100),nullable=True)
     bugdetail=db.Column(db.Text,nullable=True)
 
 class SeriousBug(db.Model):

@@ -31,7 +31,7 @@ def GetComIn(url):
                 pattern = re.compile(test, re.I)
                 if pattern.findall(source):
                     # print("(+)this url have command injection bug {},payload is {}".format(url, payload))
-                    return True, website,payload
+                    return True, website,source
     # print("(-)this url haven't command injection bug {}".format(url))
     return False, None,None
 
