@@ -12,7 +12,7 @@ from concurrent.futures import ThreadPoolExecutor
 app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
-executor = ThreadPoolExecutor()
+executor = ThreadPoolExecutor(4)
 
 
 @app.route('/')
@@ -20,25 +20,25 @@ def index():
     return render_template('homeOne.html')
 
 
-def InfoCommit(url):
-    Info = GetBaseMessage(url)
-    try:
-        with app.app_context():
-            db.session.add(BaseInfo(url=url, status=Info.GetStatus(), title=Info.GetTitle(), date=Info.GetDate(),
-                                    responseheader=Info.GetResponseHeader(),
-                                    Server=Info.GetFinger(), portserver=Info.PortScan(), senmessage=Info.SenMessage(),
-                                    sendir="test"))
-            db.session.commit()
-    except Exception:
-        pass
+# def InfoCommit(url):
+#     Info = GetBaseMessage(url)
+#     try:
+#         with app.app_context():
+#             db.session.add(BaseInfo(url=url, status=Info.GetStatus(), title=Info.GetTitle(), date=Info.GetDate(),
+#                                     responseheader=Info.GetResponseHeader(),
+#                                     Server=Info.GetFinger(), portserver=Info.PortScan(), senmessage=Info.SenMessage(),
+#                                     sendir="test"))
+#             db.session.commit()
+#     except Exception:
+#         pass
 
 
-@app.route('/testMySQL')
-def testmysql():
-    url = "blog.csdn.net"
-    executor.submit(InfoCommit, url)
-    # Info = BaseInfo.query.filter(BaseInfo.id == 2).first()
-    return "hi!"
+# @app.route('/testMySQL')
+# def testmysql():
+#     url = "blog.csdn.net"
+#     executor.submit(InfoCommit, url)
+#     # Info = BaseInfo.query.filter(BaseInfo.id == 2).first()
+#     return "hi!"
 
 
 @app.route('/user')
@@ -51,9 +51,24 @@ def test_home():
     return render_template('baseOne.html')
 
 
-@app.route('/test_console')
+@app.route('/test_console', methods=['GET', 'POST'])
 def console():
-    return render_template('console.html')
+    if request.method == 'GET':
+        return render_template('console.html')
+    else:
+        email = request.form.get('email')
+        remeber = request.form.get('remeber')
+        save_log(request.remote_addr, email)
+        user = User.query.filter(User.email == email).first()
+        if user:
+            if remeber:
+                session.permanent = True
+            session['user_id'] = user.id
+            return redirect(url_for('index'))
+        else:
+            flash("邮箱或密码输入错误")
+            return render_template('sign_in.html')
+
 
 
 def save_log(ip, email):
@@ -133,10 +148,10 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/home/')
-# @login_required
-def home():
-    return render_template('home.html')
+# @app.route('/home/')
+# # @login_required
+# def home():
+#     return render_template('home.html')
 
 
 @app.route('/bug_list/')
@@ -186,5 +201,4 @@ def my_comtext_processor():
 
 
 if __name__ == '__main__':
-    # ImportToRedis.ToRedis()
     app.run()

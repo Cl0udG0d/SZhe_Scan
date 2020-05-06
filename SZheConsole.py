@@ -10,11 +10,13 @@ import ImportToRedis
 import redis
 import time
 import re
+from SpiderGetUrl import depth_get
 
 Bugs=["SQLBugScan","XSSBugScan","ComInScan","FileIncludeScan","WebLogicScan","POCScan"]
 
 
 '''
+SZheConsole 碎遮扫描器的总控制代码
 获取baseinfo ->MySQL
  ip->获取ipinfo->MySQL
  domain->获取domaininfo->MySQL
@@ -29,7 +31,6 @@ def BugScanConsole(attackurl,redispool):
     '''
     try:
         while redispool.scard(attackurl) != 0:
-            print("111")
             url = redispool.spop(attackurl)
             Bug=BugScan(url,redispool)
             with app.app_context():
@@ -40,7 +41,7 @@ def BugScanConsole(attackurl,redispool):
                             bug = BugList(oldurl=attackurl,bugurl=url,bugtypeid=bugtype.id,payload=payload,bugdetail=bugdetail)
                             db.session.add(bug)
                 db.session.commit()
-        time.sleep(0.5)
+        # time.sleep(0.5)
     except Exception as e:
         print(e)
         pass
@@ -67,15 +68,17 @@ def SZheConsole(url,redispool):
                 db.session.add(DomainInfo(baseinfoid=info.id,subdomain=domaininfo.GetSubDomain(),whois=domaininfo.GetWhoisMessage(),bindingip=domaininfo.GetBindingIP(),
                                           sitestation=domaininfo.GetSiteStation(),recordinfo=domaininfo.GetRecordInfo(),domainaddr=domaininfo.FindDomainAdd()))
             db.session.commit()
+            depth_get(url,redispool)
+            BugScanConsole(url,redispool)
+            print("{} scan end !".format(url))
     except Exception as e:
         print(e)
         pass
+
 def Check():
     GetXSS("http://testphp.vulnweb.com/listproducts.php?cat=1", redispool)
 
 if __name__=='__main__':
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
-    # SZheConsole('www.taobao.com',redispool)
-    # GetXSS("http://leettime.net/xsslab1/chalg1.php?name=1",redispool)
-    # print(get_message.SubDomainBurst("www.taobao.com",redispool))
-    BugScanConsole("testphp.vulnweb.com",redispool)
+    SZheConsole("testphp.vulnweb.com",redispool)
+    # BugScanConsole("testphp.vulnweb.com",redispool)
