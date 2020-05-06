@@ -193,7 +193,7 @@
   vertical-align: middle;
 }
 .content-mid-left {
-  flex: 3;
+  flex: 3.5;
   display: flex;
   width: 90%;
   flex-direction: row;
@@ -204,18 +204,19 @@
   position: relative;
   left: 10px;
 }
-.content-mid-left input {
-  flex: 4;
-  height: 50px;
+.content-mid-left textarea {
+  flex: 5;
+  height: 100px;
   background-color: #f8f8ff;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
-  margin-right: 10px;
+  margin-right: 20px;
   padding-left: 10px;
+  color: #494949;
 }
 .content-mid-left button {
   flex: 1;
-  width: 60%;
+  /* width: 60px; */
   height: 50px;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
@@ -232,7 +233,9 @@
 }
 .content-mid-right p {
   color: #2e2e2e;
-  font-size: 14px;
+  color: black;
+  font-size: 17px;
+  margin-bottom: 8px;
 }
 .charts {
   /* flex: 1; */

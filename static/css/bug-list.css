@@ -44,7 +44,7 @@ h1 {
   display: inline-block;
 }
 h1 a {
-  color: black;
+  color: #2e2e2e;
 }
 .container,
 .container .top {
@@ -54,7 +54,7 @@ h1 a {
   width: 100vw;
 }
 .container hr {
-  background-color: black;
+  background-color: #8b8b8b;
   border-style: none;
   font-size: 2px;
   /* font-weight: 700; */
@@ -81,6 +81,7 @@ h1 a {
 .userCenter li a:hover {
   /* color: #5352ed; */
   color: #0fbcf9;
+  /* color: #7342fa; */
 }
 .navigation {
   width: 100%;
@@ -89,7 +90,7 @@ h1 a {
   top: 55.7px;
   /* margin: 0 20px; */
   /* display: flex; */
-  left: -40px;
+  left: -50px;
   background-color: #f8f8ff;
   height: 50px;
   text-align: center;
@@ -123,6 +124,7 @@ h1 a {
   height: 5px;
   /* background-color: #5352ed; */
   background-color: #0fbcf9;
+  /* background-color: #7342fa; */
   border-radius: 4px;
   position: absolute;
   top: 42px;
@@ -225,6 +227,7 @@ h1 a {
   z-index: 1;
   transition: all ease, 0.3s;
 }
+
 /*新搜索框框*/
 .search-box {
   position: absolute;
@@ -258,6 +261,7 @@ h1 a {
 }
 
 .search-box .search-btn {
+  /* color: #7342fa; */
   color: #0fbcf9;
   float: right;
   width: 25px;
@@ -285,99 +289,56 @@ h1 a {
   line-height: 25px;
   width: 0px;
 }
-.title {
-  width: 100vw;
-  position: absolute;
-  top: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.title h1 {
-  text-align: center;
-  white-space: nowrap;
-  color: #696969;
+
+/* i:hover {
+    /* color: #5352ed; */
+/* color: #0fbcf9; */
+/* } */
+header .burger {
+  display: none;
 }
 .context {
-  position: absolute;
-  top: 240px;
-  width: 100vw;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.partner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
-  position: relative;
-  width: 33%;
-  float: left;
-  margin-left: 20px;
-  margin-bottom: 40px;
-  /* top: 120px;
-  width: 80%;
-  height: 500px;
-  margin-left: 60px; */
+  align-items: center;
+  justify-items: center;
+  position: absolute;
+  top: 80px;
+  width: 100vw;
+  height: 1500px;
+  background-color: #f1f1f1;
 }
-.partner {
-  margin: 30px;
+.left-context {
+  flex: 1;
+  flex-basis: 300px;
+}
+.right-context {
+  flex: 2;
+  width: 100%;
+}
+.context .right-context .tab-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+.context .right-context .tab-content .tab-pane {
+  flex: 1;
+  flex-basis: 110px;
   background-color: #f8f8ff;
-  /* height: 500px; */
-  width: 300px;
-}
-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.intro1 {
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  right: 0;
-  /* background-color: rgb(40, 46, 49); */
-  background-color: #696969;
-  overflow: hidden;
-  width: 100%;
-  height: 0;
-  transition: 0.5s ease;
-}
-.partner:hover .intro1 {
-  bottom: 0;
-  height: 100%;
-}
-s .partner:hover {
-  cursor: pointer;
-}
-.intro1 p {
+  overflow: scroll;
+  height: 30px;
+  width: 80%;
+  margin-bottom: 30px;
   white-space: nowrap;
-  color: white;
-  font-size: 20px;
-  position: absolute;
-  overflow: hidden;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
 }
-.intro1 h1 {
-  white-space: nowrap;
-  color: white;
-  font-size: 35px;
-  position: absolute;
-  overflow: hidden;
-  top: 20%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-}
+
 .body-tail {
   position: absolute;
-  top: 700px;
+  top: 1600px;
   width: 100vw;
-  height: 45px;
+  height: 35px;
   display: flex;
   /*弹性布局*/
   justify-content: center;
