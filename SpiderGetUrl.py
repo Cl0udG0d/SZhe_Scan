@@ -47,11 +47,12 @@ def SortOut(domain, redispool):
     redispool.delete("new_lists")
     for url in redispool.smembers("lists"):
         print(url)
-        redispool.sadd("queue", url)
+        redispool.sadd(domain, url)
+    redispool.delete("lists")
 
 
-def Spider(redispool):
-    url = redispool.spop("queue")
+def Spider(domain, redispool):
+    url = redispool.spop(domain)
     try:
         rep = core.gethtml(url, timeout=1)
         rep = etree.HTML(rep)
@@ -70,21 +71,24 @@ def Spider(redispool):
 
 
 class Spyder(threading.Thread):
-    def __init__(self, func, args):
+    def __init__(self, func, domain, args):
         threading.Thread.__init__(self)
         self.args = args
         self.func = func
-        self.result = self.func(self.args)
+        self.domain = domain
+        self.result = self.func(self.domain, self.args)
 
     def run(self):
-        print("@@@@@@@@@@@@")
-        self.func(self.args)
+        self.func(self.domain, self.args)
 
     def get_result(self):
         return self.result
 
 
 def depth_get(domain, redispool):
+    redispool.delete(domain)
+    redispool.sadd(domain, "https://blog.csdn.net/")
+    redispool.delete("new_lists")
     threads = []
     count = 0
     while count < 2:
@@ -93,11 +97,11 @@ def depth_get(domain, redispool):
         print("第%d层" % count + 20 * "=")
         try:
             if count == 1:
-                Spider(redispool)
+                Spider(domain, redispool)
             else:
-                while redispool.scard("queue") != 0:
+                while redispool.scard(domain) != 0:
                     for i in range(1, 31):
-                        t = Spyder(Spider, redispool)
+                        t = Spyder(Spider, domain, redispool)
                         threads.append(t)
                         t.start()
                     for t in threads:
@@ -107,13 +111,8 @@ def depth_get(domain, redispool):
             pass
         SortOut(domain, redispool)
     print("end")
-    # for url in redispool.smembers("queue"):
-    #     print(url)
 
 
 if __name__ == '__main__':
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
-    redispool.delete("queue")
-    redispool.delete("new_lists")
-    redispool.sadd("queue", "https://blog.csdn.net/")
     depth_get("blog.csdn.net", redispool)
