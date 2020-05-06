@@ -27,14 +27,11 @@ def SortOut(domain, redispool):
     redispool.delete("lists")
     for url in redispool.smembers("new_lists"):
         url = str(url).strip()
-        if ("." not in url) and ("javascript:" not in url) and ("#" not in url) and (domain not in url):
-            url = domain + url
         if type(url) == list:
             continue
         url = url.strip()
-        if not url.startswith("http://") and not url.startswith("https://") and (
-                "javascript:" not in url) and (
-                "#" not in url):
+        if not url.startswith("http://") and not url.startswith("https://") and ("javascript:" not in url) and ("#" not in url) \
+                and not url.endswith("css") and not url.endswith("js"):
             if not domain.endswith("/") and not url.startswith("/"):
                 url = domain + "/" + url
             else:
@@ -46,7 +43,6 @@ def SortOut(domain, redispool):
         redispool.sadd("lists", url)
     redispool.delete("new_lists")
     for url in redispool.smembers("lists"):
-        print(url)
         redispool.sadd(domain, url)
     redispool.delete("lists")
 
@@ -87,7 +83,7 @@ class Spyder(threading.Thread):
 
 def depth_get(domain, redispool):
     redispool.delete(domain)
-    redispool.sadd(domain, "https://blog.csdn.net/")
+    redispool.sadd(domain, domain)
     redispool.delete("new_lists")
     threads = []
     count = 0
@@ -110,9 +106,8 @@ def depth_get(domain, redispool):
         except Exception:
             pass
         SortOut(domain, redispool)
-    print("end")
 
 
 if __name__ == '__main__':
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
-    depth_get("blog.csdn.net", redispool)
+    depth_get("testphp.vulnweb.com", redispool)
