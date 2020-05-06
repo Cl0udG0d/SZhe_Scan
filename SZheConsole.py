@@ -1,31 +1,18 @@
 from BaseMessage import GetBaseMessage
-import re
 from IPMessage import IPMessage
 from DomainMessage import DomainMessage
 from index import app
 from exts import db
-from models import BaseInfo,IPInfo,DomainInfo,BugList
-import ImportToRedis
-import redis
+from models import BaseInfo,IPInfo,DomainInfo,BugList,BugType
 from XSSBug.XSSCheck import GetXSS
 from BugScan import BugScan
+import ImportToRedis
+import redis
 import time
+import re
 
+Bugs=["SQLBugScan","XSSBugScan","ComInScan","FileIncludeScan","WebLogicScan","POCScan"]
 
-Bugs={
-    1:"SQLBugScan",
-    2:"XSSBugScan",
-    3:"ComInScan",
-    4:"FileIncludeScan",
-    5:"WebLogicScan",
-    6:"POCScan"
-}
-BugLevel={
-    "Serious":1,
-    "High":2,
-    "Medium":3,
-    "Low":4
-}
 
 '''
 获取baseinfo ->MySQL
@@ -38,25 +25,25 @@ BugLevel={
 def BugScanConsole(attackurl,redispool):
     '''
     动态调用类方法，减少冗余代码
+    将存在bug的url存在buglist表中，同时根据漏洞类型的不同，指向bugtype表中对应的漏洞类型
     '''
-    while redispool.scard(attackurl) != 0:
-        print("111")
-        url = redispool.spop(attackurl)
-        Bug=BugScan(url,redispool)
-        for key,value in Bugs.items():
-            vulnerable, payload,bugdetail=getattr(Bug, value)()
-            # print(payload)
-            # print(bugdetail)
-            if vulnerable:
-                try:
-                    with app.app_context():
-                        bug = BugList(oldurl=attackurl,bugurl=url,bugtype=value,buggrade=key,payload=payload,bugdetail=bugdetail)
-                        db.session.add(bug)
-                        db.session.commit()
-                except Exception as e:
-                    print(e)
-                    pass
+    try:
+        while redispool.scard(attackurl) != 0:
+            print("111")
+            url = redispool.spop(attackurl)
+            Bug=BugScan(url,redispool)
+            with app.app_context():
+                for value in Bugs:
+                    vulnerable, payload,bugdetail=getattr(Bug, value)()
+                    if vulnerable:
+                            bugtype = BugType.query.filter(BugType.bugtype == value).first()
+                            bug = BugList(oldurl=attackurl,bugurl=url,bugtypeid=bugtype.id,payload=payload,bugdetail=bugdetail)
+                            db.session.add(bug)
+                db.session.commit()
         time.sleep(0.5)
+    except Exception as e:
+        print(e)
+        pass
 
 def SZheConsole(url,redispool):
     baseinfo=GetBaseMessage(url,redispool)

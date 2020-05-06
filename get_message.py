@@ -7,7 +7,6 @@ import redis
 from multiprocessing.pool import ThreadPool
 import socket
 import urllib3
-import ImportToRedis
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # 禁用安全警告
@@ -335,7 +334,7 @@ def FindIpAdd(ip):
 
 
 if __name__ == "__main__":
-    r = redis.Redis(connection_pool=ImportToRedis.redisPool)
+    # r = redis.Redis(connection_pool=ImportToRedis.redisPool)
     # 测试数据
     # print(GetBindingIP('202.202.157.110'))
     # print(GetSiteStation('202.202.157.110'))

@@ -1,0 +1,5 @@
+SQLBugScan:1
+ComInScan:1
+WebLogicScan:2
+XSSBugScan:2
+FileIncludeScan:2

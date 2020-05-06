@@ -5,8 +5,6 @@ from lxml.html.builder import HEAD
 import config
 from models import User, Log, BaseInfo
 from exts import db
-from decorators import login_required
-import ImportToRedis
 from BaseMessage import GetBaseMessage
 import json
 from concurrent.futures import ThreadPoolExecutor

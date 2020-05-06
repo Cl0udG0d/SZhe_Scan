@@ -1,9 +1,12 @@
 import redis
+from index import app
+from exts import db
+from models import BugType
 
-PASSWORD = "123456"
-# PASSWORD = ""
-# HOST = "127.0.0.1"
-HOST = "192.168.88.128"
+# PASSWORD = "123456"
+PASSWORD = ""
+HOST = "127.0.0.1"
+# HOST = "192.168.88.128"
 
 '''
 默认6379端口，第0个数据库
@@ -30,5 +33,17 @@ def ToRedis():
         r.lpush("XSSpayloads",line3.replace("\n",""))
     file3.close()
 
+def ToMySQL():
+    bugtype = open('dict/dbbugtype.txt', 'r')
+    with app.app_context():
+        for i in bugtype.readlines():
+            type,grade=i.split(":")[0],i.split(":")[1]
+            temp = BugType(bugtype=type,buggradeid=grade)
+            db.session.add(temp)
+        db.session.commit()
+    bugtype.close()
+    return None
+
 
 ToRedis()
+# ToMySQL()

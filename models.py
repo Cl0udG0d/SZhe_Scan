@@ -51,26 +51,49 @@ class BugList(db.Model):
     id=db.Column(db.Integer,primary_key=True,autoincrement=True)
     oldurl=db.Column(db.String(50),nullable=True)
     bugurl=db.Column(db.String(50),nullable=True)
-    bugtype=db.Column(db.Text,nullable=True)
-    buggrade=db.Column(db.String(10),nullable=True)
+    bugtypeid=db.Column(db.Integer,nullable=False)
     payload=db.Column(db.String(100),nullable=True)
     bugdetail=db.Column(db.Text,nullable=True)
 
-class SeriousBug(db.Model):
-    __tablename__='seriousbug'
+'''
+buglist表
+    oldurl 扫描的原域名或IP
+    bugurl 原域名或IP下的存在漏洞的一个url
+    payload 漏洞利用的url payload
+    bugdetail 使用payload之后网页的请求源代码
+    
+'''
+class BugType(db.Model):
+    __tablename__='bugtype'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    bugtype=db.Column(db.String(50),nullable=False)
+    buggradeid=db.Column(db.Integer,nullable=False)
 
-class HighBug(db.Model):
-    __tablename__='highbug'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-class MediumBug(db.Model):
-    __tablename__='mediumbug'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
-class LowBug(db.Model):
-    __tablename__='lowbug'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+'''
+buglistid 对应buglist表中漏洞的id编号,事实上buglistid也是唯一的
+bugtypeid 对应该漏洞的类型
+buggradeid 对应buglist表中漏洞的等级
+    0 serious
+    1 high
+    2 medium
+    3 low
+'''
+# class SeriousBug(db.Model):
+#     __tablename__='seriousbug'
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#
+# class HighBug(db.Model):
+#     __tablename__='highbug'
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#
+# class MediumBug(db.Model):
+#     __tablename__='mediumbug'
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#
+# class LowBug(db.Model):
+#     __tablename__='lowbug'
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
 class Log(db.Model):
     __tablename__='log'
