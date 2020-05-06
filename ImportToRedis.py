@@ -1,9 +1,9 @@
 import redis
 
-# PASSWORD = "123456"
-PASSWORD = ""
-HOST = "127.0.0.1"
-# HOST = ""
+PASSWORD = "123456"
+# PASSWORD = ""
+# HOST = "127.0.0.1"
+HOST = "192.168.88.128"
 
 '''
 默认6379端口，第0个数据库

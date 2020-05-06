@@ -1,7 +1,6 @@
-from queue import Queue
 from lxml import etree
-import signal
-import multiprocessing
+# import signal
+# import multiprocessing
 import threading
 import time
 import core
@@ -23,18 +22,18 @@ import redis
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-
 # domain为传入网址网址
-def SortOut(urls, domain,redispool):
-    new_url_list = []
-    for url in urls:
+def SortOut(domain, redispool):
+    redispool.delete("lists")
+    for url in redispool.smembers("new_lists"):
         url = str(url).strip()
         if ("." not in url) and ("javascript:" not in url) and ("#" not in url) and (domain not in url):
             url = domain + url
         if type(url) == list:
             continue
         url = url.strip()
-        if not url.startswith("http://") and not url.startswith("https://") and ("javascript:" not in url) and (
+        if not url.startswith("http://") and not url.startswith("https://") and (
+                "javascript:" not in url) and (
                 "#" not in url):
             if not domain.endswith("/") and not url.startswith("/"):
                 url = domain + "/" + url
@@ -44,25 +43,24 @@ def SortOut(urls, domain,redispool):
                 url = "http://" + url
         if domain not in url:
             continue
-        new_url_list.append(url)
-    for url in new_url_list:
+        redispool.sadd("lists", url)
+    redispool.delete("new_lists")
+    for url in redispool.smembers("lists"):
         print(url)
         redispool.sadd("queue", url)
 
 
 def Spider(redispool):
     url = redispool.spop("queue")
-    new_url_list = []
     try:
         rep = core.gethtml(url, timeout=1)
         rep = etree.HTML(rep)
         url_list = rep.xpath('//*[@href]/@href')
         for new_url in url_list:
-            new_url_list.append(new_url)
+            redispool.sadd("new_lists", new_url)
     except Exception as e:
         print(e)
         pass
-    return new_url_list
 
 
 '''
@@ -72,49 +70,50 @@ def Spider(redispool):
 
 
 class Spyder(threading.Thread):
-    def __init__(self, func):
+    def __init__(self, func, args):
         threading.Thread.__init__(self)
-        self.result = self.func()
+        self.args = args
         self.func = func
+        self.result = self.func(self.args)
 
     def run(self):
-        self.func()
+        print("@@@@@@@@@@@@")
+        self.func(self.args)
 
     def get_result(self):
         return self.result
 
 
-def depth_get(domain,redispool):
+def depth_get(domain, redispool):
     threads = []
     count = 0
-    new_url_list = []
-    while count < 3:
+    while count < 2:
+        redispool.delete("new_url_list")
         count += 1
         print("第%d层" % count + 20 * "=")
         try:
             if count == 1:
-                url_list = Spider(redispool)
-                new_url_list.extend(url_list)
+                Spider(redispool)
             else:
                 while redispool.scard("queue") != 0:
-                    for i in range(1, 26):
-                        t = Spyder(Spider)
+                    for i in range(1, 31):
+                        t = Spyder(Spider, redispool)
                         threads.append(t)
                         t.start()
                     for t in threads:
                         t.join()
-                        new_url_list.extend(t.get_result())
-                    time.sleep(0.5)
+                    time.sleep(0.2)
         except Exception:
             pass
-        SortOut(new_url_list, domain,redispool)
+        SortOut(domain, redispool)
     print("end")
-    for url in redispool.smembers("queue"):
-        print(url)
+    # for url in redispool.smembers("queue"):
+    #     print(url)
 
 
 if __name__ == '__main__':
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
     redispool.delete("queue")
+    redispool.delete("new_lists")
     redispool.sadd("queue", "https://blog.csdn.net/")
-    depth_get("blog.csdn.net",redispool)
+    depth_get("blog.csdn.net", redispool)
