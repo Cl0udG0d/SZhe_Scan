@@ -310,10 +310,11 @@ header .burger {
   display: flex;
   flex-direction: row;
   position: absolute;
-  top: 120px;
+  top: 106px;
   width: 100vw;
   height: 1500px;
   background-color: #f1f1f1;
+  padding-top: 15px;
 }
 /* .context .left-context {
   flex: 1;
