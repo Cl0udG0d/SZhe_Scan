@@ -20,6 +20,10 @@ def index():
     return render_template('homeOne.html')
 
 
+@app.route('/buglist')
+def buglist():
+    return render_template('bug-list.html')
+
 # def InfoCommit(url):
 #     Info = GetBaseMessage(url)
 #     try:
