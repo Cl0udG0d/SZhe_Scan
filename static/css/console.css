@@ -4,7 +4,19 @@
   box-sizing: border-box;
   font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
-
+.navigation ul .two::after {
+  content: "";
+  display: block;
+  background-color: #0fbcf9;
+  width: 100px;
+  height: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 42px;
+  left: 10px;
+  z-index: 1;
+  transition: all ease, 0.3s;
+}
 .left-context {
   flex: 1;
   background-color: #f1f1f1;
