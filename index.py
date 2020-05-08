@@ -1,9 +1,11 @@
 # -*- coding:utf-8 -*-
+
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from lxml.html.builder import HEAD
 import config
-from models import User, Log, BaseInfo
+import uuid
+from models import User, Log, BaseInfo, InvitationCode
 from exts import db
 from BaseMessage import GetBaseMessage
 import json
@@ -23,6 +25,7 @@ def index():
 @app.route('/buglist')
 def buglist():
     return render_template('bug-list.html')
+
 
 # def InfoCommit(url):
 #     Info = GetBaseMessage(url)
@@ -74,7 +77,6 @@ def console():
             return render_template('sign_in.html')
 
 
-
 def save_log(ip, email):
     log = Log(ip=ip, email=email)
     db.session.add(log)
@@ -90,7 +92,8 @@ def login():
         remeber = request.form.get('remeber')
         save_log(request.remote_addr, email)
         user = User.query.filter(User.email == email).first()
-        if user:
+        password = User.check_password(request.form.get('password'))
+        if user and password:
             if remeber:
                 session.permanent = True
             session['user_id'] = user.id
@@ -117,6 +120,13 @@ def validate(email, username, password1, password2):
         return
 
 
+def GenInvitationCode():
+    code = str(uuid.uuid1())
+    Code = InvitationCode(code=code)
+    db.session.add(Code)
+    db.session.commit()
+
+
 @app.route('/regist/', methods=['GET', 'POST'])
 def regist():
     if request.method == 'GET':
@@ -126,10 +136,16 @@ def regist():
         username = request.form.get('username')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        invitationcode = request.form.get('invitationcode')
         # 邮箱和用户名验证
         message = validate(email, username, password1, password2)
+        # 邀请码验证
+        IsCode = InvitationCode.query.filter(InvitationCode.code == invitationcode).first()
         if message:
             flash(message)
+            return render_template('sign_up.html')
+        elif IsCode is None:
+            flash("邀请码错误")
             return render_template('sign_up.html')
         else:
             user = User(email=email, username=username, password=password1)

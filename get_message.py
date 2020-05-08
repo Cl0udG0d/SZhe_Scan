@@ -212,7 +212,7 @@ def SubDomainBurst(true_domain,redispool):
     return "\n".join(list(filter(None, SubDomain)))
 
 
-def SenFileScan(domain,redispool):
+def SenFileScan(domain, redispool):
     """
     敏感文件、目录扫描
     字典：dict\SEN_scan.txt
@@ -223,7 +223,7 @@ def SenFileScan(domain,redispool):
     pools = 20
     urlList = []
     for i in range(0, redispool.llen("SenScan")):
-        url="http://{}/{}".format(domain,redispool.lindex("SenScan", i))
+        url="http://{}/{}".format(domain, redispool.lindex("SenScan", i))
         urlList.append(url)
     pool = ThreadPool(pools)
     SenFileMessage = pool.map(UrlRequest, urlList)

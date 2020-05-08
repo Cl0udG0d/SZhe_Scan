@@ -2,11 +2,12 @@ import requests
 import core
 import re
 import time
+import redis
 from Wappalyzer import WebPage
 import get_message
+# import ImportToRedis
 import json
 from models import BaseInfo
-
 
 '''
 获取输入网址基础信息:
@@ -18,10 +19,16 @@ from models import BaseInfo
     6,端口开放信息
     
 '''
-class GetBaseMessage:
-    def __init__(self,url,redispool):
-        self.domain=url
-        self.redispool=redispool
+options = {1: 'self.GetStatus', 2: 'self.GetTitle', 3: 'self.GetDate', 4: 'self.GetResponseHeader', 5: 'self.GetFinger',
+           6: 'self.PortScan'}
+
+
+class GetBaseMessage():
+    def __init__(self, url, redispool):
+        self.domain = url
+        self.redispool = redispool
+        self.list = ['self.GetStatus','self.GetTitle', 'self.GetDate', 'self.GetResponseHeader', 'self.GetFinger',
+           'self.PortScan', 'self.SenDir']
         try:
             if not (url.startswith("http://") or url.startswith("https://")):
                 self.url = "http://" + url
@@ -29,20 +36,36 @@ class GetBaseMessage:
                 self.url = url
             self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3, verify=False)
         except:
-            self.rep=None
+            self.rep = None
             pass
-        if self.rep==None:
+        if self.rep == None:
             try:
-                self.url="https://"+url
+                self.url = "https://" + url
                 self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3, verify=False)
             except:
                 pass
+        # for i in range(1, 8):
+            # if i in options:
+            #     tar = options[i]
+            # else:
+            #     tar = 'self.SenDir'
+            # tar = self.tar
+            # t = threading.Thread(target=self.list[i-1])
+            # t.start()
+
+        self.status = self.GetStatus()
+        self.title = self.GetTitle()
+        self.date = self.GetDate()
+        self.responseHeader = self.GetResponseHeader()
+        self.finger = self.GetFinger()
+        self.portScan = self.PortScan()
+        self.senDir = self.SenDir()
 
     def GetStatus(self):
         return str(self.rep.status_code)
 
     def GetTitle(self):
-        if self.rep!=None:
+        if self.rep != None:
             return re.findall('<title>(.*?)</title>', self.rep.text)[0]
         return None
 
@@ -53,16 +76,16 @@ class GetBaseMessage:
         return str(self.rep.headers)
 
     def GetFinger(self):
-        return WebPage(self.url,self.rep).info()
+        return WebPage(self.url, self.rep).info()
 
     def PortScan(self):
         return get_message.PortScan(self.domain)
 
     def SenDir(self):
-        return get_message.SenFileScan(self.domain,self.redispool)
+        return get_message.SenFileScan(self.domain, self.redispool)
 
 
-if __name__=='__main__':
-    # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
-    test=GetBaseMessage("www.baidu.com")
+if __name__ == '__main__':
+    redispool=redis.Redis(connection_pool=ImportToRedis.redisPool)
+    test = GetBaseMessage("www.baidu.com", redispool)
     print("end!")
