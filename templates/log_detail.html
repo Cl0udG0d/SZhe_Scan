@@ -1,178 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homepage</title>
+{% extends 'base.html' %}
+{% block title %}LogDetail{% endblock %}
+{% block css %}
     <link rel="stylesheet" href="{{url_for('static',filename='css/log_detail.css')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
-    <!-- <link rel="stylesheet" href="../static/css/homeOne.css" />
-        <link rel="stylesheet" href="{{url_for('static',filename='css/log_detail.css')}}" />
-    <link rel="stylesheet" href="../static/css/font-awesome.min.css" /> -->
+{% endblock %}
+{% block js %}
     <script src="{{url_for('static',filename='js/log_detail.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
-    <!-- <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script> -->
-    <!-- <script src="../static/js/home.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-</head>
-
-<body style="overflow-x:hidden;">
-    <header class="header" id="header">
-        <div class="container">
-            <div class="top">
-                <h1>
-                    <a href="#" title="Web漏洞扫描器">SZHE</a>
-                </h1>
-                <div class="userCenter">
-                    <ul class="userCenter-list" role="tablist">
-                        <li><a href="#" role="tab">个人中心</a></li>
-                        <li><a href="{{url_for('logout')}}" role="tab">注销</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr />
-            <nav class="navigation" id="nav">
-                <ul class="navList fitler-btns" id="myTab" role="tabList">
-                    <li><a href="#" role="tab" class="one filter-btn" data-filter=".btn">主页</a></li>
-                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">控制台</a></li>
-                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">漏洞列表</a></li>
-                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">扫描队列</a></li>
-                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">信息搜集</a></li>
-                    <li><a href="#" role="tab" class="filter-btn six" data-filter=".btnn">日志</a></li>
-                    <li><a href="#" role="tab" class="filter-btn" data-filter=".btnn">设置</a></li>
-                    <li><a href="{{url_for('about')}}" role="tab" class="filter-btn" data-filter=".btnn">关于</a></li>
-                    <div class="slider"></div>
-                </ul>
-                <div class="search-box">
-                    <input class="search-txt" type="text" name="" placeholder="  search..." />
-                    <a class="search-btn" href="#">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </div>
-            </nav>
-            <div class="burger">
-                <div class="burger-line1"></div>
-                <div class="burger-line2"></div>
-                <div class="burger-line3"></div>
-            </div>
-        </div>
-    </header>
-    <div class="context">
-        <div class="left-context" style="display:block;">
-            <div class="statistic">
-                <h5 style="font-weight: 520;">漏洞等级分布图</h5>
-                <div id="container" style="height: 250px;width:90%;top:20px;margin-bottom:20px;"></div>
-            </div>
-            <div class="skills" style="display:block;">
-                <h2 style="font-weight: 600;">漏洞类型统计</h2>
-                <div class="skill">
-                    <div class="skill-name">类型一</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="90">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型二</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="30">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型三</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="164">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型四</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="35">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型五</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="60">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型六</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="78">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型七</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="39">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型七</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="21">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name">类型八</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="58">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name">类型九</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="73">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill ten">
-                    <div class="skill-name">类型十</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="84">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="right-context">
-            <!-- <h1 style="text-align: center;font-weight: 500;font-size: 34px;">这是日志详情</h1> -->
-
-            <table width="100%" class="tab" id="myTab" style="top:10px;border-color: #e3e3e3;" frame=void>
-                <tr style="border-bottom:1px solid #e3e3e3;">
+{% endblock %}
+{% block rightcontext %}
+    <table width="100%" class="tab" id="myTab" style="top:10px;border-color: #e3e3e3;" frame=void>
+        <tr style="border-bottom:1px solid #e3e3e3;">
                     <th>id</th>
                     <th>ip</th>
                     <th>登录邮箱</th>
                     <th>登录时间</th>
                 </tr>
-                {% for log in logs %}
-                <tr style="border-bottom:1px solid #e3e3e3;">
+        {% for log in logs %}
+            <tr style="border-bottom:1px solid #e3e3e3;">
                     <td>{{log.id}}</td>
                     <td>{{log.ip}}</td>
                     <td>{{log.email}}</td>
                     <td>{{log.date}}</td>
                     <!-- <hr> -->
                 </tr>
-                {% endfor %}
-                <table frame=void class="page-number" style="position: absolute;top:1200px;background-color: #f8f8ff;;">
+        {% endfor %}
+        <table frame=void class="page-number" style="position: absolute;top:1200px;background-color: #f8f8ff;;">
 
                     <tr>
                         <td class="td" style="margin-right:10px;white-space: nowrap;">当前页数: {{paginate.page}}</td>
@@ -196,98 +50,5 @@
                                 style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">下一页</a>
                             {% endif %}</td>
                     </tr>
-                </table>
-
-        </div>
-    </div>
-    </div>
-    <div class="body-tail">
-        Copyright @ SZHE Vulnerability Scanner
-    </div>
-    <script>
-        $('.skill-per').each(function () {
-            var $this = $(this);
-            var per = $this.attr('per');
-            $this.css("width", per);
-            $({ animatedValue: 0 }).animate(
-                { animatedValue: per },
-                {
-                    duartion: 300,
-                    step: function () {
-                        $this.attr('per', Math.floor(this.animatedValue));
-                    },
-                    complete: function () {
-                        $this.attr('per', Math.floor(this.animatedValue));
-                    },
-                }
-            );
-        });
-        var dom = document.getElementById("container");
-        var myChart = echarts.init(dom);
-        var app = {};
-
-        app.title = "百分比";
-
-        var option = {
-            tooltip: {
-                trigger: "item",
-                formatter: "{a} <br/>{b}: {c} ({d}%)",
-            },
-            color: ["#90ee90", "#7342fa", "#fdb903", "#e9003a",],
-            legend: {
-                orient: "horizontal",
-                x: "center",
-                data: ["低危", "中危", "高危", "严重"],
-            },
-            series: [
-                {
-                    name: "漏洞属性",
-                    type: "pie",
-                    radius: ["40%", "80%"],
-                    avoidLabelOverlap: false,
-                    label: {
-                        normal: {
-                            show: false,
-                            position: "center",
-                        },
-                        emphasis: {
-                            show: true,
-                            textStyle: {
-                                fontSize: "25",
-                                fontWeight: "bold",
-                            },
-                        },
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false,
-                        },
-                    },
-                    data: [
-                        {
-                            value: 135,
-                            name: "低危",
-                        },
-                        {
-                            value: 170,
-                            name: "中危",
-                        },
-                        {
-                            value: 234,
-                            name: "高危",
-                        },
-                        {
-                            value: 265,
-                            name: "严重",
-                        },
-                    ],
-                },
-            ],
-        };
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
-        }
-    </script>
-</body>
-
-</html>
+                </table></table>
+{% endblock %}

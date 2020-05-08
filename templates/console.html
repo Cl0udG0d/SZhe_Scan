@@ -1,157 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>consolePage</title>
+{% extends 'base.html' %}
+    {%block title%}consolePage{% endblock %}
+    {% block css %}
     <link rel="stylesheet" href="{{url_for('static',filename='css/baseOne.css')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/console.css')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+    {% endblock %}
+    {% block js %}
     <script src="{{url_for('static',filename='js/home.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.js"></script>
-</head>
-
-<body style="overflow-x:hidden;">
-    <header class="header" id="header">
-        <div class="container">
-            <div class="top">
-                <h1>
-                    <a href="#" title="Web漏洞扫描器">SZHE</a>
-                </h1>
-                <div class="userCenter">
-                    <ul class="userCenter-list" role="tablist">
-                        <li><a href="#" role="tab">个人中心</a></li>
-                        <li><a href="{{url_for('logout')}}" role="tab">注销</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr />
-            <nav class="navigation" id="nav">
-                <ul class="navList" id="myTab" role="tabList">
-                    <li><a href="{{url_for('index')}}" role="tab" class="one">主页</a></li>
-                    <li><a href="#" role="tab" class="two">控制台</a></li>
-                    <li><a href="#" role="tab">漏洞列表</a></li>
-                    <li><a href="#" role="tab">扫描队列</a></li>
-                    <li><a href="#" role="tab">信息搜集</a></li>
-                    <li><a href="{{url_for('log_detail')}}" role="tab">日志</a></li>
-                    <li><a href="#" role="tab">设置</a></li>
-                    <li><a href="{{url_for('about')}}" role="tab">关于</a></li>
-                    <div class="slider"></div>
-                </ul>
-                <div class="search-box">
-                    <input class="search-txt" type="text" name="" placeholder="  search..." />
-                    <a class="search-btn" href="#">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </div>
-            </nav>
-            <div class="burger">
-                <div class="burger-line1"></div>
-                <div class="burger-line2"></div>
-                <div class="burger-line3"></div>
-            </div>
-        </div>
-    </header>
-    <div class="context">
-        <div class="left-context" style="display:block;">
-            <div class="statistic">
-                <h5 style="vertical-align: middle;">漏洞等级分布图</h5>
-                <div id="container" style="height: 250px;width:90%;top:0px;text-align: center;vertical-align: middle;">
-                </div>
-            </div>
-            <div class="skills" style="display:block;">
-                <h2>漏洞类型统计</h2>
-                <div class="skill">
-                    <div class="skill-name">类型一</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="90">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型二</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="30">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型三</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="164">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型四</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="35">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型五</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="60">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型六</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="78">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型七</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="39">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">类型七</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="21">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name">类型八</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="58">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name">类型九</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="73">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill ten">
-                    <div class="skill-name">类型十</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="84">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="right-context">
-            <div class="content-wrapper">
+    {% endblock %}
+    {% block rightcontext %}
+    <div class="content-wrapper">
                 <div class="features">
                     <div class="feature one">
                         <i class="fa fa-tags"></i>
@@ -199,7 +60,7 @@
 
                 </div>
             </div>
-            <div class="content-mid">
+    <div class="content-mid">
                 <div class="content-mid-left">
                     <textarea rows="10" cols="30">请输入新建任务：</textarea>
                     <button class="newtask" type="submit">新建任务</button>
@@ -210,7 +71,7 @@
                     <p class="p3">已扫描:10</p>
                 </div>
             </div>
-            <div class="charts">
+    <div class="charts">
                 <div class="bar-graph">
                     <h5 class="bar-title">开放端口</h5>
                     <canvas id="myChart" width="850" height="400"></canvas>
@@ -221,11 +82,8 @@
                     <canvas id="myCurveChart" width="850" height="400"></canvas>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="body-tail">
-        Copyright @ SZHE Vulnerability Scanner
-    </div>
+    {% endblock %}
+    {% block addjs %}
     <script>
 
         //漏洞类型部分
@@ -396,6 +254,4 @@
         /// 创建对象，生成折线图表
         new Chart(ctx).Line(data, options);
     </script>
-</body>
-
-</html>
+    {% endblock %}

@@ -6,8 +6,7 @@ from Wappalyzer import WebPage
 import get_message
 import json
 from models import BaseInfo
-
-
+import redis
 '''
 获取输入网址基础信息:
     1,WEB指纹识别,技术识别 Finger 
@@ -37,6 +36,7 @@ class GetBaseMessage:
                 self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3, verify=False)
             except:
                 pass
+        print(self.SenDir())
 
     def GetStatus(self):
         return str(self.rep.status_code)
@@ -64,5 +64,5 @@ class GetBaseMessage:
 
 if __name__=='__main__':
     # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
-    test=GetBaseMessage("www.baidu.com")
+    # test=GetBaseMessage("www.baidu.com",redispool)
     print("end!")
