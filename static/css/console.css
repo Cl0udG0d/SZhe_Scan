@@ -17,6 +17,7 @@
   z-index: 1;
   transition: all ease, 0.3s;
 }
+
 .left-context {
   flex: 1;
   background-color: #f1f1f1;
@@ -26,6 +27,7 @@
   margin-left: 20px;
   margin-right: 10px;
 }
+
 .statistic {
   display: flex;
   flex-direction: column;
@@ -78,7 +80,7 @@
   background-color: #f8f8ff;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
-  height: 250px;
+  height: 260px;
   position: relative;
   top: 13px;
   padding: 5px 5px;
@@ -91,6 +93,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-bottom: 5px;
 }
 .features h3,
 .features p {
@@ -218,7 +221,7 @@
 }
 .content-mid-left textarea {
   flex: 5;
-  height: 100px;
+  height: 140px;
   background-color: #f8f8ff;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
@@ -246,8 +249,14 @@
 .content-mid-right p {
   color: #2e2e2e;
   color: black;
-  font-size: 17px;
-  margin-bottom: 8px;
+  font-size: 18px;
+  margin-bottom: 4px;
+  border: #d3d3d3 solid 1px;
+  background-color: #f8f8ff;
+  border-radius: 4px;
+  width: 80%;
+  padding: 10px 10px;
+  margin-left: 33px;
 }
 .charts {
   /* flex: 1; */
