@@ -26,7 +26,17 @@ def index():
 def buglist():
     return render_template('bug-list.html')
 
+<<<<<<< HEAD
 
+=======
+@app.route('/base')
+def base():
+    return render_template('base.html')
+
+@app.route('/basenav')
+def basenav():
+    return render_template('basenav.html')
+>>>>>>> 2218520bbb6eb632e91f61ea9153a2848062d5e8
 # def InfoCommit(url):
 #     Info = GetBaseMessage(url)
 #     try:

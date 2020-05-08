@@ -8,7 +8,11 @@ import get_message
 # import ImportToRedis
 import json
 from models import BaseInfo
+<<<<<<< HEAD
 
+=======
+import redis
+>>>>>>> 2218520bbb6eb632e91f61ea9153a2848062d5e8
 '''
 获取输入网址基础信息:
     1,WEB指纹识别,技术识别 Finger 
@@ -44,6 +48,7 @@ class GetBaseMessage():
                 self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3, verify=False)
             except:
                 pass
+<<<<<<< HEAD
         # for i in range(1, 8):
             # if i in options:
             #     tar = options[i]
@@ -60,6 +65,9 @@ class GetBaseMessage():
         self.finger = self.GetFinger()
         self.portScan = self.PortScan()
         self.senDir = self.SenDir()
+=======
+        print(self.SenDir())
+>>>>>>> 2218520bbb6eb632e91f61ea9153a2848062d5e8
 
     def GetStatus(self):
         return str(self.rep.status_code)
@@ -85,7 +93,14 @@ class GetBaseMessage():
         return get_message.SenFileScan(self.domain, self.redispool)
 
 
+<<<<<<< HEAD
 if __name__ == '__main__':
     redispool=redis.Redis(connection_pool=ImportToRedis.redisPool)
     test = GetBaseMessage("www.baidu.com", redispool)
     print("end!")
+=======
+if __name__=='__main__':
+    # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
+    # test=GetBaseMessage("www.baidu.com",redispool)
+    print("end!")
+>>>>>>> 2218520bbb6eb632e91f61ea9153a2848062d5e8

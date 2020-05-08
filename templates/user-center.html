@@ -1,58 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'basenav.html' %}
+    {% block title %}User{% endblock %}
+    {% block css %}
     <link rel="stylesheet" href="{{url_for('static',filename='css/user-center.css')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
-
-    <!-- <link rel="stylesheet" href="../static/css/user-center.css" /> -->
+    {% endblock %}
     <title>Document</title>
+    {% block js %}
     <script type="text/javascript" src="../static/js/user-center.js"></script>
-</head>
-
-<body style="overflow-x:hidden;">
-    <header class="header" id="header">
-        <div class="container">
-            <div class="top">
-                <h1>
-                    <a href="#" title="Web漏洞扫描器">SZHE</a>
-                </h1>
-                <div class="userCenter">
-                    <ul class="userCenter-list" role="tablist">
-                        <li><a href="#" role="tab">个人中心</a></li>
-                        <li><a href="{{url_for('logout')}}" role="tab">注销</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr />
-            <nav class="navigation" id="nav">
-                <ul class="navList" id="myTab" role="tabList">
-                    <li><a href="{{url_for('index')}}" role="tab" class="one">主页</a></li>
-                    <li><a href="#" role="tab">控制台</a></li>
-                    <li><a href="#" role="tab">漏洞列表</a></li>
-                    <li><a href="#" role="tab">扫描队列</a></li>
-                    <li><a href="#" role="tab">信息搜集</a></li>
-                    <li><a href="{{url_for('log_detail')}}" role="tab">日志</a></li>
-                    <li><a href="#" role="tab">设置</a></li>
-                    <li><a href="{{url_for('about')}}" role="tab">关于</a></li>
-                    <div class="slider"></div>
-                </ul>
-                <div class="search-box">
-                    <input class="search-txt" type="text" name="" placeholder="  search..." />
-                    <a class="search-btn" href="#">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </div>
-            </nav>
-            <div class="burger">
-                <div class="burger-line1"></div>
-                <div class="burger-line2"></div>
-                <div class="burger-line3"></div>
-            </div>
-        </div>
-    </header>
+    {% endblock %}
+    {% block context %}
     <div class="context">
         <div class="title">
             <hr style=" width:43%;float:left;" />
@@ -150,13 +106,4 @@
             <div class="whatever">whatever</div>
         </div>
     </div>
-    {%block main%}{% endblock %}
-    <div class="body-tail">
-        Copyright @ SZHE Vulnerability Scanner
-    </div>
-
-
-
-</body>
-
-</html>
+    {% endblock %}

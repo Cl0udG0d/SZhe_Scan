@@ -1,55 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'basenav.html' %}
+{%block title%}About{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% block css %}
     <link rel="stylesheet" href="{{url_for('static',filename='css/about.css')}}" />
     <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
-</head>
-
-<body style="overflow-x:hidden;">
-    <header class="header" id="header">
-        <div class="container">
-            <div class="top">
-                <h1>
-                    <a href="#" title="Web漏洞扫描器">SZHE</a>
-                </h1>
-                <div class="userCenter">
-                    <ul class="userCenter-list" role="tablist">
-                        <li><a href="#" role="tab">个人中心</a></li>
-                        <li><a href="#" role="tab">注销</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr />
-            <nav class="navigation" id="nav">
-                <ul class="navList" id="myTab" role="tabList">
-                    <li><a href="#" role="tab" class="one">主页</a></li>
-                    <li><a href="#" role="tab">控制台</a></li>
-                    <li><a href="#" role="tab">漏洞列表</a></li>
-                    <li><a href="#" role="tab">扫描队列</a></li>
-                    <li><a href="#" role="tab">信息搜集</a></li>
-                    <li><a href="#" role="tab">日志</a></li>
-                    <li><a href="#" role="tab">设置</a></li>
-                    <li><a href="#" role="tab" class="eight">关于</a></li>
-                    <div class="slider"></div>
-                </ul>
-                <div class="search-box">
-                    <input class="search-txt" type="text" name="" placeholder="  search..." />
-                    <a class="search-btn" href="#">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </div>
-            </nav>
-            <div class="burger">
-                <div class="burger-line1"></div>
-                <div class="burger-line2"></div>
-                <div class="burger-line3"></div>
-            </div>
-        </div>
-    </header>
+{% endblock %}
+{% block context %}
     <div class="title">
         <h1>团队介绍</h1>
     </div>
@@ -88,10 +44,4 @@
             </div>
         </div>
     </div>
-    </div>
-    <div class="body-tail">
-        Copyright @ SZHE Vulnerability Scanner
-    </div>
-</body>
-
-</html>
+{% endblock %}
