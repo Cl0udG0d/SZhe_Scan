@@ -339,6 +339,9 @@ h1 a {
   /* height: 500px; */
   width: 300px;
 }
+.partner:hover {
+  cursor: pointer;
+}
 img {
   display: block;
   width: 100%;
@@ -355,6 +358,9 @@ img {
   width: 100%;
   height: 0;
   transition: 0.5s ease;
+}
+.intro:hover {
+  cursor: pointer;
 }
 .partner:hover .intro1 {
   bottom: 0;
