@@ -2,16 +2,12 @@ import redis
 # from index import app
 from exts import db
 from models import BugType
+from config import redisPool
 
-# PASSWORD = "123456"
-PASSWORD = ""
-HOST = "127.0.0.1"
-# HOST = "192.168.88.128"
 
 '''
 默认6379端口，第0个数据库
 '''
-redisPool = redis.ConnectionPool(host=HOST, password=PASSWORD, port=6379, db=0, decode_responses=True)
 
 
 def ToRedis():

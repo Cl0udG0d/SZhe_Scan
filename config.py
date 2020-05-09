@@ -1,5 +1,5 @@
 import os
-
+import redis
 '''
 配置文件：
     debug=true
@@ -20,3 +20,9 @@ PASSWORD='root'
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(USERNAME,PASSWORD,HOSTNAME,PORT,DATABASE)
 
 SQLALCHEMY_TRACK_MODIFICATIONS=False
+
+# PASSWORD = "123456"
+PASSWORD = ""
+HOST = "127.0.0.1"
+# HOST = "192.168.88.128"
+redisPool = redis.ConnectionPool(host=HOST, password=PASSWORD, port=6379, db=0, decode_responses=True)

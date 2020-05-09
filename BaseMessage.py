@@ -8,7 +8,7 @@ import get_message
 import ImportToRedis
 import json
 import redis
-from index import app
+# from index import app
 from exts import db
 from models import BaseInfo
 

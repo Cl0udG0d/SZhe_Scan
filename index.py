@@ -7,12 +7,15 @@ import config
 import uuid
 from models import User, Log, BaseInfo, InvitationCode
 from exts import db
-import json
 from concurrent.futures import ThreadPoolExecutor
+from SZheConsole import SZheConsole
+import ImportToRedis
+import redis
+from init import app
 
-app = Flask(__name__)
-app.config.from_object(config)
-db.init_app(app)
+# app = Flask(__name__)
+# app.config.from_object(config)
+# db.init_app(app)
 executor = ThreadPoolExecutor(4)
 
 
@@ -63,10 +66,12 @@ def basenav():
 #     return "hi!"
 
 
-@app.route('/user')
+@app.route('/user', methods=['GET', 'POST'])
 def user():
-    return render_template('user-center.html')
-
+    if request.method == 'GET':
+        return render_template('user-center.html')
+    else:
+        return render_template('user-center.html')
 
 @app.route('/testnav')
 def test_home():
@@ -78,18 +83,10 @@ def console():
     if request.method == 'GET':
         return render_template('console.html')
     else:
-        email = request.form.get('email')
-        remeber = request.form.get('remeber')
-        save_log(request.remote_addr, email)
-        user = User.query.filter(User.email == email).first()
-        if user:
-            if remeber:
-                session.permanent = True
-            session['user_id'] = user.id
-            return redirect(url_for('index'))
-        else:
-            flash("邮箱或密码输入错误")
-            return render_template('sign_in.html')
+        urls = request.form.post('urls')
+        executor.submit(SZheConsole, (urls,redispool))
+        return render_template('console.html')
+
 
 
 def save_log(ip, email):
@@ -185,12 +182,6 @@ def about():
     return render_template('about.html')
 
 
-# @app.route('/home/')
-# # @login_required
-# def home():
-#     return render_template('home.html')
-
-
 
 
 # 日志每页显示30条
@@ -234,4 +225,5 @@ def my_comtext_processor():
 
 
 if __name__ == '__main__':
+    redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
     app.run()
