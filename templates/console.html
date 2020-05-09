@@ -62,9 +62,12 @@
 </div>
 <div class="content-mid">
     <div class="content-mid-left">
-        <textarea rows="10" cols="30">请输入新建任务：</textarea>
-        <button class="newtask" type="submit">新建任务</button>
+        <form method="POST" action="" id="task" name="myTask">
+            <textarea rows="10" cols="30">请输入新建任务：</textarea>
+            <button class="newtask" type="submit">新建任务</button>
+        </form>
     </div>
+
     <div class="content-mid-right">
         <p class="p1">待扫描:10</p>
         <p class="p2">正扫描:10</p>

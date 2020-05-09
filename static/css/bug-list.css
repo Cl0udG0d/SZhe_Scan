@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
+  font-family: Verdana, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
 body {
   background-color: #fff;
@@ -309,10 +309,11 @@ header .burger {
 .context {
   display: flex;
   flex-direction: row;
+  row-gap: 15px;
   position: absolute;
   top: 106px;
   width: 100vw;
-  height: 1500px;
+  height: 1700px;
   background-color: #f1f1f1;
   padding-top: 15px;
 }
@@ -445,20 +446,29 @@ header .burger {
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  width: 100%;
-  /* flex-basis: 500px; */
   position: relative;
-  /* flex-basis: 120px; */
-  row-gap: 10px;
   margin-bottom: 70px;
-  /* left: 200px; */
+  background-color: #f8f8ff;
+  margin-right: 20px;
+  margin-left: 40px;
+  width: 600px;
+  position: relative;
+  top: 13px;
+  right: 40px;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+  height: 96%;
+  padding: 15px 0;
 }
 
+.right-context {
+}
 .right-context .list {
   /* flex-basis: 120px; */
   flex: 1;
   width: 90%;
-  height: 110px;
+  height: 160px;
+  margin-left: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -474,8 +484,8 @@ header .burger {
   position: relative;
   left: -20px;
   width: 100%;
-  height: 90px;
-  color: #464545;
+  height: 150px;
+  color: #747373;
   /* flex-basis: 300px; */
 }
 .right-context .list .domain-name p {
@@ -498,8 +508,8 @@ header .burger {
   float: left;
 } */
 .right-context .list .tab-pane {
-  flex: 2.5;
-  height: 110px;
+  flex: 1.2;
+  height: 130px;
   /* align-content: flex-start; */
   width: 400px;
   overflow: scroll;
@@ -511,9 +521,9 @@ header .burger {
 }
 .body-tail {
   position: absolute;
-  top: 1600px;
+  top: 1800px;
   width: 100vw;
-  height: 35px;
+  height: 40px;
   display: flex;
   /*弹性布局*/
   justify-content: center;

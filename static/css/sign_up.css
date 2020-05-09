@@ -87,7 +87,7 @@ a {
   border-radius: 4px;
   background-color: hsla(0, 0%, 71%, 0.1);
   opacity: 0.2;
-  color: white;
+  color: white !important;
   /* background-color: #f8f8ff; */
   vertical-align: middle;
 }
@@ -101,30 +101,30 @@ a {
   position: relative;
   left: 17px;
 }
-.login-form input::-webkit-input-placeholder {
+input::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #fff;
+  color: #fff !important;
 }
-.login-form input:-moz-placeholder {
+input:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #fff;
+  color: #fff !important;
 }
-.login-form input::-moz-placeholder {
-  /* Mozilla Firefox 19+ */
-  color: #fff;
-}
-.login-form input:-ms-input-placeholder {
-  /* Internet Explorer 10+ */
-  color: #fff;
-}
-.login-form input::placeholder {
-  color: #fff;
-}
-input::-webkit-input-placeholder,
-input:-moz-placeholder,
-input:-ms-input-placeholde,
 input::-moz-placeholder {
-  color: white;
+  /* Mozilla Firefox 19+ */
+  color: #fff !important;
+}
+input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #fff !important;
+}
+input::placeholder {
+  color: #fff !important;
+}
+.container .login-form form input::-webkit-input-placeholder,
+.container .login-form form input:-moz-placeholder,
+.container .login-form form input:-ms-input-placeholde,
+.container .login-form form input::-moz-placeholder {
+  color: #fff !important;
   font-size: 24px;
 }
 .context .sign-up-button {

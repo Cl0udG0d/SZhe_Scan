@@ -2,30 +2,34 @@
 {%block title%}BugList{% endblock %}
 <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/bug-list.css')}}" /> -->
 {% block css %}
-    <link rel="stylesheet" href="../static/css/bug-list.css" />
-    <link rel="stylesheet" href="../static/css/font-awesome.min.css" />
+<link rel="stylesheet" href="../static/css/bug-list.css" />
+<link rel="stylesheet" href="../static/css/font-awesome.min.css" />
 {% endblock %}
 {% block js %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
 {% endblock %}
-{% block rightcontext %}
+<div class="bugLists">
+    {% block rightcontext %}
     {% for info in infos %}
-        <div class="list domain">
-                <div class="domain-name">
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">{{info.url}}</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>{{info.date}}</p>
-                    </div>
-                    <p>标题: {{info.title}}</p>
-                    <p>状态: {{info.status}}</p>
-                    <p>指纹: {{info.Server}}</p>
-                </div>
-                <div class="tab-pane">{{info.responseheader}}<br /></div>
+
+    <div class="list domain">
+        <div class="domain-name">
+            <div class="two-p">
+                <i class="fa fa-link"></i>
+                <p class="pgr">{{info.url}}</p>
             </div>
+            <div class="three-p">
+                <i class="fa fa-clock-o"></i>
+                <p>{{info.date}}</p>
+            </div>
+            <p>标题: {{info.title}}</p>
+            <p>状态: {{info.status}}</p>
+            <p>指纹: {{info.Server}}</p>
+        </div>
+        <div class="tab-pane">{{info.responseheader}}<br /></div>
+
+    </div>
     {% endfor %}
-{% endblock %}
+    {% endblock %}
+</div>
