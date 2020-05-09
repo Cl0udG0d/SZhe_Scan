@@ -503,7 +503,7 @@ header .burger {
   /* align-content: flex-start; */
   width: 400px;
   overflow: scroll;
-  white-space: nowrap;
+  white-space: pre-line;
   border: #b6b6b6 solid 1px;
   border-radius: 2px;
   background-color: #f8f8ff;

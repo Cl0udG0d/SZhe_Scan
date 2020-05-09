@@ -7,7 +7,6 @@ import config
 import uuid
 from models import User, Log, BaseInfo, InvitationCode
 from exts import db
-from BaseMessage import GetBaseMessage
 import json
 from concurrent.futures import ThreadPoolExecutor
 
@@ -21,10 +20,16 @@ executor = ThreadPoolExecutor(4)
 def index():
     return render_template('homeOne.html')
 
-
+@app.route('/buglist/<int:page>',methods=['GET'])
 @app.route('/buglist')
-def buglist():
-    return render_template('bug-list.html')
+# @login_required
+def buglist(page=None):
+    if not page:
+        page = 1
+    per_page = 10
+    paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).paginate(page, per_page, error_out=False)
+    infos = paginate.items
+    return render_template('bug-list.html', paginate=paginate, infos=infos)
 
 
 @app.route('/base')
@@ -186,10 +191,6 @@ def about():
 #     return render_template('home.html')
 
 
-@app.route('/bug_list/')
-# @login_required
-def bug_list():
-    return render_template('bug_list.html')
 
 
 # 日志每页显示30条

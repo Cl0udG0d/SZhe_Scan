@@ -10,164 +10,22 @@
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
 {% endblock %}
 {% block rightcontext %}
-    <div class="list domain">
+    {% for info in infos %}
+        <div class="list domain">
                 <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
                     <div class="two-p">
                         <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxx.com</p>
+                        <p class="pgr">{{info.url}}</p>
                     </div>
                     <div class="three-p">
                         <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
+                        <p>{{info.date}}</p>
                     </div>
+                    <p>标题: {{info.title}}</p>
+                    <p>状态: {{info.status}}</p>
+                    <p>指纹: {{info.Server}}</p>
                 </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
+                <div class="tab-pane">{{info.responseheader}}<br /></div>
             </div>
-    <div class="list domain">
-                <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxxx.com</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
-                    </div>
-                </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
-            </div>
-    <div class="list domain">
-                <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxx.com</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
-                    </div>
-                </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
-            </div>
-    <div class="list domain">
-                <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxx.com</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
-                    </div>
-                </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
-            </div>
-    <div class="list domain">
-                <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxxxx.com</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
-                    </div>
-                </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
-            </div>
-    <div class="list domain">
-                <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxxx.com</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
-                    </div>
-                </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
-            </div>
-    <div class="list domain">
-                <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxxxxx.com</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
-                    </div>
-                </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
-            </div>
-    <div class="list domain">
-                <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxxxx.com</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
-                    </div>
-                </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
-            </div>
-    <div class="list domain">
-                <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxxxx.com</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
-                    </div>
-                </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
-            </div>
-    <div class="list domain">
-                <div class="domain-name">
-                    <p>域名 xxxxxxxx</p>
-                    <div class="two-p">
-                        <i class="fa fa-link"></i>
-                        <p class="pgr">http://www.xxxxxxxx.com</p>
-                    </div>
-                    <div class="three-p">
-                        <i class="fa fa-clock-o"></i>
-                        <p>2020-5-03 11:11:11</p>
-                    </div>
-                </div>
-                <div class="tab-pane">Server:Tjiojwef<br />Date:Sat,11 Apr 2020 07:38
-                    GMT<br />Content-Type:text/html<br />coioghiurwhuigyu<br />coioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyunjcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyucoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuyContent-Type:text/htmlkojioihuihyugcoioghiurwhuigyu<br />njcknsdiufhuwiegyugsyuavuy
-                </div>
-            </div>
+    {% endfor %}
 {% endblock %}

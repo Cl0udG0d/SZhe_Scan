@@ -5,10 +5,12 @@ import time
 import redis
 from Wappalyzer import WebPage
 import get_message
-# import ImportToRedis
+import ImportToRedis
 import json
-from models import BaseInfo
 import redis
+from index import app
+from exts import db
+from models import BaseInfo
 
 '''
 获取输入网址基础信息:
@@ -20,16 +22,12 @@ import redis
     6,端口开放信息
     
 '''
-options = {1: 'self.GetStatus', 2: 'self.GetTitle', 3: 'self.GetDate', 4: 'self.GetResponseHeader', 5: 'self.GetFinger',
-           6: 'self.PortScan'}
 
 
 class GetBaseMessage():
     def __init__(self, url, redispool):
         self.domain = url
         self.redispool = redispool
-        self.list = ['self.GetStatus','self.GetTitle', 'self.GetDate', 'self.GetResponseHeader', 'self.GetFinger',
-           'self.PortScan', 'self.SenDir']
         try:
             if not (url.startswith("http://") or url.startswith("https://")):
                 self.url = "http://" + url
@@ -45,23 +43,6 @@ class GetBaseMessage():
                 self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3, verify=False)
             except:
                 pass
-        # for i in range(1, 8):
-            # if i in options:
-            #     tar = options[i]
-            # else:
-            #     tar = 'self.SenDir'
-            # tar = self.tar
-            # t = threading.Thread(target=self.list[i-1])
-            # t.start()
-
-        self.status = self.GetStatus()
-        self.title = self.GetTitle()
-        self.date = self.GetDate()
-        self.responseHeader = self.GetResponseHeader()
-        self.finger = self.GetFinger()
-        self.portScan = self.PortScan()
-        self.senDir = self.SenDir()
-        print(self.SenDir())
 
     def GetStatus(self):
         return str(self.rep.status_code)
@@ -75,7 +56,10 @@ class GetBaseMessage():
         return str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
     def GetResponseHeader(self):
-        return str(self.rep.headers)
+        context=""
+        for key, val in self.rep.headers.items():
+            context += (key + ": " + val + "\r\n")
+        return context
 
     def GetFinger(self):
         return WebPage(self.url, self.rep).info()
@@ -87,14 +71,24 @@ class GetBaseMessage():
         return get_message.SenFileScan(self.domain, self.redispool)
 
 
-
-if __name__ == '__main__':
-    redispool=redis.Redis(connection_pool=ImportToRedis.redisPool)
-    test = GetBaseMessage("www.baidu.com", redispool)
-    print("end!")
-
 if __name__=='__main__':
     # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
-    # test=GetBaseMessage("www.baidu.com",redispool)
+    redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
+    urls=["www.cnblogs.com","fofa.so","fofa.so","fofa.so","fofa.so","fofa.so","github.com","blog.csdn.net","www.fuzzer.xyz","www.anquanke.com","xianzhi.aliyun.com","www.lingfengyun.com",
+          "www.secfree.com","www.bilibili.com","leetcode-cn.com"]
+
+    try:
+        for url in urls:
+            baseinfo = GetBaseMessage(url, redispool)
+            with app.app_context():
+                info = BaseInfo(url=url, boolcheck=False, status=baseinfo.GetStatus(), title=baseinfo.GetTitle(),
+                                date=baseinfo.GetDate(), responseheader=baseinfo.GetResponseHeader(),
+                                Server=baseinfo.GetFinger(), portserver=baseinfo.PortScan(), sendir=baseinfo.SenDir())
+                db.session.add(info)
+                db.session.commit()
+            print("xxx")
+    except Exception as e:
+        print(e)
+        pass
     print("end!")
 
