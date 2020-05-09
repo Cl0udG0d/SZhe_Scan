@@ -1,19 +1,22 @@
 from BaseMessage import GetBaseMessage
 from IPMessage import IPMessage
 from DomainMessage import DomainMessage
-from index import app
+from init import app
 from exts import db
 from models import BaseInfo,IPInfo,DomainInfo,BugList,BugType
-from XSSBug.XSSCheck import GetXSS
 from BugScan import BugScan
 import ImportToRedis
 import redis
-import time
 import re
 from SpiderGetUrl import depth_get
+import signal
+import multiprocessing
 
 Bugs=["SQLBugScan","XSSBugScan","ComInScan","FileIncludeScan","WebLogicScan","POCScan"]
 
+
+def init():
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
 
 '''
 SZheConsole 碎遮扫描器的总控制代码
@@ -46,37 +49,56 @@ def BugScanConsole(attackurl,redispool):
         print(e)
         pass
 
-def SZheConsole(url,redispool):
-    baseinfo=GetBaseMessage(url,redispool)
-    pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
-    if pattern.findall(url):
-        boolcheck=True
-        ipinfo=IPMessage(url)
-    else:
-        boolcheck=False
-        domaininfo=DomainMessage(url,redispool)
+def SZheScan(url,redispool):
     try:
+        baseinfo = GetBaseMessage(url, redispool)
+        pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
+        if pattern.findall(url):
+            boolcheck = True
+            ipinfo = IPMessage(url)
+        else:
+            boolcheck = False
+            domaininfo = DomainMessage(url, redispool)
         with app.app_context():
-            info=BaseInfo(url=url,boolcheck=boolcheck,status=baseinfo.GetStatus(),title=baseinfo.GetTitle(),date=baseinfo.GetDate(),responseheader=baseinfo.GetResponseHeader(),
-                                    Server=baseinfo.GetFinger(),portserver=baseinfo.PortScan(),sendir=baseinfo.SenDir())
+            info = BaseInfo(url=url, boolcheck=boolcheck, status=baseinfo.GetStatus(), title=baseinfo.GetTitle(),
+                            date=baseinfo.GetDate(), responseheader=baseinfo.GetResponseHeader(),
+                            Server=baseinfo.GetFinger(), portserver=baseinfo.PortScan(), sendir=baseinfo.SenDir())
             db.session.add(info)
             db.session.flush()
             if boolcheck:
-                db.session.add(IPInfo(baseinfoid=info.id,bindingdomain=ipinfo.GetBindingIP(),sitestation=ipinfo.GetSiteStation(),CMessage=ipinfo.CScanConsole(),
-                                      ipaddr=ipinfo.FindIpAdd()))
+                db.session.add(
+                    IPInfo(baseinfoid=info.id, bindingdomain=ipinfo.GetBindingIP(), sitestation=ipinfo.GetSiteStation(),
+                           CMessage=ipinfo.CScanConsole(),
+                           ipaddr=ipinfo.FindIpAdd()))
             else:
-                db.session.add(DomainInfo(baseinfoid=info.id,subdomain=domaininfo.GetSubDomain(),whois=domaininfo.GetWhoisMessage(),bindingip=domaininfo.GetBindingIP(),
-                                          sitestation=domaininfo.GetSiteStation(),recordinfo=domaininfo.GetRecordInfo(),domainaddr=domaininfo.FindDomainAdd()))
+                db.session.add(
+                    DomainInfo(baseinfoid=info.id, subdomain=domaininfo.GetSubDomain(), whois=domaininfo.GetWhoisMessage(),
+                               bindingip=domaininfo.GetBindingIP(),
+                               sitestation=domaininfo.GetSiteStation(), recordinfo=domaininfo.GetRecordInfo(),
+                               domainaddr=domaininfo.FindDomainAdd()))
             db.session.commit()
-            depth_get(url,redispool)
-            BugScanConsole(url,redispool)
+            depth_get(url, redispool)
+            BugScanConsole(url, redispool)
             print("{} scan end !".format(url))
     except Exception as e:
         print(e)
         pass
 
-def Check():
-    GetXSS("http://testphp.vulnweb.com/listproducts.php?cat=1", redispool)
+def SZheConsole(urls,redispool):
+    max_processes = 6
+    pool = multiprocessing.Pool(max_processes, init)
+    urls=urls.split("\n")
+    try:
+        for url in urls:
+            pool.apply_async(SZheScan, (url,redispool,))
+        pool.close()
+        pool.join()
+        print("end")
+    except Exception as e:
+        print(e)
+        pool.terminate()
+        pool.join()
+        pass
 
 if __name__=='__main__':
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
