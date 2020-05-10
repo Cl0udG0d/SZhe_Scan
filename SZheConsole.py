@@ -11,6 +11,7 @@ import re
 from SpiderGetUrl import depth_get
 import signal
 import multiprocessing
+import time
 
 Bugs=["SQLBugScan","XSSBugScan","ComInScan","FileIncludeScan","WebLogicScan","POCScan"]
 
@@ -51,6 +52,7 @@ def BugScanConsole(attackurl,redispool):
 
 def SZheScan(url,redispool):
     try:
+        print(url)
         baseinfo = GetBaseMessage(url, redispool)
         pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
         if pattern.findall(url):
@@ -85,20 +87,30 @@ def SZheScan(url,redispool):
         pass
 
 def SZheConsole(urls,redispool):
-    max_processes = 6
-    pool = multiprocessing.Pool(max_processes, init)
+    print("xxx")
     urls=urls.split("\n")
+    print(urls)
     try:
         for url in urls:
-            pool.apply_async(SZheScan, (url,redispool,))
-        pool.close()
-        pool.join()
-        print("end")
+            print("="*20)
+            print(url)
+            SZheScan(url,redispool)
     except Exception as e:
         print(e)
-        pool.terminate()
-        pool.join()
         pass
+    #         childs.append(pool.apply_async(SZheScan, args=(url,redispool,)))
+    #     while True:
+    #         time.sleep(0.5)
+    #         if all([child.ready() for child in childs]):
+    #             break
+    # except Exception as e:
+    #     pool.terminate()
+    #     pool.join()
+    #     print(e)
+    # else:
+    #     pool.close()
+    #     pool.join()
+    print("end!")
 
 if __name__=='__main__':
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)

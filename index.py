@@ -1,22 +1,26 @@
 # -*- coding:utf-8 -*-
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from flask_sqlalchemy import SQLAlchemy
-from lxml.html.builder import HEAD
-import config
 import uuid
 from models import User, Log, BaseInfo, InvitationCode
 from exts import db
-from concurrent.futures import ThreadPoolExecutor
-from SZheConsole import SZheConsole
 import ImportToRedis
 import redis
 from init import app
 
+from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
+from SZheConsole import SZheConsole
+from flask_sqlalchemy import SQLAlchemy
+from lxml.html.builder import HEAD
+import config
+
 # app = Flask(__name__)
 # app.config.from_object(config)
 # db.init_app(app)
-executor = ThreadPoolExecutor(4)
+# executor = ThreadPoolExecutor(4)
+
+
 
 
 @app.route('/')
@@ -82,13 +86,16 @@ def test_home():
     return render_template('baseOne.html')
 
 
+
 @app.route('/test_console', methods=['GET', 'POST'])
 def console():
     if request.method == 'GET':
         return render_template('console.html')
     else:
-        urls = request.form.post('urls')
-        executor.submit(SZheConsole, (urls,redispool))
+        urls = request.form.get('urls')
+        print(urls)
+        executor.submit(SZheConsole, urls,redispool)
+        print("end")
         return render_template('console.html')
 
 
@@ -229,5 +236,6 @@ def my_comtext_processor():
 
 
 if __name__ == '__main__':
+    executor = ProcessPoolExecutor(4)
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
     app.run()
