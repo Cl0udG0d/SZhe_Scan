@@ -34,6 +34,10 @@ def buglist(page=None):
     infos = paginate.items
     return render_template('bug-list.html', paginate=paginate, infos=infos)
 
+@app.route('/bugdetail')
+# @login_required
+def bugdetail():
+    return render_template('bug-details.html')
 
 @app.route('/base')
 def base():
