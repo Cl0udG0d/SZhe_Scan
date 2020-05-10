@@ -351,7 +351,7 @@ header .burger {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 40px;
+  margin-left: 20px;
   margin-right: 10px;
 }
 .statistic {
@@ -364,7 +364,7 @@ header .burger {
   z-index: 800;
   border: 1px white solid;
   margin: 0.75rem;
-  height: 250px;
+  height: 300px;
   background-color: #f8f8ff;
   padding-top: 30px;
   font-size: xx-large;
@@ -376,7 +376,9 @@ header .burger {
   font-weight: 700;
   text-align: center;
   vertical-align: middle;
-  margin-top: -20px;
+  margin-bottom: 20px;
+  position: relative;
+  top: -10px;
 }
 
 .skills {
@@ -458,13 +460,13 @@ li {
 .right-context {
   position: relative;
   /* width: 80%; */
-  top: 10px;
+  top: 12px;
   height: 1260px;
-  flex: 2;
+  flex: 2.5;
   background-color: #f8f8ff;
   display: flex;
   flex-direction: column;
-  margin-right: 80px;
+  margin-right: 40px;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
   align-items: center;

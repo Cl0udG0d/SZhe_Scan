@@ -313,7 +313,7 @@ header .burger {
   position: absolute;
   top: 106px;
   width: 100vw;
-  height: 1700px;
+  height: 2000px;
   background-color: #f1f1f1;
   padding-top: 15px;
 }
@@ -352,6 +352,7 @@ header .burger {
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
   text-align: center;
+  box-shadow: 0 0px 6px rgb(168, 168, 168, 0.5);
 }
 .statistic .h5 {
   flex: 1;
@@ -380,6 +381,7 @@ header .burger {
   margin: 0.75rem;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
+  box-shadow: 0 4px 6px rgb(168, 168, 168, 0.5);
 }
 .skills h2 {
   position: absolute;
@@ -457,22 +459,25 @@ header .burger {
   right: 40px;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
-  height: 96%;
-  padding: 15px 0;
+  /* height: 2000px; */
+
+  /* padding: 15px 0; */
 }
 
-.right-context {
-}
 .right-context .list {
   /* flex-basis: 120px; */
   flex: 1;
-  width: 90%;
+  width: 100%;
   height: 160px;
+  padding: 5px 17px 5px 40px;
   margin-left: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-items: center;
+  border-bottom: 1px solid #b6b6b6;
+  position: relative;
+  left: -10px;
   /* align-content: flex-start; */
   /* margin-bottom: 10px; */
 }
@@ -521,7 +526,7 @@ header .burger {
 }
 .body-tail {
   position: absolute;
-  top: 1800px;
+  top: 2100px;
   width: 100vw;
   height: 40px;
   display: flex;
