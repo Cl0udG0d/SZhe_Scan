@@ -25,7 +25,6 @@ header {
   z-index: 100;
   background-color: #f8f8ff;
 }
-
 header .container .top {
   display: grid;
   grid-template-rows: 1fr 2fr;
@@ -296,76 +295,93 @@ h1 a {
 header .burger {
   display: none;
 }
+
 .context {
   display: flex;
+  flex-direction: row;
   text-align: center;
-  position: relative;
-  top: 10px;
-  width: 100vw;
-  height: 900px;
-  background-color: #f1f1f1;
-  align-items: center;
-  justify-content: center;
-}
-.context .title {
-  /* display: inline-block; */
   position: absolute;
   top: 80px;
+  width: 100vw;
+  height: 700px;
+  background-color: #f1f1f1;
+  align-items: center;
+  justify-items: center;
+  padding: 0 72px;
+}
+.context .left-context {
+  flex: 1;
   width: 100%;
-  white-space: nowrap;
-}
-.context .title h2 {
-  float: left;
-  margin-top: -20px;
-  margin: -20px 15px 15px 15px;
-  color: #2e2e2e;
-}
-.context .title hr {
-  background-color: #e8e8e8;
-  height: 1px;
-  opacity: 0.5;
-}
-.user-self {
-  width: 95%;
-  height: 180px;
   background-color: #f8f8ff;
-  position: absolute;
-  top: 110px;
+  border: 1px solid #d3d3d3;
+  align-items: center;
+  padding: 20px 0px;
+  height: 600px;
+}
+.context .left-context .user-self img {
+  width: 260px;
+  height: 260px;
+  border: 1px solid #d3d3d3;
+}
+
+.context .left-context .user-self p {
+  text-align: left;
+  margin-left: 60px;
+  color: #696969;
+  margin-bottom: 10px;
+}
+.context .left-context .user-self .name {
+  text-align: center;
+  margin-left: 0;
+  font-size: 20px;
+}
+.context .left-context .user-self button {
+  background-color: #0fbcf9;
+  color: #f8f8ff;
+  width: 85px;
+  height: 35px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+.context .left-context .user-self button:hover {
+  cursor: pointer;
+  background-color: #0394e7;
+}
+.context .right-context {
+  flex: 2;
+  width: 100%;
+  margin-left: 20px;
+  background-color: #f8f8ff;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  height: 600px;
+}
+.context .right-context .tab {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  border: 1px solid #dcdcdc;
-  box-shadow: 0 0 2px #727272;
 }
-.user-left {
+.context .right-context .tab button {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 0;
+  height: 50px;
+  background-color: #e9e7e7;
+  border: none;
+  border-right: 2px solid #fff;
 }
-.user-left img {
-  flex: 4;
-  width: 100px;
-  height: 100px;
-  border-radius: 100px;
-  display: block;
-  margin-top: 8px;
-  margin-bottom: 10px;
+.context .right-context .tab button:hover {
+  cursor: pointer;
 }
-.user-left button {
-  flex: 1;
-  margin-top: 5px;
-  display: block;
-  margin-bottom: 10px;
-  background-color: aliceblue;
-  color: #2e2e2e;
-  /* border: 1px solid #d3d3d3;
-  border-radius: 2px;
-  box-shadow: 2px 2px 4px #727272; */
+.context .right-context .tab .active,
+.context .right-context .tab:active {
+  background-color: #f8f8ff;
+  color: #0fbcf9;
 }
 .user-left button:hover {
   cursor: pointer;
+}
+.tab-inv {
+  margin-top: 40px;
 }
 .user-right {
   flex: 3;
@@ -432,23 +448,6 @@ header .burger {
   border-top: 1px solid #d3d3d3;
   border-radius: 4px 4px 0 0;
 }
-.user-bottom .container-list .tab:hover {
-  cursor: pointer;
-}
-.user-bottom .container-list .tab .active,
-.user-bottom .container-list .tab:active {
-  background-color: #f8f8ff;
-  color: #ff0080;
-}
-form {
-  width: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  /* vertical-align: middle; */
-  margin-top: 50px;
-}
 form ol li {
   display: flex;
   align-items: center;
@@ -469,23 +468,11 @@ form ol li input {
   border: 1px solid #d3d3d3;
   border-radius: 4px;
 }
-form .sub {
-  display: block;
-  position: absolute;
-  left: 230px;
-  top: 320px;
-  width: 80px;
-  height: 35px;
-  padding: 5px 10px;
-  border: 1px solid #d3d3d3;
-  border-radius: 4px;
-  color: #f8f8ff;
-  background-color: #0fbcf9;
-}
 .tab-pane {
   display: block;
   color: #2e2e2e;
 }
+
 .collect-list {
   position: relative;
   top: 30px;
@@ -498,6 +485,7 @@ form .sub {
   overflow: auto;
   height: 400px;
 }
+
 .collect-list li {
   width: 90%;
   flex: 1;
@@ -507,10 +495,12 @@ form .sub {
   border-radius: 4px;
   background-color: #f8f8ff;
 }
+
 .collect-list .one {
   position: relative;
   margin-top: 100px;
 }
+
 .user-bottom .whatever {
   flex: 1;
   background-color: #f8f8ff;
@@ -519,7 +509,7 @@ form .sub {
 
 .body-tail {
   position: absolute;
-  top: 1000px;
+  top: 800px;
   width: 100vw;
   height: 35px;
   display: flex;

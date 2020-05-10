@@ -1,0 +1,37 @@
+{% extends 'basenav.html' %}
+{% block title %}User{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/user-center.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+{% endblock %}
+<title>Document</title>
+{% block js %}
+<script type="text/javascript" src="../static/js/user-center.js"></script>
+{% endblock %}
+{% block context %}
+<div class="tab-content">
+    <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')" onmouseout="hideAlter('alter')"
+        style="display:block;">
+        <form class="myDate">
+            <ol>
+                <li>
+                    <label>用户名</label>
+                    <input type="text" name="username" placeholder="xxx" id="username">
+                </li>
+                <li>
+                    <label>密 码</label>
+                    <input type="text" name="username" placeholder="******" id="username">
+                </li>
+                <li>
+                    <label>新密码</label>
+                    <input type="text" name="username" placeholder="*******" id="username">
+                </li>
+                <li>
+                    <label>确认密码</label>
+                    <input type="text" name="username" placeholder="********" id="username">
+                </li>
+            </ol>
+            <input class="sub" type="submit" name="submit" value="Submit">
+        </form>
+    </div>
+    {% endblock %}

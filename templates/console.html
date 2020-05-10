@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {%block title%}consolePage{% endblock %}
 {% block css %}
-<link rel="stylesheet" href="{{url_for('static',filename='css/baseOne.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
 <link rel="stylesheet" href="{{url_for('static',filename='css/console.css')}}" />
 <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
 {% endblock %}
@@ -77,12 +77,12 @@
 <div class="charts">
     <div class="bar-graph">
         <h5 class="bar-title">开放端口</h5>
-        <canvas id="myChart" width="1100" height="400"></canvas>
+        <canvas id="myChart" width="850" height="400"></canvas>
     </div>
     <div class="curve-graph">
         <h5 class="bar-title">任务报告
         </h5>
-        <canvas id="myCurveChart" width="1100" height="400"></canvas>
+        <canvas id="myCurveChart" width="850" height="400"></canvas>
     </div>
 </div>
 {% endblock %}

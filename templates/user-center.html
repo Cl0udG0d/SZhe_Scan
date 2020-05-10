@@ -1,109 +1,75 @@
 {% extends 'basenav.html' %}
-    {% block title %}User{% endblock %}
-    {% block css %}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/user-center.css')}}" />
-    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
-    {% endblock %}
-    <title>Document</title>
-    {% block js %}
-    <script type="text/javascript" src="../static/js/user-center.js"></script>
-    {% endblock %}
-    {% block context %}
-    <div class="context">
-        <div class="title">
-            <hr style=" width:43%;float:left;" />
-            <h2>个人中心</h2>
-            <hr style=" width:47%; float:left;text-align: right;" />
-        </div>
+{% block title %}User{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/user-center.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+{% endblock %}
+<title>Document</title>
+{% block js %}
+<script type="text/javascript" src="../static/js/user-center.js"></script>
+{% endblock %}
+{% block context %}
+<div class="context">
+    <div class="left-context">
         <div class="user-self">
-            <div class="user-left">
-                <img src="../static/images/dn.jpg">
-                <button>修改头像</button>
-            </div>
-            <div class="user-right">
-                <h2>水兵月</h2>
-                <ul class="user-list">
-                    <li class="detail"><i class="fa fa-mars" style="color:#ff0080;"></i></li>
-                    <li class="detail">2000-0-0</li>
-                    <li class="detail">QQ:1868686668</li>
-                    <li class="detail">邮箱:88688868@qq.com</li>
-                    <li class="detail">个人网站:www.zhenkaixin.com</li>
-                </ul>
-                <p>个人简介:个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介</p>
-            </div>
+            <img src="../static/images/dn.jpg">
+            <p class="name">水兵月</p>
+            <p>个人博客:xxxxxxxx</p>
+            <p>简介:快睡觉快睡觉快睡觉快睡觉</p>
+            <button>修改信息</button>
         </div>
-        <div class="user-bottom">
-            <div class="container-list">
-                <div class="tab-custom">
-                    <div class="tab">
-                        <button class="tablinks active" onclick="openList(event, 'tab_1')">
-                            <p style="font-size: 18px;">个人资料</p>
-                        </button>
-                        <button class="tablinks" onclick="openList(event, 'tab_2')">
-                            <p style="font-size: 18px;">收藏列表</p>
-                        </button>
-                        <button class="tablinks" onclick="openList(event, 'tab_3')">
-                            <p style="font-size: 18px;">关注列表</p>
-                        </button>
+    </div>
+    <div class="right-context">
+        <div class="container-list">
+            <div class="tab-custom">
+                <div class="tab">
+                    <button class="tablinks active" onclick="openList(event, 'tab_1')">
+                        <p style="font-size: 18px;">关注</p>
+                    </button>
+                    <button class="tablinks" onclick="openList(event, 'tab_2')">
+                        <p style="font-size: 18px;">资产</p>
+                    </button>
+                    <button class="tablinks" onclick="openList(event, 'tab_3')">
+                        <p style="font-size: 18px;">邀请码</p>
+                    </button>
 
+                </div>
+                <div class="tab-content">
+                    <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')"
+                        onmouseout="hideAlter('alter')" style="display:block;">
+                        <ul class="collect-list">
+                            <li class="one">关注列表一</li>
+                            <li>关注列表一</li>
+                            <li>关注列表一</li>
+                            <li>关注列表一</li>
+                            <li>关注列表一</li>
+                            <li>关注列表一</li>
+                            <li>关注列表一</li>
+                            <li>关注列表一</li>
+                            <li>关注列表一</li>
+                            <li>关注列表一</li>
+                        </ul>
                     </div>
-                    <div class="tab-content">
-                        <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')"
-                            onmouseout="hideAlter('alter')" style="display:block;">
-                            <form class="myDate">
-                                <ol>
-                                    <li>
-                                        <label>用户名</label>
-                                        <input type="text" name="username" placeholder="xxx" id="username">
-                                    </li>
-                                    <li>
-                                        <label>密 码</label>
-                                        <input type="text" name="username" placeholder="******" id="username">
-                                    </li>
-                                    <li>
-                                        <label>新密码</label>
-                                        <input type="text" name="username" placeholder="*******" id="username">
-                                    </li>
-                                    <li>
-                                        <label>确认密码</label>
-                                        <input type="text" name="username" placeholder="********" id="username">
-                                    </li>
-                                </ol>
-                                <input class="sub" type="submit" name="submit" value="Submit">
-                            </form>
-                        </div>
-                        <div class="tabPane" id="tab_2" style="display:none;">
-                            <ul class="collect-list">
-                                <li class="one">收藏列表一</li>
-                                <li>收藏列表一</li>
-                                <li>收藏列表一</li>
-                                <li>收藏列表一</li>
-                                <li>收藏列表一</li>
-                                <li>收藏列表一</li>
-                                <li>收藏列表一</li>
-                                <li>收藏列表一</li>
-                                <li>收藏列表一</li>
-                                <li>收藏列表一</li>
-                            </ul>
-                        </div>
-                        <div class="tabPane" id="tab_3" style="display:none;">
-                            <ul class="collect-list">
-                                <li class="one">关注列表一</li>
-                                <li>关注列表一</li>
-                                <li>关注列表一</li>
-                                <li>关注列表一</li>
-                                <li>关注列表一</li>
-                                <li>关注列表一</li>
-                                <li>关注列表一</li>
-                                <li>关注列表一</li>
-                                <li>关注列表一</li>
-                                <li>关注列表一</li>
-                            </ul>
-                        </div>
+                    <div class="tabPane" id="tab_2" style="display:none;">
+                        <ul class="collect-list">
+                            <li class="one">资产</li>
+                            <li>资产</li>
+                            <li>资产</li>
+                            <li>资产</li>
+                            <li>资产</li>
+                            <li>资产</li>
+                            <li>资产</li>
+                            <li>资产</li>
+                            <li>资产</li>
+                            <li>资产</li>
+                        </ul>
+                    </div>
+                    <div class="tabPane tab-inv" id="tab_3" style="display:none;">
+                        邀请码:xxxxxxx
                     </div>
                 </div>
             </div>
-            <div class="whatever">whatever</div>
         </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

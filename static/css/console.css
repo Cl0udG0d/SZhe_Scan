@@ -4,6 +4,19 @@
   box-sizing: border-box;
   font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
+.navigation ul .one::after {
+  content: "";
+  display: none;
+  background-color: #0fbcf9;
+  width: 100px;
+  height: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 42px;
+  left: 10px;
+  z-index: 1;
+  transition: all ease, 0.3s;
+}
 .navigation ul .two::after {
   content: "";
   display: block;
@@ -58,7 +71,7 @@
   margin: 10px auto;
 } */
 .context {
-  height: 1200px;
+  height: 1100px;
   width: 100vw;
 }
 .left-context {
@@ -70,7 +83,9 @@
   margin-left: 20px;
   margin-right: 10px;
 }
-
+.skills {
+  height: 1000px;
+}
 .right-context {
   flex: 2.5;
   position: relative;
@@ -323,5 +338,5 @@
   color: #2e2e2e;
 }
 .body-tail {
-  top: 1450px;
+  top: 1500px;
 }

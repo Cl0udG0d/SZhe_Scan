@@ -1,4 +1,109 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, "PingFang SC", "Microsoft Yahei", sans-serif;
+}
+.content {
+  width: 97%;
+  background-color: #f8f8ff;
+  border: 1px solid #d6d3d3;
+  border-radius: 4px;
+  height: 1200px;
+  position: relative;
+  top: 11px;
+  box-shadow: 0 4px 6px rgb(168, 168, 168, 0.5);
+  padding: 56px 64px;
+  color: #474747;
+}
+/* .content-titles {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+} */
+.content-titles h2 {
+  color: black;
+  border-left: 5px solid #0fbcf9;
+  padding: 1px 10px;
+}
+.domain-details {
+  font-size: 18px;
+  position: relative;
+  top: 30px;
+  left: 10px;
+}
+.domain-details i {
+  color: #0fbcf9;
+  font-size: 24px;
+  font-weight: lighter;
+  margin-right: 13px;
+}
+.domain-details .domain-detail {
+  margin-bottom: 10px;
+}
+.container-list {
+  position: relative;
+  top: 70px;
+}
+.tab-custom {
+  width: 95%;
+}
+.tab-custom .tab {
+  width: 100%;
+}
+.tab-custom .tab button {
+  background-color: inherit;
+  border: none;
+  width: 130px;
+  height: 80px;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px 10px 15px 10px;
+  border-radius: unset;
+  /* border: 1px solid red; */
+  position: relative;
+  left: 10px;
+}
+
+.tab-custom .tab p {
+  color: #424141;
+  vertical-align: middle;
+  line-height: 40px;
+  font-size: 22px;
+}
+.tab-custom .tab hr {
+  position: relative;
+  top: 11px;
+  color: #fff;
+  z-index: 100;
+  /* box-shadow: 0 0 28px rgba(0, 0, 0, 0.2); */
+}
+.tab-content {
+  position: relative;
+  top: 90px;
+  left: 15px;
+  font-size: 18px;
+}
+.tab-content .tab-basic {
+  margin-bottom: 10px;
+}
+.tab-content .tab-basic i {
+  font-size: 24px;
+  color: #0fbcf9;
+  margin-right: 13px;
+}
+.tab-content .tanPane .historys p {
+  margin-bottom: 10px;
+}
+
+.tab-custom .tab button.active,
+.tab-custom .tab button:active {
+  border-bottom: 5px solid #0fbcf9;
+  color: black;
+  /* padding: 30px 0px; */
+  /* line-height: 40px; */
+}
+.tab-custom .tab button:active > .tab-custom .tab p {
+  color: black;
 }

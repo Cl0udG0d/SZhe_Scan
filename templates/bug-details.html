@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block css %}
 <link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/bug-details.css')}}" />
 <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
 {% endblock %}
 {% block js %}
+<script type="text/javascript" src="../static/js/bug-details.js"></script>
 <script src="{{url_for('static',filename='js/home.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
@@ -31,11 +33,12 @@
         <div class="tab-custom">
             <div class="tab">
                 <button class="tablinks active" onclick="openList(event, 'tab_1')">
-                    <p style="font-size: 18px;">基础信息</p>
+                    <p style="font-size: 20px;">基础信息</p>
                 </button>
                 <button class="tablinks" onclick="openList(event, 'tab_2')">
-                    <p style="font-size: 18px;">历史记录</p>
+                    <p style="font-size: 20px;">历史记录</p>
                 </button>
+                <hr>
             </div>
             <div class="tab-content">
                 <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')" onmouseout="hideAlter('alter')"
