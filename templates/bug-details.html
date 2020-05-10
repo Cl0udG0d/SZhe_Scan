@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+{% endblock %}
+{% block js %}
+<script src="{{url_for('static',filename='js/home.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+{% endblock %}
+{% block rightcontext %}
+<div class="content">
+    <div class="content-titles">
+        <h2>漏洞详情</h2>
+        <div class="domain-details">
+            <div class="domain-detail">
+                <i class="fa fa-check-circle-o"></i>
+                <span>域名:http://qwewerwter.com</span>
+            </div>
+            <div class="domain-detail">
+                <i class="fa fa-check-circle-o"></i>
+                <span>子域名:258</span>
+            </div>
+            <div class="domain-detail">
+                <i class="fa fa-check-circle-o"></i>
+                <span>最后记录时间:2020-05-10 10:01:51</span>
+            </div>
+        </div>
+    </div>
+    <div class="container-list">
+        <div class="tab-custom">
+            <div class="tab">
+                <button class="tablinks active" onclick="openList(event, 'tab_1')">
+                    <p style="font-size: 18px;">基础信息</p>
+                </button>
+                <button class="tablinks" onclick="openList(event, 'tab_2')">
+                    <p style="font-size: 18px;">历史记录</p>
+                </button>
+            </div>
+            <div class="tab-content">
+                <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')" onmouseout="hideAlter('alter')"
+                    style="display:block;">
+                    <div class="tab-basics">
+                        <div class="tab-basic">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span>IP：222.333.444.555</span>
+                        </div>
+                        <div class="tab-basic">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span>title:127 xxxxxxxxxx</span>
+                        </div>
+                        <div class="tab-basic">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span>status_code:111</span>
+                        </div>
+                        <div class="tab-basic">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span>Server:xxx</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabPane" id="tab_2" style="display:none;">
+                    <div class="historys">
+                        <p>Server:xxx</p>
+                        <p>Date:Sat.10 May 2020 10:22:33 GMT</p>
+                        <p>Cotent-type:tet/html</p>
+                        <p>Content-Length:222</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                        <p>Connection:keep-alive</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
