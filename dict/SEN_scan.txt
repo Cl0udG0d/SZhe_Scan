@@ -8,6 +8,7 @@ agent.php
 access_log
 access.log
 Add.jsp
+admin
 admin.jsp
 Admin.jsp
 admin.php

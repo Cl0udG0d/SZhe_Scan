@@ -1,15 +1,14 @@
 from BaseMessage import GetBaseMessage
 from IPMessage import IPMessage
 from DomainMessage import DomainMessage
-from init import app
+from init import app,redispool
 from exts import db
 from models import BaseInfo,IPInfo,DomainInfo,BugList,BugType
 from BugScan import BugScan
-import ImportToRedis
-import redis
 import re
 from SpiderGetUrl import depth_get
 import signal
+
 import multiprocessing
 import time
 
@@ -28,7 +27,7 @@ SZheConsole 碎遮扫描器的总控制代码
     未设置外键，用程序来保证逻辑的正确性
 '''
 
-def BugScanConsole(attackurl,redispool):
+def BugScanConsole(attackurl):
     '''
     动态调用类方法，减少冗余代码
     将存在bug的url存在buglist表中，同时根据漏洞类型的不同，指向bugtype表中对应的漏洞类型
@@ -50,7 +49,7 @@ def BugScanConsole(attackurl,redispool):
         print(e)
         pass
 
-def SZheScan(url,redispool):
+def SZheScan(url):
     try:
         print(url)
         baseinfo = GetBaseMessage(url, redispool)
@@ -79,40 +78,29 @@ def SZheScan(url,redispool):
                                sitestation=domaininfo.GetSiteStation(), recordinfo=domaininfo.GetRecordInfo(),
                                domainaddr=domaininfo.FindDomainAdd()))
             db.session.commit()
-            depth_get(url, redispool)
-            BugScanConsole(url, redispool)
+            depth_get(url)
+            BugScanConsole(url)
             print("{} scan end !".format(url))
     except Exception as e:
+        print("错误")
         print(e)
         pass
 
-def SZheConsole(urls,redispool):
-    print("xxx")
-    urls=urls.split("\n")
+def SZheConsole(urls):
+    urls=urls.split("\r\n")
     print(urls)
     try:
         for url in urls:
             print("="*20)
             print(url)
-            SZheScan(url,redispool)
+            SZheScan(url)
     except Exception as e:
+        print("错误")
         print(e)
         pass
-    #         childs.append(pool.apply_async(SZheScan, args=(url,redispool,)))
-    #     while True:
-    #         time.sleep(0.5)
-    #         if all([child.ready() for child in childs]):
-    #             break
-    # except Exception as e:
-    #     pool.terminate()
-    #     pool.join()
-    #     print(e)
-    # else:
-    #     pool.close()
-    #     pool.join()
     print("end!")
 
-if __name__=='__main__':
-    redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
-    SZheConsole("testphp.vulnweb.com",redispool)
+# if __name__=='__main__':
+#     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
+#     SZheConsole("testphp.vulnweb.com",redispool)
     # BugScanConsole("testphp.vulnweb.com",redispool)

@@ -4,7 +4,6 @@ from exts import db
 from models import BugType
 from config import redisPool
 
-
 '''
 默认6379端口，第0个数据库
 '''

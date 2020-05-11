@@ -26,6 +26,7 @@ from models import BaseInfo
 
 class GetBaseMessage():
     def __init__(self, url, redispool):
+        print("hi!")
         self.domain = url
         self.redispool = redispool
         try:
@@ -33,14 +34,14 @@ class GetBaseMessage():
                 self.url = "http://" + url
             else:
                 self.url = url
-            self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3, verify=False)
+            self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=5, verify=False)
         except:
             self.rep = None
             pass
         if self.rep == None:
             try:
                 self.url = "https://" + url
-                self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=3, verify=False)
+                self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=5, verify=False)
             except:
                 pass
 

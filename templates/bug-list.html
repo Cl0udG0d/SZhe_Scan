@@ -31,5 +31,30 @@
 
     </div>
     {% endfor %}
+    <table frame=void class="page-number" style="position: absolute;top:1200px;background-color: #f8f8ff;;">
+
+        <tr>
+            <td class="td" style="margin-right:10px;white-space: nowrap;">当前页数: {{paginate.page}}</td>
+            <td class="td" style="margin-right:20px;">总页数: {{paginate.pages}}</td>
+            <td class="td" style="position: relative;left:-100px;">共有 {{paginate.total}} 条数据</td>
+            <td class="td">
+                页码：
+                {% for i in paginate.iter_pages() %}
+                <a href="{{url_for('buglist',page=i)}}"
+                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius:2px;">{{ i }}</a>
+                {% endfor %}</td>
+            {% if paginate.has_prev %}
+            <td class="td" style="margin-right:20px;">
+                <a href="{{url_for('buglist',page=paginate.prev_num)}}"
+                    style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">上一页</a>
+                {% endif %}</td>
+
+            <td class="td" style="margin-right:20px;">
+                {% if paginate.has_next %}
+                <a href="{{url_for('buglist',page=paginate.next_num)}}"
+                    style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;">下一页</a>
+                {% endif %}</td>
+        </tr>
+    </table>
     {% endblock %}
 </div>

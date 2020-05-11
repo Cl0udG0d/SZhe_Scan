@@ -3,10 +3,12 @@ from lxml import etree
 import nmap
 import core
 import re
-import redis
 from multiprocessing.pool import ThreadPool
 import socket
 import urllib3
+from init import app
+from exts import db
+from models import BaseInfo,IPInfo,DomainInfo,BugList,BugType
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # 禁用安全警告
@@ -192,7 +194,6 @@ def UrlRequest(url):
     except Exception:
         pass
 
-
 def SubDomainBurst(true_domain,redispool):
     """
     子域名爆破
@@ -229,6 +230,17 @@ def SenFileScan(domain, redispool):
     SenFileMessage = pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
+    if len(SenFileMessage)!=0:
+        try:
+            with app.app_context():
+                for url in SenFileMessage:
+                    rep = requests.get(url, headers=core.GetHeaders(), timeout=1.0, verify=False)
+                    bug = BugList(oldurl=domain, bugurl=url, bugtypeid=3, payload=url, bugdetail=rep.text)
+                    db.session.add(bug)
+                db.session.commit()
+        except Exception as e:
+            print(e)
+            pass
     return "".join(list(filter(None, SenFileMessage)))
 
 
@@ -303,7 +315,6 @@ def FindDomainAdd(domain):
     :param domain:
     :return:
     """
-    str=""
     url = "http://ip.yqie.com/ip.aspx?ip=" + domain
     try:
         rep = requests.get(url, headers=core.GetHeaders(),timeout=2)

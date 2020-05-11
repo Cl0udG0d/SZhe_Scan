@@ -1,13 +1,11 @@
 from lxml import etree
-# import signal
-# import multiprocessing
 import threading
 import time
 import core
 import urllib3
 import ImportToRedis
 import redis
-
+from init import redispool
 '''
 因为每深入一层，链接数增大很多，所以截止层数暂定为2，添加多线程之后将层数提高
 爬取截止条件为：层数为2，或者队列中无新的链接
@@ -81,7 +79,7 @@ class Spyder(threading.Thread):
         return self.result
 
 
-def depth_get(domain, redispool):
+def depth_get(domain):
     redispool.delete(domain)
     redispool.sadd(domain, domain)
     redispool.delete("new_lists")

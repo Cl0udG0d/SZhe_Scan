@@ -17,11 +17,23 @@
         <div class="domain-details">
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>域名:http://qwewerwter.com</span>
+                <span>所属:{{buginfo.oldurl}}</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>子域名:258</span>
+                <span>漏洞链接:{{buginfo.bugurl}}</span>
+            </div>
+            <div class="domain-detail">
+                <i class="fa fa-check-circle-o"></i>
+                <span>漏洞类型:{{bugtype.bugtype}}</span>
+            </div>
+            <div class="domain-detail">
+                <i class="fa fa-check-circle-o"></i>
+                <span>漏洞等级:{{bugtype.bugtype}}</span>
+            </div>
+            <div class="domain-detail">
+                <i class="fa fa-check-circle-o"></i>
+                <span>payload:{{buginfo.payload}}</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
@@ -33,10 +45,10 @@
         <div class="tab-custom">
             <div class="tab">
                 <button class="tablinks active" onclick="openList(event, 'tab_1')">
-                    <p style="font-size: 20px;">基础信息</p>
+                    <p style="font-size: 20px;">响应包</p>
                 </button>
                 <button class="tablinks" onclick="openList(event, 'tab_2')">
-                    <p style="font-size: 20px;">历史记录</p>
+                    <p style="font-size: 20px;">所属信息</p>
                 </button>
                 <hr>
             </div>
@@ -46,42 +58,18 @@
                     <div class="tab-basics">
                         <div class="tab-basic">
                             <i class="fa fa-check-circle-o"></i>
-                            <span>IP：222.333.444.555</span>
-                        </div>
-                        <div class="tab-basic">
-                            <i class="fa fa-check-circle-o"></i>
-                            <span>title:127 xxxxxxxxxx</span>
-                        </div>
-                        <div class="tab-basic">
-                            <i class="fa fa-check-circle-o"></i>
-                            <span>status_code:111</span>
-                        </div>
-                        <div class="tab-basic">
-                            <i class="fa fa-check-circle-o"></i>
-                            <span>Server:xxx</span>
+<!--                            <span>{{buginfo.bugdetail}}</span>-->
                         </div>
                     </div>
                 </div>
                 <div class="tabPane" id="tab_2" style="display:none;">
                     <div class="historys">
-                        <p>Server:xxx</p>
-                        <p>Date:Sat.10 May 2020 10:22:33 GMT</p>
-                        <p>Cotent-type:tet/html</p>
-                        <p>Content-Length:222</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
-                        <p>Connection:keep-alive</p>
+                        <p>所属信息:{{oldurlinfo.url}}</p>
+                        <p>标题:{{oldurlinfo.title}}</p>
+                        <p>状态码:{{oldurlinfo.status}}</p>
+                        <p>收录时间:{{oldurlinfo.date}}</p>
+                        <p>指纹信息:{{oldurlinfo.Server}}</p>
+                        <p>端口信息:{{oldurlinfo.portserver}}</p>
                     </div>
                 </div>
             </div>

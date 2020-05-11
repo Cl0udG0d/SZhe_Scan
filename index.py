@@ -2,26 +2,24 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import uuid
-from models import User, Log, BaseInfo, InvitationCode
+from models import User, Log, BaseInfo, InvitationCode,BugList,BugType
 from exts import db
-import ImportToRedis
-import redis
 from init import app
-
-from concurrent.futures import ProcessPoolExecutor
 from concurrent.futures import ThreadPoolExecutor
 from SZheConsole import SZheConsole
+from concurrent.futures import ProcessPoolExecutor
+
 from flask_sqlalchemy import SQLAlchemy
 from lxml.html.builder import HEAD
 import config
 
-# app = Flask(__name__)
-# app.config.from_object(config)
-# db.init_app(app)
-# executor = ThreadPoolExecutor(4)
-
-
-
+executor = ThreadPoolExecutor()
+buggrade={
+    0:"Serious",
+    1:"High",
+    2:"Mid",
+    3:"Low"
+}
 
 @app.route('/')
 def index():
@@ -38,40 +36,20 @@ def buglist(page=None):
     infos = paginate.items
     return render_template('bug-list.html', paginate=paginate, infos=infos)
 
+@app.route('/bugdetail/<int:id>',methods=['GET'])
 @app.route('/bugdetail')
 # @login_required
-def bugdetail():
-    return render_template('bug-details.html')
-
-@app.route('/base')
-def base():
-    return render_template('base.html')
-
-
-@app.route('/basenav')
-def basenav():
-    return render_template('basenav.html')
-
-
-# def InfoCommit(url):
-#     Info = GetBaseMessage(url)
-#     try:
-#         with app.app_context():
-#             db.session.add(BaseInfo(url=url, status=Info.GetStatus(), title=Info.GetTitle(), date=Info.GetDate(),
-#                                     responseheader=Info.GetResponseHeader(),
-#                                     Server=Info.GetFinger(), portserver=Info.PortScan(), senmessage=Info.SenMessage(),
-#                                     sendir="test"))
-#             db.session.commit()
-#     except Exception:
-#         pass
-
-
-# @app.route('/testMySQL')
-# def testmysql():
-#     url = "blog.csdn.net"
-#     executor.submit(InfoCommit, url)
-#     # Info = BaseInfo.query.filter(BaseInfo.id == 2).first()
-#     return "hi!"
+def bugdetail(id=None):
+    if not id:
+        buginfo = BugList.query.first()
+    else:
+        buginfo = BugList.query.filter(BugList.id == id).first()
+    bugtype=BugType.query.filter(BugType.id==buginfo.bugtypeid).first()
+    oldurlinfo=BaseInfo.query.filter(BaseInfo.url==buginfo.oldurl).first()
+    for key,value in buggrade.items():
+        if key==bugtype.buggradeid:
+            grade=value
+    return render_template('bug-details.html',buginfo=buginfo,bugtype=bugtype,grade=grade,oldurlinfo=oldurlinfo)
 
 
 @app.route('/user', methods=['GET', 'POST'])
@@ -86,16 +64,13 @@ def test_home():
     return render_template('baseOne.html')
 
 
-
 @app.route('/test_console', methods=['GET', 'POST'])
 def console():
     if request.method == 'GET':
         return render_template('console.html')
     else:
         urls = request.form.get('urls')
-        print(urls)
-        executor.submit(SZheConsole, urls,redispool)
-        print("end")
+        executor.submit(SZheConsole, urls)
         return render_template('console.html')
 
 
@@ -150,6 +125,11 @@ def GenInvitationCode():
     db.session.add(Code)
     db.session.commit()
 
+def AddPOC():
+    bugname=""
+    rule=""
+    expression=""
+    return None
 
 @app.route('/regist/', methods=['GET', 'POST'])
 def regist():
@@ -236,6 +216,4 @@ def my_comtext_processor():
 
 
 if __name__ == '__main__':
-    executor = ProcessPoolExecutor(4)
-    redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
     app.run()

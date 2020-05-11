@@ -100,22 +100,11 @@ buggradeid 对应buglist表中漏洞的等级
     3 low
 '''
 
-
-# class SeriousBug(db.Model):
-#     __tablename__='seriousbug'
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#
-# class HighBug(db.Model):
-#     __tablename__='highbug'
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#
-# class MediumBug(db.Model):
-#     __tablename__='mediumbug'
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#
-# class LowBug(db.Model):
-#     __tablename__='lowbug'
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class POC(db.Model):
+    __tablename__='poc'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    rule=db.Column(db.Text,nullable=True)
+    expression=db.Column(db.Text,nullable=True)
 
 class Log(db.Model):
     __tablename__ = 'log'
