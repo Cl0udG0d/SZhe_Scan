@@ -41,7 +41,7 @@
   z-index: 800;
   border: 1px white solid;
   margin: 0.75rem;
-  height: 260px;
+  height: 300px;
   background-color: #f8f8ff;
   padding-top: 30px;
   font-size: xx-large;
@@ -231,13 +231,13 @@
   vertical-align: middle;
 }
 .content-mid-left {
-  flex: 3.5;
+  flex: 3;
   width: 100%;
 }
 .content-mid-left form {
-  display: flex;
-  width: 96%;
-  flex-direction: row;
+  /* display: flex; */
+  width: 95%;
+  /* flex-direction: row; */
   align-items: center;
   justify-items: center;
   text-align: center;
@@ -246,7 +246,8 @@
   left: 10px;
 }
 .content-mid-left form textarea {
-  flex: 5;
+  /* flex: 5; */
+  width: 100%;
   height: 140px;
   background-color: #f8f8ff;
   border: #d3d3d3 solid 1px;
@@ -255,9 +256,9 @@
   padding-left: 10px;
   color: #494949;
 }
-.content-mid-left form button {
+/* .content-mid-left form button {
   flex: 1;
-  /* width: 60px; */
+  width: 60px;
   height: 50px;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
@@ -265,24 +266,64 @@
   background-color: #0fbcf9;
   color: #fff;
   padding: 10px 15px;
-}
-.content-mid-left form button:hover {
+} */
+/* .content-mid-left form button:hover {
   cursor: pointer;
-}
+  background-color: #0394e7;
+} */
+
 .content-mid-right {
   flex: 1;
+  margin-left: 20px;
+  display: grid;
+  grid-template-areas:
+    "p1 p2"
+    "button p3";
+  grid-template-columns: 200px 200px;
+  grid-template-rows: 50px 50px;
+  row-gap: 15px;
+}
+.content-mid-right button {
+  grid-area: button;
+  width: 80%;
+  height: 50px;
+  font-size: 18px;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+
+  /* margin-left: 15px; */
+}
+.content-mid-right button:hover {
+  cursor: pointer;
+  background-color: #0394e7;
+}
+.content-mid-right p {
+  width: 100%;
+  height: 50px;
+}
+.content-mid-right .p1 {
+  grid-area: p1;
+}
+.content-mid-right .p2 {
+  grid-area: p2;
+}
+.content-mid-right .p3 {
+  grid-area: p3;
 }
 .content-mid-right p {
   color: #2e2e2e;
   color: black;
   font-size: 18px;
-  margin-bottom: 4px;
+  /* margin-bottom: 4px; */
   border: #d3d3d3 solid 1px;
   background-color: #f8f8ff;
   border-radius: 4px;
   width: 80%;
   padding: 10px 10px;
-  margin-left: 33px;
+  /* margin-left: 33px; */
 }
 .charts {
   /* flex: 1; */

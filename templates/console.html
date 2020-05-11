@@ -7,8 +7,8 @@
 {% endblock %}
 {% block js %}
 <script src="{{url_for('static',filename='js/home.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="../static/libs/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../static/libs/echarts.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.js"></script>
 {% endblock %}
 {% block rightcontext %}
@@ -64,11 +64,11 @@
     <div class="content-mid-left">
         <form method="POST" action="" id="task" name="myTask">
             <textarea name="urls" rows="10" cols="30" placeholder="请输入新建任务:"></textarea>
-            <button class="newtask" type="submit">新建任务</button>
         </form>
     </div>
 
     <div class="content-mid-right">
+        <button class="newtask" type="submit">新建任务</button>
         <p class="p1">待扫描:10</p>
         <p class="p2">正扫描:10</p>
         <p class="p3">已扫描:10</p>
@@ -130,7 +130,7 @@
             {
                 name: "漏洞属性",
                 type: "pie",
-                radius: ["35%", "75%"],
+                radius: ["40%", "80%"],
                 avoidLabelOverlap: false,
                 label: {
                     normal: {

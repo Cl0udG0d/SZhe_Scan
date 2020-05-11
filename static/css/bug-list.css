@@ -43,9 +43,11 @@ h1 {
   margin-top: 0px;
   font-size: 45px;
   display: inline-block;
+  font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
 h1 a {
   color: #2e2e2e;
+  font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
 .container,
 .container .top {
@@ -438,6 +440,7 @@ header .burger {
   transform: translateX(50%) rotate(45deg);
   border-radius: 2px;
 }
+
 .skills .ten {
   margin-bottom: 40px;
 }
@@ -459,17 +462,21 @@ header .burger {
   right: 40px;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
+  height: 1600px;
+  padding: 0 0 70px 0;
   /* height: 2000px; */
 
   /* padding: 15px 0; */
 }
-
+.bugLists {
+  height: 1500px;
+}
 .right-context .list {
   /* flex-basis: 120px; */
   flex: 1;
   width: 100%;
-  height: 160px;
-  padding: 5px 17px 5px 40px;
+  height: 100px;
+  padding: 10px 17px 10px 40px;
   margin-left: 20px;
   display: flex;
   flex-direction: row;
@@ -489,7 +496,7 @@ header .burger {
   position: relative;
   left: -20px;
   width: 100%;
-  height: 150px;
+  height: 120px;
   color: #747373;
   /* flex-basis: 300px; */
 }
@@ -498,6 +505,9 @@ header .burger {
 }
 .right-context .list .domain-name .two-p {
   flex: 1;
+}
+.right-context .list .domain-name .two-p a:hover {
+  color: #0fbcf9;
 }
 .right-context .list .domain-name .three-p {
   flex: 1;
@@ -523,6 +533,31 @@ header .burger {
   border-radius: 2px;
   background-color: #f8f8ff;
   margin-right: 20px;
+}
+table .page-number {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  width: 90%;
+  margin-bottom: 13px;
+  line-height: 40px;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+  color: #4b4a4a;
+}
+table .page-number td {
+  flex: 1;
+  color: #4b4a4a;
+}
+/* .page-number td a {
+  flex: 1;
+} */
+table .page-number td a:active {
+  color: #0fbcf9;
+}
+table .page-number:hover {
+  background-color: #f8f8ff;
 }
 .body-tail {
   position: absolute;

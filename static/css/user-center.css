@@ -506,7 +506,22 @@ form ol li input {
   background-color: #f8f8ff;
   height: 500px;
 }
-
+.tab-inv p {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+.tab-inv button {
+  height: 40px;
+  color: #f8f8ff;
+  background-color: #0fbcf9;
+  padding: 0 20px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.tab-inv button:hover {
+  cursor: pointer;
+}
 .body-tail {
   position: absolute;
   top: 800px;
