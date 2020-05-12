@@ -252,10 +252,12 @@ NMap(Network Mapper)
 
 
 def PortScan(host):
-    pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
+    pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
     content = ""
     if not pattern.findall(host):
         host = socket.gethostbyname(host)
+    if pattern.findall(host) and ":" in host:
+        host=host.split(":")[0]
     nm = nmap.PortScanner()
     try:
         nm.scan(host, arguments='-Pn,-sS')
@@ -315,6 +317,7 @@ def FindDomainAdd(domain):
     :param domain:
     :return:
     """
+    str=""
     url = "http://ip.yqie.com/ip.aspx?ip=" + domain
     try:
         rep = requests.get(url, headers=core.GetHeaders(),timeout=2)

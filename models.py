@@ -103,6 +103,7 @@ buggradeid 对应buglist表中漏洞的等级
 class POC(db.Model):
     __tablename__='poc'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name=db.Column(db.String(100),nullable=False)
     rule=db.Column(db.Text,nullable=True)
     expression=db.Column(db.Text,nullable=True)
 

@@ -53,10 +53,12 @@ def SZheScan(url):
     try:
         print(url)
         baseinfo = GetBaseMessage(url, redispool)
-        pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
+        pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
+        if pattern.findall(url) and ":" in url:
+            infourl=url.strip(":")[0]
         if pattern.findall(url):
             boolcheck = True
-            ipinfo = IPMessage(url)
+            ipinfo = IPMessage(infourl)
         else:
             boolcheck = False
             domaininfo = DomainMessage(url, redispool)
@@ -100,7 +102,15 @@ def SZheConsole(urls):
         pass
     print("end!")
 
-# if __name__=='__main__':
+def test(url):
+    pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
+    if pattern.findall(url):
+        print("yes")
+    else:
+        print("no")
+
+if __name__=='__main__':
+    test("www.baidu.com")
 #     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
 #     SZheConsole("testphp.vulnweb.com",redispool)
     # BugScanConsole("testphp.vulnweb.com",redispool)

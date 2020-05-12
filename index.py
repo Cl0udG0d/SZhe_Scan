@@ -25,6 +25,10 @@ buggrade={
 def index():
     return render_template('homeOne.html')
 
+@app.route('/editinfo')
+def editinfo():
+    return render_template('user-infor.html')
+
 @app.route('/buglist/<int:page>',methods=['GET'])
 @app.route('/buglist')
 # @login_required
@@ -54,10 +58,11 @@ def bugdetail(id=None):
 
 @app.route('/user', methods=['GET', 'POST'])
 def user():
+    allcode=InvitationCode.query.order_by(InvitationCode.id.desc()).limit(10).all()
     if request.method == 'GET':
-        return render_template('user-center.html')
+        return render_template('user-center.html',allcode=allcode)
     else:
-        return render_template('user-center.html')
+        return render_template('user-center.html',allcode=allcode)
 
 @app.route('/testnav')
 def test_home():
@@ -119,14 +124,17 @@ def validate(email, username, password1, password2):
 
 
 # 生成邀请码
+@app.route('/GenInvitationCode', methods=['GET', 'POST'])
 def GenInvitationCode():
     code = str(uuid.uuid1())
     Code = InvitationCode(code=code)
     db.session.add(Code)
     db.session.commit()
+    allcode=InvitationCode.query.order_by(InvitationCode.id.desc()).limit(10).all()
+    return render_template("user-center.html", temp=Code.code,allcode=allcode)
 
 def AddPOC():
-    bugname=""
+    pocname=""
     rule=""
     expression=""
     return None

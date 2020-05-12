@@ -16,7 +16,7 @@
             <p class="name">水兵月</p>
             <p>个人博客:xxxxxxxx</p>
             <p>简介:快睡觉快睡觉快睡觉快睡觉</p>
-            <button>修改信息</button>
+            <button onclick="window.location.href='{{ url_for('editinfo') }}'">修改信息</button>
         </div>
     </div>
     <div class="right-context">
@@ -65,8 +65,12 @@
                         </ul>
                     </div>
                     <div class="tabPane tab-inv" id="tab_3" style="display:none;">
-                        <p>邀请码:xxxxxxxx</p>
-                        <button>点击生成邀请码</button>
+                        <p>{{temp}}</p>
+                        <button onclick="window.location.href='{{ url_for('GenInvitationCode') }}'">点击生成邀请码</button>
+                        <p>已生成的邀请码</p>
+                        {% for code in allcode %}
+                            <p>{{code.code}}</p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
