@@ -29,6 +29,10 @@ def index():
 def editinfo():
     return render_template('user-infor.html')
 
+@app.route('/domaindetail')
+def domaindetail():
+    return render_template('domain-detail.html')
+
 @app.route('/buglist/<int:page>',methods=['GET'])
 @app.route('/buglist')
 # @login_required
@@ -192,7 +196,7 @@ def log_detail(page=None):
         page = 1
     # page = int(request.args.get('page', 1))
     # per_page = int(request.args.get('per_page', 2))
-    per_page = 30
+    per_page = 38
     paginate = Log.query.order_by(Log.date.desc()).paginate(page, per_page, error_out=False)
     logs = paginate.items
     return render_template('log_detail.html', paginate=paginate, logs=logs)
