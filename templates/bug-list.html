@@ -51,13 +51,13 @@
             {% if paginate.has_prev %}
             <td class="td" style="margin-right:20px;">
                 <a href="{{url_for('buglist',page=paginate.prev_num)}}"
-                    style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;position: relative;left:170px;">上一页</a>
+                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:170px;">上一页</a>
                 {% endif %}</td>
 
             <td class="td" style="margin-right:20px;">
                 {% if paginate.has_next %}
                 <a href="{{url_for('buglist',page=paginate.next_num)}}"
-                    style="border:#d3d3d3 solid 1px;padding:5px 7px;border-radius: 4px;position: relative;left:170px;">下一页</a>
+                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:170px;">下一页</a>
                 {% endif %}</td>
         </tr>
     </table>

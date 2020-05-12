@@ -109,16 +109,16 @@ a {
   color: white;
 }
 input::-webkit-input-placeholder {
-  color: white;
+  color: white !important;
 }
 input::-moz-placeholder {
-  color: white;
+  color: white !important;
 }
 input:-ms-input-placeholde {
-  color: white;
+  color: white !important;
 }
 input:-moz-placeholder {
-  color: white;
+  color: white !important;
 }
 .context .remember-btn {
   float: left;

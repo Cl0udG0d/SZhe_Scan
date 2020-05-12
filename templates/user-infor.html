@@ -1,12 +1,8 @@
 {% extends 'basenav.html' %}
 {% block title %}User{% endblock %}
 {% block css %}
-<link rel="stylesheet" href="{{url_for('static',filename='css/user-center.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/user-infor.css')}}" />
 <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
-{% endblock %}
-<title>Document</title>
-{% block js %}
-<script type="text/javascript" src="../static/js/user-center.js"></script>
 {% endblock %}
 {% block context %}
 <div class="tab-content">
@@ -31,7 +27,8 @@
                     <input type="text" name="username" placeholder="********" id="username">
                 </li>
             </ol>
-            <input class="sub" type="submit" name="submit" value="Submit">
+            <button>Submit</button>
         </form>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block css %}
 <link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
-<link rel="stylesheet" href="{{url_for('static',filename='css/bug-details.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/domain-detail.css')}}" />
 <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
 {% endblock %}
 {% block js %}
@@ -13,27 +13,27 @@
 {% block rightcontext %}
 <div class="content">
     <div class="content-titles">
-        <h2>漏洞详情</h2>
+        <h2>域名详情</h2>
         <div class="domain-details">
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>所属:{{buginfo.oldurl}}</span>
+                <span>所属:</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>漏洞链接:{{buginfo.bugurl}}</span>
+                <span>巴拉巴拉:</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>漏洞类型:{{bugtype.bugtype}}</span>
+                <span>巴拉巴拉:</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>漏洞等级:{{bugtype.bugtype}}</span>
+                <span>巴拉巴拉:</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>payload:{{buginfo.payload}}</span>
+                <span>巴拉巴拉:</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
@@ -59,18 +59,18 @@
                     <div class="tab-basic" style="margin-bottom: 10px;
                     width: 500px;">
                         <i class="fa fa-check-circle-o"></i>
-                        <span style="width:95%;white-space: pre-wrap;">{{buginfo.bugdetail}}</span>
+                        <span style="width:95%;white-space: pre-wrap;">hhh</span>
                     </div>
                     <!-- </div> -->
                 </div>
                 <div class="tabPane" id="tab_2" style="display:none;">
                     <div class="historys">
-                        <p>所属信息:{{oldurlinfo.url}}</p>
-                        <p>标题:{{oldurlinfo.title}}</p>
-                        <p>状态码:{{oldurlinfo.status}}</p>
-                        <p>收录时间:{{oldurlinfo.date}}</p>
-                        <p>指纹信息:{{oldurlinfo.Server}}</p>
-                        <p>端口信息:{{oldurlinfo.portserver}}</p>
+                        <p>所属信息:xxx</p>
+                        <p>标题:xxx</p>
+                        <p>状态码:xxx</p>
+                        <p>收录时间:xxx</p>
+                        <p>指纹信息:xxx</p>
+                        <p>端口信息:xxx</p>
                     </div>
                 </div>
             </div>

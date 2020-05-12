@@ -315,7 +315,7 @@ header .burger {
   position: absolute;
   top: 120px;
   width: 100vw;
-  height: 1500px;
+  height: 1800px;
   background-color: #f1f1f1;
 }
 .left-context {
@@ -438,6 +438,7 @@ header .burger {
   flex-direction: column;
   margin-right: 40px;
 }
+
 .right-context .search-mid .search-text {
   width: 35%;
   height: 40px;
@@ -469,6 +470,9 @@ button {
 .newest {
   flex: 1;
   width: 94%;
+  display: flex;
+  flex-direction: row;
+
   background-color: #f8f8ff;
   height: 180px;
   z-index: 100;
@@ -477,6 +481,51 @@ button {
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
 }
+.newest .domain-name {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  position: relative;
+  /* left: -20px; */
+  width: 100%;
+  height: 120px;
+  /* color: #747373; */
+  color: #2e2e2e;
+}
+
+.newest .domain-name p {
+  flex: 1;
+}
+.newest .domain-name .two-p {
+  flex: 1;
+}
+.newest .domain-name .two-p a:hover {
+  color: #0fbcf9;
+}
+.newest .domain-name .three-p {
+  flex: 1;
+}
+
+.newest .domain-name i {
+  /* display: inline-block; */
+  float: left;
+  margin-right: 5px;
+}
+
+.newest .tab-pane {
+  flex: 1.2;
+  height: 130px;
+  /* align-content: flex-start; */
+  width: 400px;
+  overflow: scroll;
+  white-space: pre-line;
+  border: #b6b6b6 solid 1px;
+  border-radius: 2px;
+  background-color: #f8f8ff;
+  margin-right: 20px;
+}
+
 .right-context .first {
   position: relative;
   top: -6px;
@@ -494,7 +543,7 @@ button {
 }
 .body-tail {
   position: absolute;
-  top: 1600px;
+  top: 1900px;
   width: 100vw;
   height: 35px;
   display: flex;
