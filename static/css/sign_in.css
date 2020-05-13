@@ -72,6 +72,7 @@ a {
   justify-content: center;
   position: relative;
   left: -15px;
+  color: #fff;
 }
 
 /* .context .title a:hover {
@@ -102,24 +103,30 @@ a {
   padding: 4px 12px 4px 35px;
   border: 2px solid white;
   border-radius: 4px;
-  background-color: hsla(0, 0%, 71%, 0.1);
-  opacity: 0.2;
+  background: inherit;
+  /* background-color: hsla(0, 0%, 71%, 0.1); */
+  opacity: 0.9;
   /* background-color: #f8f8ff; */
   vertical-align: middle;
   color: white;
 }
 input::-webkit-input-placeholder {
-  color: white;
+  color: white !important;
+  z-index: 1000;
 }
-input::-moz-placeholder {
-  color: white;
+::-moz-placeholder {
+  color: white !important;
+  z-index: 1000;
 }
 input:-ms-input-placeholde {
-  color: white;
+  z-index: 1000;
+  color: white !important;
 }
 input:-moz-placeholder {
-  color: white;
+  color: white !important;
+  z-index: 1000;
 }
+
 .context .remember-btn {
   float: left;
   margin: 15px 0;

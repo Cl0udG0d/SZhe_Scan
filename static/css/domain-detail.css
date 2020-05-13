@@ -37,10 +37,10 @@
   margin-right: 32px;
 }
 /* .content-titles {
-  display: flex;
-  flex-direction: column;
-  height: 150px;
-} */
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+  } */
 .content-titles h2 {
   color: black;
   border-left: 5px solid #0fbcf9;
@@ -58,7 +58,6 @@
   font-weight: lighter;
   margin-right: 13px;
   -webkit-text-stroke: 1px #f8f8ff;
-  color: #0fbcf9;
 }
 .domain-details .domain-detail {
   margin-bottom: 10px;
@@ -125,7 +124,7 @@
   margin-bottom: 10px;
   width: 90%;
   /* position: relative;
-  top: -30px; */
+    top: -30px; */
 }
 .tab-content .tab-basic i {
   font-size: 24px;

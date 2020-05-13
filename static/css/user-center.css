@@ -518,9 +518,11 @@ form ol li input {
   border: 1px solid #d3d3d3;
   border-radius: 4px;
   font-size: 16px;
+  margin-bottom: 15px;
 }
 .tab-inv button:hover {
   cursor: pointer;
+  background-color: #0394e7;
 }
 .body-tail {
   position: absolute;
