@@ -1,0 +1,1 @@
+$("inp").attr("placeholder", "white");

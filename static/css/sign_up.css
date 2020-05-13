@@ -83,10 +83,12 @@ a {
   height: 40px;
   margin-bottom: 7px;
   padding: 4px 12px 4px 35px;
-  border: 2px solid #d3d3d3;
+  border: 2px solid #e9e6e6;
+
   border-radius: 4px;
-  background-color: hsla(0, 0%, 71%, 0.1);
-  opacity: 0.2;
+  /* background-color: hsla(0, 0%, 71%, 0.1); */
+  background: inherit;
+  opacity: 0.6;
   color: white !important;
   /* background-color: #f8f8ff; */
   vertical-align: middle;
@@ -101,7 +103,7 @@ a {
   position: relative;
   left: 17px;
 }
-input::-webkit-input-placeholder {
+/* input::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #fff !important;
 }
@@ -126,7 +128,7 @@ input::placeholder {
 .container .login-form form input::-moz-placeholder {
   color: #fff !important;
   font-size: 24px;
-}
+} */
 .context .sign-up-button {
   position: absolute;
   left: 0px;

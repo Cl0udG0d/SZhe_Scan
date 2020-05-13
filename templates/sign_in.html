@@ -7,6 +7,14 @@
   <title>用户登录</title>
   <link rel="stylesheet" href="{{url_for('static',filename='css/sign_in.css')}}" />
   <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+  <script src="{{url_for('static',filename='js/login.js')}}"></script>
+  <style>
+    input::placeholder {
+      color: #fff !important;
+      font-weight: 500;
+      opacity: 1;
+    }
+  </style>
 </head>
 
 <body>
@@ -24,16 +32,16 @@
       <div class="login-form">
         <form action="" method="POST" id="form" name="myform" onsubmit="checkform();">
           <div class="input-num restyle">
-            <input type="text" placeholder="邮箱" name="email" />
+            <input placeholder-style="color:red !important" type="text" placeholder="邮 箱" name="email" id="inp" />
             <i class="fa fa-user"></i>
           </div>
           <div class="input-num passw">
-            <input type="password" placeholder="密码" name="password" />
+            <input type="password" placeholder="密 码" name="password" id="inp" />
             <i class="fa fa-eye-slash"></i>
           </div>
           <div class="remember-btn">
             <input type="checkbox" value="true" checked="checked" name="remeber"
-              id="session_remember_me" /><span>记住我</span>
+              id="session_remember_me inp" /><span>记住我</span>
           </div>
           <div class="forget-btn">
             <span>还没有账户？点击</span><a class="" data-toggle="dropdown" href="{{url_for('regist')}}">注册</a>

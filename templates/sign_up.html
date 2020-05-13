@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="../static/css/font-awesome.min.css" /> -->
   <link rel="stylesheet" href="{{url_for('static',filename='css/sign_up.css')}}" />
   <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+  <style>
+    input::placeholder {
+      color: #fff !important;
+      font-weight: 500;
+      opacity: 1;
+    }
+  </style>
 </head>
 
 <body>
@@ -25,11 +32,11 @@
         <div class="login-form">
           <form action="" method="POST" id="form" name="myform" onsubmit="return checkform();">
             <div class="input-num restyle">
-              <input type="text" placeholder="昵称" name="username" id="username" style="color:#fff;" />
+              <input type="text" placeholder="昵 称" name="username" id="username" style="color:#fff;" />
               <i class="fa fa-user"></i>
             </div>
             <div class="input-num passw">
-              <input type="email" placeholder="邮箱" name="email" />
+              <input type="email" placeholder="邮 箱" name="email" />
               <i class="fa fa-envelope"></i>
             </div>
             <div class="input-num input-prepend setting">

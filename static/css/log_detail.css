@@ -567,7 +567,7 @@ table .page-number {
   flex-direction: row;
   align-items: center;
   justify-items: center;
-  width: 90%;
+  width: 100%;
   margin-bottom: 13px;
   line-height: 40px;
   border: #d3d3d3 solid 1px;
