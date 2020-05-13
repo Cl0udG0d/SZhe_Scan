@@ -8,8 +8,8 @@ import socket
 import urllib3
 from init import app
 from exts import db
-from models import BaseInfo,IPInfo,DomainInfo,BugList,BugType
-
+from models import BugList
+from init import redispool
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # 禁用安全警告
 
@@ -35,7 +35,7 @@ def GetWhois(domain):
     """
     whois_url = 'http://whois.bugscaner.com/'
     try:
-        rep = requests.get(whois_url + domain, headers=core.GetHeaders(), timeout=2.0)
+        rep = requests.get(whois_url + domain, headers=core.GetHeaders(), timeout=4.0)
         rep = etree.HTML(rep.text)
         data = rep.xpath('//div[@class="stats_table_91bf7bf"]/b[not(@style)]/text()')[0:19]
         str = "\n".join(data)
@@ -134,7 +134,6 @@ def GetRecordInfo(domain):
         icpdate=rep.xpath('//ul[@id="first"]/li/p/text()')[3]
         context='''主办单位名称:{}\n主办单位性质:{}\n网站备案许可证号:{}\n网站名称:{}\n网站首页地址:{}\n审核时间:{}\n'''.format(companyname,type,icpnum,wwwname,wwwurl,icpdate)
     except Exception as e:
-        print(e)
         pass
     return context
 
@@ -177,8 +176,7 @@ def GetSiteStation(ip):
     for i in text:
         if "屏蔽的关键字" in i:
             text.remove(i)
-    str = "\n".join(text)
-    return str
+    return "\n".join(text)
 
 
 '''
@@ -231,17 +229,17 @@ def SenFileScan(domain, redispool):
     pool.close()
     pool.join()
     if len(SenFileMessage)!=0:
-        try:
-            with app.app_context():
-                for url in SenFileMessage:
-                    rep = requests.get(url, headers=core.GetHeaders(), timeout=1.0, verify=False)
-                    bug = BugList(oldurl=domain, bugurl=url, bugtypeid=3, payload=url, bugdetail=rep.text)
+        with app.app_context():
+            for url in SenFileMessage:
+                try:
+                    rep = requests.get(url, headers=core.GetHeaders(), timeout=3, verify=False)
+                    bug = BugList(oldurl=domain, bugurl=url, bugname="SenDir",buggrade=redispool.hget('bugtype', "SenDir"),payload=url, bugdetail=rep.text)
                     db.session.add(bug)
-                db.session.commit()
-        except Exception as e:
-            print(e)
-            pass
-    return "".join(list(filter(None, SenFileMessage)))
+                except Exception as e:
+                    print(e)
+                    pass
+            db.session.commit()
+    return "\n".join(list(filter(None, SenFileMessage)))
 
 
 '''
@@ -320,11 +318,12 @@ def FindDomainAdd(domain):
     str=""
     url = "http://ip.yqie.com/ip.aspx?ip=" + domain
     try:
-        rep = requests.get(url, headers=core.GetHeaders(),timeout=2)
+        rep = requests.get(url, headers=core.GetHeaders(),timeout=4)
         rep = etree.HTML(rep.text)
         context = rep.xpath('//div[@style="text-align: center; line-height: 30px;"]/text()')
         str = "\n".join(context)
-    except:
+    except Exception as e:
+        print(e)
         pass
     return str.lstrip()
 
@@ -356,7 +355,6 @@ if __name__ == "__main__":
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
-    list=GetSubDomain("www.taobao.com")
-    print(list)
+    print(SenFileScan("test.vulnweb.com",redispool))
     # for i in list:
     #     print(i)

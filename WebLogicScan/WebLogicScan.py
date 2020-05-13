@@ -16,7 +16,8 @@ import poc.CVE_2019_2729
 白嫖魔改自rabbitmask师傅的Weblogic一键漏洞检测工具，V1.3
 https://github.com/rabbitmask/WeblogicScan
 
-返回二维列表,[[vul,bugurl,payload:CVE-xxx,bugdetail],[],[]]
+修改weblogicscan位置 到最开始基础信息搜集处，检测输入的域名或ip是否存在weblogic漏洞
+并且直接将结果存储在buglist表中
 '''
 
 
@@ -110,4 +111,4 @@ def run(url):
     #     PocS(url,port)
 
 if __name__ == '__main__':
-    run()
+    run("127.0.0.1:80")

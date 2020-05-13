@@ -14,9 +14,6 @@ import time
 
 import requests
 
-logging.basicConfig(filename='Weblogic.log',
-                    format='%(asctime)s %(message)s',
-                    filemode="w", level=logging.INFO)
 
 VUL=['CVE-2019-2729']
 headers = {'user-agent': 'ceshi/0.0.1', 'content-type': 'text/xml', 'cmd': 'whoami'}

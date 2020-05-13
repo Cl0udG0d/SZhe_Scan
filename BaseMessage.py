@@ -75,21 +75,17 @@ class GetBaseMessage():
 if __name__=='__main__':
     # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
-    urls=["www.cnblogs.com","fofa.so","fofa.so","fofa.so","fofa.so","fofa.so","github.com","blog.csdn.net","www.fuzzer.xyz","www.anquanke.com","xianzhi.aliyun.com","www.lingfengyun.com",
-          "www.secfree.com","www.bilibili.com","leetcode-cn.com"]
-
     try:
-        for url in urls:
-            baseinfo = GetBaseMessage(url, redispool)
-            with app.app_context():
-                info = BaseInfo(url=url, boolcheck=False, status=baseinfo.GetStatus(), title=baseinfo.GetTitle(),
-                                date=baseinfo.GetDate(), responseheader=baseinfo.GetResponseHeader(),
-                                Server=baseinfo.GetFinger(), portserver=baseinfo.PortScan(), sendir=baseinfo.SenDir())
-                db.session.add(info)
-                db.session.commit()
-            print("xxx")
+        test=GetBaseMessage("test.vulnweb.com",redispool)
+        print(test.GetStatus())
+        print(test.GetTitle())
+        print(test.GetDate())
+        print(test.GetResponseHeader())
+        print(test.GetFinger())
+        print(test.PortScan())
+        print(test.SenDir())
+
     except Exception as e:
         print(e)
         pass
-    print("end!")
 

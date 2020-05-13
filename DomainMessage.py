@@ -32,10 +32,14 @@ class DomainMessage:
 
 if __name__=='__main__':
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
-    test=DomainMessage("www.taobao.com",redispool)
-    # print(test.GetSiteStation())
-    # print(test.GetBindingIP())
-    # print(test.GetWhoisMessage())
-    # print(test.GetRecordInfo())
-    # print(test.FindDomainAdd())
-    print(test.GetSubDomain())
+    test=DomainMessage("testphp.vulnweb.com",redispool)
+    try:
+        print(test.GetSiteStation())
+        print(test.GetBindingIP())
+        print(test.GetWhoisMessage())
+        print(test.GetRecordInfo())
+        print(test.FindDomainAdd())
+        print(test.GetSubDomain())
+    except Exception as e:
+        print(e)
+        pass

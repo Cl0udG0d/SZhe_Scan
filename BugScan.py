@@ -2,19 +2,19 @@ from sqlinjection.InjectionIndex import InjectionControl
 from XSSBug.XSSCheck import GetXSS
 from ComIn.ComCheck import GetComIn
 from File_Inclusion.LocalFileInclude import CheckLocalFileInclude
-
+from POCScan import POCScan
 
 class BugScan:
-    def __init__(self,url,reaidspool):
+    def __init__(self,oldurl,url):
         self.url=url
-        self.redispool=reaidspool
+        self.oldurl=oldurl
 
     def SQLBugScan(self):
         vulnerable, payload,bugdetail =InjectionControl(self.url)
         return vulnerable,payload,bugdetail
 
     def XSSBugScan(self):
-        vulnerable, payload,bugdetail=GetXSS(self.url,self.redispool)
+        vulnerable, payload,bugdetail=GetXSS(self.url)
         return vulnerable, payload,bugdetail
 
     def ComInScan(self):
@@ -26,9 +26,12 @@ class BugScan:
         return vulnerable, payload,bugdetail
 
     def WebLogicScan(self):
+        print("WebLogicScan!")
         return False,None,None
 
     def POCScan(self):
+        print("POC Scan!")
+        POCScan.POCScanConsole(self.oldurl,self.url)
         return False,None,None
 
 if __name__=='__main__':

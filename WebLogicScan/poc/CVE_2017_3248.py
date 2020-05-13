@@ -47,14 +47,6 @@ def sendEvilObjData(sock,data):
     except Exception:
         pass
     return res
-def checkVul(res,index):
-    p=re.findall(VER_SIG[index], res, re.S)
-    if len(p)>0:
-        logging.info('[+]The target weblogic has a JAVA deserialization vulnerability:{}'.format(VUL[index]))
-        print('[+]The target weblogic has a JAVA deserialization vulnerability:{}'.format(VUL[index]))
-    else:
-        logging.info('[-]Target weblogic not detected {}'.format(VUL[index]))
-        print('[-]Target weblogic not detected {}'.format(VUL[index]))
 
 def run(rip,rport,index=0):
     rport=int(rport)

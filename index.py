@@ -2,9 +2,9 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import uuid
-from models import User, Log, BaseInfo, InvitationCode,BugList,BugType
+from models import User, Log, BaseInfo, InvitationCode,BugList,POC
 from exts import db
-from init import app
+from init import app,redispool
 from concurrent.futures import ThreadPoolExecutor
 from SZheConsole import SZheConsole
 from concurrent.futures import ProcessPoolExecutor
@@ -14,12 +14,6 @@ from lxml.html.builder import HEAD
 import config
 
 executor = ThreadPoolExecutor()
-buggrade={
-    0:"Serious",
-    1:"High",
-    2:"Mid",
-    3:"Low"
-}
 
 @app.route('/')
 def index():
@@ -49,15 +43,11 @@ def buglist(page=None):
 # @login_required
 def bugdetail(id=None):
     if not id:
-        buginfo = BugList.query.first()
+        buginfo = BugList.query.order_by(BugList.id.desc()).first()
     else:
         buginfo = BugList.query.filter(BugList.id == id).first()
-    bugtype=BugType.query.filter(BugType.id==buginfo.bugtypeid).first()
     oldurlinfo=BaseInfo.query.filter(BaseInfo.url==buginfo.oldurl).first()
-    for key,value in buggrade.items():
-        if key==bugtype.buggradeid:
-            grade=value
-    return render_template('bug-details.html',buginfo=buginfo,bugtype=bugtype,grade=grade,oldurlinfo=oldurlinfo)
+    return render_template('bug-details.html',buginfo=buginfo,oldurlinfo=oldurlinfo)
 
 
 @app.route('/user', methods=['GET', 'POST'])
@@ -141,7 +131,11 @@ def AddPOC():
     pocname=""
     rule=""
     expression=""
-    return None
+    buggrade=""
+    redispool.hset('bugtype',pocname,buggrade)
+    poc = POC(name=pocname, rule=rule,expression=expression)
+    db.session.add(poc)
+    db.session.commit()
 
 @app.route('/regist/', methods=['GET', 'POST'])
 def regist():

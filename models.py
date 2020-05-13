@@ -68,7 +68,8 @@ class BugList(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     oldurl = db.Column(db.String(50), nullable=True)
     bugurl = db.Column(db.String(50), nullable=True)
-    bugtypeid = db.Column(db.Integer, nullable=False)
+    bugname = db.Column(db.String(100), nullable=False)
+    buggrade=db.Column(db.String(7),nullable=False)
     payload = db.Column(db.String(100), nullable=True)
     bugdetail = db.Column(db.Text, nullable=True)
 
@@ -77,28 +78,15 @@ class BugList(db.Model):
 buglist表
     oldurl 扫描的原域名或IP
     bugurl 原域名或IP下的存在漏洞的一个url
+    bugname 对应漏洞的名称
+    buggrade 对应漏洞的等级
+        serious high medium low
     payload 漏洞利用的url payload
     bugdetail 使用payload之后网页的请求源代码
     
+    
 '''
 
-
-class BugType(db.Model):
-    __tablename__ = 'bugtype'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    bugtype = db.Column(db.String(50), nullable=False)
-    buggradeid = db.Column(db.Integer, nullable=False)
-
-
-'''
-buglistid 对应buglist表中漏洞的id编号,事实上buglistid也是唯一的
-bugtypeid 对应该漏洞的类型
-buggradeid 对应buglist表中漏洞的等级
-    0 serious
-    1 high
-    2 medium
-    3 low
-'''
 
 class POC(db.Model):
     __tablename__='poc'

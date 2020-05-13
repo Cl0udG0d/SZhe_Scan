@@ -3,20 +3,12 @@ from IPMessage import IPMessage
 from DomainMessage import DomainMessage
 from init import app,redispool
 from exts import db
-from models import BaseInfo,IPInfo,DomainInfo,BugList,BugType
+from models import BaseInfo,IPInfo,DomainInfo,BugList
 from BugScan import BugScan
 import re
 from SpiderGetUrl import depth_get
-import signal
 
-import multiprocessing
-import time
-
-Bugs=["SQLBugScan","XSSBugScan","ComInScan","FileIncludeScan","WebLogicScan","POCScan"]
-
-
-def init():
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
+Bugs=["SQLBugScan","XSSBugScan","ComInScan","FileIncludeScan"]
 
 '''
 SZheConsole 碎遮扫描器的总控制代码
@@ -35,15 +27,16 @@ def BugScanConsole(attackurl):
     try:
         while redispool.scard(attackurl) != 0:
             url = redispool.spop(attackurl)
-            Bug=BugScan(url,redispool)
+            Bug=BugScan(attackurl,url)
             with app.app_context():
                 for value in Bugs:
                     vulnerable, payload,bugdetail=getattr(Bug, value)()
                     if vulnerable:
-                            bugtype = BugType.query.filter(BugType.bugtype == value).first()
-                            bug = BugList(oldurl=attackurl,bugurl=url,bugtypeid=bugtype.id,payload=payload,bugdetail=bugdetail)
+                            bug = BugList(oldurl=attackurl,bugurl=url,bugname=value,buggrade=redispool.hget('bugtype', value),payload=payload,bugdetail=bugdetail)
                             db.session.add(bug)
                 db.session.commit()
+            Bug.POCScan()
+            Bug.WebLogicScan()
         # time.sleep(0.5)
     except Exception as e:
         print(e)
