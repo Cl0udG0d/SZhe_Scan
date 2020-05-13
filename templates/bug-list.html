@@ -13,24 +13,24 @@
 {% endblock %}
 <div class="bugLists">
     {% block rightcontext %}
-    {% for info in infos %}
+    {% for bug in bugs %}
     <div class="list domain">
         <div class="domain-name">
             <div class="two-p">
                 <a href="">
                     <i class="fa fa-link"></i>
-                    <p class="pgr">{{info.url}}</p>
+                    <p class="pgr">{{bug.bugurl}}</p>
                 </a>
             </div>
             <div class="three-p">
                 <i class="fa fa-clock-o"></i>
-                <p>{{info.date}}</p>
+                <p>所属: {{bug.oldurl}}</p>
             </div>
-            <p>标题: {{info.title}}</p>
-            <p>状态: {{info.status}}</p>
-            <p>指纹: {{info.Server}}</p>
+            <p>所属: {{bug.oldurl}}</p>
+            <p>漏洞: {{bug.bugname}}</p>
+            <p>漏洞等级: {{bug.buggrade}}</p>
         </div>
-        <div class="tab-pane">{{info.responseheader}}<br /></div>
+        <div class="tab-pane">{{bug.bugdetail}}<br /></div>
 
     </div>
     {% endfor %}

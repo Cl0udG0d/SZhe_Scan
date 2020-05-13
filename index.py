@@ -7,17 +7,27 @@ from exts import db
 from init import app,redispool
 from concurrent.futures import ThreadPoolExecutor
 from SZheConsole import SZheConsole
-from concurrent.futures import ProcessPoolExecutor
-
-from flask_sqlalchemy import SQLAlchemy
-from lxml.html.builder import HEAD
-import config
 
 executor = ThreadPoolExecutor()
 
+@app.route('/<int:page>',methods=['GET'])
 @app.route('/')
-def index():
-    return render_template('homeOne.html')
+# @login_required
+def index(page=None):
+    if not page:
+        page = 1
+    per_page = 10
+    paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).paginate(page, per_page, error_out=False)
+    infos = paginate.items
+    return render_template('homeOne.html', paginate=paginate, infos=infos)
+
+@app.route('/POCmanage')
+def POCmanage():
+    return render_template('pocmanage.html')
+
+@app.route('/setting')
+def setting():
+    return render_template('setting.html')
 
 @app.route('/editinfo')
 def editinfo():
@@ -34,9 +44,9 @@ def buglist(page=None):
     if not page:
         page = 1
     per_page = 10
-    paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).paginate(page, per_page, error_out=False)
-    infos = paginate.items
-    return render_template('bug-list.html', paginate=paginate, infos=infos)
+    paginate = BugList.query.order_by(BugList.id.desc()).paginate(page, per_page, error_out=False)
+    bugs = paginate.items
+    return render_template('bug-list.html', paginate=paginate, bugs=bugs)
 
 @app.route('/bugdetail/<int:id>',methods=['GET'])
 @app.route('/bugdetail')
