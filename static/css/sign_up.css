@@ -103,7 +103,7 @@ a {
   position: relative;
   left: 17px;
 }
-/* input::-webkit-input-placeholder {
+input::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #fff !important;
 }
@@ -128,8 +128,8 @@ input::placeholder {
 .container .login-form form input::-moz-placeholder {
   color: #fff !important;
   font-size: 24px;
-} */
-.context .sign-up-button {
+}
+.context form button {
   position: absolute;
   left: 0px;
   margin-top: 15px;
@@ -139,19 +139,18 @@ input::placeholder {
   border: none;
   border-radius: 25px;
   color: #fff;
-  /* background-color: rgb(22, 122, 253); */
   background-color: rgba(6, 6, 77, 0.8);
-  /* opacity: 0.5; */
-  cursor: pointer;
   outline: none;
   display: block;
   clear: both;
+  cursor: pointer;
 }
 
-.context .sign-up-button:hover {
+.context .container form .sign-up-button:hover {
   /* background: #3db922;
   background-color: rgb(10, 108, 236); */
   background-color: rgb(3, 3, 54);
+  cursor: pointer;
 }
 
 .context .restyle {
@@ -204,9 +203,9 @@ input::placeholder {
   color: #3194d0;
 }
 
-#sign-in-form-submit-btn {
+/* #sign-in-form-submit-btn {
   position: absolute;
-}
+} */
 /* .error {
   position: absolute;
   margin-top: -30px;

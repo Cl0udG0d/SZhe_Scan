@@ -110,7 +110,7 @@ a {
   vertical-align: middle;
   color: white;
 }
-input::-webkit-input-placeholder {
+/* input::-webkit-input-placeholder {
   color: white !important;
   z-index: 1000;
 }
@@ -125,7 +125,7 @@ input:-ms-input-placeholde {
 input:-moz-placeholder {
   color: white !important;
   z-index: 1000;
-}
+} */
 
 .context .remember-btn {
   float: left;
