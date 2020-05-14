@@ -1,0 +1,70 @@
+.right-context {
+  width: 100%;
+}
+.pocContainer {
+  width: 92%;
+  background-color: #f8f8ff;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  height: 400px;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  position: relative;
+  left: 10px;
+}
+.pocContainer form {
+  position: relative;
+  top: 50px;
+}
+form ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+form ul li label {
+  width: 200px;
+  text-align: left;
+  font-size: 20px;
+  color: #696969;
+}
+form ul li select {
+  width: 140px;
+  height: 35px;
+  width: 240px;
+  background-color: #f8f8ff;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #696969;
+}
+
+form ul li select option {
+  color: #606060;
+}
+
+form ul li input {
+  height: 35px;
+  width: 240px;
+  background-color: #f8f8ff;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+}
+
+form button {
+  background-color: #0fbcf9;
+  color: #f8f8ff;
+  /* height:35px; */
+  padding: 10px 30px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  position: relative;
+  left: 320px;
+  top: 40px;
+  font-size: 18px;
+}
+form button:hover {
+  cursor: pointer;
+  background-color: #0394e7;
+}

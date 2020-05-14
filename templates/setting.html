@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/setting.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+{% endblock %}
+{% block js %}
+<script src="{{url_for('static',filename='js/setting.js')}}"></script>
+<script type="text/javascript" src="../static/libs/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../static/libs/echarts.min.js"></script>
+{% endblock %}
+{% block rightcontext %}
+<div class="settingContext">
+    <form action="" class="settingForm">
+        <ul>
+            <li>
+                <label>线程数:</label>
+                <input type="text" name="thread-count" placeholder="20">
+            </li>
+            <li>
+                <label>网址爬取深度:</label>
+                <input type="text" name="depth" placeholder="2">
+            </li>
+        </ul>
+        <div class="scanOption">
+            <div class="scanRadio">
+                <input id="item1" type="radio" name="question1" value="normalScan" checked="checked"><label
+                    for="item1"></label><span>普通扫描</span></div>
+            <div class="scanRadio">
+                <input id="item2" type="radio" name="question1" value="depthScan"><label
+                    for="item2"></label><span>深度扫描</span></div>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

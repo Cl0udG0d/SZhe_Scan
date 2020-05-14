@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/pocmanage.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+{% endblock %}
+{% block js %}
+<script src="{{url_for('static',filename='js/home.js')}}"></script>
+<script type="text/javascript" src="../static/libs/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../static/libs/echarts.min.js"></script>
+{% endblock %}
+{% block rightcontext %}
+<div class="pocContainer">
+    <form action="" class="formWrapper">
+        <ul>
+            <li>
+                <label>pocname</label>
+                <input type="text" name="pocname" placeholder="">
+            </li>
+            <li>
+                <label>rule</label>
+                <input type="text" name="rule" placeholder="">
+            </li>
+            <li>
+                <label>expression</label>
+                <input type="text" name="expression" placeholder="">
+            </li>
+            <li>
+                <label>buggrade</label>
+                <select>
+                    <option>serious</option>
+                    <option>high</option>
+                    <option>mid</option>
+                    <option>low</option>
+                </select>
+            </li>
+            <button type="submit">Submit</button>
+        </ul>
+    </form>
+</div>
+{% endblock %}

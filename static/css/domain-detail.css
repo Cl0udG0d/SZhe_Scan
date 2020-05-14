@@ -30,7 +30,7 @@
   border-radius: 4px;
   height: 1400px;
   position: relative;
-  top: 11px;
+  /* top: 11px; */
   box-shadow: 0 4px 6px rgb(168, 168, 168, 0.5);
   padding: 56px 64px;
   color: #474747;
@@ -62,6 +62,11 @@
 .domain-details .domain-detail {
   margin-bottom: 10px;
 }
+.response {
+  position: relative;
+  top: 57px;
+  left: 50px;
+}
 .container-list {
   position: relative;
   top: 70px;
@@ -72,11 +77,14 @@
 }
 .tab-custom .tab {
   width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 .tab-custom .tab button {
+  flex: 1;
   background-color: inherit;
   border: none;
-  width: 130px;
+  /* width: 130px; */
   height: 80px;
   white-space: nowrap;
   text-align: center;
@@ -87,17 +95,20 @@
   position: relative;
   left: 10px;
 }
-
+.tab-custom .tab button:hover {
+  cursor: pointer;
+}
 .tab-custom .tab p {
   color: #424141;
   vertical-align: middle;
   line-height: 40px;
   font-size: 22px;
 }
-.tab-custom .tab hr {
+.tab-custom hr {
   position: relative;
-  top: 11px;
+  top: -1px;
   color: #fff;
+  width: 105%;
   z-index: 100;
   /* box-shadow: 0 0 28px rgba(0, 0, 0, 0.2); */
 }

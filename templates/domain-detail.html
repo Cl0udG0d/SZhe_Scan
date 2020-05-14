@@ -29,29 +29,41 @@
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>巴拉巴拉:</span>
-            </div>
-            <div class="domain-detail">
-                <i class="fa fa-check-circle-o"></i>
-                <span>巴拉巴拉:</span>
-            </div>
-            <div class="domain-detail">
-                <i class="fa fa-check-circle-o"></i>
                 <span>最后记录时间:2020-05-10 10:01:51</span>
             </div>
+
+        </div>
+        <div class="response">
+            <!-- <i class="fa fa-check-circle-o"></i> -->
+            <span style="font-size:26px;">响应头</span>
         </div>
     </div>
     <div class="container-list">
         <div class="tab-custom">
             <div class="tab">
                 <button class="tablinks active" onclick="openList(event, 'tab_1')">
-                    <p style="font-size: 20px;">响应包</p>
+                    <p style="font-size: 20px;">端口信息</p>
                 </button>
                 <button class="tablinks" onclick="openList(event, 'tab_2')">
-                    <p style="font-size: 20px;">所属信息</p>
+                    <p style="font-size: 20px;">敏感目录</p>
                 </button>
-                <hr>
+                <button class="tablinks" onclick="openList(event, 'tab_3')">
+                    <p style="font-size: 20px;">whatever</p>
+                </button>
+                <button class="tablinks" onclick="openList(event, 'tab_4')">
+                    <p style="font-size: 20px;">whatever</p>
+                </button>
+                <button class="tablinks" onclick="openList(event, 'tab_5')">
+                    <p style="font-size: 20px;">whatever</p>
+                </button>
+                <button class="tablinks" onclick="openList(event, 'tab_6')">
+                    <p style="font-size: 20px;">C段信息</p>
+                </button>
+                <button class="tablinks" onclick="openList(event, 'tab_7')">
+                    <p style="font-size: 20px;">Bug</p>
+                </button>
             </div>
+            <hr>
             <div class="tab-content">
                 <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')" onmouseout="hideAlter('alter')"
                     style="display:block;">
@@ -73,6 +85,11 @@
                         <p>端口信息:xxx</p>
                     </div>
                 </div>
+                <div class="tabPane" id="tab_3"></div>
+                <div class="tabPane" id="tab_4"></div>
+                <div class="tabPane" id="tab_5"></div>
+                <div class="tabPane" id="tab_6"></div>
+                <div class="tabPane" id="tab_7"></div>
             </div>
         </div>
     </div>
