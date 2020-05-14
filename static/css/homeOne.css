@@ -315,9 +315,10 @@ header .burger {
   position: absolute;
   top: 120px;
   width: 100vw;
-  height: 1800px;
+  height: 1600px;
   background-color: #f1f1f1;
 }
+
 .left-context {
   flex: 1;
   background-color: #f1f1f1;
@@ -436,51 +437,35 @@ header .burger {
   background-color: #f1f1f1;
   display: flex;
   flex-direction: column;
-  margin-right: 40px;
+  align-items: flex-start;
+  margin-right: 30px;
+  margin-top: 12px;
 }
-
-.right-context .search-mid .search-text {
-  width: 35%;
-  height: 40px;
-  position: relative;
-  top: 13px;
-  left: 22px;
-  margin-bottom: 10px;
+.contentwrapper {
+  width: 96%;
   background-color: #f8f8ff;
-  border: #d3d3d3 solid 1px;
+  height: 1570px;
+  border: 1px solid #d3d3d3;
   border-radius: 4px;
-  z-index: 1110;
-}
-button {
-  position: relative;
-  left: 30px;
-  z-index: 1110;
-  width: 60px;
-  height: 38px;
-  border: #d3d3d3 solid 1px;
-  border-radius: 4px;
-  cursor: pointer;
-  top: 13px;
-  background-color: #0fbcf9;
-  color: #fff;
 }
 /* button:hover {
   background-color: #d3d3d3;
 } */
 .newest {
   flex: 1;
-  width: 94%;
+  width: 100%;
   display: flex;
   flex-direction: row;
-
   background-color: #f8f8ff;
-  height: 180px;
   z-index: 100;
-  margin: 15px 20px 0 20px;
-  padding: 10px 0 0 10px;
-  border: #d3d3d3 solid 1px;
-  border-radius: 4px;
+  margin: 0px 20px 0 20px;
+  padding: 10px 0 10px 10px;
+  border-bottom: #d3d3d3 solid 1px;
+  border-radius: 4px 4px 0 0px;
+  position: relative;
+  left: -20px;
 }
+
 .newest .domain-name {
   flex: 1;
   display: flex;
@@ -492,6 +477,8 @@ button {
   height: 120px;
   /* color: #747373; */
   color: #2e2e2e;
+  position: relative;
+  left: 10px;
 }
 
 .newest .domain-name p {
@@ -535,15 +522,42 @@ button {
   margin-bottom: 80px;
 }
 .right-context .newest:hover {
-  position: relative;
+  /* position: relative;
   transition: 0.4s;
   margin-top: 10px;
-  box-shadow: 5px 5px 8px #d3d3d3;
+  box-shadow: 5px 5px 8px #d3d3d3; */
   cursor: pointer;
+}
+table {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 13px;
+  line-height: 40px;
+  /* border: #d3d3d3 solid 1px;
+  border-radius: 4px; */
+  position: relative;
+  top: 17px;
+  left: 10px;
+}
+table td {
+  flex: 1;
+  color: #2e2e2e;
+}
+/* .page-number td a {
+  flex: 1;
+} */
+table td a:active {
+  color: #0fbcf9;
+}
+table:hover {
+  background-color: #f8f8ff;
 }
 .body-tail {
   position: absolute;
-  top: 1900px;
+  top: 1780px;
   width: 100vw;
   height: 35px;
   display: flex;

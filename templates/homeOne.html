@@ -9,119 +9,53 @@
 <script type="text/javascript" src="../static/libs/echarts.min.js"></script>
 {% endblock %}
 {% block rightcontext %}
-<<<<<<< HEAD
-<!-- <div class="search-mid">
-  <input class="search-text" type="text" name="" placeholder=" 添加需要扫描的域名" />
-  <button class="search-mid-btn" style="position: relative;
-                left: 30px;
-                z-index: 1110;
-                width: 60px;
-                height:35px; border: #d3d3d3 solid 1px;
-  border-radius: 4px;
-  cursor:pointer;
-">添加</button>
-</div> -->
-<div class="newest first">
-  <div class="domain-name">
-    <div class="two-p">
-      <a href="">
-        <i class="fa fa-link"></i>
-        <p class="pgr"></p>
-      </a>
+<div class="contentwrapper">
+  {% for info in infos %}
+  <div class="newest">
+    <div class="domain-name">
+      <div class="two-p">
+        <a href="">
+          <i class="fa fa-link"></i>
+          <p class="pgr">{{info.url}}</p>
+        </a>
+      </div>
+      <div class="three-p">
+        <i class="fa fa-clock-o"></i>
+        <p>{{info.date}}</p>
+      </div>
+      <p>标题: {{info.title}}</p>
+      <p>状态: {{info.status}}</p>
+      <p>指纹: {{info.Server}}</p>
     </div>
-    <div class="three-p">
-      <i class="fa fa-clock-o"></i>
-      <p></p>
-    </div>
-    <p>标题: </p>
-    <p>状态:</p>
-    <p>指纹: </p>
-  </div>
-  <div class="tab-pane"><br /></div>
-</div>
-<div class="newest">
-  <div class="domain-name">
-    <div class="two-p">
-      <a href="">
-        <i class="fa fa-link"></i>
-        <p class="pgr"></p>
-      </a>
-    </div>
-    <div class="three-p">
-      <i class="fa fa-clock-o"></i>
-      <p>shijian</p>
-    </div>
-    <p>标题: </p>
-    <p>状态:</p>
-    <p>指纹: </p>
-  </div>
-  <div class="tab-pane"><br /></div>
-</div>
-<div class="newest">
-  <div class="domain-name">
-    <div class="two-p">
-      <a href="">
-        <i class="fa fa-link"></i>
-        <p class="pgr"></p>
-      </a>
-    </div>
-    <div class="three-p">
-      <i class="fa fa-clock-o"></i>
-      <p>shijian</p>
-    </div>
-    <p>标题: </p>
-    <p>状态:</p>
-    <p>指纹: </p>
-  </div>
-  <div class="tab-pane"><br /></div>
-</div>
-=======
-{% for info in infos %}
->>>>>>> f894c37cc6548ef481167cc890cb26f989ece912
-<div class="newest">
-  <div class="domain-name">
-    <div class="two-p">
-      <a href="">
-        <i class="fa fa-link"></i>
-        <p class="pgr">{{info.url}}</p>
-      </a>
-    </div>
-    <div class="three-p">
-      <i class="fa fa-clock-o"></i>
-      <p>{{info.date}}</p>
-    </div>
-    <p>标题: {{info.title}}</p>
-    <p>状态: {{info.status}}</p>
-    <p>指纹: {{info.Server}}</p>
-  </div>
-  <div class="tab-pane">{{info.responseheader}}<br /></div>
-</div>
-<table frame=void class="page-number" style="position: absolute;top:1550px;background-color: #f8f8ff;;">
-        <tr>
-            <td class="td" style="margin-right:10px;white-space: nowrap;position: relative;left:-170px;color: #4b4a4a;">
-                当前页数:
-                {{paginate.page}}</td>
-            <td class="td" style="margin-right:20px;position: relative;left:-130px;color: #4b4a4a;">总页数:
-                {{paginate.pages}}</td>
-            <td class="td" style="position: relative;left:-80px;color: #4b4a4a;">共有 {{paginate.total}} 条数据</td>
-            <td class="td" style="position: relative;left:150px;color: #4b4a4a;">
-                页码：
-                {% for i in paginate.iter_pages() %}
-                <a href="{{url_for('buglist',page=i)}}"
-                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius:2px;">{{ i }}</a>
-                {% endfor %}</td>
-            {% if paginate.has_prev %}
-            <td class="td" style="margin-right:20px;">
-                <a href="{{url_for('buglist',page=paginate.prev_num)}}"
-                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:170px;">上一页</a>
-                {% endif %}</td>
+    <div class="tab-pane">{{info.responseheader}}<br /></div>
+  </div>{% endfor %}
+  <table frame=void class="page-number">
+    <tr>
+      <td class=" td" style="margin-right:10px;white-space: nowrap;position: relative;left:15px;color: #4b4a4a;">
+        当前页数:
+        {{paginate.page}}</td>
+      <td class="td" style="margin-right:20px;position: relative;left:60px;color: #4b4a4a;">总页数:
+        {{paginate.pages}}</td>
+      <td class="td" style="position: relative;color: #4b4a4a;left:150px;">共有 {{paginate.total}} 条数据</td>
+      <td class="td" style="position: relative;color: #4b4a4a;left:270px;">
+        页码：
+        {% for i in paginate.iter_pages() %}
+        <a href="{{url_for('buglist',page=i)}}"
+          style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius:2px;">{{ i }}</a>
+        {% endfor %}</td>
+      {% if paginate.has_prev %}
+      <td class="td" style="margin-right:20px;">
+        <a href="{{url_for('buglist',page=paginate.prev_num)}}"
+          style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:340px;">上一页</a>
+        {% endif %}</td>
 
-            <td class="td" style="margin-right:20px;">
-                {% if paginate.has_next %}
-                <a href="{{url_for('buglist',page=paginate.next_num)}}"
-                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:170px;">下一页</a>
-                {% endif %}</td>
-        </tr>
-    </table>
-{% endfor %}
+      <td class="td" style="margin-right:20px;">
+        {% if paginate.has_next %}
+        <a href="{{url_for('buglist',page=paginate.next_num)}}"
+          style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:370px;">下一页</a>
+        {% endif %}</td>
+    </tr>
+  </table>
+
+</div>
 {% endblock %}
