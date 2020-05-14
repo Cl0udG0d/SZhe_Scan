@@ -114,6 +114,7 @@
   width: 100%;
   height: 800px;
   margin-right: 15px;
+  white-space: pre-line;
   position: relative;
   top: -40px;
 }

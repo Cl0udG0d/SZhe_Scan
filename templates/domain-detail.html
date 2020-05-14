@@ -17,27 +17,23 @@
         <div class="domain-details">
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>所属:</span>
+                <span>{{baseinfo.url}}</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>巴拉巴拉:</span>
+                <span>标题: {{baseinfo.title}}</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>巴拉巴拉:</span>
+                <span>状态码: {{baseinfo.status}}</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>巴拉巴拉:</span>
+                <span>技术: {{baseinfo.Server}}</span>
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-                <span>巴拉巴拉:</span>
-            </div>
-            <div class="domain-detail">
-                <i class="fa fa-check-circle-o"></i>
-                <span>最后记录时间:2020-05-10 10:01:51</span>
+                <span>记录时间: {{baseinfo.date}}</span>
             </div>
         </div>
     </div>
@@ -45,10 +41,13 @@
         <div class="tab-custom">
             <div class="tab">
                 <button class="tablinks active" onclick="openList(event, 'tab_1')">
-                    <p style="font-size: 20px;">响应包</p>
+                    <p style="font-size: 20px;">响应头</p>
                 </button>
                 <button class="tablinks" onclick="openList(event, 'tab_2')">
-                    <p style="font-size: 20px;">所属信息</p>
+                    <p style="font-size: 20px;">信息搜集</p>
+                </button>
+                <button class="tablinks" onclick="openList(event, 'tab_3')">
+                    <p style="font-size: 20px;">信息搜集</p>
                 </button>
                 <hr>
             </div>
@@ -59,15 +58,15 @@
                     <div class="tab-basic" style="margin-bottom: 10px;
                     width: 500px;">
                         <i class="fa fa-check-circle-o"></i>
-                        <span style="width:95%;white-space: pre-wrap;">hhh</span>
+                        <span style="width:95%;white-space: pre-wrap;">{{baseinfo.responseheader}}</span>
                     </div>
                     <!-- </div> -->
                 </div>
                 <div class="tabPane" id="tab_2" style="display:none;">
                     <div class="historys">
-                        <p>所属信息:xxx</p>
-                        <p>标题:xxx</p>
-                        <p>状态码:xxx</p>
+                        <p>敏感目录: {{baseinfo.sendir}}</p>
+                        <p>端口信息: {{baseinfo.portserver}}</p>
+                        <p>子域名: {{deepinfo.subdomain}}</p>
                         <p>收录时间:xxx</p>
                         <p>指纹信息:xxx</p>
                         <p>端口信息:xxx</p>
