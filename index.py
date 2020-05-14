@@ -44,7 +44,8 @@ def domaindetail(id=None):
         deepinfo =IPInfo.query.filter(IPInfo.baseinfoid == baseinfo.id).first()
     else:
         deepinfo=DomainInfo.query.filter(DomainInfo.baseinfoid == baseinfo.id).first()
-    return render_template('domain-detail.html',baseinfo=baseinfo,deepinfo=deepinfo)
+    buglist=BugList.query.filter(BugList.oldurl == baseinfo.url).all()
+    return render_template('domain-detail.html',baseinfo=baseinfo,deepinfo=deepinfo,buglist=buglist)
 
 @app.route('/buglist/<int:page>',methods=['GET'])
 @app.route('/buglist')

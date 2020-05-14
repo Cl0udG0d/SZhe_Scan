@@ -13,7 +13,11 @@
 {% block rightcontext %}
 <div class="content">
     <div class="content-titles">
+        {% if baseinfo.boolcheck %}
+        <h2>IP详情</h2>
+        {% else %}
         <h2>域名详情</h2>
+        {% endif %}
         <div class="domain-details">
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
@@ -29,57 +33,66 @@
             </div>
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
-<<<<<<< HEAD
-                <span>最后记录时间:2020-05-10 10:01:51</span>
-=======
                 <span>技术: {{baseinfo.Server}}</span>
             </div>
+            {% if baseinfo.boolcheck %}
+            <div class="domain-detail">
+                <i class="fa fa-check-circle-o"></i>
+                <span>地址: {{deepinfo.ipaddr}}</span>
+            </div>
+            {% else %}
+            <div class="domain-detail">
+                <i class="fa fa-check-circle-o"></i>
+                <span>地址: {{deepinfo.domainaddr}}</span>
+            </div>
+            {% endif %}
             <div class="domain-detail">
                 <i class="fa fa-check-circle-o"></i>
                 <span>记录时间: {{baseinfo.date}}</span>
->>>>>>> 7d582bb4d16ac5bf1a13bd441316906eee389dfe
             </div>
 
         </div>
         <div class="response">
             <!-- <i class="fa fa-check-circle-o"></i> -->
-            <span style="font-size:26px;">响应头</span>
+            <span style="font-size:26px;">{{baseinfo.responseheader}}</span>
         </div>
     </div>
     <div class="container-list">
         <div class="tab-custom">
             <div class="tab">
                 <button class="tablinks active" onclick="openList(event, 'tab_1')">
-<<<<<<< HEAD
                     <p style="font-size: 20px;">端口信息</p>
                 </button>
                 <button class="tablinks" onclick="openList(event, 'tab_2')">
                     <p style="font-size: 20px;">敏感目录</p>
                 </button>
+                {% if baseinfo.boolcheck %}
                 <button class="tablinks" onclick="openList(event, 'tab_3')">
-                    <p style="font-size: 20px;">whatever</p>
-                </button>
-                <button class="tablinks" onclick="openList(event, 'tab_4')">
-                    <p style="font-size: 20px;">whatever</p>
-                </button>
-                <button class="tablinks" onclick="openList(event, 'tab_5')">
-                    <p style="font-size: 20px;">whatever</p>
-                </button>
-                <button class="tablinks" onclick="openList(event, 'tab_6')">
                     <p style="font-size: 20px;">C段信息</p>
                 </button>
-                <button class="tablinks" onclick="openList(event, 'tab_7')">
+                <button class="tablinks" onclick="openList(event, 'tab_4')">
+                    <p style="font-size: 20px;">旁站/解析记录</p>
+                </button>
+                <button class="tablinks" onclick="openList(event, 'tab_5')">
                     <p style="font-size: 20px;">Bug</p>
-=======
-                    <p style="font-size: 20px;">响应头</p>
                 </button>
-                <button class="tablinks" onclick="openList(event, 'tab_2')">
-                    <p style="font-size: 20px;">信息搜集</p>
-                </button>
+                {% else %}
                 <button class="tablinks" onclick="openList(event, 'tab_3')">
-                    <p style="font-size: 20px;">信息搜集</p>
->>>>>>> 7d582bb4d16ac5bf1a13bd441316906eee389dfe
+                    <p style="font-size: 20px;">子域名</p>
                 </button>
+                <button class="tablinks" onclick="openList(event, 'tab_4')">
+                    <p style="font-size: 20px;">注册信息</p>
+                </button>
+                <button class="tablinks" onclick="openList(event, 'tab_5')">
+                    <p style="font-size: 20px;">旁站/解析记录</p>
+                </button>
+                <button class="tablinks" onclick="openList(event, 'tab_6')">
+                    <p style="font-size: 20px;">Bug</p>
+                </button>
+                {% endif %}
+<!--                <button class="tablinks" onclick="openList(event, 'tab_7')">-->
+<!--                    <p style="font-size: 20px;">Bug</p>-->
+<!--                </button>-->
             </div>
             <hr>
             <div class="tab-content">
@@ -89,24 +102,60 @@
                     <div class="tab-basic" style="margin-bottom: 10px;
                     width: 500px;">
                         <i class="fa fa-check-circle-o"></i>
-                        <span style="width:95%;white-space: pre-wrap;">{{baseinfo.responseheader}}</span>
+                        <span style="width:95%;white-space: pre-wrap;">{{baseinfo.portserver}}</span>
                     </div>
                     <!-- </div> -->
                 </div>
                 <div class="tabPane" id="tab_2" style="display:none;">
                     <div class="historys">
-                        <p>敏感目录: {{baseinfo.sendir}}</p>
-                        <p>端口信息: {{baseinfo.portserver}}</p>
-                        <p>子域名: {{deepinfo.subdomain}}</p>
-                        <p>收录时间:xxx</p>
-                        <p>指纹信息:xxx</p>
-                        <p>端口信息:xxx</p>
+                        <p>{{baseinfo.sendir}}</p>
                     </div>
                 </div>
-                <div class="tabPane" id="tab_3"></div>
-                <div class="tabPane" id="tab_4"></div>
-                <div class="tabPane" id="tab_5"></div>
-                <div class="tabPane" id="tab_6"></div>
+                {% if baseinfo.boolcheck %}
+                <div class="tabPane" id="tab_3">
+                    <div class="historys">
+                        <p>{{deepinfo.CMessage}}</p>
+                    </div>
+                </div>
+                <div class="tabPane" id="tab_4">
+                    <div class="historys">
+                        <p>{{deepinfo.whois}}</p>
+                        <p>{{deepinfo.recordinfo}}</p>
+                    </div>
+                </div>
+                <div class="tabPane" id="tab_5">
+                    <div class="historys">
+                        {% for bug in buglist %}
+                        <p>{{bug.bugurl}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="tabPane" id="tab_3">
+                    <div class="historys">
+                        <p>{{deepinfo.subdomain}}</p>
+                    </div>
+                </div>
+                <div class="tabPane" id="tab_4">
+                    <div class="historys">
+                        <p>{{deepinfo.whois}}</p>
+                        <p>{{deepinfo.recordinfo}}</p>
+                    </div>
+                </div>
+                <div class="tabPane" id="tab_5">
+                    <div class="historys">
+                        <p>{{deepinfo.sitestation}}</p>
+                        <p>{{deepinfo.bindingip}}</p>
+                    </div>
+                </div>
+                <div class="tabPane" id="tab_6">
+                    <div class="historys">
+                        {% for bug in buglist %}
+                        <p>{{bug.bugurl}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
                 <div class="tabPane" id="tab_7"></div>
             </div>
         </div>
