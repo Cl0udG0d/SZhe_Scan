@@ -103,7 +103,7 @@
   border-radius: 4px;
   height: 260px;
   position: relative;
-  top: 13px;
+  top: 0px;
   padding: 10px 10px;
 }
 .features {
@@ -223,7 +223,7 @@
   display: flex;
   flex-direction: row;
   position: relative;
-  top: 25px;
+  top: 15px;
   width: 100%;
   align-items: center;
   justify-items: center;
@@ -270,6 +270,7 @@
   position: relative;
   top: 30px;
   left: 40px;
+  font-size: 18px;
 }
 /* .content-mid-left form button:hover {
   cursor: pointer;
@@ -339,7 +340,7 @@
   justify-content: center;
   width: 100%;
   position: relative;
-  top: 20px;
+  top: 10px;
 }
 .bar-graph {
   flex: 1;
