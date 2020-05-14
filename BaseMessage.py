@@ -2,15 +2,11 @@ import requests
 import core
 import re
 import time
-import redis
 from Wappalyzer import WebPage
 import get_message
 import ImportToRedis
-import json
 import redis
-# from index import app
-from exts import db
-from models import BaseInfo
+
 
 '''
 获取输入网址基础信息:

@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import uuid
-from models import User, Log, BaseInfo, InvitationCode,BugList,POC
+from models import User, Log, BaseInfo, InvitationCode,BugList,POC,IPInfo,DomainInfo
 from exts import db
 from init import app,redispool
 from concurrent.futures import ThreadPoolExecutor
@@ -33,9 +33,18 @@ def setting():
 def editinfo():
     return render_template('user-infor.html')
 
+@app.route('/domaindetail/<int:id>',methods=['GET'])
 @app.route('/domaindetail')
-def domaindetail():
-    return render_template('domain-detail.html')
+def domaindetail(id=None):
+    if not id:
+        baseinfo = BaseInfo.query.order_by(BaseInfo.id.desc()).first()
+    else:
+        baseinfo = BaseInfo.query.filter(BaseInfo.id == id).first()
+    if baseinfo.boolcheck:
+        deepinfo =IPInfo.query.filter(IPInfo.baseinfoid == baseinfo.id).first()
+    else:
+        deepinfo=DomainInfo.query.filter(DomainInfo.baseinfoid == baseinfo.id).first()
+    return render_template('domain-detail.html',baseinfo=baseinfo,deepinfo=deepinfo)
 
 @app.route('/buglist/<int:page>',methods=['GET'])
 @app.route('/buglist')
@@ -97,10 +106,10 @@ def login():
     else:
         email = request.form.get('email')
         remeber = request.form.get('remeber')
+        password=request.form.get('password')
         save_log(request.remote_addr, email)
         user = User.query.filter(User.email == email).first()
-        password = User.check_password(request.form.get('password'))
-        if user and password:
+        if user and user.check_password(password):
             if remeber:
                 session.permanent = True
             session['user_id'] = user.id
@@ -161,10 +170,11 @@ def regist():
         message = validate(email, username, password1, password2)
         # 邀请码验证
         IsCode = InvitationCode.query.filter(InvitationCode.code == invitationcode).first()
+
         if message:
             flash(message)
             return render_template('sign_up.html')
-        elif IsCode is None:
+        elif not IsCode:
             flash("邀请码错误")
             return render_template('sign_up.html')
         else:
