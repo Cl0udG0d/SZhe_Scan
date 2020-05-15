@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Verdana, "PingFang SC", "Microsoft Yahei", sans-serif;
+  font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
 body {
   background-color: #fff;
@@ -449,7 +449,7 @@ header .burger {
   flex: 2.5;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-items: center;
   position: relative;
   margin-bottom: 70px;
@@ -465,7 +465,6 @@ header .burger {
   height: 1600px;
   padding: 0 0 70px 0;
   /* height: 2000px; */
-
   /* padding: 15px 0; */
 }
 .bugLists {
@@ -476,15 +475,15 @@ header .burger {
   flex: 1;
   width: 100%;
   height: 100px;
-  padding: 10px 17px 10px 40px;
+  padding: 10px 17px 10px 45px;
   margin-left: 20px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-items: center;
   border-bottom: 1px solid #b6b6b6;
   position: relative;
-  left: -10px;
+  left: -20px;
   /* align-content: flex-start; */
   /* margin-bottom: 10px; */
 }
@@ -498,6 +497,7 @@ header .burger {
   width: 100%;
   height: 120px;
   color: #747373;
+  font-size: 14px;
   /* flex-basis: 300px; */
 }
 .right-context .list .domain-name p {
@@ -545,6 +545,7 @@ table .page-number {
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
   color: #4b4a4a;
+  left: 400px;
 }
 table .page-number td {
   flex: 1;

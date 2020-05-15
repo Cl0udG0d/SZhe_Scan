@@ -15,11 +15,13 @@
 .container h1,
 .container h4,
 .container h5 {
+  display: block;
   color: white;
   display: block;
 }
 
 .content h1 {
+  display: block;
   position: absolute;
   top: 10%;
   left: 45%;
@@ -27,6 +29,7 @@
 }
 
 .content h4 {
+  display: block;
   position: absolute;
   top: 30%;
   left: 37%;
@@ -34,6 +37,7 @@
 }
 
 .content h5 {
+  display: block;
   position: absolute;
   top: 42%;
   left: 36%;

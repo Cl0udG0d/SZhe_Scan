@@ -88,7 +88,9 @@
   position: relative;
   left: 10px;
 }
-
+.tab-custom .tab button:hover {
+  cursor: pointer;
+}
 .tab-custom .tab p {
   color: #424141;
   vertical-align: middle;
@@ -97,7 +99,7 @@
 }
 .tab-custom .tab hr {
   position: relative;
-  top: 11px;
+  top: -1px;
   color: #fff;
   z-index: 100;
   /* box-shadow: 0 0 28px rgba(0, 0, 0, 0.2); */
@@ -113,10 +115,11 @@
   overflow: scroll;
   /* width: 600px; */
   width: 100%;
-  height: 800px;
+  height: 900px;
   margin-right: 15px;
   position: relative;
-  top: -40px;
+  top: -92px;
+  padding: 30px 0;
 }
 .tab-content .tab-basics {
   width: 100%;

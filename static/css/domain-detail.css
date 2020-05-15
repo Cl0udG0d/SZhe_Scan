@@ -28,7 +28,7 @@
   background-color: #f8f8ff;
   border: 1px solid #d6d3d3;
   border-radius: 4px;
-  height: 1400px;
+  height: 1410px;
   position: relative;
   /* top: 11px; */
   box-shadow: 0 4px 6px rgb(168, 168, 168, 0.5);
@@ -65,7 +65,14 @@
 .response {
   position: relative;
   top: 57px;
-  left: 50px;
+  left: 70px;
+  width: 500px;
+  height: 100px;
+  white-space: pre-line;
+  overflow: scroll;
+  border: #b6b6b6 solid 1px;
+  border-radius: 2px;
+  background-color: #f8f8ff;
 }
 .container-list {
   position: relative;
@@ -108,7 +115,7 @@
   position: relative;
   top: -1px;
   color: #fff;
-  width: 105%;
+  width: 102%;
   z-index: 100;
   /* box-shadow: 0 0 28px rgba(0, 0, 0, 0.2); */
 }
@@ -125,9 +132,10 @@
   width: 100%;
   height: 800px;
   margin-right: 15px;
-  white-space: pre-line;
   position: relative;
-  top: -40px;
+  top: -92px;
+  padding: -140px 0;
+  white-space: pre-line;
 }
 .tab-content .tab-basics {
   width: 100%;
@@ -148,6 +156,10 @@
 .tab-content .tab-basic span {
   width: 95%;
 }
+.tab-content .tanPane .historys {
+  width: 100%;
+  height: 100%;
+}
 .tab-content .tanPane .historys p {
   margin-bottom: 10px;
 }
@@ -161,4 +173,21 @@
 }
 .tab-custom .tab button:active > .tab-custom .tab p {
   color: black;
+}
+
+.body-tail {
+  position: absolute;
+  top: 1700px;
+  width: 100vw;
+  height: 35px;
+  display: flex;
+  /*弹性布局*/
+  justify-content: center;
+  /*元素在页面上居中排列*/
+  align-items: center;
+  border-top: 1px rgb(129, 129, 129) solid;
+  background-color: rgb(238, 238, 238);
+  color: #7a7a7a;
+  font-size: 14px;
+  z-index: 101;
 }

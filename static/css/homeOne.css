@@ -447,6 +447,7 @@ header .burger {
   height: 1570px;
   border: 1px solid #d3d3d3;
   border-radius: 4px;
+  align-items: flex-start;
 }
 /* button:hover {
   background-color: #d3d3d3;
@@ -464,6 +465,7 @@ header .burger {
   border-radius: 4px 4px 0 0px;
   position: relative;
   left: -20px;
+  align-items: flex-start;
 }
 
 .newest .domain-name {
@@ -479,6 +481,7 @@ header .burger {
   color: #2e2e2e;
   position: relative;
   left: 10px;
+  font-size: 14px;
 }
 
 .newest .domain-name p {

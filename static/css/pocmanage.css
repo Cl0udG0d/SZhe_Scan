@@ -1,3 +1,7 @@
+.navigation ul .one::after {
+  content: "";
+  display: none;
+}
 .right-context {
   width: 100%;
 }
