@@ -11,16 +11,16 @@
 
 ## 安装方法(择其一即可):
    ### 源码安装(不建议使用源码安装，相比较于docker安装)
-   > Python版本:3.X，数据库:MySQL，Redis 
-   > Git bash界面输入 git clone git@github.com:Cl0udG0d/SZhe_Scan.git进行下载（或直接下载源代码）
-   > 安装python类库: pip3 install -r requirements.txt
-   > 修改config.py数据库账号密码为本地账号密码，创建MySQL数据库SZhe_Scan  
-   > 命令行运行  
-   + python3 manage.py db init  
-   + python3 manage.py db migrate  
-   + python3 manage.py db upgrade  
+   + Python版本:3.X，数据库:MySQL，Redis 
+   + Git bash界面输入 git clone git@github.com:Cl0udG0d/SZhe_Scan.git进行下载（或直接下载源代码）
+   + 安装python类库: pip3 install -r requirements.txt
+   + 修改config.py数据库账号密码为本地账号密码，创建MySQL数据库SZhe_Scan  
+   + 命令行运行  
+   > python3 manage.py db init  
+   > python3 manage.py db migrate  
+   > python3 manage.py db upgrade  
    三条命令映射数据库模型到数据库中  
-   > 运行python3 index.py，浏览器输入127.0.0.1:5000访问漏洞扫描系统
+   + 运行python3 index.py，浏览器输入127.0.0.1:5000访问漏洞扫描系统
    ### docker安装
    > 使用docker命令进行安装（暂时还未打包好，预计在5月20号之前会推出docker版本）  
 
@@ -70,7 +70,7 @@
    + 自添加POC漏洞检测
 ## 启动
    > 源码安装启动方式 在开启MySQL和Redis的情况下，命令行运行 python3 index.py，浏览器访问 127.0.0.1:5000即可  
-   > ~~docker安装启动~~ 
+   > ~~docker安装启动~~ (正在快速打包啦:)
 ## 修Bug交流群  
    > xxxxxxxxxx 暂无
 ## 扫描器名字-->碎遮 的来由:
