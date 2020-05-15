@@ -42,7 +42,7 @@
             <td class="td" style="margin-right:20px;position: relative;left:-130px;color: #4b4a4a;">总页数:
                 {{paginate.pages}}</td>
             <td class="td" style="position: relative;left:-80px;color: #4b4a4a;">共有 {{paginate.total}} 条数据</td>
-            <td class="td" style="position: relative;left:150px;color: #4b4a4a;">
+            <td class="td" style="position: relative;left:90px;color: #4b4a4a;">
                 页码：
                 {% for i in paginate.iter_pages() %}
                 <a href="{{url_for('buglist',page=i)}}"
@@ -51,13 +51,13 @@
             {% if paginate.has_prev %}
             <td class="td" style="margin-right:20px;">
                 <a href="{{url_for('buglist',page=paginate.prev_num)}}"
-                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:170px;">上一页</a>
+                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:110px;">上一页</a>
                 {% endif %}</td>
 
             <td class="td" style="margin-right:20px;">
                 {% if paginate.has_next %}
                 <a href="{{url_for('buglist',page=paginate.next_num)}}"
-                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:170px;">下一页</a>
+                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:110px;">下一页</a>
                 {% endif %}</td>
         </tr>
     </table>
