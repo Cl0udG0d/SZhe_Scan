@@ -20,7 +20,7 @@
   display: block;
 }
 
-.content h1 {
+.container h1 {
   display: block;
   position: absolute;
   top: 10%;
@@ -28,7 +28,7 @@
   font-size: 54px;
 }
 
-.content h4 {
+.container h4 {
   display: block;
   position: absolute;
   top: 30%;
@@ -36,7 +36,7 @@
   font-size: 20px;
 }
 
-.content h5 {
+.container h5 {
   display: block;
   position: absolute;
   top: 42%;
@@ -44,7 +44,7 @@
   font-size: 20px;
 }
 
-.content a {
+.container a {
   position: absolute;
   top: 60%;
   left: 46%;
