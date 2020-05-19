@@ -25,12 +25,14 @@ class dedecms_download_redirect_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"100e8a82eea1ef8416e585433fd8462e" in req.text:
                 cprint("[+]存在dedecms download.php重定向漏洞...(低危)\tpayload: "+vulnurl, "blue")
-
+                return True,vulnurl,"dedecms download.php重定向漏洞",payload,req.text
             else:
                 cprint("[-]不存在dedecms_download_redirect漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

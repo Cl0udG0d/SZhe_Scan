@@ -43,6 +43,8 @@ class onethink_category_sqli_BaseVerify:
             cprint("[+]存在onethink3.2.3 SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
         else:
             cprint("[-]不存在onethink_category_sqli漏洞", "white", "on_grey")
+            return False, None, None, None, None
+        return False, None, None, None, None
 
 
 

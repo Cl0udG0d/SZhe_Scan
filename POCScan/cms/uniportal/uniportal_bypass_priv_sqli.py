@@ -43,9 +43,11 @@ class uniportal_bypass_priv_sqli_BaseVerify:
                 cprint("[+]存在东软UniPortal1.2 SQL注入漏洞...(高危)\tpayload: "+falseurl, "red")
             else:
                 cprint("[-]不存在uniportal_bypass_priv_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

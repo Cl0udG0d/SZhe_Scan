@@ -25,9 +25,11 @@ class wizbank_download_filedownload_BaseVerify():
                 cprint("[+]存在wizbank学习管理系统任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在wizbank_download_filedownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

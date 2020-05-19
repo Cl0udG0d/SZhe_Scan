@@ -25,11 +25,14 @@ class phpcms_product_code_exec_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"Configuration File (php.ini) Path" in req.text:
                 cprint("[+]存在phpcms2008 product.php 代码执行漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "phpcms2008 product.php 代码执行", payload, req.text
             else:
                 cprint("[-]不存在phpcms_product_code_exec漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

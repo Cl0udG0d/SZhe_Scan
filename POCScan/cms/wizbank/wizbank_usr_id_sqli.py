@@ -38,6 +38,7 @@ class wizbank_usr_id_sqli_BaseVerify:
                 cprint("[+]存在wizBank学习系统SQL注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(payload, indent=4), "red")
             else:
                 cprint("[-]不存在wizbank_usr_id_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
     testVuln = wizbank_usr_id_sqli_BaseVerify(sys.argv[1])

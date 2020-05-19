@@ -52,11 +52,14 @@ class dedecms_version_BaseVerify:
             m = re.search("^(\d+)$", req.text)
             if m:
                 cprint("[+]探测到dedecms版本...(敏感信息)\t时间戳: %s, 版本信息: %s"%(m.group(1), self.check_ver(m.group(1))), "green")
+                return True,vulnurl,"dedecms版本探测",payload,req.text
             else:
                 cprint("[-]不存在dedecms_version漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -30,9 +30,11 @@ class weaver_oa_filedownload_BaseVerify:
                     cprint("[+]存在泛微OA downfile.php 任意文件下载漏洞...(高危)\tpayload: "+self.url, "red")
                 else:
                     cprint("[-]不存在weaver_oa_filedownload漏洞", "white", "on_grey")
+                    return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -27,11 +27,14 @@ class phpcms_authkey_disclosure_BaseVerify:
             m = re.search('(\w{32})',req.text)
             if req.status_code == 200 and m:
                 cprint("[+]存在PHPCMS authkey泄露漏洞...(高危)\tpayload: "+vulnurl+"\tauthkey: "+m.group(1), "red")
+                return True, vulnurl, "phpcms authkey泄露", payload, req.text
             else:
                 cprint("[-]不存在phpcms_authkey_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

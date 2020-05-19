@@ -26,11 +26,14 @@ class cicro_DownLoad_filedownload_BaseVerify():
 
             if req.headers["Content-Type"] == "application/xml":
                 cprint("[+]存在时光动态网站平台任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "时光动态网站平台(Cicro 3e WS) 任意文件下载", payload, req.text
             else:
                 cprint("[-]不存在cicro_DownLoad_filedownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

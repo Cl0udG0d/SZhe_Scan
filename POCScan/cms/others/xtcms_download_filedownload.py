@@ -28,12 +28,14 @@ class xtcms_download_filedownload_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if req.headers["Content-Type"] == "application/xml":
                     cprint("[+]存在SiteFactory CMS 5.5.9任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "SiteFactory CMS 5.5.9任意文件下载漏洞", payload, req.text
             if noexist:
                 cprint("[-]不存在xtcms_download_filedownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

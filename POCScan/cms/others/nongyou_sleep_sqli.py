@@ -34,12 +34,14 @@ class nongyou_sleep_sqli_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if time.time() - start_time >= 6:
                     cprint("[+]存在农友多处时间盲注漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "农友多处时间盲注", payload, req.text
             if noexist:
                 cprint("[-]不存在nongyou_sleep_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

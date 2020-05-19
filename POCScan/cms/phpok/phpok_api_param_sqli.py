@@ -25,11 +25,14 @@ class phpok_api_param_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在phpok api.php SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "phpok api.php SQL注入漏洞", payload, req.text
             else:
                 cprint("[-]不存在phpok_api_param_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

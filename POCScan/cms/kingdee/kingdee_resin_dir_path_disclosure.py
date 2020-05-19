@@ -35,11 +35,14 @@ class kingdee_resin_dir_path_disclosure_BaseVerify:
 
                 if r"Directory" in req.text:
                     cprint("[+]存在金蝶协同系统远程信息泄露漏洞...(敏感信息)\tpayload: "+vulnurl, "green")
+                    return True, vulnurl, "金蝶协同平台远程信息泄露漏洞", payload, req.text
                 else:
                     cprint("[-]不存在kingdee_resin_dir_path_disclosure漏洞", "white", "on_grey")
 
             except:
                 cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+                return False, None, None, None, None
+        return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -27,9 +27,11 @@ class yonyou_nc_NCFindWeb_fileread_BaseVerify:
                 cprint("[+]存在用友nc NCFindWeb 任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在yonyou_nc_NCFindWeb_fileread漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

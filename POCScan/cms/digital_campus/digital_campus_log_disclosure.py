@@ -28,11 +28,14 @@ class digital_campus_log_disclosure_BaseVerify:
             result = pattern.findall(req.text)
             if len(result) != 0:
                 cprint("[+]存在Digital Campus2.0 Platform日志文件泄露...(中危)\tpayload: "+vulnurl, "yellow")
+                return True,vulnurl,"Digital-Campus数字校园平台LOG文件泄露",payload,req.text
             else:
                 cprint("[-]不存在digital_campus_log_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

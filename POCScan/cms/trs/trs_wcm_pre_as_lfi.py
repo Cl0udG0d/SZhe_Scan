@@ -27,9 +27,12 @@ class trs_wcm_pre_as_lfi_BaseVerify:
                 cprint("[+]存在拓尔思wcm pre.as 文件包含漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在trs_wcm_pre_as_lfi漏洞", "white", "on_grey")
+                return False, None, None, None, None
+
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

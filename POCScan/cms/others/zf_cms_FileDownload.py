@@ -25,11 +25,14 @@ class zf_cms_FileDownload_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml":
                 cprint("[+]存在某政府通用任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "某政府通用任意文件下载", payload, req.text
             else:
                 cprint("[-]不存在zf_cms_FileDownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

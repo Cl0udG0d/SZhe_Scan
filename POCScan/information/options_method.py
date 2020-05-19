@@ -24,12 +24,11 @@ class options_method_BaseVerify:
             req = requests.options(vulnurl, headers=headers, timeout=10, verify=False)
 
             if r"OPTIONS" in req.headers['Allow']:
-                cprint("[+]存在options方法开启...(敏感信息)"+"\tpayload: "+vulnurl+"\tAllow:"+req.headers['Allow'], "green")
+                return True,vulnurl,"options方法开启",req.headers,req.text
             else:
-                cprint("[-]不存在options_method漏洞", "white", "on_grey")
-
+                return False, None, None, None, None
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

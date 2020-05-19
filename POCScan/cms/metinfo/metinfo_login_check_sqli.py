@@ -27,11 +27,13 @@ class metinfo_login_check_sqli_BaseVerify:
             req2 = requests.get(false_url, headers=headers, timeout=10, verify=False)
             if r"not have this language" in req2.text and r"not have this language" not in req1.text:
                 cprint("[+]存在metinfo v5.3 SQL注入漏洞...(高危)\tpayload: "+false_url, "red")
-            if noexist:
+                return True, true_url, "metinfo v5.3sql注入漏洞", false_url, req1.text
+            else:
                 cprint("[-]不存在metinfo_login_check_sqli漏洞", "white", "on_grey")
-
+                return False, None, None, None, None
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

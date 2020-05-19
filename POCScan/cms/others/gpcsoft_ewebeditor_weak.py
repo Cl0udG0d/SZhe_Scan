@@ -40,16 +40,16 @@ class gpcsoft_ewebeditor_weak_BaseVerify:
                     if len(req1.text) != len(req2.text):
                         if req2.status_code == 200 and r"ewebeditor" in req2.text.lower():
                             cprint("[+]存在政采eweb编辑器弱口令漏洞...(高危)\tpayload: "+vulnurl+"\tpost: "+json.dumps(post_data2), "red")
-                            noexist = False
-                            break
-
+                            return True, vulnurl, "政府采购系统eweb编辑器默认口令Getshell漏洞", payload, req2.text
                 except:
                     pass
             if noexist:
                 cprint("[-]不存在gpcsoft_ewebeditor_weak漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

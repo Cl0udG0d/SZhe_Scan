@@ -36,12 +36,14 @@ class caitong_multi_sqli_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if req.status_code ==500 and r"AGQMicrosoft" in req.text:
                     cprint("[+]存在北京网达信联电子采购系统注入漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "北京网达信联电子采购系统多处注入", payload, req.text
             if noexist:
                 cprint("[-]不存在caitong_multi_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

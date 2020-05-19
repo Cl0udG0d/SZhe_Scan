@@ -32,9 +32,11 @@ class umail_sessionid_access_BaseVerify:
                 cprint("[+]存在umail sessionid登录漏洞...(中危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "yellow") 
             else:
                 cprint("[-]不存在umail_sessionid_access漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

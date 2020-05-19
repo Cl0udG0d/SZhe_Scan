@@ -25,11 +25,14 @@ class zhuofan_downLoadFile_download_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"<servlet-mapping>" in req.text:
                 cprint("[+]存在卓繁cms任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "卓繁cms任意文件下载漏洞", payload, req.text
             else:
                 cprint("[-]不存在zhuofan_downLoadFile_download漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

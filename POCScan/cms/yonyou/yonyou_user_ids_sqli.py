@@ -27,9 +27,11 @@ class yonyou_user_ids_sqli_BaseVerify:
                 cprint("[+]存在用友致远A6 SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在yonyou_user_ids_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

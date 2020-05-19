@@ -16,3 +16,333 @@ CVE_2018_2893:Serious
 CVE_2018_2894:Serious
 CVE_2019_2725:Serious
 CVE_2019_2729:Serious
+spring boot 路径泄露:Low
+options方法开启:Low
+git源码泄露扫描:Low
+java配置文件文件发现:Medium
+robots文件发现:Low
+svn源码泄露扫描:Medium
+JetBrains IDE workspace.xml文件泄露:Low
+apache server-status信息泄露:Low
+crossdomain.xml文件发现:Low
+泛微OA downfile.php 任意文件下载漏洞:High
+泛微OA filedownaction SQL注入:High
+泛微OA 数据库配置泄露:High
+phpok res_action_control.php 任意文件下载(需要cookies文件):High
+phpok api.php SQL注入漏洞:High
+phpok remote_image getshell漏洞:High
+jeecg 重置admin密码:High
+typecho install.php反序列化命令执行:High
+Dotnetcms(风讯cms)SQL注入漏洞:High
+韩国autoset建站程序phpmyadmin任意登录漏洞:High
+phpstudy探针:Low
+phpstudy phpmyadmin默认密码漏洞:High
+Discuz论坛forum.php参数message SSRF漏洞:Medium
+Discuz X3 focus.swf flashxss漏洞:Medium
+Discuz! X2.5 物理路径泄露漏洞:Low
+Discuz问卷调查参数orderby注入漏洞:High
+Hishop系统productlist.aspx SQL注入:High
+亿邮邮箱弱口令列表泄露:Medium
+亿邮Email Defender系统免登陆DBA注入:High
+亿邮邮件系统重置密码问题暴力破解:High
+亿邮mail5 user 参数kw SQL注入:High
+金蝶办公系统任意文件下载:Medium
+金蝶协同平台远程信息泄露漏洞:Medium
+金蝶AES系统Java web配置文件泄露:Medium
+金蝶EAS任意文件读取:Medium
+乐语客服系统任意文件下载漏洞:Medium
+smartoa 多处任意文件下载漏洞:Medium
+urp查询接口曝露:Medium
+URP越权查看任意学生课表、成绩(需登录):High
+URP综合教务系统任意文件读取:Medium
+pkpmbs工程质量监督站信息管理系统SQL注入:High
+pkpmbs建设工程质量监督系统注入:High
+pkpmbs建设工程质量监督系统SQL注入:High
+帝友P2P借贷系统无需登录SQL注入漏洞:High
+帝友P2P借贷系统任意文件读取漏洞:Medium
+iGenus邮件系统一处无需登录的任意代码执行:High
+iGenus邮箱系统login.php 参数Lang任意文件读取:Medium
+iGenus邮箱系统管理中心sys/login.php 参数Lang任意文件读取:Medium
+live800客服系统downlog任意文件下载:Medium
+live800在线客服系统loginAction SQL注入漏洞:High
+live800在线客服系统多处SQL注入GETSHELL漏洞:Serious
+live800在线客服系统XML实体注入漏洞:High
+live800 fileDownloadServer文件读取漏洞:Medium
+Onethink 参数category SQL注入:High
+ThinkPHP 代码执行漏洞:High
+ThinkPHP V5代码执行漏洞:High
+汇思学习管理系统任意文件下载:Medium
+Cyberwisdom wizBank学习管理平台SQL注入漏洞:High
+domino_unauth未授权漏洞:Medium
+宏景EHR系统多处SQL注入:High
+汇能群管理系统SQL注入:High
+汇文软件图书管理系统ajax_asyn_link.old.php任意文件读取:Medium
+汇文软件图书管理系统ajax_asyn_link.php任意文件读取:Medium
+汇文软件图书管理系统ajax_get_file.php任意文件读取:Medium
+通元建站系统用户名泄露漏洞:gpower_users_disclosure_BaseVerify
+metinfo5.0 getpassword.php两处时间盲注漏洞:Serious
+用友ICC struts2远程命令执行:High
+V2视频会议系统某处SQL注射、XXE漏洞(可getshell):Serious
+政府采购系统eweb编辑器默认口令Getshell漏洞:Serious
+RAP接口平台struts远程代码执行:High
+虹安DLP数据泄露防护平台struts2远程命令执行:High
+九羽数字图书馆struts远程命令执行:High
+垚捷电商平台通用struts命令执行:High
+Digital-Campus数字校园平台LOG文件泄露:Low
+Digital-Campus2.0数字校园平台Sql注射:High
+jeecms download.jsp 参数fpath任意文件下载:Medium
+shopex敏感信息泄露:Low
+动科(dkcms)默认数据库漏洞:Medium
+FineCMS免费版文件上传漏洞:Medium
+DaMall商城系统sql注入:High
+大汉版通JCMS数据库配置文件读取漏洞:Medium
+大汉downfile.jsp 任意文件下载:Medium
+大汉VerfiyCodeServlet越权漏洞:Medium
+PHP168 login.php GETSHELL漏洞:Serious
+dedecms版本探测:Low
+dedecms search.php SQL注入漏洞:High
+dedecms trace爆路径漏洞:Low
+dedecms download.php重定向漏洞:Medium
+dedecms recommend.php SQL注入:High
+umail物理路径泄露:Low
+U-Mail邮件系统sessionid访问:Medium
+metinfo v5.3sql注入漏洞:High
+用友致远A6协同系统SQL注射union可shell:Serious
+用友致远A6协同系统多处SQL注入:Serious
+用友致远A6协同系统敏感信息泄露&SQL注射:High
+用友致远A6协同系统数据库账号泄露:Medium
+用友致远A6 test.jsp SQL注入:High
+用友CRM系统任意文件读取:Medium
+用友EHR 任意文件读取:Medium
+用友优普a8 CmxUserSQL时间盲注入:High
+用友a8 log泄露:Low
+用友a8监控后台默认密码漏洞:Medium
+用友致远A8协同系统 blind XML实体注入:High
+用友GRP-U8 sql注入漏洞:High
+用友u8 CmxItem.php SQL注入:High
+用友FE协作办公平台5.5 SQL注入:High
+用友EHR系统 ResetPwd.jsp SQL注入:High
+用友nc NCFindWeb 任意文件下载漏洞:Medium
+fsmcms p_replydetail.jsp注入漏洞:High
+FSMCMS网站重装漏洞:Medium
+FSMCMS columninfo.jsp文件参数ColumnID SQL注入:High
+qibocms知道系统SQL注入:High
+qibo分类系统search.php 代码执行:High
+qibocms news/js.php文件参数f_idSQL注入:High
+qibocms s.php文件参数fids SQL注入:High
+依友POS系统登陆信息泄露:Low
+浪潮行政审批系统十八处注入:Serious
+浪潮ECGAP政务审批系统SQL注入漏洞:High
+五车图书管系统任意下载:Medium
+五车图书管系统kindaction任意文件遍历:Medium
+Gobetters视频会议系统SQL注入漏洞:High
+LBCMS多处SQL注入漏洞:High
+Euse TMS存在多处DBA权限SQL注入:High
+suntown未授权任意文件上传漏洞:High
+Dswjcms p2p网贷系统前台4处sql注入:Serious
+skytech政务系统越权漏洞:Medium
+wordpress AzonPop插件SQL注入:High
+wordpress 插件shortcode0.2.3 本地文件包含:Medium
+wordpress插件跳转:Low
+wordpress 插件WooCommerce PHP代码注入:High
+wordpress 插件mailpress远程代码执行:High
+wordpress admin-ajax.php任意文件下载:Medium
+wordpress rest api权限失效导致内容注入:High
+wordpress display-widgets插件后门漏洞:Medium
+Mallbuilder商城系统SQL注入:High
+efuture商业链系统任意文件下载:Medium
+kj65n煤矿远程监控系统SQL注入:High
+票友机票预订系统6处SQL注入:Serious
+票友机票预订系统10处SQL注入:Serious
+票友机票预订系统6处SQL注入(绕过):Serious
+票友机票预订系统6处SQL注入2(绕过):Serious
+票友票务系统int_order.aspx SQL注入:High
+票友票务系统通用sql注入:High
+中农信达监察平台任意文件下载:Medium
+连邦行政审批系统越权漏洞:Medium
+北斗星政务PostSuggestion.aspx SQL注入:High
+TCExam重新安装可getshell漏洞:Serious
+合众商道php系统通用注入:High
+最土团购SQL注入:High
+时光动态网站平台(Cicro 3e WS) 任意文件下载:Medium
+华飞科技cms绕过JS GETSHELL:Serious
+IWMS系统后台绕过&整站删除:Serious
+农友政务系统多处SQL注入:Serious
+农友政务系统Item2.aspx SQL注入:High
+农友政务ShowLand.aspx SQL注入:High
+农友多处时间盲注:Serious
+某政府采购系统任意用户密码获取漏洞:Medium
+铭万事业通用建站系统SQL注入:High
+铭万B2B SupplyList SQL注入漏洞:High
+铭万门户建站系统ProductList SQL注入:High
+xplus npmaker 2003系统GETSHELL:Serious
+xplus通用注入:High
+workyi人才系统多处注入漏洞:Serious
+菲斯特诺期刊系统多处SQL注入:Serious
+东软UniPortal1.2未授权访问&SQL注入:Serious
+PageAdmin可“伪造”VIEWSTATE执行任意SQL查询&重置管理员密码:Serious
+SiteFactory CMS 5.5.9任意文件下载漏洞:Medium
+璐华企业版OA系统多处SQL注入:Serious
+璐华OA系统多处SQL注入:Serious
+璐华OA系统多处SQL注入3:Serious
+GN SQL Injection:High
+JumboECMS V1.6.1 注入漏洞:High
+joomla组件com_docman本地文件包含:Medium
+joomla 3.7.0 core SQL注入:High
+北京网达信联电子采购系统多处注入:Serious
+Designed by Alkawebs SQL Injection:Serious
+一采通电子采购系统多处时间盲注:Serious
+启博淘店通标准版任意文件遍历漏洞:Medium
+PSTAR-电子服务平台SQL注入漏洞:High
+PSTAR-电子服务平台isfLclInfo注入漏洞:Serious
+PSTAR-电子服务平台SQL注入漏洞:High
+TRS(拓尔思) wcm pre.as 文件包含:Medium
+TRS(拓尔思) 网络信息雷达4.6系统敏感信息泄漏到进后台:Medium
+TRS(拓尔思) 学位论文系统papercon处SQL注入:High
+TRS(拓尔思) infogate插件 blind XML实体注入:High
+TRS(拓尔思) infogate插件 任意注册漏洞:Low
+TRS(拓尔思) was5配置文件泄露:Low
+TRS(拓尔思) was5 download_templet.jsp任意文件下载:Medium
+TRS(拓尔思) wcm系统默认账户漏洞:Low
+TRS(拓尔思) wcm 6.x版本infoview信息泄露:Low
+TRS(拓尔思) was40 passwd.htm页面泄露:Low
+TRS(拓尔思) was40 tree导航树泄露:Low
+TRS(拓尔思) ids身份认证信息泄露:Low
+TRS(拓尔思) wcm webservice文件写入漏洞:Medium
+易创思ECScms MoreIndex SQL注入:High
+金窗教务系统存在多处SQL注射漏洞:Serious
+siteserver3.6.4 background_taskLog.aspx注入:High
+siteserver3.6.4 background_log.aspx注入:High
+siteserver3.6.4 user.aspx注入:High
+siteserver3.6.4 background_keywordsFilting.aspx注入:High
+siteserver3.6.4 background_administrator.aspx注入:High
+NITC营销系统suggestwordList.php SQL注入:High
+NITC营销系统index.php SQL注入:High
+南大之星信息发布系统DBA SQL注入:High
+蓝凌EIS智慧协同平台menu_left_edit.aspx SQL注入:High
+天柏在线培训系统Type_List.aspx SQL注入:High
+天柏在线培训系统TCH_list.aspx SQL注入:High
+天柏在线培训系统Class_Info.aspx SQL注入:High
+天柏在线培训系统St_Info.aspx SQL注入:High
+安财软件GetXMLList任意文件读取:Medium
+安财软件GetFile任意文件读取:Medium
+安财软件GetFileContent任意文件读取:Medium
+天津神州助平台通用型任意下载:Medium
+ETMV9数字化校园平台任意下载:Medium
+安脉grghjl.aspx 参数stuNo注入:High
+农友多处时间盲注:High
+某政府通用任意文件下载:Medium
+师友list.aspx keywords SQL注入:High
+speedcms list文件参数cid SQL注入:High
+卓繁cms任意文件下载漏洞:Medium
+金宇恒内容管理系统通用型任意文件下载漏洞:Medium
+任我行crm任意文件下载:Medium
+易创思教育建站系统未授权访问可查看所有注册用户:Medium
+wecenter SQL注入:High
+shopnum1 ShoppingCart1 SQL注入:High
+shopnum1 ProductListCategory SQL注入:High
+shopnum1 ProductDetail.aspx SQL注入:High
+shopnum1 GuidBuyList.aspx SQL注入:High
+好视通视频会议系统(fastmeeting)任意文件遍历:Medium
+远古流媒体系统两处SQL注入:Serious
+远古 pic_proxy.aspx SQL注入:High
+远古流媒体系统  GetCaption.ashx注入:Serious
+shop7z order_checknoprint.asp SQL注入:High
+dreamgallery album.php SQL注入:High
+IPS Community Suite <= 4.1.12.3 PHP远程代码执行:High
+科信邮件系统login.server.php 时间盲注:High
+shopNC B2B版 index.php SQL注入:High
+南京擎天政务系统 geren_list_page.aspx SQL注入:High
+学子科技诊断测评系统多处未授权访问:Medium
+Shadows-IT selector.php 任意文件包含:Medium
+皓翰数字化校园平台任意文件下载:Medium
+phpcms digg_add.php SQL注入:High
+phpcms authkey泄露漏洞:Medium
+phpcms2008 flash_upload.php SQL注入:High
+phpcms2008 product.php 代码执行:High
+phpcms v9.6.0 SQL注入:High
+phpcms 9.6.1任意文件读取漏洞:Medium
+phpcms v9 flash xss漏洞:Medium
+seacms search.php 代码执行:High
+seacms 6.45 search.php order参数前台代码执行:High
+seacms search.php 参数jq代码执行:High
+安脉学生管理系统10处SQL注入:Serious
+cmseasy header.php 报错注入:High
+PhpMyAdmin2.8.0.3无需登录任意文件包含导致代码执行:High
+opensns index.php 参数arearank注入:High
+opensns index.php 前台getshell:Serious
+ecshop uc.php参数code SQL注入:High
+ecshop3.0 flow.php 参数order_id注入:High
+SiteEngine 6.0 & 7.1 SQL注入漏洞:High
+明腾cms cookie欺骗漏洞:Medium
+正方教务系统services.asmx SQL注入:Serious
+正方教务系统数据库任意操纵:High
+正方教务系统default3.aspx爆破页面:Medium
+1039驾校通未授权访问漏洞:Medium
+thinksns category模块代码执行:High
+TPshop eval-stdin.php 代码执行漏洞:High
+新力热电无线抄表监控系统绕过后台登录:Medium
+火力发电能耗监测弱口令:Medium
+sgc8000 大型旋转机监控系统报警短信模块泄露:Low
+sgc8000 监控系统数据连接信息泄露:Medium
+sgc8000监控系统超管账号泄露漏洞:Medium
+zte 无线控制器 SQL注入:High
+中兴无线控制器弱口令:Medium
+东方电子SCADA通用系统信息泄露:Low
+libssh身份绕过漏洞(CVE-2018-10933):Serious
+ElasticSearch未授权漏洞:Medium
+CouchDB 未授权漏洞:Medium
+zookeeper 未授权漏洞:Medium
+GoAhead LD_PRELOAD远程代码执行(CVE-2017-17562):Serious
+天融信Topsec change_lan.php本地文件包含:Medium
+Tomcat代码执行漏洞(CVE-2017-12616):High
+Tomcat 弱口令漏洞:Medium
+redis 未授权漏洞:Serious
+KingGate防火墙默认配置不当可被远控:High
+nginx Multi-FastCGI Code Execution:Medium
+TurboMail设计缺陷以及默认配置漏洞:Medium
+TurboGate邮件网关XXE漏洞:High
+weblogic blind XXE漏洞(CVE-2018-3246):High
+weblogic 弱口令漏洞:Medium
+weblogic SSRF漏洞(CVE-2014-4210):Medium
+weblogic XMLdecoder反序列化漏洞(CVE-2017-10271):High
+weblogic 接口泄露:Low
+实易DNS管理系统文件包含至远程代码执行:High
+hudson源代码泄露漏洞:Low
+N点虚拟主机管理系统V1.9.6版数据库下载漏洞:Medium
+宏杰Zkeys虚拟主机默认数据库漏洞:Medium
+江南科友堡垒机信息泄露:Low
+Moxa OnCell 未授权访问:Medium
+glassfish 任意文件读取:Medium
+zabbix jsrpc.php SQL注入:High
+php fastcgi任意文件读取漏洞:Medium
+php expose_php模块开启:Medium
+hfs rejetto 远程代码执行:High
+shellshock漏洞:High
+dorado默认口令漏洞:Medium
+ms15_034 http.sys远程代码执行(CVE-2015-1635):High
+IIS 6.0 webdav远程代码执行漏洞(CVE-2017-7269):High
+深澜软件srun3000计费系统任意文件下载漏洞:Medium
+深澜软件srun3000计费系统rad_online.php命令执行bypass:High
+深澜软件srun3000计费系统rad_online.php参数username命令执行:High
+深澜软件srun3000计费系统download.php任意文件下载:Medium
+深澜软件srun3000计费系统user_info.php命令执行:High
+intel AMT web系统绕过登录(CVE-2017-5689):High
+smtp starttls明文命令注入(CVE-2011-0411):High
+resin viewfile 任意文件读取:Medium
+mongodb 未授权漏洞:Medium
+深信服 AD4.5版本下命令执行漏洞:High
+Dlink 本地文件包含:Medium
+Dlink DIAGNOSTIC.PHP命令执行:High
+锐捷VPN设备未授权访问漏洞:Medium
+上海安达通某网关产品&某VPN产品struts命令执行:High
+SJW74系列安全网关 和 PN-2G安全网关信息泄露:Low
+迈普vpn安全网关弱口令&&执行命令:High
+迈普网关webui任意文件下载:Medium
+浙江宇视（DVR/NCR）监控设备远程命令执行漏洞:High
+富士施乐打印机默认口令漏洞:Medium
+惠普打印机telnet未授权访问:Medium
+东芝topaccess打印机未授权漏洞:Medium
+佳能打印机未授权漏洞:Medium
+juniper NetScreen防火墙后门(CVE-2015-7755):Medium
+海康威视web弱口令:Medium

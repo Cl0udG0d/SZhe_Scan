@@ -36,9 +36,11 @@ class typecho_install_code_exec_BaseVerify:
                 cprint("[+]存在typecho install.php反序列化命令执行漏洞...(高危)\tpayload: "+vulnurl+"\tshell地址: "+shellpath+"\t密码: pp", "red")
             else:
                 cprint("[-]不存在typecho_install_code_exec漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

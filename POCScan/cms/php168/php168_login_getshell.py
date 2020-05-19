@@ -27,11 +27,14 @@ class php168_login_getshell_BaseVerify():
             req2 = requests.get(verifyurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req2.text:
                 cprint("[+]存在PHP168 GETSHELL漏洞...(高危)\tpayload: "+verifyurl, "red")
+                return True, vulnurl, "PHP168 login.php GETSHELL漏洞", payload, req.text
             else:
                 cprint("[-]不存在php168_login_getshell漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

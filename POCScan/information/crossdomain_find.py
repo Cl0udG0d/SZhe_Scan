@@ -24,12 +24,11 @@ class crossdomain_find_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"<cross-domain-policy>" in req.text and r"allow-access-from" in req.text:
-                cprint("[+]存在crossdomain.xml文件发现漏洞...(信息)\tpayload: "+vulnurl, "green")
+                return True,vulnurl,"crossdomain.xml文件发现",payload,req.text
             else:
-                cprint("[-]不存在crossdomain_find漏洞", "white", "on_grey")
-
+                return False,None,None,None,None
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

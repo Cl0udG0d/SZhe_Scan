@@ -36,9 +36,11 @@ class zfsoft_default3_bruteforce_BaseVerify:
                 cprint("[+]存在正方教务系统default3.aspx爆破页面...(敏感信息)\tpayload: "+vulnurl, "green")
             else:
                 cprint("[-]不存在zfsoft_default3_bruteforce漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

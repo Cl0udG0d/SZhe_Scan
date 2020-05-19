@@ -34,9 +34,11 @@ class seacms_order_code_exec_BaseVerify:
                 cprint("[+]存在seacms 6.45 search.php order参数前台代码执行漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
             else:
                 cprint("[-]不存在seacms_order_code_exec漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

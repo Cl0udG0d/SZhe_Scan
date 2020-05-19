@@ -26,11 +26,14 @@ class fsmcms_setup_reinstall_BaseVerify:
 
             if r'</font><input type="text" name="SetUpPath"' in req.text:
                 cprint("[+]存在FSMCMS网站重装漏洞...(中危)\tpayload: "+vulnurl, "yellow")
+                return True,vulnurl,"FSMCMS网站重装漏洞",payload,req.text
             else:
                 cprint("[-]不存在fsmcms_setup_reinstall漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

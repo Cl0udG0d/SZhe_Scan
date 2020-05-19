@@ -31,9 +31,11 @@ class yonyou_a8_logs_disclosure_BaseVerify:
                     cprint("[+]存在用友a8 log泄露漏洞...(低危)\tpayload: "+vulnurl, "green")
                 else:
                     cprint("[-]不存在yonyou_a8_logs_disclosure漏洞", "white", "on_grey")
+                    return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

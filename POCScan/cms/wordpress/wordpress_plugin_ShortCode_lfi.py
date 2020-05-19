@@ -32,9 +32,11 @@ class wordpress_plugin_ShortCode_lfi_BaseVerify:
                     cprint("[+]存在wordpress 插件shortcode0.2.3 本地文件包含漏洞...(高危)\tpayload: "+vulnurl, "red")
                 else:
                     cprint("[-]不存在wordpress_plugin_ShortCode_lfi漏洞", "white", "on_grey")
+                    return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

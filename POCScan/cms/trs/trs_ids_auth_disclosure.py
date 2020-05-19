@@ -27,9 +27,11 @@ class trs_ids_auth_disclosure_BaseVerify:
                 cprint("[+]存在TRS ids身份认证信息泄露漏洞...(中危)\tpayload: "+vulnurl, "yellow")
             else:
                 cprint("[-]不存在trs_ids_auth_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

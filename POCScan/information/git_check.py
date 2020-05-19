@@ -24,13 +24,11 @@ class git_check_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"repositoryformatversion" in req.text and req.status_code==200:
-                cprint("[+]存在git源码泄露漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True,vulnurl,"git源码泄露扫描",payload,req.text
             else:
-                cprint("[-]不存在git_check漏洞", "white", "on_grey")
-
+                return False,None,None,None,None
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
-
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

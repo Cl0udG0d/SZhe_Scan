@@ -25,16 +25,19 @@ class discuz_focus_flashxss_BaseVerify:
         payload = "/static/image/common/focus.swf"
         vulnurl = self.url + payload
         try:
-            req = urllib.request.urlopen(vulnurl)
+            req = urllib.request.urlopen(vulnurl,headers=headers)
             data = req.read()
             md5_value = hashlib.md5(data).hexdigest()
             if md5_value in flash_md5:
                 cprint("[+]存在discuz X3 focus.swf flashxss漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True,vulnurl,"Discuz X3 focus.swf flashxss漏洞",payload,req.text
             else:
                 cprint("[-]不存在discuz_focus_flashxss漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

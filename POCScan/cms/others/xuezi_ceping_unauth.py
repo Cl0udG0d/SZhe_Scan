@@ -47,12 +47,14 @@ class xuezi_ceping_unauth_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if verify in req.text:
                     cprint("[+]存在学子科技诊断测评系统未授权访问漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "学子科技诊断测评系统多处未授权访问", vulnurl, req.text
             if noexist:
                 cprint("[-]不存在xuezi_ceping_unauth漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

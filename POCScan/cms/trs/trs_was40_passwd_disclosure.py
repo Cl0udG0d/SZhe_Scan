@@ -27,9 +27,11 @@ class trs_was40_passwd_disclosure_BaseVerify:
                 cprint("[+]存在TRS was40 passwd.htm页面泄露...(中危)\tpayload: "+vulnurl, "yellow")
             else:
                 cprint("[-]不存在trs_was40_passwd_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

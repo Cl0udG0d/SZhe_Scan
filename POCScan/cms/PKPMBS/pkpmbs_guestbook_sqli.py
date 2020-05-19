@@ -23,11 +23,14 @@ class pkpmbs_guestbook_sqli_BaseVerify:
 
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在PKPMBS SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "PKPMBS工程质量监督站信息管理系统SQL注入", payload, req.text
             else:
                 cprint("[-]不存在pkpmbs_guestbook_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

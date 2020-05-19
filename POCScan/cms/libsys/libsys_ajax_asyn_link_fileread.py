@@ -26,11 +26,13 @@ class libsys_ajax_asyn_link_fileread_BaseVerify:
                 req = requests.get(vulnurl, timeout=10, verify=False)
                 if r"<?php" in req.text:
                     cprint("[+]存在汇文图书管理系统文件读取漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "汇文软件图书管理系统ajax_asyn_link.php任意文件读取", payload, req.text
             if noexist:
                 cprint("[-]不存在libsys_ajax_asyn_link_fileread漏洞", "white", "on_grey")
+                return False, None, None, None, None
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

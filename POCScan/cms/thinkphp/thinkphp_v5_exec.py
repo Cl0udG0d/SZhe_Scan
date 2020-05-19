@@ -39,9 +39,11 @@ class thinkphp_v5_exec_BaseVerify:
                     break
                 else:
                     cprint("[-]不存在thinkphp_code_exec漏洞", "white", "on_grey")
+                    return False, None, None, None, None
 
             except:
                 cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+                return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

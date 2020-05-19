@@ -27,9 +27,11 @@ class thinksns_category_code_exec_BaseVerify:
                 cprint("[+]存在thinksns category模块代码执行漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在thinksns_category_code_exec漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

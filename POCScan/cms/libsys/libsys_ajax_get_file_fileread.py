@@ -22,11 +22,14 @@ class libsys_ajax_get_file_fileread_BaseVerify:
 
             if r"<?php" in req.text:
                 cprint("[+]存在汇文图书管理系统文件读取漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "汇文软件图书管理系统ajax_get_file.php任意文件读取", payload, req.text
             else:
                 cprint("[-]不存在libsys_ajax_get_file_fileread漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

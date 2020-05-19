@@ -22,11 +22,14 @@ class skytech_bypass_priv_BaseVerify:
             req = requests.get(vulnurl, timeout=10, verify=False)
             if r"txtUserRights" in req.text and r"txtTitle" in req.text:
                 cprint("[+]存在skytech政务系统越权漏洞...(敏感信息)\tpayload: "+vulnurl, "green")
+                return True, vulnurl, "skytech政务系统越权漏洞", payload, req.text
             else:
                 cprint("[-]不存在skytech_bypass_priv漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

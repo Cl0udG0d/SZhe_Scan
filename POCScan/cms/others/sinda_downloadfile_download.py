@@ -25,11 +25,14 @@ class sinda_downloadfile_download_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"<web-app>" in req.text and r"<servlet-name>" in req.text:
                 cprint("[+]存在中农信达监察平台任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "中农信达监察平台任意文件下载", payload, req.text
             else:
                 cprint("[-]不存在sinda_downloadfile_download漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

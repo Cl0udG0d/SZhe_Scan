@@ -22,12 +22,11 @@ class springboot_api_BaseVerify:
             req = requests.get(vulnurl, timeout=10, verify=False)
 
             if "resourceHandlerMapping" in req.text and r"springframework.boot.actuate" in req.text:
-                cprint("[+]存在spring boot api路径泄露...(敏感信息)"+"\tpayload: "+vulnurl, "green")
+                return True,vulnurl,"spring boot 路径泄露",payload,req.text
             else:
-                cprint("[-]不存在springboot_api漏洞", "white", "on_grey")
-
+                return False, None, None, None, None
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

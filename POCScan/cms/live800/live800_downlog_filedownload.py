@@ -23,11 +23,14 @@ class live800_downlog_filedownload_BaseVerify():
 
             if r"root:" in req.text and r"/bin/bash" in req.text:
                 cprint("[+]存在live800客服系统任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "live800客服系统downlog任意文件下载", payload, req.text
             else:
                 cprint("[-]不存在live800_downlog_filedownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -21,12 +21,11 @@ class jsp_conf_find_BaseVerify:
         try:
             req = requests.get(vulnurl, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml":
-                cprint("[+]存在web.xml配置文件...(敏感信息)\tpayload: "+vulnurl, "green")
+                return True,vulnurl,"java配置文件文件发现",payload,req.text
             else:
-                cprint("[-]不存在jsp_conf_find漏洞", "white", "on_grey")
-
+                return False, None, None, None, None
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

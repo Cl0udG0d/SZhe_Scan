@@ -25,11 +25,14 @@ class yeu_disclosure_uid_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"OperID" in req.text and r"OperName" in req.text:
                 cprint("[+]存在依友POS系统登陆信息泄露漏洞...(中危)\tpayload: "+vulnurl, "yellow")
+                return True, vulnurl, "依友POS系统登陆信息泄露", payload, req.text
             else:
                 cprint("[-]不存在yeu_disclosure_uid漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

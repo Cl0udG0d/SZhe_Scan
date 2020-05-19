@@ -35,11 +35,14 @@ class phpstudy_phpmyadmin_defaultpwd_BaseVerify:
             req2 = sess.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"navigation.php" in req2.text and r"frame_navigation" in req.text:
                 cprint("[+]存在phpstudy phpmyadmin默认密码漏洞...(高危)\tpayload: "+vulnurl+"\tpost: "+json.dumps(post_data, indent=4), "red")
+                return True, vulnurl, "phpstudy phpmyadmin默认密码漏洞", payload, req2.text
             else:
                 cprint("[-]不存在phpstudy_phpmyadmin_defaultpwd漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

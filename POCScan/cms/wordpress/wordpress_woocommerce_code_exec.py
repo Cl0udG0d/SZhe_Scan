@@ -27,9 +27,11 @@ class wordpress_woocommerce_code_exec_BaseVerify:
                 cprint("[+]存在wordpress 插件WooCommerce PHP代码注入漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在wordpress_woocommerce_code_exec漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

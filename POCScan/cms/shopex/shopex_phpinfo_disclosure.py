@@ -28,9 +28,11 @@ class shopex_phpinfo_disclosure_BaseVerify:
                 cprint("[+]存在shopex敏感信息泄露...(敏感信息)\tpayload: "+vulnurl, "green")
             else:
                 cprint("[-]不存在shopex_phpinfo_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

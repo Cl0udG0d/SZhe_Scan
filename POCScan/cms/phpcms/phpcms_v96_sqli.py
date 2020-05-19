@@ -44,11 +44,14 @@ class phpcms_v96_sqli_BaseVerify:
             req3 = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"XPATH syntax error" in req3.text:
                 cprint("[+]存在phpcms v9.6.0 SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "phpcms v9.6.0 SQL注入", str(post_data), req3.text
             else:
                 cprint("[-]不存在phpcms_v96_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

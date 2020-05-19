@@ -33,12 +33,14 @@ class ndstar_six_sqli_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"WtFaBcMicrosoft" in req.text:
                     cprint("[+]存在南大之星信息发布系统DBA SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "南大之星信息发布系统DBA SQL注入", payload, req.text
             if noexist:
                 cprint("[-]不存在ndstar_six_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

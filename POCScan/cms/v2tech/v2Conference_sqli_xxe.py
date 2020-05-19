@@ -28,9 +28,11 @@ class v2Conference_sqli_xxe_BaseVerify:
                 cprint("[+]存在V2 ConferenceSQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在v2Conference_sqli_xxe漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

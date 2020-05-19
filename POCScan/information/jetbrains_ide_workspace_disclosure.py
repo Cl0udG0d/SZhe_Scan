@@ -24,12 +24,11 @@ class jetbrains_ide_workspace_disclosure_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"<?xml version=" in req.text and r"project version" in req.text and req.status_code==200:
-                cprint("[+]存在JetBrains IDE workspace.xml文件泄露漏洞...(中危)\tpayload: "+vulnurl, "yellow")
+                return True,vulnurl,"JetBrains IDE workspace.xml文件泄露",payload,req.text
             else:
-                cprint("[-]不存在jetbrains_ide_workspace_disclosure漏洞", "white", "on_grey")
-
+                return False,None,None,None,None
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

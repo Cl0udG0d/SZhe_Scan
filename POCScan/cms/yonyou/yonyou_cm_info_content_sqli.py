@@ -27,9 +27,11 @@ class yonyou_cm_info_content_sqli_BaseVerify:
                 cprint("[+]存在用友GRP-U8 sql注入漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在yonyou_cm_info_content_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

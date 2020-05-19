@@ -33,9 +33,11 @@ class yonyou_status_default_pwd_BaseVerify:
                     noexist = False
             if noexist:
                 cprint("[-]不存在yonyou_status_default_pwd漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

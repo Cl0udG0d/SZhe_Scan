@@ -28,11 +28,14 @@ class hanweb_readxml_fileread_BaseVerify():
 
             if r"<driver-properties>" in req.text:
                 cprint("[+]存在大汉版通JCMS数据库读取漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "大汉版通JCMS数据库配置文件读取漏洞", payload, req.text
             else:
                 cprint("[-]不存在hanweb_readxml_fileread漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

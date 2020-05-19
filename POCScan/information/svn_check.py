@@ -30,15 +30,15 @@ class svn_check_BaseVerify:
                 for content in contents:
                     match = len(pattern.search(content).group(0))
                     if req.status_code == 200 and match > 0:
-                        cprint("[+]存在svn源码泄露漏洞...(高危)\tpayload: "+vulnurl, "red")
+                        return True,vulnurl,"svn源码泄露扫描",payload,req.text
                         break
                     else:
+                        return False, None, None, None, None
                         cprint("[-]不存在svn_check漏洞", "white", "on_grey")
             except:
-                cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
-
+                return False, None, None, None, None
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

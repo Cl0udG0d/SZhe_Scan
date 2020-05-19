@@ -33,17 +33,19 @@ class ruvar_oa_multi_sqli_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if req.status_code == 500 and r"GQXMicrosoft" in req.text:
                     cprint("[+]存在璐华企业版OA系统多处SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "璐华企业版OA系统多处SQL注入", payload, req.text
 
             req = requests.get(self.url+"/include/get_user.aspx", headers=headers, timeout=10, verify=False)
             if r"button_normal" in req.text:
                 cprint("[+]存在璐华企业版OA系统POST SQL注入漏洞...(高危)\tpayload: "+self.url+"/include/get_user.aspx", "red")
-                noexist = False
+                return True, vulnurl, "璐华企业版OA系统多处SQL注入", payload, req.text
             if noexist:
                 cprint("[-]不存在ruvar_oa_multi_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

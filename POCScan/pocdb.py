@@ -4,11 +4,11 @@ referer: unknow
 author: Lucifer
 description: 引入main接口
 '''
-from cms.cmsmain import *
-from system.systemmain import *
-from industrial.industrialmain import *
-from hardware.hardwaremain import *
-from information.informationmain import *
+from POCScan.cms.cmsmain import *
+from POCScan.system.systemmain import *
+from POCScan.industrial.industrialmain import *
+from POCScan.hardware.hardwaremain import *
+from POCScan.information.informationmain import *
 class pocdb_pocs:
     def __init__(self, url):
         self.url = url
@@ -349,7 +349,7 @@ class pocdb_pocs:
             "惠普打印机telnet未授权访问":printer_hp_jetdirect_unauth_BaseVerify(url),
             "东芝topaccess打印机未授权漏洞":printer_topaccess_unauth_BaseVerify(url),
             "佳能打印机未授权漏洞":printer_canon_unauth_BaseVerify(url),
-            "juniper NetScreen防火墙后门(CVE-2015-7755)":juniper_netscreen_backdoor_BaseVerify(url),
+            # "juniper NetScreen防火墙后门(CVE-2015-7755)":juniper_netscreen_backdoor_BaseVerify(url),
             "海康威视web弱口令":camera_hikvision_web_weak_BaseVerify(url),
         }
 

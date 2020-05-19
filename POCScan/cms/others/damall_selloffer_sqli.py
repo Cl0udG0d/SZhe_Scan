@@ -26,11 +26,14 @@ class damall_selloffer_sqli_BaseVerify:
 
             if req.status_code == 500 and r"Microsoft SQL Server" in req.text:
                 cprint("[+]存在damall商城系统SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "DaMall商城系统sql注入", payload, req.text
             else:
                 cprint("[-]不存在damall_selloffer_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -1,5 +1,8 @@
 redis
 paramiko
+pexpect
+pymongo==3.10.1
+elasticsearch==7.7.0
 alembic==1.4.2
 appdirs==1.4.3
 attrs==19.3.0

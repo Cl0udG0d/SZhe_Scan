@@ -25,18 +25,20 @@ class rap_interface_struts_exec_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"Active Internet connections" in req.text:
                 cprint("[+]存在rap接口struts 命令执行漏洞...(高危)\tpayload: "+vulnurl+"\t[Linux]", "red")
-
+                return True, vulnurl, "RAP接口平台struts远程代码执行", payload, req.text
             elif r"Active Connections" in req.text or r"活动连接" in req.text:
                 cprint("[+]存在rap接口struts 命令执行漏洞...(高危)\tpayload: "+vulnurl+"\t[Windows]", "red")
-
+                return True, vulnurl, "RAP接口平台struts远程代码执行", payload, req.text
             elif r"LISTEN" in req.text:
                 cprint("[+]可能存在rap接口struts 命令执行漏洞...(高危)\tpayload: "+vulnurl, "red")
-
+                return True, vulnurl, "RAP接口平台struts远程代码执行", payload, req.text
             else:
                 cprint("[-]不存在rap_interface_struts_exec漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

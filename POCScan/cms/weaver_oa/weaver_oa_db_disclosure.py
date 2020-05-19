@@ -28,9 +28,11 @@ class weaver_oa_db_disclosure_BaseVerify:
                 cprint("[+]存在泛微OA 数据库配置泄露漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在weaver_oa_db_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

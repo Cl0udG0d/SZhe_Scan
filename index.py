@@ -10,6 +10,9 @@ from SZheConsole import SZheConsole
 
 executor = ThreadPoolExecutor()
 
+'''
+    输入的url格式应该为:www.baidu.com或者127.0.0.1形式
+'''
 @app.route('/<int:page>',methods=['GET'])
 @app.route('/')
 # @login_required

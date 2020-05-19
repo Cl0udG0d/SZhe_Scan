@@ -27,11 +27,14 @@ class foosun_City_ajax_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
                 cprint("[+]存在Dotnetcms(风讯cms)SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True,vulnurl,"Dotnetcms(风讯cms)SQL注入漏洞",payload,req.text
             else:
                 cprint("[-]不存在foosun_City_ajax_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

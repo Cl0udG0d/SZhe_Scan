@@ -27,9 +27,11 @@ class shop360_do_filedownload_BaseVerify:
                 cprint("[+]存在启博淘店通标准版任意文件遍历漏洞...(高危)\tpayload: "+vulnurl, "red")
             else:
                 cprint("[-]不存在shop360_do_filedownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

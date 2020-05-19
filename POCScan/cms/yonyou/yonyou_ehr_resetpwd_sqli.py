@@ -37,9 +37,11 @@ class yonyou_ehr_resetpwd_sqli_BaseVerify:
 
             else:
                 cprint("[-]不存在yonyou_ehr_resetpwd_sqli漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
