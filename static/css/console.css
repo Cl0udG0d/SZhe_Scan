@@ -121,10 +121,10 @@
 .features p {
   color: #2e2e2e;
 }
-.features p {
+/* .features h5 {
   font-weight: 550;
   font-size: 16px;
-}
+} */
 
 .feature {
   position: relative;
@@ -165,10 +165,13 @@
   font-weight: 600;
 }
 
-.feature p {
+.feature h5 {
   position: absolute;
-  top: 60px;
-  left: 130px;
+  top: 70px;
+  left: 110px;
+  font-size: 16px;
+  color: #2e2e2e;
+  font-weight: 500;
 }
 .contents {
   flex: 1;
@@ -195,6 +198,7 @@
   border-radius: 4px;
   box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.06);
   position: relative;
+  color: #2e2e2e;
 }
 .content i {
   flex: 1;
@@ -217,7 +221,10 @@
 .content h5 {
   position: absolute;
   left: 120px;
-  top: 60px;
+  top: 68px;
+  color: #2e2e2e;
+  font-size: 14px;
+  font-weight: 500;
 }
 .content-mid {
   display: flex;
