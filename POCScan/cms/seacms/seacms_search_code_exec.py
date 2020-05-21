@@ -25,6 +25,7 @@ class seacms_search_code_exec_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"Configuration File (php.ini) Path" in req.text:
                 cprint("[+]存在seacms search.php代码注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "seacms search.php 代码执行", str(payload), req.text
             else:
                 cprint("[-]不存在seacms_search_code_exec漏洞", "white", "on_grey")
                 return False, None, None, None, None

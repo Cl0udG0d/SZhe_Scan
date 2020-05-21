@@ -25,6 +25,7 @@ class weway_PictureView1_filedownload_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml":
                 cprint("[+]存在任我行crm任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "任我行crm任意文件下载", str(payload), req.text
             else:
                 cprint("[-]不存在weway_PictureView1_filedownload漏洞", "white", "on_grey")
                 return False, None, None, None, None

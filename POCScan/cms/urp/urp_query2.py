@@ -23,6 +23,7 @@ class urp_query2_BaseVerify:
 
             if r"jmglAction.do" in req.text:
                 cprint("[+]存在URP越权查看任意学生课表、成绩(需登录)漏洞...(中危)\tpayload: "+vulnurl, "yellow")
+                return True, vulnurl, "URP越权查看任意学生课表、成绩(需登录)", str(payload), req.text
             else:
                 cprint("[-]不存在urp_query2漏洞", "white", "on_grey")
                 return False, None, None, None, None

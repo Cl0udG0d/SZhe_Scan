@@ -40,6 +40,7 @@ class zfsoft_database_control_BaseVerify:
             s.settimeout(6)
             s.connect((host, port))
             cprint("[+]存在正方教务系统数据库任意操纵漏洞...(高危)\tpayload: "+host+":"+str(port), "red")
+            return True, str(self.url)+":"+str(port), "正方教务系统数据库任意操纵", str(self.url)+":"+str(port), "正方教务系统数据库任意操纵"
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")

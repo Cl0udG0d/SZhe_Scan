@@ -26,6 +26,7 @@ class shopex_phpinfo_disclosure_BaseVerify:
 
             if r"Configuration File (php.ini) Path" in req.text:
                 cprint("[+]存在shopex敏感信息泄露...(敏感信息)\tpayload: "+vulnurl, "green")
+                return True, vulnurl, "shopex敏感信息泄露", str(payload), req.text
             else:
                 cprint("[-]不存在shopex_phpinfo_disclosure漏洞", "white", "on_grey")
                 return False, None, None, None, None

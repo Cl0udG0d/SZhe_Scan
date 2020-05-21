@@ -25,6 +25,7 @@ class trs_ids_auth_disclosure_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"JavaHome" in req.text and r"java.runtime.name" in req.text and r"java.vm.version" in req.text:
                 cprint("[+]存在TRS ids身份认证信息泄露漏洞...(中危)\tpayload: "+vulnurl, "yellow")
+                return True, vulnurl, "TRS ids身份认证信息泄露", str(payload), req.text
             else:
                 cprint("[-]不存在trs_ids_auth_disclosure漏洞", "white", "on_grey")
                 return False, None, None, None, None

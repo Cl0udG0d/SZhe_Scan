@@ -32,6 +32,7 @@ class trs_wcm_default_user_BaseVerify:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"WCM IMPORTS BEGIN" in req.text and r"main.jsp" in req.text:
                 cprint("[+]存在TRS wcm系统默认账户漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True, vulnurl, "TRS wcm系统默认账户漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在trs_wcm_default_user漏洞", "white", "on_grey")
                 return False, None, None, None, None

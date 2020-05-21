@@ -25,6 +25,7 @@ class trs_was40_passwd_disclosure_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 200 and r"userPassword" in req.text and r"domodifypassword.jsp" in req.text:
                 cprint("[+]存在TRS was40 passwd.htm页面泄露...(中危)\tpayload: "+vulnurl, "yellow")
+                return True, vulnurl, "TRS was40 passwd.htm页面泄露", str(payload), req.text
             else:
                 cprint("[-]不存在trs_was40_passwd_disclosure漏洞", "white", "on_grey")
                 return False, None, None, None, None

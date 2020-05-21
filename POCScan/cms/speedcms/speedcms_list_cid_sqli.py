@@ -25,6 +25,7 @@ class speedcms_list_cid_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"qpxjq1qkbjq" in req.text:
                 cprint("[+]存在speedcms list文件参数cid SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "speedcms list文件参数cid SQL注入", str(payload), req.text
             else:
                 cprint("[-]不存在speedcms_list_cid_sqli漏洞", "white", "on_grey")
                 return False, None, None, None, None

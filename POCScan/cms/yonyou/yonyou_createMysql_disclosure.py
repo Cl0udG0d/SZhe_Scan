@@ -27,6 +27,7 @@ class yonyou_createMysql_disclosure_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"root" in req.text or r"localhost" in req.text:
                     cprint("[+]存在用友致远A6协同系统数据库账号泄露...(高危)\tpayload: "+vulnurl, "red")
+                    return True, vulnurl, "用友致远A6协同系统数据库账号泄露", payload, req.text
                 else:
                     cprint("[-]不存在yonyou_createMysql_disclosure漏洞", "white", "on_grey")
                     return False, None, None, None, None

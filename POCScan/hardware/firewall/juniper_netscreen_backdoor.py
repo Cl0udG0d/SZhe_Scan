@@ -44,10 +44,12 @@ class juniper_netscreen_backdoor_BaseVerify:
             s.prompt()
             if s.before.find(b'Interfaces')  is not -1:
                 cprint("[+]存在juniper NetScreen防火墙后门(CVE-2015-7755)漏洞...(高危)\tpayload: "+host+":"+str(port)+" "+user+":"+password, "red")
-    
+                return True, self.url, "juniper NetScreen防火墙后门(CVE-2015-7755)", host+":"+str(port)+" "+user+":"+password, "存在juniper NetScreen防火墙后门(CVE-2015-7755)漏洞...(高危)"
             s.logout()
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
+        return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

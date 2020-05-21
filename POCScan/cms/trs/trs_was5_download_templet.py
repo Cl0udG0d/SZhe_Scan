@@ -25,6 +25,7 @@ class trs_was5_download_templet_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"x-zip-compressed" in req.headers["Content-Type"]:
                 cprint("[+]存在TRS was5 download_templet.jsp任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "TRS was5 download_templet.jsp任意文件下载", str(payload), req.text
             else:
                 cprint("[-]不存在trs_was5_download_templet漏洞", "white", "on_grey")
                 return False, None, None, None, None

@@ -39,6 +39,7 @@ class wordpress_restapi_sqli_BaseVerify:
             status = d['data']['status']
             if status != 401 and status != 400:
                 cprint("[+]存在wordpress rest api权限失效导致内容注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "wordpress rest api权限失效导致内容注入", payload, req.text
 
             else:
                 cprint("[-]不存在wordpress_restapi_sqli漏洞", "white", "on_grey")

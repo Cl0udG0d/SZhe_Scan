@@ -25,6 +25,7 @@ class yonyou_cm_info_content_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"BBBMicrosoft" in req.text:
                 cprint("[+]存在用友GRP-U8 sql注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "用友GRP-U8 sql注入漏洞", payload, req.text
             else:
                 cprint("[-]不存在yonyou_cm_info_content_sqli漏洞", "white", "on_grey")
                 return False, None, None, None, None

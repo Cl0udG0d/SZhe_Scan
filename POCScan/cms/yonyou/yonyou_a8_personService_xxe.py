@@ -38,6 +38,7 @@ class yonyou_a8_personService_xxe_BaseVerify:
             reqr = requests.get(eye_url, timeout=10, verify=False)
             if md5_str in reqr.text:
                 cprint("[+]存在用友致远A8协同系统 Blind XML实体注入漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True, vulnurl, "用友致远A8协同系统 Blind XML实体注入", payload, req.text
             else:
                 cprint("[-]不存在yonyou_a8_personService_xxe漏洞", "white", "on_grey")
                 return False, None, None, None, None

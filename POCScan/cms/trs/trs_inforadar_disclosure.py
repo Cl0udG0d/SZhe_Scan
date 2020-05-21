@@ -25,6 +25,7 @@ class trs_inforadar_disclosure_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"java.beans.XMLDecoder" in req.text and r"property" in req.text:
                 cprint("[+]存在TRS网络信息雷达4.6系统敏感信息泄漏漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "TRS网络信息雷达4.6系统敏感信息泄漏到进后台", str(payload), req.text
             else:
                 cprint("[-]不存在trs_inforadar_disclosure漏洞", "white", "on_grey")
                 return False, None, None, None, None

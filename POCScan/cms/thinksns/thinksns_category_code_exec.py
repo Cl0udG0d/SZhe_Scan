@@ -25,6 +25,7 @@ class thinksns_category_code_exec_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"Configuration File (php.ini) Path" in req.text:
                 cprint("[+]存在thinksns category模块代码执行漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "thinksns category模块代码执行", str(payload), req.text
             else:
                 cprint("[-]不存在thinksns_category_code_exec漏洞", "white", "on_grey")
                 return False, None, None, None, None

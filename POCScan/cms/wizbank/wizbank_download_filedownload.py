@@ -23,6 +23,7 @@ class wizbank_download_filedownload_BaseVerify():
 
             if req.headers["Content-Type"] == "application/xml":
                 cprint("[+]存在wizbank学习管理系统任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "汇思学习管理系统任意文件下载", payload, req.text
             else:
                 cprint("[-]不存在wizbank_download_filedownload漏洞", "white", "on_grey")
                 return False, None, None, None, None

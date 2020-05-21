@@ -23,6 +23,7 @@ class urp_query_BaseVerify:
 
             if r"成绩单" in req.text:
                 cprint("[+]存在urp查询接口曝露漏洞...(中危)\tpayload: "+vulnurl, "yellow")
+                return True, vulnurl, "urp查询接口曝露", str(payload), req.text
             else:
                 cprint("[-]不存在urp_query漏洞", "white", "on_grey")
                 return False, None, None, None, None

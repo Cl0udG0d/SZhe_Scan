@@ -23,6 +23,7 @@ class thinkphp_code_exec_BaseVerify:
 
             if r"Configuration File (php.ini) Path" in req.text:
                 cprint("[+]存在ThinkPHP 代码执行漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "ThinkPHP 代码执行漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在thinkphp_code_exec漏洞", "white", "on_grey")
                 return False, None, None, None, None

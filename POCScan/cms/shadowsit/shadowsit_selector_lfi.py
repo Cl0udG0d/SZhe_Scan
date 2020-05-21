@@ -25,6 +25,7 @@ class shadowsit_selector_lfi_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"$DB_site" in req.text:
                 cprint("[+]存在Shadows-IT selector.php 任意文件包含漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "Shadows-IT selector.php 任意文件包含", str(payload), req.text
             else:
                 cprint("[-]不存在shadowsit_selector_lfi漏洞", "white", "on_grey")
                 return False, None, None, None, None

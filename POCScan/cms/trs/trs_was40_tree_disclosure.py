@@ -25,6 +25,7 @@ class trs_was40_tree_disclosure_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.status_code == 200 and r"tree?treekind=navigate" in req.text and r"administrator" in req.text:
                 cprint("[+]存在TRS was40 tree导航树泄露漏洞...(低危)\tpayload: "+vulnurl, "green")
+                return True, vulnurl, "TRS was40 tree导航树泄露", str(payload), req.text
             else:
                 cprint("[-]不存在trs_was40_tree_disclosure漏洞", "white", "on_grey")
                 return False, None, None, None, None

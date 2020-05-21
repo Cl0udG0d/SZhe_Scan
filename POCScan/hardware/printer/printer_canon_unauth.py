@@ -26,11 +26,14 @@ class printer_canon_unauth_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"media/b_ok.gif" in req.text and r"_top.htm" in req.text:
                 cprint("[+]存在佳能打印机未授权漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "佳能打印机未授权漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在printer_canon_unauth漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

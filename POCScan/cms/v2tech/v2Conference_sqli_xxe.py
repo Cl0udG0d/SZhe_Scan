@@ -26,6 +26,7 @@ class v2Conference_sqli_xxe_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在V2 ConferenceSQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "V2视频会议系统某处SQL注射、XXE漏洞(可getshell)", vulnurl, req.text
             else:
                 cprint("[-]不存在v2Conference_sqli_xxe漏洞", "white", "on_grey")
                 return False, None, None, None, None

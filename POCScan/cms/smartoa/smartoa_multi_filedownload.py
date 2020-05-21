@@ -25,7 +25,7 @@ class smartoa_multi_filedownload_BaseVerify:
                 req = requests.get(vulnurl, timeout=10, verify=False)
                 if req.headers["Content-Type"] == "application/xml":
                     cprint("[+]存在smartoa任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "smartoa 多处任意文件下载漏洞", str(payload), req.text
             if noexist:
                 cprint("[-]不存在smartoa_multi_filedownload漏洞", "white", "on_grey")
                 return False, None, None, None, None

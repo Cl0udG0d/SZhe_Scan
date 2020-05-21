@@ -26,11 +26,14 @@ class camera_hikvision_web_weak_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"<statusValue>200" in req.text and r"<statusString>OK" in req.text:
                 cprint("[+]存在康威视web弱口令漏洞...(高危)\tpayload: "+vulnurl+"\tadmin:12345", "red")
+                return True, vulnurl, "海康威视web弱口令", payload, req.text
             else:
                 cprint("[-]不存在camera_hikvision_web_weak漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

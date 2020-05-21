@@ -25,6 +25,7 @@ class wordpress_display_widgets_backdoor_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False, allow_redirects=False)
             if req.status_code == 200:
                 cprint("[+]存在wordpress display-widgets插件后门漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "wordpress display-widgets插件后门漏洞", payload, req.text
             else:
                 cprint("[-]不存在wordpress_display_widgets_backdoor漏洞", "white", "on_grey")
                 return False, None, None, None, None

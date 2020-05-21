@@ -34,6 +34,7 @@ class zfsoft_default3_bruteforce_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"__VIEWSTATEGENERATOR" in req.text and r"CheckCode.aspx" not in req.text and req.status_code ==200:
                 cprint("[+]存在正方教务系统default3.aspx爆破页面...(敏感信息)\tpayload: "+vulnurl, "green")
+                return True, vulnurl, "正方教务系统default3.aspx爆破页面", vulnurl, req.text
             else:
                 cprint("[-]不存在zfsoft_default3_bruteforce漏洞", "white", "on_grey")
                 return False, None, None, None, None

