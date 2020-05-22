@@ -26,8 +26,8 @@ def run(url,port):
     status,text=islive(url,port)
     if status!=404:
         u='http://' + str(url)+':'+str(port)+'/ws_utc/resources/setting/options/general'
-        return True,u,"weblogic has a JAVA deserialization vulnerability:CVE-2018-2894",text
-    return False,None
+        return True, u, "CVE_2018_2894", text
+    return False,None,None,None
 
 if __name__=="__main__":
     url = sys.argv[1]

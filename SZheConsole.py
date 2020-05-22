@@ -49,6 +49,8 @@ def SZheScan(url):
         pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
         if pattern.findall(url) and ":" in url:
             infourl=url.strip(":")[0]
+        else:
+            infourl=url
         if pattern.findall(url):
             boolcheck = True
             ipinfo = IPMessage(infourl)
@@ -59,6 +61,7 @@ def SZheScan(url):
             info = BaseInfo(url=url, boolcheck=boolcheck, status=baseinfo.GetStatus(), title=baseinfo.GetTitle(),
                             date=baseinfo.GetDate(), responseheader=baseinfo.GetResponseHeader(),
                             Server=baseinfo.GetFinger(), portserver=baseinfo.PortScan(), sendir=baseinfo.SenDir())
+            info.WebLogicScan()
             db.session.add(info)
             db.session.flush()
             if boolcheck:

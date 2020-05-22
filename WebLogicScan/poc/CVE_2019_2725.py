@@ -106,11 +106,11 @@ def run(dip,dport):
     dport=int(dport)
     ip = "http://{}:{}".format(dip, dport)
     if weblogic_10_3_6(ip)[0]==200:
-        return True,ip,"weblogic has a JAVA deserialization vulnerability:CVE-2019-2725",'Your current permission is:{}'.format(weblogic_10_3_6(ip)[1].replace('whoami : \r\n',''))
+        return True, ip, "CVE_2019_2725", 'Your current permission is:{}'.format(weblogic_10_3_6(ip)[1].replace('whoami : \r\n',''))
     elif weblogic_12_1_3(ip)[0]==200:
-        return True, ip, "weblogic has a JAVA deserialization vulnerability:CVE-2019-2725",'Your current permission is:{}'.format(weblogic_12_1_3(ip)[1].replace('whoami : \r\n', ''))
+        return True, ip, "CVE_2019_2725", 'Your current permission is:{}'.format(weblogic_12_1_3(ip)[1].replace('whoami : \r\n', ''))
     else:
-        return False,None
+        return False,None,None,None
 
 
 

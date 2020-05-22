@@ -24,8 +24,8 @@ def run(url,port):
     status,text=islive(url,port)
     if status==200:
         u='http://' + str(url)+':'+str(port)+'/console/login/LoginForm.jsp'
-        return True,u,"Weblogic console address is exposed!try weak password blasting!",text
-    return False,None
+        return True, u, "Console_path", u, text
+    return False,None,None,None
 
 if __name__=="__main__":
     url = sys.argv[1]

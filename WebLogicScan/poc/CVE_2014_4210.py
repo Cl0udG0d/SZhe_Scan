@@ -25,8 +25,8 @@ def run(url,port):
     status, text = islive(url, port)
     if status==200:
         u='http://' + str(url)+':'+str(port)+'/uddiexplorer/'
-        return True,u,"Weblogic UDDI module is exposed! verify the SSRF vulnerability",text
-    return False,None
+        return True, u, "CVE_2014_4210", u, text
+    return False,None,None,None
 
 if __name__=="__main__":
     url = sys.argv[1]

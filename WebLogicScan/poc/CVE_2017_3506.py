@@ -56,8 +56,8 @@ def poc(url):
         response = ""
 
     if '<faultstring>java.lang.ProcessBuilder' in response or "<faultstring>0" in response:
-        return True,url,"weblogic has a JAVA deserialization vulnerability:CVE-2017-3506",response
-    return False,None
+        return True, url, "CVE_2017_3506", response
+    return False,None,None,None
 
 
 def run(rip,rport):

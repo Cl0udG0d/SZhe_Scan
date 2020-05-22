@@ -6,7 +6,10 @@ from Wappalyzer import WebPage
 import get_message
 import ImportToRedis
 import redis
-
+from WebLogicScan import WebLogicScan
+from init import app,redispool
+from exts import db
+from models import BugList
 
 '''
 获取输入网址基础信息:
@@ -66,6 +69,18 @@ class GetBaseMessage():
 
     def SenDir(self):
         return get_message.SenFileScan(self.domain, self.redispool)
+
+    def WebLogicScan(self):
+        results=WebLogicScan.run(self.domain)
+        with app.app_context():
+            for result in results:
+                vulnerable, bugurl, bugname, bugdetail = result
+                if vulnerable:
+                    bug = BugList(oldurl=self.domain, bugurl=bugurl, bugname=bugname,
+                                  buggrade=redispool.hget('bugtype', bugname),
+                                  payload=bugurl, bugdetail=bugdetail)
+                    db.session.add(bug)
+            db.session.commit()
 
 
 if __name__=='__main__':

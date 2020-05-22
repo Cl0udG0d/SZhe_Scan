@@ -57,8 +57,8 @@ def run(rip,rport,index=0):
     rs=sendEvilObjData(sock,PAYLOAD[index])
     p=re.findall(VER_SIG[index], rs, re.S)
     if len(p)>0:
-        return True,str(rip)+":"+str(rport),"weblogic has a JAVA deserialization vulnerability:CVE-2016-3510","weblogic has a JAVA deserialization vulnerability:CVE-2016-3510"
-    return False,None
+        return True, str(rip)+":"+str(rport), "CVE_2016_3510", "weblogic has a JAVA deserialization vulnerability:CVE-2016-3510"
+    return False,None,None,None
 
 if __name__=="__main__":
     dip = sys.argv[1]
