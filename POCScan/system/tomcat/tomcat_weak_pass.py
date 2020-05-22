@@ -33,9 +33,11 @@ class tomcat_weak_pass_BaseVerify:
                     req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                     if req.status_code == 200 and r"Applications" in req.text and r"Manager" in req.text:
                         cprint("[+]存在Tomcat 弱口令漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps({username:password}, indent=4), "red")
-
+                        return True, vulnurl, "Tomcat 弱口令漏洞", str(payload), req.text
                 except:
                     cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+                    return False, None, None, None, None
+                return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

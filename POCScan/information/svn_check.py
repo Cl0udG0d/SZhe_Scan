@@ -31,10 +31,9 @@ class svn_check_BaseVerify:
                     match = len(pattern.search(content).group(0))
                     if req.status_code == 200 and match > 0:
                         return True,vulnurl,"svn源码泄露扫描",payload,req.text
-                        break
                     else:
-                        return False, None, None, None, None
                         cprint("[-]不存在svn_check漏洞", "white", "on_grey")
+                        return False, None, None, None, None
             except:
                 return False, None, None, None, None
         except:

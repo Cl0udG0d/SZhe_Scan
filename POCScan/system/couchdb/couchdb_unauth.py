@@ -29,11 +29,14 @@ class couchdb_unauth_BaseVerify:
             req2 = requests.get(vulnurl, headers=headers, timeout=6, verify=False)
             if r"itestvuls" in req2.text:
                 cprint("[+]存在CouchDB 未授权漏洞...(高危)\tpayload: "+vulnurl+"\t创建数据库itestvuls", "red")
+                return True, vulnurl, "CouchDB 未授权漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在couchdb_unauth漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -56,11 +56,14 @@ class iis_webdav_rce_BaseVerify:
             sock.close()
             if not -1 == data.find('HHIT CVE-2017-7269 Success'):
                 cprint("[+]存在IIS 6.0 webdav远程代码执行漏洞(CVE-2017-7269)...(高危)\tpayload: "+host+":"+str(port), "red")
+                return True, self.url, "IIS 6.0 webdav远程代码执行漏洞(CVE-2017-7269)", host+":"+str(port), "存在IIS 6.0 webdav远程代码执行漏洞(CVE-2017-7269)...(高危)"
             else:
                 cprint("[-]不存在iis_webdav_rce漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

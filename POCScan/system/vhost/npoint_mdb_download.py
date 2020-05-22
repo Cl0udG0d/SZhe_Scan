@@ -25,11 +25,14 @@ class npoint_mdb_download_BaseVerify:
             req = requests.head(vulnurl, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/x-msaccess":
                 cprint("[+]存在N点虚拟主机管理系统数据库下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "N点虚拟主机管理系统V1.9.6版数据库下载漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在npoint_mdb_download漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

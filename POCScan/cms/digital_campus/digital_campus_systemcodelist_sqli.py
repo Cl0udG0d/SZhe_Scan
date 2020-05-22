@@ -36,7 +36,7 @@ class digital_campus_systemcodelist_sqli_BaseVerify:
         if r"DayNum" in reqlst[0] and r"DayNum" in reqlst[1]:
             if len(reqlst[0]) != len(reqlst[1]):
                 cprint("[+]存在Digital-Campus数字校园平台SQL注入漏洞...(高危)\t\tpayload: "+vulnurl, "red")
-                return True,vulnurl,"Digital-Campus2.0数字校园平台Sql注射",payload,req.text
+                return True,vulnurl,"Digital-Campus2.0数字校园平台Sql注射",str(payloads),"存在Digital-Campus数字校园平台SQL注入漏洞...(高危)"
             else:
                 cprint("[-]不存在digital_campus_systemcodelist_sqli漏洞", "white", "on_grey")
 

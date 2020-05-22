@@ -40,6 +40,7 @@ class wizbank_usr_id_sqli_BaseVerify:
             else:
                 cprint("[-]不存在wizbank_usr_id_sqli漏洞", "white", "on_grey")
                 return False, None, None, None, None
+        return False, None, None, None, None
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
     testVuln = wizbank_usr_id_sqli_BaseVerify(sys.argv[1])

@@ -45,11 +45,14 @@ class zookeeper_unauth_BaseVerify:
             data = s.recv(1024).decode()
             if r"Environment" in data and r"zookeeper" in data:
                 cprint("[+]存在zookeeper 未授权漏洞...(高危)\tpayload: "+host+":"+str(port), "red")
+                return True, self.url, "zookeeper 未授权漏洞", host+":"+str(port), "存在zookeeper 未授权漏洞...(高危)"
             else:
                 cprint("[-]不存在zookeeper_unauth漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

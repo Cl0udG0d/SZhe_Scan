@@ -26,11 +26,14 @@ class dfe_scada_conf_disclosure_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"productName" in req.text and r"adminPassword" in req.text:
                 cprint("[+]存在东方电子SCADA通用系统信息泄露漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "东方电子SCADA通用系统信息泄露", str(payload), req.text
             else:
                 cprint("[-]不存在dfe_scada_conf_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

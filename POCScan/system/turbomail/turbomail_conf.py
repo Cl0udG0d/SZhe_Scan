@@ -46,11 +46,14 @@ class turbomail_conf_BaseVerify:
             tlib.close()
             if result.find(b"200 login successfully") is not -1:
                 cprint("[+]存在TurboMail 默认口令漏洞...(高危)\tpayload: "+host+":"+str(port)+" admin:admin321", "red")
+                return True, self.url, "TurboMail设计缺陷以及默认配置漏洞", host+":"+str(port)+" admin:admin321", "存在TurboMail 默认口令漏洞...(高危)"
             else:
                 cprint("[-]不存在turbomail_conf漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

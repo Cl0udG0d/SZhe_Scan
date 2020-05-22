@@ -41,12 +41,15 @@ class mongodb_unauth_BaseVerify:
             ok = mongo.server_info()['ok']
             if version is not None and ok is not None:
                 cprint("[+]存在mongodb 未授权漏洞...(高危)\tpayload: "+host+":"+str(port), "red")
+                return True, self.url, "mongodb 未授权漏洞", host+":"+str(port), "存在mongodb 未授权漏洞...(高危)"
             else:
                 cprint("[-]不存在mongodb_unauth漏洞", "white", "on_grey")
             mongo.close()
+            return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

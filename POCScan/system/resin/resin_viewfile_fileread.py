@@ -32,12 +32,14 @@ class resin_viewfile_fileread_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"resin-doc" in req.text and r"caucho.server" in req.text:
                     cprint("[+]存在resin viewfile 任意文件读取漏洞...(高危)\tpayload: "+vulnurl, "red")
-                    noexist = False
+                    return True, vulnurl, "resin viewfile 任意文件读取", str(payload), req.text
             if noexist:
                 cprint("[-]不存在resin_viewfile_fileread漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

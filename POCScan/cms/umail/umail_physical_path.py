@@ -38,7 +38,7 @@ class umail_physical_path_BaseVerify:
         path = self.get_path()
         if path != False:
             cprint("[+]存在umail物理路径泄露...(敏感信息)\t真实路径: "+path, "green")
-            return True, self.url, "umail物理路径泄露", self.url, path
+            return True, self.url, "umail物理路径泄露", path, "存在umail物理路径泄露...(敏感信息)"
         return False, None, None, None, None
 
 

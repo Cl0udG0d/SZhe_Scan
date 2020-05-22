@@ -45,7 +45,6 @@ class zfsoft_database_control_BaseVerify:
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
-        return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

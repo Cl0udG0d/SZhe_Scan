@@ -122,11 +122,10 @@ class live800_sta_export_sqli_BaseVerify:
                 return True, vulnurl, "live800在线客服系统多处SQL注入/GETSHELL漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在live800_sta_export_sqli漏洞", "white", "on_grey")
-
+                return False, None, None, None, None
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
-
-        return False, None, None, None, None
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

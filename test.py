@@ -1,3 +1,3 @@
 from POCScan.selfpocscan import  *
 
-AngelSwordMain("blog.csdn.net","https://blog.csdn.net/")
+AngelSwordMain("127.0.0.1","http://127.0.0.1/phpmyadmin")

@@ -30,12 +30,14 @@ class hac_gateway_info_disclosure_BaseVerify:
                 req = requests.head(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"application/vnd.ms-excel" in req.headers["Content-Type"]:
                     cprint("[+]存在江南科友堡垒机信息泄露漏洞...(中危)\tpayload: "+vulnurl, "yellow")
-                    noexist = False
+                    return True, vulnurl, "江南科友堡垒机信息泄露", str(payload), req.text
             if noexist:
                 cprint("[-]不存在hac_gateway_info_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

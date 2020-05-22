@@ -43,11 +43,14 @@ class elasticsearch_unauth_BaseVerify:
             es = Elasticsearch([host], port=port, timeout=6)
             if es.ping():
                 cprint("[+]存在ElasticSearch未授权漏洞...(高危)\tpayload: "+host+":"+str(port), "red")
+                return True, self.url, "ElasticSearch未授权漏洞", host+":"+str(port),"存在ElasticSearch未授权漏洞...(高危)"
             else:
                 cprint("[-]不存在elasticsearch_unauth漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

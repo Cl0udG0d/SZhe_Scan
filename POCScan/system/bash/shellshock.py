@@ -29,11 +29,14 @@ class shellshock_BaseVerify:
 
             if r"Shellshock" in req.headers:
                 cprint("[+]存在shellshock漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "shellshock漏洞", str(payload), req.text
             else:
                 cprint("[-]不存在shellshock漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

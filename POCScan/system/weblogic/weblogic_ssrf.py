@@ -26,11 +26,14 @@ class weblogic_ssrf_BaseVerify:
 
             if r"weblogic.uddi.client.structures.exception.XML_SoapException" in req.text and r"IO Exception on sendMessage" not in req.text:
                 cprint("[+]存在weblogic SSRF漏洞...(中危)\tpayload: "+vulnurl, "yellow")
+                return True, vulnurl, "weblogic SSRF漏洞(CVE-2014-4210)", str(payload), req.text
             else:
                 cprint("[-]不存在weblogic_ssrf漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

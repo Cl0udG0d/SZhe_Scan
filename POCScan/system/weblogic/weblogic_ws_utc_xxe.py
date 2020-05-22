@@ -37,11 +37,14 @@ class weblogic_ws_utc_xxe_BaseVerify:
             reqr = requests.get(eye_url, headers=headers, timeout=10, verify=False)
             if md5_str in reqr.text:
                 cprint("[+]存在weblogic blind XXE漏洞(CVE-2018-3246)...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
+                return True, vulnurl, "weblogic blind XXE漏洞(CVE-2018-3246)", str(payload), req.text
             else:
                 cprint("[-]不存在weblogic_ws_utc_xxe漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

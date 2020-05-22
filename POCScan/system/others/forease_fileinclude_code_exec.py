@@ -26,11 +26,14 @@ class forease_fileinclude_code_exec_BaseVerify():
 
             if r"root:" in req.text and r"/bin/bash" in req.text:
                 cprint("[+]存在实易DNS管理系统文件包含漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "实易DNS管理系统文件包含至远程代码执行 ", str(payload), req.text
             else:
                 cprint("[-]不存在forease_fileinclude_code_exec漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

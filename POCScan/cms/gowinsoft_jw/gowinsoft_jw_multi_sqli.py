@@ -33,8 +33,8 @@ class gowinsoft_jw_multi_sqli_BaseVerify:
                 req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
                 if r"GAO JI@Microsoft" in req.text:
                     cprint("[+]存在金窗教务系统存在多处SQL注射漏洞...(高危)\tpayload: "+vulnurl, "red")
+
                     return True,vulnurl,"金窗教务系统存在多处SQL注射漏洞",payload,req.text
-                    noexist = False
             if noexist:
                 cprint("[-]不存在gowinsoft_jw_multi_sqli漏洞", "white", "on_grey")
                 return False, None, None, None, None

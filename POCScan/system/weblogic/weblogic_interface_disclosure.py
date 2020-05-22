@@ -26,11 +26,14 @@ class weblogic_interface_disclosure_BaseVerify:
 
             if req.status_code == 200:
                 cprint("[+]存在weblogic 接口泄露漏洞...(信息)\tpayload: "+vulnurl, "green")
+                return True, vulnurl, "weblogic 接口泄露", str(payload), req.text
             else:
                 cprint("[-]不存在weblogic_interface_disclosure漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

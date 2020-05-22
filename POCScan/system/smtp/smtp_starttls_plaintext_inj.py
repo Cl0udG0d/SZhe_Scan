@@ -45,11 +45,15 @@ class smtp_starttls_plaintext_inj_BaseVerify:
             s.close()
             if r"220 Ready to start TLS" in result:
                 cprint("[+]存在smtp starttls明文命令注入(CVE-2011-0411)漏洞...(中危)\tpayload: "+host+":"+str(port), "yellow")
+                return True, self.url, "smtp starttls明文命令注入(CVE-2011-0411)", host+":"+str(port), "存在smtp starttls明文命令注入(CVE-2011-0411)漏洞...(中危)"
+
             else:
                 cprint("[-]不存在smtp_starttls_plaintext_inj漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

