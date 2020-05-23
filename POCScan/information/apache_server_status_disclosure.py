@@ -8,8 +8,7 @@ description: apache的状态信息文件泄露。
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class apache_server_status_disclosure_BaseVerify:
     def __init__(self, url):
@@ -24,16 +23,12 @@ class apache_server_status_disclosure_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"Server uptime" in req.text and r"Server Status" in req.text and req.status_code==200:
-                cprint("[+]存在apache server-status信息泄露...(低危)\tpayload: "+vulnurl, "green")
                 return True,vulnurl,"apache server-status信息泄露",payload,req.text
             else:
-                cprint("[-]不存在apache_server_status_disclosure漏洞", "white", "on_grey")
                 return False,None,None,None,None
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = apache_server_status_disclosure_BaseVerify(sys.argv[1])
     testVuln.run()

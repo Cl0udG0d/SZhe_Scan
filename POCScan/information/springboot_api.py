@@ -8,8 +8,7 @@ description: SpringBoot默认API会暴露出敏感接口
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class springboot_api_BaseVerify:
     def __init__(self, url):
@@ -30,6 +29,5 @@ class springboot_api_BaseVerify:
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = springboot_api_BaseVerify(sys.argv[1])
     testVuln.run()

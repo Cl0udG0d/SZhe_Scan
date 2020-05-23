@@ -8,8 +8,6 @@ description: 海康威视摄像头web界面存在通用弱口令12345。
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
 
 class camera_hikvision_web_weak_BaseVerify:
     def __init__(self, url):
@@ -25,17 +23,13 @@ class camera_hikvision_web_weak_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"<statusValue>200" in req.text and r"<statusString>OK" in req.text:
-                cprint("[+]存在康威视web弱口令漏洞...(高危)\tpayload: "+vulnurl+"\tadmin:12345", "red")
                 return True, vulnurl, "海康威视web弱口令", payload, req.text
             else:
-                cprint("[-]不存在camera_hikvision_web_weak漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = camera_hikvision_web_weak_BaseVerify(sys.argv[1])
     testVuln.run()

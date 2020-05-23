@@ -8,8 +8,7 @@ description: crossdomain错误配置可导致。
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class crossdomain_find_BaseVerify:
     def __init__(self, url):
@@ -32,6 +31,5 @@ class crossdomain_find_BaseVerify:
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = crossdomain_find_BaseVerify(sys.argv[1])
     testVuln.run()

@@ -8,8 +8,7 @@ description: 默认配置不当/可远程查看打印记录并打印文件,可�
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class printer_xerox_default_pwd_BaseVerify:
     def __init__(self, url):
@@ -25,18 +24,14 @@ class printer_xerox_default_pwd_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"prconprhttp" in req.text and r"Fuji Xerox" in req.text:
-                cprint("[+]存在富士施乐打印机默认口令漏洞...(高危)\tpayload: "+vulnurl+"\t11111:x-admin", "red")
                 return True, vulnurl, "富士施乐打印机默认口令漏洞", str(payload), req.text
             else:
-                cprint("[-]不存在printer_xerox_default_pwd漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = printer_xerox_default_pwd_BaseVerify(sys.argv[1])
     testVuln.run()

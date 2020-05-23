@@ -8,8 +8,7 @@ description: 忘记了删除.git目录而导致的漏洞。
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class git_check_BaseVerify:
     def __init__(self, url):
@@ -31,6 +30,5 @@ class git_check_BaseVerify:
             return False, None, None, None, None
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = git_check_BaseVerify(sys.argv[1])
     testVuln.run()

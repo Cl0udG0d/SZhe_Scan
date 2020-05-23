@@ -9,8 +9,7 @@ description: 忘记了删除.svn目录而导致的漏洞。
 import re
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class svn_check_BaseVerify:
     def __init__(self, url):
@@ -32,7 +31,6 @@ class svn_check_BaseVerify:
                     if req.status_code == 200 and match > 0:
                         return True,vulnurl,"svn源码泄露扫描",payload,req.text
                     else:
-                        cprint("[-]不存在svn_check漏洞", "white", "on_grey")
                         return False, None, None, None, None
             except:
                 return False, None, None, None, None
@@ -41,6 +39,5 @@ class svn_check_BaseVerify:
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = svn_check_BaseVerify(sys.argv[1])
     testVuln.run()

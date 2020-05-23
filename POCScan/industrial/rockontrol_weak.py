@@ -9,8 +9,7 @@ description: 火力发电能耗监测弱口令。
 import sys
 import json
 import requests
-import warnings
-from termcolor import cprint
+
 
 class rockontrol_weak_BaseVerify:
     def __init__(self, url):
@@ -31,18 +30,14 @@ class rockontrol_weak_BaseVerify:
             sess = requests.Session()
             req = sess.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"resource.action" in req.text and r"authority.action" in req.text:
-                cprint("[+]存在火力发电能耗监测弱口令漏洞...(高危)\tpayload: "+vulnurl+"\tpost: "+json.dumps(post_data), "red")
                 return True, vulnurl, "火力发电能耗监测弱口令", str(payload), req.text
             else:
-                cprint("[-]不存在rockontrol_weak漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = rockontrol_weak_BaseVerify(sys.argv[1])
     testVuln.run()

@@ -8,8 +8,7 @@ description: 网站存在JetBrains系列IDE的工作区文件，可以泄露整�
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class jetbrains_ide_workspace_disclosure_BaseVerify:
     def __init__(self, url):
@@ -32,6 +31,5 @@ class jetbrains_ide_workspace_disclosure_BaseVerify:
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = jetbrains_ide_workspace_disclosure_BaseVerify(sys.argv[1])
     testVuln.run()

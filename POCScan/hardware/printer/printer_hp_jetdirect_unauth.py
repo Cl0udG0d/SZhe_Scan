@@ -7,9 +7,7 @@ author: Lucifer
 description: 惠普打印机默认开放23端口存在未授权访问。
 '''
 import sys
-import warnings
 import telnetlib
-from termcolor import cprint
 from urllib.parse import urlparse
 
 class printer_hp_jetdirect_unauth_BaseVerify:
@@ -45,18 +43,14 @@ class printer_hp_jetdirect_unauth_BaseVerify:
             result = tlib.read_until(b"zrinfo>", timeout=6)
             tlib.close()
             if result.find(b"Printer Telnet Configuration") is not -1 and result.find(b"IP Config Method") is not -1:
-                cprint("[+]存在惠普打印机telnet未授权访问漏洞...(高危)\tpayload: "+host+":"+str(port), "red")
                 return True, self.url, "惠普打印机telnet未授权访问", host+":"+str(port), "存在惠普打印机telnet未授权访问漏洞...(高危)"
             else:
-                cprint("[-]不存在printer_hp_jetdirect_unauth漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = printer_hp_jetdirect_unauth_BaseVerify(sys.argv[1])
     testVuln.run()

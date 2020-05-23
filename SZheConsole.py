@@ -62,6 +62,7 @@ def SZheScan(url):
                             date=baseinfo.GetDate(), responseheader=baseinfo.GetResponseHeader(),
                             Server=baseinfo.GetFinger(), portserver=baseinfo.PortScan(), sendir=baseinfo.SenDir())
             info.WebLogicScan()
+            info.AngelSwordMain()
             db.session.add(info)
             db.session.flush()
             if boolcheck:
