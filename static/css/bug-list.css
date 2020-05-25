@@ -354,7 +354,7 @@ header .burger {
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
   text-align: center;
-  box-shadow: 0 0px 6px rgb(168, 168, 168, 0.5);
+  /* box-shadow: 0 0px 6px rgb(168, 168, 168, 0.5); */
 }
 .statistic .h5 {
   flex: 1;

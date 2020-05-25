@@ -44,7 +44,7 @@ h1 {
   display: inline-block;
 }
 h1 a {
-  color: black;
+  color: #2e2e2e;
 }
 .container,
 .container .top {
@@ -54,7 +54,7 @@ h1 a {
   width: 100vw;
 }
 .container hr {
-  background-color: black;
+  background-color: #8b8b8b;
   border-style: none;
   font-size: 2px;
   /* font-weight: 700; */
@@ -81,6 +81,7 @@ h1 a {
 .userCenter li a:hover {
   /* color: #5352ed; */
   color: #0fbcf9;
+  /* color: #7342fa; */
 }
 .navigation {
   width: 100%;
@@ -89,7 +90,7 @@ h1 a {
   top: 55.7px;
   /* margin: 0 20px; */
   /* display: flex; */
-  left: -40px;
+  left: -50px;
   background-color: #f8f8ff;
   height: 50px;
   text-align: center;
@@ -123,6 +124,7 @@ h1 a {
   height: 5px;
   /* background-color: #5352ed; */
   background-color: #0fbcf9;
+  /* background-color: #7342fa; */
   border-radius: 4px;
   position: absolute;
   top: 42px;
@@ -213,6 +215,10 @@ h1 a {
 }
 .navigation ul .eight::after {
   content: "";
+  display: none;
+}
+.navigation ul .eight::after {
+  content: "";
   display: block;
   background-color: #0fbcf9;
   width: 100px;
@@ -237,6 +243,7 @@ h1 a {
   z-index: 1;
   transition: all ease, 0.3s;
 }
+
 /*新搜索框框*/
 .search-box {
   position: absolute;
@@ -270,6 +277,7 @@ h1 a {
 }
 
 .search-box .search-btn {
+  /* color: #7342fa; */
   color: #0fbcf9;
   float: right;
   width: 25px;
@@ -296,6 +304,14 @@ h1 a {
   transition: 0.4s;
   line-height: 25px;
   width: 0px;
+}
+
+/* i:hover {
+    /* color: #5352ed; */
+/* color: #0fbcf9; */
+/* } */
+header .burger {
+  display: none;
 }
 .title {
   width: 100vw;
