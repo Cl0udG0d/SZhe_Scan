@@ -46,5 +46,5 @@ class phpstudy_phpmyadmin_defaultpwd_BaseVerify:
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
-    testVuln = phpstudy_phpmyadmin_defaultpwd_BaseVerify(sys.argv[1])
+    testVuln = phpstudy_phpmyadmin_defaultpwd_BaseVerify("http://127.0.0.1")
     testVuln.run()

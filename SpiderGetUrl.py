@@ -54,7 +54,6 @@ def Spider(domain, redispool):
         for new_url in url_list:
             redispool.sadd("new_lists", new_url)
     except Exception as e:
-        print(e)
         pass
 
 

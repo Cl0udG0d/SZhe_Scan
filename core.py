@@ -1,12 +1,13 @@
 from changanya.simhash import Simhash
 import requests
-from fake_useragent import UserAgent
-
-ua = UserAgent()
+from init import redispool
+import random
 
 
 def GetHeaders():
-    return {'User-Agent': ua.random}
+    index=random.randint(0, redispool.llen('useragents'))
+    useragent = redispool.lindex('useragents',index)
+    return {'User-Agent': useragent}
 
 
 def gethtml(url, timeout=2):
@@ -90,5 +91,7 @@ def is_404(true_404_html, check_url_html):
 # print(is_404("https://www.baidu.com/search/error.html","https://www.baidu.com/xxxxxxxxxxxxxxxxxxxxxxxxxxxx"))
 
 if __name__ == '__main__':
-    html = gethtml("http://testphp.vulnweb.com:80/listproducts.php?cat=1'")
-    print(html)
+    # html = gethtml("http://testphp.vulnweb.com:80/listproducts.php?cat=1'")
+    # print(html)
+    for i in range(1000):
+        print(GetHeaders())

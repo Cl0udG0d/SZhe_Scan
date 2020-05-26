@@ -7,9 +7,10 @@ import get_message
 import ImportToRedis
 import redis
 from WebLogicScan import WebLogicScan
-from init import app,redispool
+from init import app
 from exts import db
 from models import BugList
+from init import redispool
 from POCScan import selfpocscan
 '''
 获取输入网址基础信息:
@@ -24,53 +25,48 @@ from POCScan import selfpocscan
 
 
 class GetBaseMessage():
-    def __init__(self, url, redispool):
+    def __init__(self, url, attackurl,rep):
         print("hi!")
         self.domain = url
         self.redispool = redispool
-        try:
-            if not (url.startswith("http://") or url.startswith("https://")):
-                self.url = "http://" + url
-            else:
-                self.url = url
-            self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=5, verify=False)
-        except:
-            self.rep = None
-            pass
-        if self.rep == None:
-            try:
-                self.url = "https://" + url
-                self.rep = requests.get(self.url, headers=core.GetHeaders(), timeout=5, verify=False)
-            except:
-                pass
+        self.url=attackurl
+        self.rep=rep
 
     def GetStatus(self):
+        print("status")
         return str(self.rep.status_code)
 
     def GetTitle(self):
+        print("title")
         if self.rep != None:
             return re.findall('<title>(.*?)</title>', self.rep.text)[0]
         return None
 
     def GetDate(self):
+        print("date")
         return str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
     def GetResponseHeader(self):
+        print("response")
         context=""
         for key, val in self.rep.headers.items():
             context += (key + ": " + val + "\r\n")
         return context
 
     def GetFinger(self):
+        print("finger")
         return WebPage(self.url, self.rep).info()
 
     def PortScan(self):
+        print("port")
         return get_message.PortScan(self.domain)
 
     def SenDir(self):
-        return get_message.SenFileScan(self.domain, self.redispool)
+        print("sendir")
+        return get_message.SenFileScan(self.domain,self.url)
 
     def WebLogicScan(self):
+        print("weblogic")
         results=WebLogicScan.run(self.domain)
         with app.app_context():
             for result in results:
@@ -83,7 +79,8 @@ class GetBaseMessage():
             db.session.commit()
 
     def AngelSwordMain(self):
-        selfpocscan.AngelSwordMain(self.domain,self.url)
+        print("angel")
+        selfpocscan.AngelSwordMain(self.url)
 
 
 
@@ -92,9 +89,9 @@ if __name__=='__main__':
     # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
     redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
     try:
-        test=GetBaseMessage("www.csdn.net",redispool)
-        test.AngelSwordMain()
-        # print(test.GetStatus())
+        test=GetBaseMessage("testphp.vulnweb.com",redispool)
+        # test.AngelSwordMain()
+        print(test.GetStatus())
         # print(test.GetTitle())
         # print(test.GetResponseHeader())
         # print(test.GetFinger())

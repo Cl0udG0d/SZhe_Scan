@@ -100,7 +100,7 @@ def PocS(rip,rport):
 
 def run(url):
     if ":" not in url:
-        return False
+        return [[False,None,None,None]]
     ip=url.split(":")[0]
     port=url.split(":")[1]
     return PocS(ip,port)

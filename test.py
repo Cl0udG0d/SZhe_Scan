@@ -1,3 +1,3 @@
 from POCScan.selfpocscan import  *
 
-AngelSwordMain("127.0.0.1","http://127.0.0.1/phpmyadmin")
+AngelSwordMain("http://39.99.162.116:8000/")

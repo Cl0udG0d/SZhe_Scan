@@ -211,7 +211,7 @@ def SubDomainBurst(true_domain,redispool):
     return "\n".join(list(filter(None, SubDomain)))
 
 
-def SenFileScan(domain, redispool):
+def SenFileScan(domain,url):
     """
     敏感文件、目录扫描
     字典：dict\SEN_scan.txt
@@ -222,8 +222,9 @@ def SenFileScan(domain, redispool):
     pools = 20
     urlList = []
     for i in range(0, redispool.llen("SenScan")):
-        url="http://{}/{}".format(domain, redispool.lindex("SenScan", i))
-        urlList.append(url)
+        suffix=redispool.lindex("SenScan", i)
+        senurl="{}/{}".format(url,suffix)
+        urlList.append(senurl)
     pool = ThreadPool(pools)
     SenFileMessage = pool.map(UrlRequest, urlList)
     pool.close()
@@ -233,10 +234,10 @@ def SenFileScan(domain, redispool):
             for url in SenFileMessage:
                 try:
                     rep = requests.get(url, headers=core.GetHeaders(), timeout=3, verify=False)
-                    bug = BugList(oldurl=domain, bugurl=url, bugname="SenDir",buggrade=redispool.hget('bugtype', "SenDir"),payload=url, bugdetail=rep.text)
+                    bug = BugList(oldurl=domain, bugurl=senurl, bugname="SenDir",buggrade=redispool.hget('bugtype', "SenDir"),payload=senurl, bugdetail=rep.text)
                     db.session.add(bug)
                 except Exception as e:
-                    print(e)
+                    # print(e)
                     pass
             db.session.commit()
     return "\n".join(list(filter(None, SenFileMessage)))
@@ -355,6 +356,7 @@ if __name__ == "__main__":
     # print(FindIpAdd('202.202.157.110'))
     # SubDomainBurst('baidu.com')
     # print(CScanConsole('202.202.157.110'))
-    print(SenFileScan("test.vulnweb.com",redispool))
+    # print(SenFileScan("test.vulnweb.com",redispool))
     # for i in list:
     #     print(i)
+    print(GetWhois("www.runoob.com"))

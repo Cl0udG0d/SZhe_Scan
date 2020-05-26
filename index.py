@@ -1,18 +1,56 @@
 # -*- coding:utf-8 -*-
 
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import  render_template, request, redirect, url_for, session, flash
 import uuid
 from models import User, Log, BaseInfo, InvitationCode,BugList,POC,IPInfo,DomainInfo
 from exts import db
 from init import app,redispool
-from concurrent.futures import ThreadPoolExecutor
+# from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 from SZheConsole import SZheConsole
+from POCScan import selfpocscan
+# executor = ThreadPoolExecutor()
+executor = ProcessPoolExecutor()
 
-executor = ThreadPoolExecutor()
+def AddPOC():
+    pocname=""
+    rule=""
+    expression=""
+    buggrade=""
+    redispool.hset('bugtype',pocname,buggrade)
+    poc = POC(name=pocname, rule=rule,expression=expression)
+    db.session.add(poc)
+    db.session.commit()
+
+
+def save_log(ip, email):
+    log = Log(ip=ip, email=email)
+    db.session.add(log)
+    db.session.commit()
+
+
+def validate(email, username, password1, password2):
+    user_email = User.query.filter(User.email == email).first()
+    user_name = User.query.filter(User.username == username).first()
+    if user_email:
+        return "邮箱已被注册"
+    elif len(username) < 4:
+        return "用户名长度至少四个字符"
+    elif user_name:
+        return "用户名已被注册"
+    elif len(password1) < 6:
+        return "密码长度至少6个字符"
+    elif password1 != password2:
+        return "两次密码输入不一致"
+    else:
+        return
+
 
 '''
     输入的url格式应该为:www.baidu.com或者127.0.0.1形式
 '''
+
+
 @app.route('/<int:page>',methods=['GET'])
 @app.route('/')
 # @login_required
@@ -24,20 +62,29 @@ def index(page=None):
     infos = paginate.items
     return render_template('homeOne.html', paginate=paginate, infos=infos)
 
+
 @app.route('/POCmanage')
+# @login_required
 def POCmanage():
     return render_template('pocmanage.html')
 
+
 @app.route('/setting')
+# @login_required
 def setting():
     return render_template('setting.html')
 
+
 @app.route('/editinfo')
+# @login_required
 def editinfo():
     return render_template('user-infor.html')
 
+
+
 @app.route('/domaindetail/<int:id>',methods=['GET'])
 @app.route('/domaindetail')
+# @login_required
 def domaindetail(id=None):
     if not id:
         baseinfo = BaseInfo.query.order_by(BaseInfo.id.desc()).first()
@@ -50,6 +97,7 @@ def domaindetail(id=None):
     buglist=BugList.query.filter(BugList.oldurl == baseinfo.url).all()
     return render_template('domain-detail.html',baseinfo=baseinfo,deepinfo=deepinfo,buglist=buglist)
 
+
 @app.route('/buglist/<int:page>',methods=['GET'])
 @app.route('/buglist')
 # @login_required
@@ -60,6 +108,7 @@ def buglist(page=None):
     paginate = BugList.query.order_by(BugList.id.desc()).paginate(page, per_page, error_out=False)
     bugs = paginate.items
     return render_template('bug-list.html', paginate=paginate, bugs=bugs)
+
 
 @app.route('/bugdetail/<int:id>',methods=['GET'])
 @app.route('/bugdetail')
@@ -74,6 +123,7 @@ def bugdetail(id=None):
 
 
 @app.route('/user', methods=['GET', 'POST'])
+# @login_required
 def user():
     allcode=InvitationCode.query.order_by(InvitationCode.id.desc()).limit(10).all()
     if request.method == 'GET':
@@ -81,12 +131,9 @@ def user():
     else:
         return render_template('user-center.html',allcode=allcode)
 
-@app.route('/testnav')
-def test_home():
-    return render_template('baseOne.html')
-
 
 @app.route('/test_console', methods=['GET', 'POST'])
+# @login_required
 def console():
     if request.method == 'GET':
         return render_template('console.html')
@@ -94,13 +141,6 @@ def console():
         urls = request.form.get('urls')
         executor.submit(SZheConsole, urls)
         return render_template('console.html')
-
-
-
-def save_log(ip, email):
-    log = Log(ip=ip, email=email)
-    db.session.add(log)
-    db.session.commit()
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -123,25 +163,9 @@ def login():
             return render_template('sign_in.html')
 
 
-def validate(email, username, password1, password2):
-    user_email = User.query.filter(User.email == email).first()
-    user_name = User.query.filter(User.username == username).first()
-    if user_email:
-        return "邮箱已被注册"
-    elif len(username) < 4:
-        return "用户名长度至少四个字符"
-    elif user_name:
-        return "用户名已被注册"
-    elif len(password1) < 6:
-        return "密码长度至少6个字符"
-    elif password1 != password2:
-        return "两次密码输入不一致"
-    else:
-        return
-
-
 # 生成邀请码
 @app.route('/GenInvitationCode', methods=['GET', 'POST'])
+# @login_required
 def GenInvitationCode():
     code = str(uuid.uuid1())
     Code = InvitationCode(code=code)
@@ -150,15 +174,6 @@ def GenInvitationCode():
     allcode=InvitationCode.query.order_by(InvitationCode.id.desc()).limit(10).all()
     return render_template("user-center.html", temp=Code.code,allcode=allcode)
 
-def AddPOC():
-    pocname=""
-    rule=""
-    expression=""
-    buggrade=""
-    redispool.hset('bugtype',pocname,buggrade)
-    poc = POC(name=pocname, rule=rule,expression=expression)
-    db.session.add(poc)
-    db.session.commit()
 
 @app.route('/regist/', methods=['GET', 'POST'])
 def regist():
@@ -199,21 +214,18 @@ def logout():
 
 
 @app.route('/about/')
+# @login_required
 def about():
     return render_template('about.html')
 
 
-
-
-# 日志每页显示30条
+# 日志每页显示38条
 @app.route('/log_detail/')
 @app.route('/log_detail/<int:page>', methods=['GET'])
 # @login_required
 def log_detail(page=None):
     if not page:
         page = 1
-    # page = int(request.args.get('page', 1))
-    # per_page = int(request.args.get('per_page', 2))
     per_page = 38
     paginate = Log.query.order_by(Log.date.desc()).paginate(page, per_page, error_out=False)
     logs = paginate.items
