@@ -43,7 +43,7 @@ class WebPage(object):
         self.apps = wappalyzer.analyze(self)
 
     def info(self):
-        return "\n".join(self.apps)
+        return " ".join(self.apps)
         # return {
         #     "apps": ';'.join(self.apps),
         #     # "title": self.title,

@@ -8,31 +8,55 @@ class DomainMessage:
         self.TrueDomain=self.domain.split('.',1)[1]
 
     def GetSubDomain(self):
-        print("get subdomain")
-        SubDomainBurst=get_message.SubDomainBurst(self.TrueDomain,self.redispool)
-        SubDomainOnline=get_message.GetSubDomain(self.domain)
-        SubDomain=SubDomainBurst+SubDomainOnline
-        return SubDomain
+        print("正在使用主动与被动方式获取目标子域名!")
+        try:
+            SubDomainBurst=get_message.SubDomainBurst(self.TrueDomain,self.redispool)
+            SubDomainOnline=get_message.GetSubDomain(self.domain)
+            SubDomain=SubDomainBurst+SubDomainOnline
+            return SubDomain
+        except Exception as e:
+            print(e)
+            return "None"
 
     def GetWhoisMessage(self):
-        print("get whois message")
-        return get_message.GetWhois(self.TrueDomain)
+        print("正在获取网站Whois信息!")
+        try:
+            return get_message.GetWhois(self.TrueDomain)
+        except Exception as e:
+            print(e)
+            return "None"
 
     def GetBindingIP(self):
-        print("get binding ip")
-        return get_message.GetBindingIP(self.domain)
+        print("正在获取域名历史解析记录 :D")
+        try:
+            return get_message.GetBindingIP(self.domain)
+        except Exception as e:
+            print(e)
+            return "None"
 
     def GetSiteStation(self):
-        print("get sitestation")
-        return get_message.GetSiteStation(self.domain)
+        print("正在进行旁站查询 :)")
+        try:
+            return get_message.GetSiteStation(self.domain)
+        except Exception as e:
+            print(e)
+            return "None"
 
     def GetRecordInfo(self):
-        print("get recordinfo")
-        return get_message.GetRecordInfo(self.domain)
+        print("正在获取域名的公开备案信息 :-)")
+        try:
+            return get_message.GetRecordInfo(self.domain)
+        except Exception as e:
+            print(e)
+            return "None"
 
     def FindDomainAdd(self):
-        print("find domain addr")
-        return get_message.FindDomainAdd(self.domain)
+        print("正在获取域名映射的真实地址!")
+        try:
+            return get_message.FindDomainAdd(self.domain)
+        except Exception as e:
+            print(e)
+            return "None"
 
 if __name__=='__main__':
     test=DomainMessage("www.runoob.com")

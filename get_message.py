@@ -229,13 +229,26 @@ def SenFileScan(domain,url):
     SenFileMessage = pool.map(UrlRequest, urlList)
     pool.close()
     pool.join()
+    url404="{}/springbird404page".format(url)
+    try:
+        rep404=requests.get(url404, headers=core.GetHeaders(), timeout=3, verify=False).text
+    except Exception as e:
+        print("超时")
+        rep404=str(e)
+        pass
     if len(SenFileMessage)!=0:
         with app.app_context():
+            print("Sen file and dir : \n")
             for url in SenFileMessage:
                 try:
-                    rep = requests.get(url, headers=core.GetHeaders(), timeout=3, verify=False)
-                    bug = BugList(oldurl=domain, bugurl=senurl, bugname="SenDir",buggrade=redispool.hget('bugtype', "SenDir"),payload=senurl, bugdetail=rep.text)
-                    db.session.add(bug)
+                    if url is None:
+                        continue
+                    rep = requests.get(url, headers=core.GetHeaders(), timeout=1, verify=False)
+                    #添加404界面的判断，避免过多杂乱信息
+                    if not core.is_similar_page(rep404,rep.text,radio=0.85):
+                        print(url)
+                        bug = BugList(oldurl=domain, bugurl=url, bugname="SenDir",buggrade=redispool.hget('bugtype', "SenDir"),payload=url, bugdetail=rep.text)
+                        db.session.add(bug)
                 except Exception as e:
                     # print(e)
                     pass
@@ -359,4 +372,4 @@ if __name__ == "__main__":
     # print(SenFileScan("test.vulnweb.com",redispool))
     # for i in list:
     #     print(i)
-    print(GetWhois("www.runoob.com"))
+    print(SenFileScan("testphp.vulnweb.com","http://testphp.vulnweb.com/"))

@@ -6,7 +6,7 @@ from exts import db
 from models import BaseInfo,IPInfo,DomainInfo,BugList
 from BugScan import BugScan
 import re
-from SpiderGetUrl import depth_get
+from SpiderGetUrl2 import SpiderGetUrl2
 import requests
 import core
 from init import redispool
@@ -48,47 +48,49 @@ def SZheScan(url):
     try:
         #输入入口进行过滤
         url,attackurl,rep=inputfilter(url)
+        #若过滤后无url，即url无效或响应时间过长，退出对该url的扫描
         if not url:
             return
-        baseinfo = GetBaseMessage(url, attackurl,rep)
-        pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
-        if pattern.findall(url) and ":" in url:
-            infourl=url.strip(":")[0]
-        else:
-            infourl=url
-        if pattern.findall(url):
-            boolcheck = True
-            ipinfo = IPMessage(infourl)
-        else:
-            boolcheck = False
-            domaininfo = DomainMessage(url)
-        print("3")
         with app.app_context():
+            # 对该url基础信息进行搜集,实例化GetBaseMessage对象
+            baseinfo = GetBaseMessage(url, attackurl,rep)
+            #正则表达式判断其为IP或是域名，并且实例化相应的深度信息搜集对象
+            pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
+            #判断IP是否存在端口
+            if pattern.findall(url) and ":" in url:
+                infourl=url.strip(":")[0]
+            else:
+                infourl=url
+            if pattern.findall(url):
+                boolcheck = True
+                ipinfo = IPMessage(infourl)
+            else:
+                boolcheck = False
+                domaininfo = DomainMessage(url)
             info = BaseInfo(url=url, boolcheck=boolcheck, status=baseinfo.GetStatus(), title=baseinfo.GetTitle(),
                             date=baseinfo.GetDate(), responseheader=baseinfo.GetResponseHeader(),
                             Server=baseinfo.GetFinger(), portserver=baseinfo.PortScan(), sendir=baseinfo.SenDir())
             db.session.add(info)
+            db.session.flush()
+            infoid=info.id
             db.session.commit()
-            infoid = BaseInfo.query.filter(BaseInfo.url == url).first().id
-            print("4")
             baseinfo.WebLogicScan()
             baseinfo.AngelSwordMain()
-            print("5")
             if boolcheck:
                 ipinfo=IPInfo(baseinfoid=infoid, bindingdomain=ipinfo.GetBindingIP(), sitestation=ipinfo.GetSiteStation(),
-                           CMessage=ipinfo.CScanConsole(),
-                           ipaddr=ipinfo.FindIpAdd())
+                            CMessage=ipinfo.CScanConsole(),
+                            ipaddr=ipinfo.FindIpAdd())
                 db.session.add(ipinfo)
             else:
                 domaininfo=DomainInfo(baseinfoid=infoid, subdomain=domaininfo.GetSubDomain(), whois=domaininfo.GetWhoisMessage(),
-                               bindingip=domaininfo.GetBindingIP(),
-                               sitestation=domaininfo.GetSiteStation(), recordinfo=domaininfo.GetRecordInfo(),
-                               domainaddr=domaininfo.FindDomainAdd())
+                                bindingip=domaininfo.GetBindingIP(),
+                                sitestation=domaininfo.GetSiteStation(), recordinfo=domaininfo.GetRecordInfo(),
+                                domainaddr=domaininfo.FindDomainAdd())
                 db.session.add(domaininfo)
             db.session.commit()
-            print("6")
-            depth_get(url)
-            print("7")
+            #默认url深度爬取为 1 ，避免大站链接过多，可在设置中进行修改
+            SpiderGetUrl2(attackurl,deepth=1)
+            print("对该网站爬取到的url进行常规漏扫 :D")
             BugScanConsole(url)
             print("{} scan end !".format(url))
     except Exception as e:

@@ -1,7 +1,6 @@
 from exts import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-
 '''
 存放模型
 '''
@@ -36,7 +35,7 @@ class BaseInfo(db.Model):
     title = db.Column(db.String(50), nullable=True)
     date = db.Column(db.String(30), nullable=False)
     responseheader = db.Column(db.Text, nullable=False)
-    Server = db.Column(db.Text, nullable=True)
+    Server = db.Column(db.String(100), nullable=True)
     portserver = db.Column(db.Text, nullable=True)
     sendir = db.Column(db.Text, nullable=True)
 
@@ -59,7 +58,7 @@ class DomainInfo(db.Model):
     whois = db.Column(db.Text, nullable=True)
     bindingip = db.Column(db.Text, nullable=True)
     sitestation = db.Column(db.Text, nullable=True)
-    recordinfo = db.Column(db.Text, nullable=True)
+    recordinfo = db.Column(db.Text(16777216), nullable=True)
     domainaddr = db.Column(db.String(200), nullable=True)
 
 
@@ -67,11 +66,11 @@ class BugList(db.Model):
     __tablename__ = 'buglist'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     oldurl = db.Column(db.String(50), nullable=True)
-    bugurl = db.Column(db.String(100), nullable=True)
+    bugurl = db.Column(db.String(200), nullable=True)
     bugname = db.Column(db.String(100), nullable=False)
     buggrade=db.Column(db.String(7),nullable=False)
     payload = db.Column(db.String(200), nullable=True)
-    bugdetail = db.Column(db.Text, nullable=True)
+    bugdetail = db.Column(db.Text(16777216), nullable=True)
 
 
 '''

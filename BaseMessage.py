@@ -26,75 +26,108 @@ from POCScan import selfpocscan
 
 class GetBaseMessage():
     def __init__(self, url, attackurl,rep):
-        print("hi!")
         self.domain = url
         self.redispool = redispool
         self.url=attackurl
         self.rep=rep
 
     def GetStatus(self):
-        print("status")
-        return str(self.rep.status_code)
+        print("正在获取网页状态码!")
+        try:
+            return str(self.rep.status_code)
+        except Exception as e:
+            print(e)
+            return "None"
 
     def GetTitle(self):
-        print("title")
+        print("正在获取网页标题!")
         if self.rep != None:
-            return re.findall('<title>(.*?)</title>', self.rep.text)[0]
+            try:
+                title=re.findall('<title>(.*?)</title>', self.rep.text)[0]
+                return title
+            except Exception as e:
+                print(e)
+                return None
         return None
 
     def GetDate(self):
-        print("date")
+        print("正在获取系统当前时间!")
         return str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
     def GetResponseHeader(self):
-        print("response")
-        context=""
-        for key, val in self.rep.headers.items():
-            context += (key + ": " + val + "\r\n")
-        return context
+        print("正在获取网页响应头!")
+        context = ""
+        try:
+            for key, val in self.rep.headers.items():
+                context += (key + ": " + val + "\r\n")
+            return context
+        except Exception as e:
+            print(e)
+            return context
 
     def GetFinger(self):
-        print("finger")
-        return WebPage(self.url, self.rep).info()
+        print("正在获取网站指纹及技术!")
+        try:
+            finger=WebPage(self.url, self.rep).info()
+            return finger
+        except Exception as e:
+            print(e)
+            return "Unknow"
 
     def PortScan(self):
-        print("port")
-        return get_message.PortScan(self.domain)
+        print("正在对目标进行端口扫描!")
+        try:
+            return get_message.PortScan(self.domain)
+        except Exception as e:
+            print(e)
+            return "Unknow"
 
     def SenDir(self):
-        print("sendir")
-        return get_message.SenFileScan(self.domain,self.url)
+        print("正在进行敏感目录及文件探测!")
+        try:
+            return get_message.SenFileScan(self.domain,self.url)
+        except Exception as e:
+            print(e)
+            return "None"
 
     def WebLogicScan(self):
-        print("weblogic")
-        results=WebLogicScan.run(self.domain)
-        with app.app_context():
-            for result in results:
-                vulnerable, bugurl, bugname, bugdetail = result
-                if vulnerable:
-                    bug = BugList(oldurl=self.domain, bugurl=bugurl, bugname=bugname,
-                                  buggrade=redispool.hget('bugtype', bugname),
-                                  payload=bugurl, bugdetail=bugdetail)
-                    db.session.add(bug)
-            db.session.commit()
+        print("正在进行weblogic漏洞检测!")
+        try:
+            results=WebLogicScan.run(self.domain)
+            with app.app_context():
+                for result in results:
+                    vulnerable, bugurl, bugname, bugdetail = result
+                    if vulnerable:
+                        bug = BugList(oldurl=self.domain, bugurl=bugurl, bugname=bugname,
+                                      buggrade=redispool.hget('bugtype', bugname),
+                                      payload=bugurl, bugdetail=bugdetail)
+                        db.session.add(bug)
+                db.session.commit()
+        except Exception as e:
+            print(e)
+            pass
 
     def AngelSwordMain(self):
-        print("angel")
-        selfpocscan.AngelSwordMain(self.url)
-
+        print("正在使用碎遮内置POC进行漏洞检测!")
+        try:
+            selfpocscan.AngelSwordMain(self.url)
+        except Exception as e:
+            print(e)
+            pass
 
 
 
 if __name__=='__main__':
     # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
-    redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
+    # redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
     try:
-        test=GetBaseMessage("testphp.vulnweb.com",redispool)
+        rep=requests.get(url="http://testphp.vulnweb.com",headers=core.GetHeaders(),timeout=10)
+        test=GetBaseMessage("testphp.vulnweb.com","http://testphp.vulnweb.com",rep)
         # test.AngelSwordMain()
-        print(test.GetStatus())
+        # print(test.GetStatus())
         # print(test.GetTitle())
         # print(test.GetResponseHeader())
-        # print(test.GetFinger())
+        print(test.GetFinger())
         # print(test.PortScan())
         # print(test.SenDir())
 
