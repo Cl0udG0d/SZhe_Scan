@@ -9,12 +9,22 @@
   display: none;
 }
 .statistic {
-  box-shadow: rgb(168, 168, 168, 0.5) -8px 0px 8px -8px,
-    rgb(168, 168, 168, 0.5) 8px 0 8px -8px;
+  /* box-shadow: rgb(168, 168, 168, 0.5) -8px 0px 8px -8px,
+    rgb(168, 168, 168, 0.5) 8px 0 8px -8px; */
 }
 .skills {
-  box-shadow: 0 4px 6px rgb(168, 168, 168, 0.5);
+  /* box-shadow: 0 4px 6px rgb(168, 168, 168, 0.5); */
 }
+.context {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 120px;
+  width: 100vw;
+  height: 1500px;
+  background-color: #f1f1f1;
+}
+
 .right-context {
   flex: 2.5;
   background-color: #f1f1f1;
@@ -28,10 +38,10 @@
   background-color: #f8f8ff;
   border: 1px solid #d6d3d3;
   border-radius: 4px;
-  height: 1400px;
+  height: 1410px;
   position: relative;
-  top: 11px;
-  box-shadow: 0 4px 6px rgb(168, 168, 168, 0.5);
+  /* top: 11px; */
+  /* box-shadow: 0 4px 6px rgb(168, 168, 168, 0.5); */
   padding: 56px 64px;
   color: #474747;
   margin-right: 32px;
@@ -154,4 +164,20 @@
 }
 .tab-custom .tab button:active > .tab-custom .tab p {
   color: black;
+}
+.body-tail {
+  position: absolute;
+  top: 1650px;
+  width: 100vw;
+  height: 40px;
+  display: flex;
+  /*弹性布局*/
+  justify-content: center;
+  /*元素在页面上居中排列*/
+  align-items: center;
+  border-top: 1px rgb(129, 129, 129) solid;
+  background-color: rgb(238, 238, 238);
+  color: #7a7a7a;
+  font-size: 14px;
+  z-index: 101;
 }

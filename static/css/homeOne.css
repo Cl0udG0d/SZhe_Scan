@@ -490,6 +490,12 @@ header .burger {
 .newest .domain-name .two-p {
   flex: 1;
 }
+.newest .domain-name .two-p a:link {
+  color: rgb(43, 43, 248);
+}
+.newest .domain-name .two-p a:visited {
+  color: rgb(43, 43, 248);
+}
 .newest .domain-name .two-p a:hover {
   color: #0fbcf9;
 }
@@ -515,7 +521,6 @@ header .burger {
   background-color: #f8f8ff;
   margin-right: 20px;
 }
-
 .right-context .first {
   position: relative;
   top: -6px;
@@ -558,6 +563,44 @@ table td a:active {
 table:hover {
   background-color: #f8f8ff;
 }
+
+table .page-number {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  width: 90%;
+  margin-bottom: 13px;
+  line-height: 40px;
+  border: #d3d3d3 solid 1px;
+  border-radius: 4px;
+  color: #4b4a4a;
+  width: 70%;
+  position: absolute;
+  top: 1550px;
+  left: 370px;
+  /* background-color: inherit; */
+  /* left: 400px; */
+}
+table .page-number td {
+  flex: 1;
+  color: #4b4a4a;
+}
+/* .page-number td a {
+  flex: 1;
+} */
+table .page-number td a:hover {
+  color: #0fbcf9;
+}
+table .page-number td a:link {
+  color: rgb(43, 43, 248);
+}
+table .page-number td a:visited {
+  color: rgb(43, 43, 248);
+}
+/* table .page-number:hover {
+  background-color: #f8f8ff;
+} */
 .body-tail {
   position: absolute;
   top: 1780px;

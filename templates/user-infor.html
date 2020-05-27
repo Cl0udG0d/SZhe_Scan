@@ -11,8 +11,13 @@
         <form class="myDate" method="POST">
             <ol>
                 <li>
-                    <label>用户名</label>
-                    <p>{{username}}</p>
+                    <label style="display: inline-block;
+                    width: 200px;
+                    text-align: left;
+                    font-size: 16px;
+                    color: #2e2e2e;">用户名</label>
+                    <p style="width:240px;text-align: center;">{{username}}</p>
+                    <!-- <input type="password" name="oldpassword" placeholder="******" id="oldpassword"> -->
                 </li>
                 <li>
                     <label>个人博客</label>
@@ -54,14 +59,14 @@
             border-radius: 8px;
             */
           ">
-        {% with messages = get_flashed_messages() %} {% if messages %}
-        <ul>
-          {% for message in messages %}
-          <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-        {% endif %} {% endwith %}
-      </div>
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+        </div>
     </div>
 </div>
 {% endblock %}

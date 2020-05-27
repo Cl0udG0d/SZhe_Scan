@@ -29,7 +29,8 @@
     </div>
     <div class="tab-pane">{{info.responseheader}}<br /></div>
   </div>{% endfor %}
-  <table frame=void class="page-number">
+  <table frame=void class="page-number" style="position: absolute;
+  top: 1530px;left:390px;">
     <tr>
       <td class=" td" style="margin-right:10px;white-space: nowrap;position: relative;left:15px;color: #4b4a4a;">
         当前页数:
@@ -37,7 +38,7 @@
       <td class="td" style="margin-right:20px;position: relative;left:60px;color: #4b4a4a;">总页数:
         {{paginate.pages}}</td>
       <td class="td" style="position: relative;color: #4b4a4a;left:150px;">共有 {{paginate.total}} 条数据</td>
-      <td class="td" style="position: relative;color: #4b4a4a;left:300px;">
+      <td class="td" style="position: relative;color: #4b4a4a;left:260px;">
         页码：
         {% for i in paginate.iter_pages() %}
         <a href="{{url_for('index',page=i)}}"
@@ -46,16 +47,15 @@
       {% if paginate.has_prev %}
       <td class="td" style="margin-right:20px;">
         <a href="{{url_for('index',page=paginate.prev_num)}}"
-          style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:310px;">上一页</a>
+          style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:270px;">上一页</a>
         {% endif %}</td>
 
       <td class="td" style="margin-right:20px;">
         {% if paginate.has_next %}
         <a href="{{url_for('index',page=paginate.next_num)}}"
-          style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:340px;">下一页</a>
+          style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:280px;">下一页</a>
         {% endif %}</td>
     </tr>
   </table>
-
 </div>
 {% endblock %}

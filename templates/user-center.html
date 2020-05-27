@@ -69,7 +69,7 @@
                         <button onclick="window.location.href='{{ url_for('GenInvitationCode') }}'">点击生成邀请码</button>
                         <p>已生成的邀请码</p>
                         {% for code in allcode %}
-                            <p>{{code.code}}</p>
+                        <p>{{code.code}}</p>
                         {% endfor %}
                     </div>
                 </div>

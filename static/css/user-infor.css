@@ -290,7 +290,7 @@ h1 a {
 }
 .tab-content {
   width: 600px;
-  height: 360px;
+  height: 430px;
   position: relative;
   top: 100px;
   background-color: #f8f8ff;
@@ -341,7 +341,7 @@ form button:hover {
 }
 .body-tail {
   position: absolute;
-  top: 600px;
+  top: 670px;
   width: 100vw;
   height: 45px;
   display: flex;

@@ -506,6 +506,12 @@ header .burger {
 .right-context .list .domain-name .two-p {
   flex: 1;
 }
+.right-context .list .domain-name .two-p a:link {
+  color: rgb(43, 43, 248);
+}
+.right-context .list .domain-name .two-p a:visited {
+  color: rgb(43, 43, 248);
+}
 .right-context .list .domain-name .two-p a:hover {
   color: #0fbcf9;
 }
@@ -557,9 +563,9 @@ table .page-number td {
 table .page-number td a:active {
   color: #0fbcf9;
 }
-table .page-number:hover {
+/* table .page-number:hover {
   background-color: #f8f8ff;
-}
+} */
 .body-tail {
   position: absolute;
   top: 2100px;
