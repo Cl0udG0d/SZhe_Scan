@@ -8,27 +8,60 @@
 <div class="tab-content">
     <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')" onmouseout="hideAlter('alter')"
         style="display:block;">
-        <form class="myDate">
+        <form class="myDate" method="POST">
             <ol>
                 <li>
                     <label>用户名</label>
-                    <input type="text" name="username" placeholder="xxx" id="username">
+                    <p>{{username}}</p>
                 </li>
                 <li>
-                    <label>密 码</label>
-                    <input type="text" name="username" placeholder="******" id="username">
+                    <label>个人博客</label>
+                    <input type="text" name="blog" placeholder="{{blog}}" id="blog">
+                </li>
+                <li>
+                    <label>个人签名</label>
+                    <input type="text" name="signature" placeholder="{{signature}}" id="signature">
+                </li>
+                <li>
+                    <label>旧密码</label>
+                    <input type="password" name="oldpassword" placeholder="******" id="oldpassword">
                 </li>
                 <li>
                     <label>新密码</label>
-                    <input type="text" name="username" placeholder="*******" id="username">
+                    <input type="password" name="password1" placeholder="*******" id="password1">
                 </li>
                 <li>
                     <label>确认密码</label>
-                    <input type="text" name="username" placeholder="********" id="username">
+                    <input type="password" name="password2" placeholder="********" id="password2">
                 </li>
             </ol>
             <button>Submit</button>
         </form>
+        <div class="error" style="
+            position: relative;
+            top: 70px;
+            left: -50px;
+            width: 400px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            overflow: hidden;
+            color: #b22222;
+            /* background-color: #ffe4e1;
+            list-style-type: none;
+            list-style-type: none;
+            border: 1px #f08080 solid;
+            border-radius: 8px;
+            */
+          ">
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+      </div>
     </div>
 </div>
 {% endblock %}

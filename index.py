@@ -2,7 +2,7 @@
 
 from flask import  render_template, request, redirect, url_for, session, flash
 import uuid
-from models import User, Log, BaseInfo, InvitationCode,BugList,POC,IPInfo,DomainInfo
+from models import User, Log, BaseInfo, InvitationCode,BugList,POC,IPInfo,DomainInfo,Profile
 from exts import db
 from init import app,redispool
 # from concurrent.futures import ThreadPoolExecutor
@@ -75,11 +75,45 @@ def setting():
     return render_template('setting.html')
 
 
-@app.route('/editinfo')
+@app.route('/editinfo',methods=['GET','POST'])
 # @login_required
 def editinfo():
-    return render_template('user-infor.html')
-
+    user_id = session.get('user_id')
+    nowuser = User.query.filter(User.id == user_id).first()
+    username = nowuser.username
+    if request.method == 'GET':
+        profile=Profile.query.filter(Profile.userid == user_id).first()
+        if not profile:
+            signature=""
+            blog=""
+        else:
+            signature=profile.signature
+            blog = profile.blog
+        return render_template('user-infor.html',username=username,blog=blog,signature=signature)
+    else:
+        blog=request.form.get('blog')
+        signature=request.form.get('signature')
+        oldpassword=request.form.get('oldpassword')
+        password1=request.form.get('password1')
+        password2=request.form.get('password2')
+        if nowuser.check_password(oldpassword):
+            if password1!=password2:
+                flash("两次密码输入不一致 :D")
+                return render_template('user-infor.html')
+            else:
+                profile = Profile.query.filter(Profile.userid == user_id).first()
+                if not profile:
+                    temp=Profile(userid=user_id,blog=blog,signature=signature)
+                    db.session.add(temp)
+                else:
+                    profile.blog=blog
+                    profile.signature=signature
+                nowuser.set_password(password1)
+                db.session.commit()
+                return redirect(url_for('user'))
+        else:
+            flash("旧密码输入错误 :(")
+            return render_template('user-infor.html',username=username,blog=blog,signature=signature)
 
 
 @app.route('/domaindetail/<int:id>',methods=['GET'])
@@ -126,10 +160,14 @@ def bugdetail(id=None):
 # @login_required
 def user():
     allcode=InvitationCode.query.order_by(InvitationCode.id.desc()).limit(10).all()
+    user_id = session.get('user_id')
+    nowuser = User.query.filter(User.id == user_id).first()
+    username = nowuser.username
+    profile = Profile.query.filter(Profile.userid == user_id).first()
     if request.method == 'GET':
-        return render_template('user-center.html',allcode=allcode)
+        return render_template('user-center.html',allcode=allcode,username=username,profile=profile)
     else:
-        return render_template('user-center.html',allcode=allcode)
+        return render_template('user-center.html',allcode=allcode,username=username,profile=profile)
 
 
 @app.route('/test_console', methods=['GET', 'POST'])

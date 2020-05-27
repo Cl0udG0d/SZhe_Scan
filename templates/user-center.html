@@ -13,9 +13,9 @@
     <div class="left-context">
         <div class="user-self">
             <img src="../static/images/dn.jpg">
-            <p class="name">水兵月</p>
-            <p>个人博客:xxxxxxxx</p>
-            <p>简介:快睡觉快睡觉快睡觉快睡觉</p>
+            <p class="name">{{username}}</p>
+            <p>个人博客:{{profile.blog}}</p>
+            <p>简介:{{profile.signature}}</p>
             <button onclick="window.location.href='{{ url_for('editinfo') }}'">修改信息</button>
         </div>
     </div>

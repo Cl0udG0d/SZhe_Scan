@@ -24,6 +24,13 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
 
+class Profile(db.Model):
+    __tablename__ = 'profile'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    userid=db.Column(db.Integer, nullable=False)
+    blog=db.Column(db.String(100), nullable=True)
+    signature=db.Column(db.Text, nullable=True)
+
 
 # boolcheck  ->true 即 ip       ->false 即 domain
 class BaseInfo(db.Model):
