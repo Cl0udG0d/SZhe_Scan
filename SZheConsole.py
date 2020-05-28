@@ -37,7 +37,7 @@ def BugScanConsole(attackurl):
                             bug = BugList(oldurl=attackurl,bugurl=url,bugname=value,buggrade=redispool.hget('bugtype', value),payload=payload,bugdetail=bugdetail)
                             db.session.add(bug)
                 db.session.commit()
-            # Bug.POCScan()
+            Bug.POCScan()
         # time.sleep(0.5)
     except Exception as e:
         print(e)

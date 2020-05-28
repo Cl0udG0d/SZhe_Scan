@@ -12,16 +12,6 @@ from POCScan import selfpocscan
 # executor = ThreadPoolExecutor()
 executor = ProcessPoolExecutor()
 
-def AddPOC():
-    pocname=""
-    rule=""
-    expression=""
-    buggrade=""
-    redispool.hset('bugtype',pocname,buggrade)
-    poc = POC(name=pocname, rule=rule,expression=expression)
-    db.session.add(poc)
-    db.session.commit()
-
 
 def save_log(ip, email):
     log = Log(ip=ip, email=email)
@@ -63,10 +53,25 @@ def index(page=None):
     return render_template('homeOne.html', paginate=paginate, infos=infos)
 
 
-@app.route('/POCmanage')
+@app.route('/POCmanage',methods=['GET','POST'])
 # @login_required
 def POCmanage():
-    return render_template('pocmanage.html')
+    if request.method == 'GET':
+        return render_template('pocmanage.html')
+    else:
+        pocname=request.form.get('pocname')
+        rule=request.form.get('rule')
+        expression=request.form.get('expression')
+        buggrade=request.form.get('buggrade')
+        print(pocname)
+        print(rule)
+        print(expression)
+        print(buggrade)
+        # redispool.hset('bugtype', pocname, buggrade)
+        # poc = POC(name=pocname, rule=rule, expression=expression)
+        # db.session.add(poc)
+        # db.session.commit()
+        return render_template('pocmanage.html')
 
 
 @app.route('/setting')
@@ -105,7 +110,7 @@ def editinfo():
                 if not profile:
                     temp=Profile(userid=user_id,blog=blog,signature=signature)
                     db.session.add(temp)
-                else:
+                elif blog!="" and signature!="":
                     profile.blog=blog
                     profile.signature=signature
                 nowuser.set_password(password1)
