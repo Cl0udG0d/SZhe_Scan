@@ -16,7 +16,7 @@
             <p class="name">{{username}}</p>
             <p>个人博客:{{profile.blog}}</p>
             <p>简介:{{profile.signature}}</p>
-            <button onclick="window.location.href='{{ url_for('editinfo') }}'">修改信息</button>
+            <button onclick="window.location.href={{url_for('editinfo')}}">修改信息</button>
         </div>
     </div>
     <div class="right-context">
@@ -66,7 +66,7 @@
                     </div>
                     <div class="tabPane tab-inv" id="tab_3" style="display:none;">
                         <p>{{temp}}</p>
-                        <button onclick="window.location.href='{{ url_for('GenInvitationCode') }}'">点击生成邀请码</button>
+                        <button onclick="window.location.href='{{ url_for('GenInvitationCode')}}'">点击生成邀请码</button>
                         <p>已生成的邀请码</p>
                         {% for code in allcode %}
                         <p>{{code.code}}</p>
