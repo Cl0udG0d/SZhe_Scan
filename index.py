@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-
 from flask import  render_template, request, redirect, url_for, session, flash
 import uuid
 from models import User, Log, BaseInfo, InvitationCode,BugList,POC,IPInfo,DomainInfo,Profile
@@ -12,6 +11,44 @@ from POCScan import selfpocscan
 # executor = ThreadPoolExecutor()
 executor = ProcessPoolExecutor()
 
+
+def GetBit():
+    #获取数据库中各个漏洞的数量
+    seriouscount = BugList.query.filter(BugList.buggrade=='serious').count()
+    highcount = BugList.query.filter(BugList.buggrade=='high').count()
+    mediumcount = BugList.query.filter(BugList.buggrade=='medium').count()
+    lowcount = BugList.query.filter(BugList.buggrade=='low').count()
+    allcount=seriouscount+highcount+mediumcount+lowcount
+    sqlcount=BugList.query.filter(BugList.bugname=='SQLBugScan').count()
+    comincount=BugList.query.filter(BugList.bugname=='ComInScan').count()
+    weblogiccount=BugList.query.filter(BugList.bugname=='WebLogicScan').count()
+    fileincount=BugList.query.filter(BugList.bugname=='FileIncludeScan').count()
+    sendircount=BugList.query.filter(BugList.bugname=='SenDir').count()
+    robotscount=BugList.query.filter(BugList.bugname=='robots文件发现').count()
+    phpinfocount=BugList.query.filter(BugList.bugname=='phpstudy探针').count()
+    gitcount=BugList.query.filter(BugList.bugname=='git源码泄露扫描').count()
+    phpstudycount=BugList.query.filter(BugList.bugname=='phpstudy phpmyadmin默认密码漏洞').count()
+    otherpoc=allcount-sqlcount-comincount-weblogiccount-fileincount-sendircount-robotscount-phpinfocount-gitcount
+    bugbit={
+        'seriouscount':seriouscount,
+        'highcount':highcount,
+        'mediumcount':mediumcount,
+        'lowcount':lowcount,
+        'allcount': allcount,
+    }
+    bugtype={
+        'SQLBugScan':sqlcount,
+        'ComInScan':comincount,
+        'WebLogicScan':weblogiccount,
+        'FileIncludeScan':fileincount,
+        'SenDir':sendircount,
+        'robots文件发现':robotscount,
+        'phpstudy探针':phpinfocount,
+        'git源码泄露扫描':gitcount,
+        'phpstudy phpmyadmin默认密码漏洞':phpstudycount,
+        'POC扫描漏洞':otherpoc
+    }
+    return bugbit,bugtype
 
 def save_log(ip, email):
     log = Log(ip=ip, email=email)
@@ -45,39 +82,39 @@ def validate(email, username, password1, password2):
 @app.route('/')
 # @login_required
 def index(page=None):
+    bugbit,bugtype=GetBit()
     if not page:
         page = 1
     per_page = 10
+    print(bugbit['allcount'])
     paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).paginate(page, per_page, error_out=False)
     infos = paginate.items
-    return render_template('homeOne.html', paginate=paginate, infos=infos)
+    return render_template('homeOne.html', paginate=paginate, infos=infos,bugbit=bugbit,bugtype=bugtype)
 
 
 @app.route('/POCmanage',methods=['GET','POST'])
 # @login_required
 def POCmanage():
+    bugbit = GetBit()
     if request.method == 'GET':
-        return render_template('pocmanage.html')
+        return render_template('pocmanage.html',bugbit=bugbit)
     else:
         pocname=request.form.get('pocname')
         rule=request.form.get('rule')
         expression=request.form.get('expression')
         buggrade=request.form.get('buggrade')
-        print(pocname)
-        print(rule)
-        print(expression)
-        print(buggrade)
-        # redispool.hset('bugtype', pocname, buggrade)
-        # poc = POC(name=pocname, rule=rule, expression=expression)
-        # db.session.add(poc)
-        # db.session.commit()
-        return render_template('pocmanage.html')
+        redispool.hset('bugtype', pocname, buggrade)
+        poc = POC(name=pocname, rule=rule, expression=expression)
+        db.session.add(poc)
+        db.session.commit()
+        return render_template('pocmanage.html',bugbit=bugbit)
 
 
 @app.route('/setting')
 # @login_required
 def setting():
-    return render_template('setting.html')
+    bugbit = GetBit()
+    return render_template('setting.html',bugbit=bugbit)
 
 
 @app.route('/editinfo',methods=['GET','POST'])
@@ -141,12 +178,13 @@ def domaindetail(id=None):
 @app.route('/buglist')
 # @login_required
 def buglist(page=None):
+    bugbit = GetBit()
     if not page:
         page = 1
     per_page = 10
     paginate = BugList.query.order_by(BugList.id.desc()).paginate(page, per_page, error_out=False)
     bugs = paginate.items
-    return render_template('bug-list.html', paginate=paginate, bugs=bugs)
+    return render_template('bug-list.html', paginate=paginate, bugs=bugs,bugbit=bugbit)
 
 
 @app.route('/bugdetail/<int:id>',methods=['GET'])
@@ -178,12 +216,13 @@ def user():
 @app.route('/test_console', methods=['GET', 'POST'])
 # @login_required
 def console():
+    bugbit = GetBit()
     if request.method == 'GET':
-        return render_template('console.html')
+        return render_template('console.html',bugbit=bugbit)
     else:
         urls = request.form.get('urls')
         executor.submit(SZheConsole, urls)
-        return render_template('console.html')
+        return render_template('console.html',bugbit=bugbit)
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -267,12 +306,13 @@ def about():
 @app.route('/log_detail/<int:page>', methods=['GET'])
 # @login_required
 def log_detail(page=None):
+    bugbit = GetBit()
     if not page:
         page = 1
     per_page = 38
     paginate = Log.query.order_by(Log.date.desc()).paginate(page, per_page, error_out=False)
     logs = paginate.items
-    return render_template('log_detail.html', paginate=paginate, logs=logs)
+    return render_template('log_detail.html', paginate=paginate, logs=logs,bugbit=bugbit)
 
 
 @app.errorhandler(404)

@@ -64,90 +64,15 @@
             </div>
             <div class="skills" style="display:block;">
                 <h2>漏洞类型统计</h2>
+                {% for name,num in bugtype.items() %}
                 <div class="skill">
-                    <div class="skill-name skill-one">SQL注入漏洞</div>
+                    <div class="skill-name skill-one">{{name}}</div>
                     <div class="skill-bar">
-                        <div class="skill-per" per="90">
+                        <div class="skill-per" per="400">
                         </div>
                     </div>
                 </div>
-
-                <div class="skill">
-                    <div class="skill-name">XSS漏洞</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="78">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">文件包含漏洞</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="164">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">敏感目录</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="235">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">敏感文件泄露</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="90">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">命令执行漏洞</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="61">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">WebLogic漏洞</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="39">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-name">Hishop系统SQL注入</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="21">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name">pkpmbsSQL注入</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="58">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-name">ecshop漏洞</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="73">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill ten">
-                    <div class="skill-name">eyou漏洞</div>
-                    <div class="skill-bar">
-                        <div class="skill-per" per="84">
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
         <div class="right-context">
@@ -167,7 +92,7 @@
             $({ animatedValue: 0 }).animate(
                 { animatedValue: per },
                 {
-                    duartion: 300,
+                    duartion: 100000,
                     step: function () {
                         $this.attr('per', Math.floor(this.animatedValue));
                     },
@@ -221,19 +146,19 @@
                     },
                     data: [
                         {
-                            value: 135,
+                            value: {{bugbit.lowcount}},
                             name: "低危",
                         },
                         {
-                            value: 170,
+                            value: {{bugbit.mediumcount}},
                             name: "中危",
                         },
                         {
-                            value: 234,
+                            value: {{bugbit.highcount}},
                             name: "高危",
                         },
                         {
-                            value: 265,
+                            value: {{bugbit.seriouscount}},
                             name: "严重",
                         },
                     ],
