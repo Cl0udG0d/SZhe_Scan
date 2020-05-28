@@ -68,7 +68,7 @@
                 <div class="skill">
                     <div class="skill-name skill-one">{{name}}</div>
                     <div class="skill-bar">
-                        <div class="skill-per" per="400">
+                        <div class="skill-per" per="18">
                         </div>
                     </div>
                 </div>
@@ -88,17 +88,17 @@
         $('.skill-per').each(function () {
             var $this = $(this);
             var per = $this.attr('per');
-            $this.css("width", per);
+            $this.css("width", per + '%');
             $({ animatedValue: 0 }).animate(
                 { animatedValue: per },
                 {
-                    duartion: 100000,
+                    duration: 300,
                     step: function () {
-                        $this.attr('per', Math.floor(this.animatedValue));
+                        $this.attr('per', Math.floor(this.animatedValue) + '%');
                     },
                     complete: function () {
-                        $this.attr('per', Math.floor(this.animatedValue));
-                    },
+                        $this.attr('per', Math.floor(this.animatedValue) + '%');
+                    }
                 }
             );
         });
@@ -146,19 +146,19 @@
                     },
                     data: [
                         {
-                            value: {{bugbit.lowcount}},
+                            value: 35,
                             name: "低危",
                         },
                         {
-                            value: {{bugbit.mediumcount}},
+                            value: 66,
                             name: "中危",
                         },
                         {
-                            value: {{bugbit.highcount}},
+                            value: 98,
                             name: "高危",
                         },
                         {
-                            value: {{bugbit.seriouscount}},
+                            value: 55,
                             name: "严重",
                         },
                     ],

@@ -374,6 +374,9 @@ header .burger {
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
 }
+.skill {
+  width: 100%;
+}
 .skills h2 {
   position: absolute;
   color: #2e2e2e;
@@ -395,6 +398,7 @@ header .burger {
   height: 20px;
   background: #cacaca;
   border-radius: 8px;
+  width: 100%;
 }
 .skill-per {
   height: 20px;
@@ -402,7 +406,7 @@ header .burger {
   /* background-color: #7342fa; */
   /* background-color: #5352ed; */
   border-radius: 8px;
-  width: 0;
+  width: 100%;
   transition: 1s linear;
   position: relative;
 }
