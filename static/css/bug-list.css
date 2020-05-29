@@ -315,7 +315,7 @@ header .burger {
   position: absolute;
   top: 106px;
   width: 100vw;
-  height: 2000px;
+  height: 1730px;
   background-color: #f1f1f1;
   padding-top: 15px;
 }
@@ -568,7 +568,7 @@ table .page-number td a:active {
 } */
 .body-tail {
   position: absolute;
-  top: 2100px;
+  top: 1830px;
   width: 100vw;
   height: 40px;
   display: flex;
