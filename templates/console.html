@@ -62,7 +62,7 @@
 </div>
 <div class="content-mid">
 
-    <form method="POST" action="" id="task" name="myTask">
+    <form class="myForm" method="POST" action="" id="task" name="myTask">
         <textarea name="urls" rows="10" cols="30" placeholder="请输入新建任务:"></textarea>
         <button class="newtask" type="submit">新建任务</button>
     </form>
@@ -150,20 +150,20 @@
                 },
                 data: [
                     {
-                        value: {{bugbit.lowcount}},
-                        name: "低危",
+                        value: {{ bugbit.lowcount }},
+            name: "低危",
                     },
-                    {
-                        value: {{bugbit.mediumcount}},
-                        name: "中危",
+        {
+            value: {{ bugbit.mediumcount }},
+    name: "中危",
                     },
-                    {
-                        value: {{bugbit.highcount}},
-                        name: "高危",
+    {
+        value: { { bugbit.highcount } },
+        name: "高危",
                     },
-                    {
-                        value: {{bugbit.seriouscount}},
-                        name: "严重",
+    {
+        value: { { bugbit.seriouscount } },
+        name: "严重",
                     },
                 ],
             },
@@ -177,7 +177,7 @@
     var ctx = document.getElementById("myChart").getContext("2d");
     var data = {
         /// 表现在X轴上的数据，数组形式
-        labels: ["80", "8080", "443", "8081", "22", "85", "3389", "9000", "8088", "8090", "3306","8000"],
+        labels: ["80", "8080", "443", "8081", "22", "85", "3389", "9000", "8088", "8090", "3306", "8000"],
         /// 第一条线
         datasets: [
             {
@@ -189,22 +189,22 @@
                 pointColor: " rgb(86, 86, 240)",
                 /// 表示数据的圆圈的边的颜色
                 pointStrokeColor: "#fff",
-                data: [{{ports.test80}}, {{ports.test8080}}, {{ports.test443}}, {{ports.test8081}}, {{ports.test22}}, {{ports.test85}}, {{ports.test3389}}, {{ports.test9000}}, {{ports.test8088}}, {{ports.test8090}}, {{ports.test3306}},{{ports.test8000}}]
+                data: [{{ ports.test80 }}, {{ ports.test8080 }}, {{ ports.test443 }}, { { ports.test8081 } }, { { ports.test22 } }, { { ports.test85 } }, { { ports.test3389 } }, { { ports.test9000 } }, { { ports.test8088 } }, { { ports.test8090 } }, { { ports.test3306 } }, { { ports.test8000 } }]
             },
             /// 第二条线
-<!--            {-->
+< !--{-->
 
-<!--                /// 曲线的填充颜色-->
-<!--                fillColor: "#d3d3d3",-->
-<!--                /// 填充块的边框线的颜色-->
-<!--                strokeColor: "rgba(220,220,220,1)",-->
-<!--                /// 表示数据的圆圈的颜色-->
-<!--                pointColor: "rgba(220,220,220,1)",-->
-<!--                /// 表示数据的圆圈的边的颜色-->
-<!--                pointStrokeColor: "#fff",-->
-<!--                data: [27, 48, 40, 19, 36, 27, 10, 8, 5, 3, 2]-->
+< !--                /// 曲线的填充颜色-->
+< !--fillColor: "#d3d3d3", -->
+< !--                /// 填充块的边框线的颜色-->
+< !--strokeColor: "rgba(220,220,220,1)", -->
+< !--                /// 表示数据的圆圈的颜色-->
+< !--pointColor: "rgba(220,220,220,1)", -->
+< !--                /// 表示数据的圆圈的边的颜色-->
+< !--pointStrokeColor: "#fff", -->
+< !--data: [27, 48, 40, 19, 36, 27, 10, 8, 5, 3, 2]-- >
 
-<!--            }-->
+< !--            }-->
         ]
     }
     /// 动画效果call
@@ -222,28 +222,28 @@
         labels: ["http", "ssh", "mysql", "http-proxy", "mongodb", "ftp", "tcpwrapped", "http-alt", "telnet", "https", "redis"],
         /// 第一条线
         datasets: [
-<!--            {-->
-<!--                /// 曲线的填充颜色-->
-<!--                fillColor: " #f8f8ff",-->
-<!--                /// 填充块的边框线的颜色-->
-<!--                strokeColor: " rgb(86, 86, 240)",-->
-<!--                /// 表示数据的圆圈的颜色-->
-<!--                pointColor: " rgb(86, 86, 240)",-->
-<!--                /// 表示数据的圆圈的边的颜色-->
-<!--                pointStrokeColor: "#fff",-->
-<!--                data: [65.5, 59.2, 90, 81, 56, 55, 40, 38, 33, 29, 14]-->
-<!--            },-->
-            /// 第二条线
-            {
-                /// 曲线的填充颜色
-                fillColor: "#e3e3e3",
-                /// 填充块的边框线的颜色
-                strokeColor: "rgba(220,220,220,1)",
-                /// 表示数据的圆圈的颜色
-                pointColor: "rgba(220,220,220,1)",
-                /// 表示数据的圆圈的边的颜色
-                pointStrokeColor: "#fff",
-                data: [{{services.http}}, {{services.ssh}}, {{services.mysql}}, {{services.http_proxy}}, {{services.mongodb}}, {{services.ftp}}, {{services.tcpwrapped}}, {{services.http_alt}}, {{services.telnet}}, {{services.https}}, {{services.redis}}]
+< !--{-->
+< !--                /// 曲线的填充颜色-->
+< !--fillColor: " #f8f8ff", -->
+< !--                /// 填充块的边框线的颜色-->
+< !--strokeColor: " rgb(86, 86, 240)", -->
+< !--                /// 表示数据的圆圈的颜色-->
+< !--pointColor: " rgb(86, 86, 240)", -->
+< !--                /// 表示数据的圆圈的边的颜色-->
+< !--pointStrokeColor: "#fff", -->
+< !--data: [65.5, 59.2, 90, 81, 56, 55, 40, 38, 33, 29, 14]-- >
+< !--            },-->
+    /// 第二条线
+    {
+        /// 曲线的填充颜色
+        fillColor: "#e3e3e3",
+        /// 填充块的边框线的颜色
+        strokeColor: "rgba(220,220,220,1)",
+        /// 表示数据的圆圈的颜色
+        pointColor: "rgba(220,220,220,1)",
+        /// 表示数据的圆圈的边的颜色
+        pointStrokeColor: "#fff",
+        data: [{{ services.http }}, {{ services.ssh }}, { { services.mysql } }, { { services.http_proxy } }, { { services.mongodb } }, { { services.ftp } }, { { services.tcpwrapped } }, { { services.http_alt } }, { { services.telnet } }, { { services.https } }, { { services.redis } }]
 
             },
         ]
