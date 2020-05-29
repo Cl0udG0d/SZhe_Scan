@@ -248,6 +248,8 @@ def SenFileScan(domain,url):
                     if not core.is_similar_page(rep404,rep.text,radio=0.85):
                         print(url)
                         bug = BugList(oldurl=domain, bugurl=url, bugname="SenDir",buggrade=redispool.hget('bugtype', "SenDir"),payload=url, bugdetail=rep.text)
+                        redispool.pfadd(redispool.hget('bugtype', "SenDir"), url)
+                        redispool.pfadd("SenDir", url)
                         db.session.add(bug)
                 except Exception as e:
                     # print(e)

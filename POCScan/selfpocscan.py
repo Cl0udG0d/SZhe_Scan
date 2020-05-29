@@ -22,6 +22,9 @@ def informationpoc_check(oldurl,informationurl):
             if vulnerable:
                 bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
                               payload=payload, bugdetail=bugdetail)
+                # 使用 HyperLogLog  进行 漏洞四等级 计数
+                redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
+                redispool.pfadd(bugname,bugurl)
                 db.session.add(bug)
         db.session.commit()
 
@@ -39,6 +42,8 @@ def cmspoc_check(oldurl,cmsurl):
             if vulnerable:
                 bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
                               payload=payload, bugdetail=bugdetail)
+                redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
+                redispool.pfadd(bugname,bugurl)
                 db.session.add(bug)
         db.session.commit()
 
@@ -57,6 +62,8 @@ def industrial_check(oldurl,industrialurl):
             if vulnerable:
                 bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
                               payload=payload, bugdetail=bugdetail)
+                redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
+                redispool.pfadd(bugname,bugurl)
                 db.session.add(bug)
         db.session.commit()
 
@@ -74,6 +81,8 @@ def hardware_check(oldurl,hardwareurl):
             if vulnerable:
                 bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
                               payload=payload, bugdetail=bugdetail)
+                redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
+                redispool.pfadd(bugname,bugurl)
                 db.session.add(bug)
         db.session.commit()
 

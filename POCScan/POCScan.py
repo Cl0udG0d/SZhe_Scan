@@ -13,6 +13,8 @@ def POCScanConsole(attackurl,url):
                 if rep.status_code!=404 and poc.expression in rep.text:
                     bug = BugList(oldurl=attackurl, bugurl=url, bugname=poc.name,buggrade=redispool.hget('bugtype', poc.name), payload=url+poc,
                                   bugdetail=rep.text)
+                    redispool.pfadd(redispool.hget('bugtype', poc.name), url)
+                    redispool.pfadd(poc.name, url)
                     db.session.add(bug)
             except Exception as e:
                 print(e)

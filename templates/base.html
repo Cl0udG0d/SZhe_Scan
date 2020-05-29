@@ -68,7 +68,7 @@
                 <div class="skill">
                     <div class="skill-name skill-one">{{name}}</div>
                     <div class="skill-bar">
-                        <div class="skill-per" per="18">
+                        <div class="skill-per" per="{{num}}">
                         </div>
                     </div>
                 </div>
@@ -146,19 +146,19 @@
                     },
                     data: [
                         {
-                            value: 35,
+                            value: {{bugbit.lowcount}},
                             name: "低危",
                         },
                         {
-                            value: 66,
+                            value: {{bugbit.mediumcount}},
                             name: "中危",
                         },
                         {
-                            value: 98,
+                            value: {{bugbit.highcount}},
                             name: "高危",
                         },
                         {
-                            value: 55,
+                            value: {{bugbit.seriouscount}},
                             name: "严重",
                         },
                     ],

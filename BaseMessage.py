@@ -101,6 +101,8 @@ class GetBaseMessage():
                         bug = BugList(oldurl=self.domain, bugurl=bugurl, bugname=bugname,
                                       buggrade=redispool.hget('bugtype', bugname),
                                       payload=bugurl, bugdetail=bugdetail)
+                        redispool.pfadd(redispool.hget('bugtype', bugname), bugurl)
+                        redispool.pfadd(bugname, bugurl)
                         db.session.add(bug)
                 db.session.commit()
         except Exception as e:

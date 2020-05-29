@@ -35,6 +35,8 @@ def BugScanConsole(attackurl):
                     vulnerable, payload,bugdetail=getattr(Bug, value)()
                     if vulnerable:
                             bug = BugList(oldurl=attackurl,bugurl=url,bugname=value,buggrade=redispool.hget('bugtype', value),payload=payload,bugdetail=bugdetail)
+                            redispool.pfadd(redispool.hget('bugtype', value), url)
+                            redispool.pfadd(value, url)
                             db.session.add(bug)
                 db.session.commit()
             Bug.POCScan()
