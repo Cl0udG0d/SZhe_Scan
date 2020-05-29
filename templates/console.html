@@ -17,45 +17,45 @@
         <div class="feature one">
             <i class="fa fa-tags"></i>
             <h3 class="right-title">域名</h3>
-            <h5 class="right-content">总数:30192</h5>
+            <h5 class="right-content">总数:{{counts.domaincount}}</h5>
         </div>
 
         <div class="feature one">
             <i class="fa fa-magnet"></i>
             <h3 class="right-title">IP</h3>
-            <h5 class="right-content">总数:18520</h5>
+            <h5 class="right-content">总数:{{counts.ipcount}}</h5>
         </div>
         <div class="feature one">
             <i class="fa fa-bug"></i>
             <h3 class=" right-title">漏洞</h3>
-            <h5 class="right-content">总数：6703</h5>
+            <h5 class="right-content">总数：{{counts.bugcount}}</h5>
         </div>
         <div class="feature one">
             <i class="fa fa-clipboard"></i>
             <h3 class="right-title">POC</h3>
-            <h5 class="right-content">总数：429</h5>
+            <h5 class="right-content">总数：{{counts.poccount}}</h5>
         </div>
     </div>
     <div class="contents">
         <div class="content">
             <i class="fa fa-bar-chart"></i>
-            <h3>本周扫描数</h3>
-            <h5>1089</h5>
+            <h3>最近扫描</h3>
+            <h5>{{lastscantime}}</h5>
         </div>
         <div class="content">
             <i class="fa fa-desktop"></i>
             <h3>受影响主机</h3>
-            <h5>19082</h5>
+            <h5>{{counts.havebugpc}}</h5>
         </div>
         <div class="content">
             <i class="fa fa-exclamation-circle" style="font-size: 38px;"></i>
             <h3>严重漏洞</h3>
-            <h5>473</h5>
+            <h5>{{counts.seriouscount}}</h5>
         </div>
         <div class="content">
             <i class="fa fa-github" style="font-size: 38px;"></i>
             <h3>泄露总数</h3>
-            <h5>2703</h5>
+            <h5>{{counts.sencount}}</h5>
         </div>
 
     </div>
@@ -67,9 +67,9 @@
         <button class="newtask" type="submit">新建任务</button>
     </form>
     <div class="contentNums">
-        <p class="p1">待扫描:4889</p>
-        <p class="p2">正扫描:20</p>
-        <p class="p3">已扫描:3902</p>
+        <p class="p1">待扫描:{{target.waitcount}}</p>
+        <p class="p2">正扫描:{{target.nowscan}}</p>
+        <p class="p3">已扫描:{{target.sumcount}}</p>
     </div>
 </div>
 <div class="charts">
@@ -78,7 +78,7 @@
         <canvas id="myChart" width="850" height="400"></canvas>
     </div>
     <div class="curve-graph">
-        <h5 class="bar-title">任务报告
+        <h5 class="bar-title">运行服务
         </h5>
         <canvas id="myCurveChart" width="850" height="400"></canvas>
     </div>
@@ -177,7 +177,7 @@
     var ctx = document.getElementById("myChart").getContext("2d");
     var data = {
         /// 表现在X轴上的数据，数组形式
-        labels: ["http", "ssh", "mysql", "http-proxy", "mongod", "ftp", "wap-wsp", "http-alt", "ms-wbt-server", "https", "redis"],
+        labels: ["80", "8080", "443", "8081", "22", "85", "3389", "9000", "8088", "8090", "3306","8000"],
         /// 第一条线
         datasets: [
             {
@@ -189,22 +189,22 @@
                 pointColor: " rgb(86, 86, 240)",
                 /// 表示数据的圆圈的边的颜色
                 pointStrokeColor: "#fff",
-                data: [95.5, 59.2, 43, 41, 36, 25, 20, 19, 17, 11, 3]
+                data: [{{ports.test80}}, {{ports.test8080}}, {{ports.test443}}, {{ports.test8081}}, {{ports.test22}}, {{ports.test85}}, {{ports.test3389}}, {{ports.test9000}}, {{ports.test8088}}, {{ports.test8090}}, {{ports.test3306}},{{ports.test8000}}]
             },
             /// 第二条线
-            {
+<!--            {-->
 
-                /// 曲线的填充颜色
-                fillColor: "#d3d3d3",
-                /// 填充块的边框线的颜色
-                strokeColor: "rgba(220,220,220,1)",
-                /// 表示数据的圆圈的颜色
-                pointColor: "rgba(220,220,220,1)",
-                /// 表示数据的圆圈的边的颜色
-                pointStrokeColor: "#fff",
-                data: [27, 48, 40, 19, 36, 27, 10, 8, 5, 3, 2]
+<!--                /// 曲线的填充颜色-->
+<!--                fillColor: "#d3d3d3",-->
+<!--                /// 填充块的边框线的颜色-->
+<!--                strokeColor: "rgba(220,220,220,1)",-->
+<!--                /// 表示数据的圆圈的颜色-->
+<!--                pointColor: "rgba(220,220,220,1)",-->
+<!--                /// 表示数据的圆圈的边的颜色-->
+<!--                pointStrokeColor: "#fff",-->
+<!--                data: [27, 48, 40, 19, 36, 27, 10, 8, 5, 3, 2]-->
 
-            }
+<!--            }-->
         ]
     }
     /// 动画效果call
@@ -219,20 +219,20 @@
     var ctx = document.getElementById("myCurveChart").getContext("2d");
     var data = {
         /// 表现在X轴上的数据，数组形式
-        labels: ["http", "ssh", "mysql", "http-proxy", "mongod", "ftp", "wap-wsp", "http-alt", "ms-wbt-server", "https", "redis"],
+        labels: ["http", "ssh", "mysql", "http-proxy", "mongodb", "ftp", "tcpwrapped", "http-alt", "telnet", "https", "redis"],
         /// 第一条线
         datasets: [
-            {
-                /// 曲线的填充颜色
-                fillColor: " #f8f8ff",
-                /// 填充块的边框线的颜色
-                strokeColor: " rgb(86, 86, 240)",
-                /// 表示数据的圆圈的颜色
-                pointColor: " rgb(86, 86, 240)",
-                /// 表示数据的圆圈的边的颜色
-                pointStrokeColor: "#fff",
-                data: [65.5, 59.2, 90, 81, 56, 55, 40, 38, 33, 29, 14]
-            },
+<!--            {-->
+<!--                /// 曲线的填充颜色-->
+<!--                fillColor: " #f8f8ff",-->
+<!--                /// 填充块的边框线的颜色-->
+<!--                strokeColor: " rgb(86, 86, 240)",-->
+<!--                /// 表示数据的圆圈的颜色-->
+<!--                pointColor: " rgb(86, 86, 240)",-->
+<!--                /// 表示数据的圆圈的边的颜色-->
+<!--                pointStrokeColor: "#fff",-->
+<!--                data: [65.5, 59.2, 90, 81, 56, 55, 40, 38, 33, 29, 14]-->
+<!--            },-->
             /// 第二条线
             {
                 /// 曲线的填充颜色
@@ -243,9 +243,9 @@
                 pointColor: "rgba(220,220,220,1)",
                 /// 表示数据的圆圈的边的颜色
                 pointStrokeColor: "#fff",
-                data: [27, 48, 40, 19, 96, 27, 10, 8, 5, 3, 2]
+                data: [{{services.http}}, {{services.ssh}}, {{services.mysql}}, {{services.http_proxy}}, {{services.mongodb}}, {{services.ftp}}, {{services.tcpwrapped}}, {{services.http_alt}}, {{services.telnet}}, {{services.https}}, {{services.redis}}]
 
-            }
+            },
         ]
     }
     /// 动画效果call

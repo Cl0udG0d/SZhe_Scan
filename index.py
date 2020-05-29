@@ -7,65 +7,12 @@ from init import app,redispool
 # from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import ProcessPoolExecutor
 from SZheConsole import SZheConsole
+import core
 from POCScan import selfpocscan
 # executor = ThreadPoolExecutor()
 executor = ProcessPoolExecutor()
 
 
-def GetBit():
-    '''
-    操作redis HyperLogLog进行计数
-    :return:
-    '''
-    seriouscount = redispool.pfcount('serious')
-    highcount =  redispool.pfcount('high')
-    mediumcount =  redispool.pfcount('medium')
-    lowcount =  redispool.pfcount('low')
-    allcount=seriouscount+highcount+mediumcount+lowcount
-    sqlcount= redispool.pfcount('SQLBugScan')
-    comincount= redispool.pfcount('ComInScan')
-    weblogiccount= redispool.pfcount('WebLogicScan')
-    fileincount= redispool.pfcount('FileIncludeScan')
-    sendircount= redispool.pfcount('SenDir')
-    robotscount= redispool.pfcount('robots文件发现')
-    phpinfocount= redispool.pfcount('phpstudy探针')
-    gitcount= redispool.pfcount('git源码泄露扫描')
-    phpstudycount= redispool.pfcount('phpstudy phpmyadmin默认密码漏洞')
-    otherpoc=allcount-sqlcount-comincount-weblogiccount-fileincount-sendircount-robotscount-phpinfocount-gitcount
-    bugbit={
-        'seriouscount':seriouscount,
-        'highcount':highcount,
-        'mediumcount':mediumcount,
-        'lowcount':lowcount,
-        'allcount': allcount,
-    }
-    if allcount==0:
-        bugtype = {
-            'SQLBugScan': 0,
-            'ComInScan': 0,
-            'WebLogicScan': 0,
-            'FileIncludeScan': 0,
-            'SenDir': 0,
-            'robots文件发现': 0,
-            'phpstudy探针': 0,
-            'git源码泄露扫描': 0,
-            'phpstudy phpmyadmin默认密码漏洞': 0,
-            'POC扫描漏洞': 0
-        }
-    else:
-        bugtype={
-            'SQLBugScan':sqlcount/allcount*100,
-            'ComInScan':comincount/allcount*100,
-            'WebLogicScan':weblogiccount/allcount*100,
-            'FileIncludeScan':fileincount/allcount*100,
-            'SenDir':sendircount/allcount*100,
-            'robots文件发现':robotscount/allcount*100,
-            'phpstudy探针':phpinfocount/allcount*100,
-            'git源码泄露扫描':gitcount/allcount*100,
-            'phpstudy phpmyadmin默认密码漏洞':phpstudycount/allcount*100,
-            'POC扫描漏洞':otherpoc/allcount*100
-        }
-    return bugbit,bugtype
 
 def save_log(ip, email):
     log = Log(ip=ip, email=email)
@@ -91,7 +38,12 @@ def validate(email, username, password1, password2):
 
 
 '''
-    输入的url格式应该为:www.baidu.com或者127.0.0.1形式
+    输入的url格式为:
+        www.baidu.com
+        127.0.0.1
+        http://www.baidu.com
+        http://127.0.0.1
+    每行一个
 '''
 
 
@@ -99,7 +51,7 @@ def validate(email, username, password1, password2):
 @app.route('/')
 # @login_required
 def index(page=None):
-    bugbit,bugtype=GetBit()
+    bugbit,bugtype=core.GetBit()
     if not page:
         page = 1
     per_page = 10
@@ -111,7 +63,7 @@ def index(page=None):
 @app.route('/POCmanage',methods=['GET','POST'])
 # @login_required
 def POCmanage():
-    bugbit,bugtype=GetBit()
+    bugbit,bugtype=core.GetBit()
     if request.method == 'GET':
         return render_template('pocmanage.html',bugbit=bugbit,bugtype=bugtype)
     else:
@@ -121,6 +73,7 @@ def POCmanage():
         buggrade=request.form.get('buggrade')
         redispool.hset('bugtype', pocname, buggrade)
         poc = POC(name=pocname, rule=rule, expression=expression)
+        redispool.pfadd("poc", pocname)
         db.session.add(poc)
         db.session.commit()
         return render_template('pocmanage.html',bugbit=bugbit,bugtype=bugtype)
@@ -129,7 +82,7 @@ def POCmanage():
 @app.route('/setting')
 # @login_required
 def setting():
-    bugbit,bugtype=GetBit()
+    bugbit,bugtype=core.GetBit()
     return render_template('setting.html',bugbit=bugbit,bugtype=bugtype)
 
 
@@ -178,15 +131,15 @@ def editinfo():
 @app.route('/domaindetail')
 # @login_required
 def domaindetail(id=None):
-    bugbit, bugtype = GetBit()
+    bugbit, bugtype = core.GetBit()
     if not id:
         baseinfo = BaseInfo.query.order_by(BaseInfo.id.desc()).first()
     else:
-        baseinfo = BaseInfo.query.filter(BaseInfo.id == id).first()
+        baseinfo = BaseInfo.query.filter(BaseInfo.id == id).order_by(BaseInfo.id.desc()).first()
     if baseinfo.boolcheck:
         deepinfo =IPInfo.query.filter(IPInfo.baseinfoid == baseinfo.id).first()
     else:
-        deepinfo=DomainInfo.query.filter(DomainInfo.baseinfoid == baseinfo.id).first()
+        deepinfo=DomainInfo.query.filter(DomainInfo.baseinfoid == baseinfo.id).order_by(DomainInfo.id.desc()).first()
     buglist=BugList.query.filter(BugList.oldurl == baseinfo.url).all()
     return render_template('domain-detail.html',baseinfo=baseinfo,deepinfo=deepinfo,buglist=buglist,bugbit=bugbit,bugtype=bugtype)
 
@@ -195,7 +148,7 @@ def domaindetail(id=None):
 @app.route('/buglist')
 # @login_required
 def buglist(page=None):
-    bugbit,bugtype=GetBit()
+    bugbit,bugtype=core.GetBit()
     if not page:
         page = 1
     per_page = 10
@@ -208,7 +161,7 @@ def buglist(page=None):
 @app.route('/bugdetail')
 # @login_required
 def bugdetail(id=None):
-    bugbit, bugtype = GetBit()
+    bugbit, bugtype = core.GetBit()
     if not id:
         buginfo = BugList.query.order_by(BugList.id.desc()).first()
     else:
@@ -234,13 +187,22 @@ def user():
 @app.route('/test_console', methods=['GET', 'POST'])
 # @login_required
 def console():
-    bugbit,bugtype=GetBit()
+    bugbit,bugtype=core.GetBit()
+    counts=core.GetCounts()
+    ports=core.GetPort()
+    services=core.GetServices()
+    target=core.GetTargetCount()
+    lastscantime = BaseInfo.query.order_by(BaseInfo.id.desc()).first().date
     if request.method == 'GET':
-        return render_template('console.html',bugbit=bugbit,bugtype=bugtype)
+        return render_template('console.html',bugbit=bugbit,bugtype=bugtype,counts=counts,lastscantime=lastscantime,ports=ports,services=services,target=target)
     else:
         urls = request.form.get('urls')
+        urls = urls.split()
+        print(urls)
+        for url in urls:
+            redispool.hincrby('targetscan', 'waitcount', 1)
         executor.submit(SZheConsole, urls)
-        return render_template('console.html',bugbit=bugbit,bugtype=bugtype)
+        return render_template('console.html',bugbit=bugbit,bugtype=bugtype,counts=counts,lastscantime=lastscantime,ports=ports,services=services,target=target)
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -324,7 +286,7 @@ def about():
 @app.route('/log_detail/<int:page>', methods=['GET'])
 # @login_required
 def log_detail(page=None):
-    bugbit,bugtype=GetBit()
+    bugbit,bugtype=core.GetBit()
     if not page:
         page = 1
     per_page = 38

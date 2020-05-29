@@ -100,6 +100,7 @@ def GetBindingIP(domain):
             context = rep.xpath('//div[@id="J_ip_history"]//a/text()')
         str = "\n".join(context)
     except:
+        str=""
         pass
     return str
 
@@ -227,6 +228,7 @@ def SenFileScan(domain,url):
         urlList.append(senurl)
     pool = ThreadPool(pools)
     SenFileMessage = pool.map(UrlRequest, urlList)
+    SenFileMessage2=""
     pool.close()
     pool.join()
     url404="{}/springbird404page".format(url)
@@ -248,15 +250,16 @@ def SenFileScan(domain,url):
                     if not core.is_similar_page(rep404,rep.text,radio=0.85):
                         print(url)
                         bug = BugList(oldurl=domain, bugurl=url, bugname="SenDir",buggrade=redispool.hget('bugtype', "SenDir"),payload=url, bugdetail=rep.text)
+                        SenFileMessage2+=url+"\n"
                         redispool.pfadd(redispool.hget('bugtype', "SenDir"), url)
                         redispool.pfadd("SenDir", url)
+                        redispool.pfadd("havebugpc", url)
                         db.session.add(bug)
                 except Exception as e:
                     # print(e)
                     pass
             db.session.commit()
-    return "\n".join(list(filter(None, SenFileMessage)))
-
+    return SenFileMessage2
 
 '''
 NMap(Network Mapper)
@@ -280,6 +283,8 @@ def PortScan(host):
             for port in lport:
                 if nm[host][proto][port]['state'] == "open":
                     service = nm[host][proto][port]['name']
+                    redispool.pfadd("test"+str(port),host)
+                    redispool.pfadd(service,host)
                     content += '[*]主机' + host + ' 协议：' + proto + '\t开放端口号：' + str(port) + '\t端口服务：' + service + "\n"
         return content
     except Exception as e:

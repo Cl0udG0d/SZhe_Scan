@@ -1,5 +1,5 @@
 import get_message
-import redis
+import re
 
 class IPMessage:
     def __init__(self,ip):
@@ -38,11 +38,17 @@ class IPMessage:
             return "None"
 
 if __name__=='__main__':
-    # test=IPMessage('202.202.157.110')
-    url='202.202.157.110'
-    test=IPMessage(url)
+    url="39.99.162.116:8000"
+    pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
+    # 判断IP是否存在端口
+    if pattern.findall(url) and ":" in url:
+        infourl = url.split(":")[0]
+    else:
+        infourl = url
+    print(infourl)
+    test=IPMessage(infourl)
     print("end!")
-    # print(test.GetBindingIP())
-    # print(test.GetSiteStation())
-    # print(test.CScanConsole())
-    # print(test.FindIpAdd())
+    print(test.GetBindingIP())
+    print(test.GetSiteStation())
+    print(test.CScanConsole())
+    print(test.FindIpAdd())

@@ -25,12 +25,7 @@ class BugScan:
         vulnerable, payload,bugdetail=CheckLocalFileInclude(self.url)
         return vulnerable, payload,bugdetail
 
-    def WebLogicScan(self):
-        print("WebLogicScan!")
-        return False,None,None
-
     def POCScan(self):
-        print("POC Scan!")
         POCScan.POCScanConsole(self.oldurl,self.url)
         return False,None,None
 

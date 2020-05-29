@@ -15,6 +15,7 @@ def POCScanConsole(attackurl,url):
                                   bugdetail=rep.text)
                     redispool.pfadd(redispool.hget('bugtype', poc.name), url)
                     redispool.pfadd(poc.name, url)
+                    redispool.pfadd("havebugpc", url)
                     db.session.add(bug)
             except Exception as e:
                 print(e)

@@ -18,15 +18,20 @@ def informationpoc_check(oldurl,informationurl):
         results.append(value.run())
     with app.app_context():
         for result in results:
-            vulnerable,bugurl,bugname,payload,bugdetail=result
-            if vulnerable:
-                bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
-                              payload=payload, bugdetail=bugdetail)
-                # 使用 HyperLogLog  进行 漏洞四等级 计数
-                redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
-                redispool.pfadd(bugname,bugurl)
-                db.session.add(bug)
-        db.session.commit()
+            try:
+                vulnerable,bugurl,bugname,payload,bugdetail=result
+                if vulnerable:
+                    bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
+                                  payload=payload, bugdetail=bugdetail)
+                    # 使用 HyperLogLog  进行 漏洞四等级 计数
+                    redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
+                    redispool.pfadd(bugname,bugurl)
+                    redispool.pfadd("havebugpc", bugurl)
+                    db.session.add(bug)
+                    db.session.commit()
+            except Exception as e:
+                print(e)
+                pass
 
 def cmspoc_check(oldurl,cmsurl):
     poc_class = pocdb_pocs(cmsurl)
@@ -38,14 +43,19 @@ def cmspoc_check(oldurl,cmsurl):
         results.append(value.run())
     with app.app_context():
         for result in results:
-            vulnerable,bugurl,bugname,payload,bugdetail=result
-            if vulnerable:
-                bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
-                              payload=payload, bugdetail=bugdetail)
-                redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
-                redispool.pfadd(bugname,bugurl)
-                db.session.add(bug)
-        db.session.commit()
+            try:
+                vulnerable,bugurl,bugname,payload,bugdetail=result
+                if vulnerable:
+                    bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
+                                  payload=payload, bugdetail=bugdetail)
+                    redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
+                    redispool.pfadd(bugname,bugurl)
+                    redispool.pfadd("havebugpc", bugurl)
+                    db.session.add(bug)
+                    db.session.commit()
+            except Exception as e:
+                print(e)
+                pass
 
 
 def industrial_check(oldurl,industrialurl):
@@ -58,14 +68,19 @@ def industrial_check(oldurl,industrialurl):
         results.append(value.run())
     with app.app_context():
         for result in results:
-            vulnerable,bugurl,bugname,payload,bugdetail=result
-            if vulnerable:
-                bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
-                              payload=payload, bugdetail=bugdetail)
-                redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
-                redispool.pfadd(bugname,bugurl)
-                db.session.add(bug)
-        db.session.commit()
+            try:
+                vulnerable,bugurl,bugname,payload,bugdetail=result
+                if vulnerable:
+                    bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
+                                  payload=payload, bugdetail=bugdetail)
+                    redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
+                    redispool.pfadd(bugname,bugurl)
+                    redispool.pfadd("havebugpc", bugurl)
+                    db.session.add(bug)
+                    db.session.commit()
+            except Exception as e:
+                print(e)
+                pass
 
 def hardware_check(oldurl,hardwareurl):
     poc_class = pocdb_pocs(hardwareurl)
@@ -77,14 +92,19 @@ def hardware_check(oldurl,hardwareurl):
         results.append(value.run())
     with app.app_context():
         for result in results:
-            vulnerable,bugurl,bugname,payload,bugdetail=result
-            if vulnerable:
-                bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
-                              payload=payload, bugdetail=bugdetail)
-                redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
-                redispool.pfadd(bugname,bugurl)
-                db.session.add(bug)
-        db.session.commit()
+            try:
+                vulnerable,bugurl,bugname,payload,bugdetail=result
+                if vulnerable:
+                    bug = BugList(oldurl=oldurl, bugurl=bugurl, bugname=bugname, buggrade=redispool.hget('bugtype', bugname),
+                                  payload=payload, bugdetail=bugdetail)
+                    redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
+                    redispool.pfadd(bugname,bugurl)
+                    redispool.pfadd("havebugpc", bugurl)
+                    db.session.add(bug)
+                    db.session.commit()
+            except Exception as e:
+                print(e)
+                pass
 
 
 def AngelSwordMain(checkurl):

@@ -37,8 +37,10 @@ def BugScanConsole(attackurl):
                             bug = BugList(oldurl=attackurl,bugurl=url,bugname=value,buggrade=redispool.hget('bugtype', value),payload=payload,bugdetail=bugdetail)
                             redispool.pfadd(redispool.hget('bugtype', value), url)
                             redispool.pfadd(value, url)
+                            redispool.pfadd("havebugpc", url)
                             db.session.add(bug)
                 db.session.commit()
+            print("进行自添加POC扫描")
             Bug.POCScan()
         # time.sleep(0.5)
     except Exception as e:
@@ -50,9 +52,11 @@ def SZheScan(url):
     try:
         #输入入口进行过滤
         url,attackurl,rep=inputfilter(url)
+
         #若过滤后无url，即url无效或响应时间过长，退出对该url的扫描
         if not url:
             return
+        redispool.hset("targetscan", "nowscan", attackurl)
         with app.app_context():
             # 对该url基础信息进行搜集,实例化GetBaseMessage对象
             baseinfo = GetBaseMessage(url, attackurl,rep)
@@ -60,7 +64,7 @@ def SZheScan(url):
             pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
             #判断IP是否存在端口
             if pattern.findall(url) and ":" in url:
-                infourl=url.strip(":")[0]
+                infourl=url.split(":")[0]
             else:
                 infourl=url
             if pattern.findall(url):
@@ -79,11 +83,13 @@ def SZheScan(url):
             baseinfo.WebLogicScan()
             baseinfo.AngelSwordMain()
             if boolcheck:
+                redispool.pfadd("ip", infourl)
                 ipinfo=IPInfo(baseinfoid=infoid, bindingdomain=ipinfo.GetBindingIP(), sitestation=ipinfo.GetSiteStation(),
                             CMessage=ipinfo.CScanConsole(),
                             ipaddr=ipinfo.FindIpAdd())
                 db.session.add(ipinfo)
             else:
+                redispool.pfadd("domain", infourl)
                 domaininfo=DomainInfo(baseinfoid=infoid, subdomain=domaininfo.GetSubDomain(), whois=domaininfo.GetWhoisMessage(),
                                 bindingip=domaininfo.GetBindingIP(),
                                 sitestation=domaininfo.GetSiteStation(), recordinfo=domaininfo.GetRecordInfo(),
@@ -94,6 +100,17 @@ def SZheScan(url):
             SpiderGetUrl2(attackurl,deepth=1)
             print("对该网站爬取到的url进行常规漏扫 :D")
             BugScanConsole(url)
+            try:
+                count=redispool.hget('targetscan', 'waitcount')
+                if type(count) =="string":
+                    waitcount=int(count)-1
+                    redispool.hset("targetscan", "waitcount", str(waitcount))
+                else:
+                    redispool.hset("targetscan", "waitcount", "0")
+                redispool.hdel("targetscan", "nowscan")
+            except Exception as e:
+                print(e)
+                pass
             print("{} scan end !".format(url))
     except Exception as e:
         print("2")
@@ -101,8 +118,6 @@ def SZheScan(url):
         pass
 
 def SZheConsole(urls):
-    urls=urls.split()
-    print(urls)
     try:
         for url in urls:
             print("="*20)
@@ -112,7 +127,7 @@ def SZheConsole(urls):
         print("错误")
         print(e)
         pass
-    print("end!")
+    print("allend!")
 
 def inputfilter(url):
     '''
