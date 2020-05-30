@@ -7,6 +7,7 @@
 {% endblock %}
 {% block js %}
 <script type="text/javascript" src="../static/libs/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../static/js/bug-list.js"></script>
 <script type="text/javascript" src="../static/libs/echarts.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script> -->
@@ -34,7 +35,7 @@
 
     </div>
     {% endfor %}
-    <table frame=void class="page-number" style="position: absolute;top:1550px;left:190px;background-color: #f8f8ff;">
+    <!-- <table frame=void class="page-number" style="position: absolute;top:1550px;left:190px;background-color: #f8f8ff;">
         <tr>
             <td class="td" style="margin-right:10px;white-space: nowrap;position: relative;left:-170px;color: #4b4a4a;">
                 当前页数:
@@ -53,13 +54,52 @@
                 <a href="{{url_for('buglist',page=paginate.prev_num)}}"
                     style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:110px;">上一页</a>
                 {% endif %}</td>
-
             <td class="td" style="margin-right:20px;">
                 {% if paginate.has_next %}
                 <a href="{{url_for('buglist',page=paginate.next_num)}}"
                     style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:110px;">下一页</a>
                 {% endif %}</td>
         </tr>
-    </table>
-
+    </table> -->
+    <div class="pageNumber">
+        <ul>
+            <li class="pageLi">
+                {% if paginate.has_prev %}
+                <button class="page_btn" style="width:100px" id="prePage">上一页</button>
+                {% endif %}
+            </li>
+            <li class="pageLi">
+                <button class="page_btn" id="page_btn1">1</button>
+            </li>
+            <li class="pageLi">
+                <span class="pages_span" id="prePoint">...</span>
+            </li>
+            <li class="pageLi">
+                <button class="page_btn" id="page_btn2">7</button>
+            </li>
+            <li class="pageLi">
+                <button class="page_btn" id="page_btn3">8</button>
+            </li>
+            <li class="page_li">
+                <button class="page_btn" id="page_btn4">9</button>
+            </li>
+            <li class="pageLi">
+                <button class="page_btn" id="page_btn5">10</button>
+            </li>
+            <li class="pageLi">
+                <button class="page_btn" id="page_btn6">11</button>
+            </li>
+            <li class="pageLi">
+                <span class="pages_span" id="sufPoint">...</span>
+            </li>
+            <li class="pageLi">
+                <button class="page_btn" id="page_btn7">20</button>
+            </li>
+            <li class="pageLi">
+                {% if paginate.has_next %}
+                <button class="page_btn" style="width:100px" id="sufPage">下一页</button>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
 </div>{% endblock %}
