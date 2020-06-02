@@ -16,7 +16,7 @@
             <p class="name">{{username}}</p>
             <p>个人博客:{{profile.blog}}</p>
             <p>简介:{{profile.signature}}</p>
-            <button onclick="window.location.href=" {{url_for('editinfo')}}"">修改信息</button>
+            <button onclick="window.location.href='{{url_for('editinfo')}}'">修改信息</button>
         </div>
     </div>
 
@@ -52,7 +52,7 @@
                     </div>
                     <div class="tabPane tabAsset" id="tab_2" style="display:none;">
                         <form class="myForm" method="POST" action="" id="task" name="myTask">
-                            <textarea name="urls" rows="10" cols="30" placeholder="请输入新建资产:"></textarea>
+                            <textarea name="assets" rows="10" cols="30" placeholder="请输入新建资产:"></textarea>
                             <button class="newtask" type="submit">新建资产</button>
                         </form>
                         <ul class="collect-list">

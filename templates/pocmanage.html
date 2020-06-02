@@ -42,25 +42,13 @@
     <h2 class="tabPa">已生成的POC列表</h2>
     <div class="tabContent">
         <ul class="pocList">
-            <li class="one">POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
-            <li>POC列表</li>
+            {% for poc in poclist %}
+                <li>
+                    <p>POC名: {{poc.name}}</p>
+                    <p>POC规则: {{poc.rule}}</p>
+                    <p>POC回显: {{poc.expression}}</p>
+                </li>
+            {% endfor %}
 
         </ul>
     </div>

@@ -87,23 +87,23 @@
 <script>
 
     //漏洞类型部分
-    $('.skill-per').each(function () {
-        var $this = $(this);
-        var per = $this.attr('per');
-        $this.css("width", per);
-        $({ animatedValue: 0 }).animate(
-            { animatedValue: per },
-            {
-                duartion: 300,
-                step: function () {
-                    $this.attr('per', Math.floor(this.animatedValue));
-                },
-                complete: function () {
-                    $this.attr('per', Math.floor(this.animatedValue));
-                },
-            }
-        );
-    });
+        $('.skill-per').each(function () {
+            var $this = $(this);
+            var per = $this.attr('per');
+            $this.css("width", per + '%');
+            $({ animatedValue: 0 }).animate(
+                { animatedValue: per },
+                {
+                    duration: 300,
+                    step: function () {
+                        $this.attr('per', Math.floor(this.animatedValue) + '%');
+                    },
+                    complete: function () {
+                        $this.attr('per', Math.floor(this.animatedValue) + '%');
+                    }
+                }
+            );
+        });
 
     //饼状图部分
     var dom = document.getElementById("container");
@@ -157,11 +157,11 @@
                         name: "中危",
                     },
                     {
-                        value: "{ { bugbit.highcount } }",
+                        value: "{{ bugbit.highcount }}",
                         name: "高危",
                     },
                     {
-                        value: "{ { bugbit.seriouscount } }",
+                        value: "{{ bugbit.seriouscount }}",
                         name: "严重",
                     },
                 ],
@@ -189,7 +189,7 @@
                 pointColor: " rgb(86, 86, 240)",
                 /// 表示数据的圆圈的边的颜色
                 pointStrokeColor: "#fff",
-                data: ["{{ ports.test80 }}", "{{ ports.test8080 }}", "{{ ports.test443 }}", "{ { ports.test8081 } }", "{ { ports.test22 } }", " { { ports.test85 } }", "{ { ports.test3389 } }", "{ { ports.test9000 } }", "{ { ports.test8088 } }", "{ { ports.test8090 } }", "{ { ports.test3306 } }", "{ { ports.test8000 } }"]
+                data: ["{{ ports.test80 }}", "{{ ports.test8080 }}", "{{ ports.test443 }}", "{{ ports.test8081}}", "{{ports.test22}}", " {{ ports.test85 }}", "{{ ports.test3389 }}", "{{ ports.test9000 }}", "{{ ports.test8088 }}", "{{ ports.test8090 }}", "{{ ports.test3306 }}", "{{ ports.test8000 }}"]
             },
 
         ]
@@ -218,7 +218,7 @@
                 pointColor: " rgb(86, 86, 240)",
                 /// 表示数据的圆圈的边的颜色
                 pointStrokeColor: "#fff",
-                data: [65.5, 59.2, 90, 81, 56, 55, 40, 38, 33, 29, 14]
+                data: ["{{services.http}}", "{{services.ssh}}", "{{services.mysql}}", "{{services.http_proxy}}", "{{services.mongodb}}", "{{services.ftp}}", "{{services.tcpwrapped}}", "{{services.http_alt}}", "{{services.telnet}}", "{{services.https}}", "{{services.redis}}"]
             },
         ]
     }

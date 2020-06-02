@@ -63,8 +63,9 @@ def index(page=None):
 # @login_required
 def POCmanage():
     bugbit,bugtype=core.GetBit()
+    poclist=POC.query.order_by(POC.id.desc()).all()
     if request.method == 'GET':
-        return render_template('pocmanage.html',bugbit=bugbit,bugtype=bugtype)
+        return render_template('pocmanage.html',bugbit=bugbit,bugtype=bugtype,poclist=poclist)
     else:
         pocname=request.form.get('pocname')
         rule=request.form.get('rule')
@@ -75,7 +76,7 @@ def POCmanage():
         redispool.pfadd("poc", pocname)
         db.session.add(poc)
         db.session.commit()
-        return render_template('pocmanage.html',bugbit=bugbit,bugtype=bugtype)
+        return render_template('pocmanage.html',bugbit=bugbit,bugtype=bugtype,poclist=poclist)
 
 
 @app.route('/editinfo',methods=['GET','POST'])
@@ -173,6 +174,9 @@ def user():
     if request.method == 'GET':
         return render_template('user-center.html',allcode=allcode,username=username,profile=profile)
     else:
+        name="testassets"
+        urls=request.form.get('assets')
+        redispool.hset('assets',name,urls)
         return render_template('user-center.html',allcode=allcode,username=username,profile=profile)
 
 
