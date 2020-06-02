@@ -163,6 +163,12 @@ def bugdetail(id=None):
     return render_template('bug-details.html',buginfo=buginfo,oldurlinfo=oldurlinfo,bugbit=bugbit,bugtype=bugtype)
 
 
+@app.route('/assetdetail/')
+@app.route('/assetdetail/<int:page>', methods=['GET'])
+# @login_required
+def assetdetail(aid=None):
+    return render_template('assetDetail.html')
+
 @app.route('/user', methods=['GET', 'POST'])
 # @login_required
 def user():
