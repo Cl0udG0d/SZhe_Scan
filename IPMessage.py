@@ -38,7 +38,7 @@ class IPMessage:
             return "None"
 
 if __name__=='__main__':
-    url="39.99.162.116:8000"
+    url="202.202.157.110"
     pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
     # 判断IP是否存在端口
     if pattern.findall(url) and ":" in url:

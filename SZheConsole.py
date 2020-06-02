@@ -37,7 +37,6 @@ def BugScanConsole(attackurl):
                             bug = BugList(oldurl=attackurl,bugurl=url,bugname=value,buggrade=redispool.hget('bugtype', value),payload=payload,bugdetail=bugdetail)
                             redispool.pfadd(redispool.hget('bugtype', value), url)
                             redispool.pfadd(value, url)
-                            redispool.pfadd("havebugpc", url)
                             db.session.add(bug)
                 db.session.commit()
             print("进行自添加POC扫描")
@@ -111,6 +110,10 @@ def SZheScan(url):
             except Exception as e:
                 print(e)
                 pass
+            #漏洞列表中存在该url的漏洞，证明该url是受到影响的，将redis havebugpc受影响主机加一
+            firstbugurl= BugList.query.order_by(BugList.id.desc()).first().oldurl
+            if firstbugurl==url:
+                redispool.pfadd("havebugpc", url)
             print("{} scan end !".format(url))
     except Exception as e:
         print("2")

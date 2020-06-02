@@ -48,10 +48,10 @@ def GetCounts():
     counts={
         "domaincount":redispool.pfcount("domain"),
         "ipcount":redispool.pfcount("ip"),
-        "bugcount":redispool.pfcount('serious')+redispool.pfcount('high')+redispool.pfcount('medium')+redispool.pfcount('low'),
+        "bugcount":redispool.pfcount('serious')+redispool.pfcount('High')+redispool.pfcount('medium')+redispool.pfcount('low'),
         "poccount":redispool.pfcount("poc"),
         "havebugpc":redispool.pfcount("havebugpc"),
-        "seriouscount":redispool.pfcount('serious'),
+        "seriouscount":redispool.pfcount('Serious'),
         "sencount":redispool.pfcount("SenDir")
     }
     return counts
@@ -61,10 +61,10 @@ def GetBit():
     操作redis HyperLogLog进行计数
     :return:
     '''
-    seriouscount = redispool.pfcount('serious')
-    highcount =  redispool.pfcount('high')
-    mediumcount =  redispool.pfcount('medium')
-    lowcount =  redispool.pfcount('low')
+    seriouscount = redispool.pfcount('Serious')
+    highcount =  redispool.pfcount('High')
+    mediumcount =  redispool.pfcount('Medium')
+    lowcount =  redispool.pfcount('Low')
     allcount=seriouscount+highcount+mediumcount+lowcount
     sqlcount= redispool.pfcount('SQLBugScan')
     comincount= redispool.pfcount('ComInScan')

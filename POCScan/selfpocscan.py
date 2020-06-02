@@ -26,7 +26,6 @@ def informationpoc_check(oldurl,informationurl):
                     # 使用 HyperLogLog  进行 漏洞四等级 计数
                     redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
                     redispool.pfadd(bugname,bugurl)
-                    redispool.pfadd("havebugpc", bugurl)
                     db.session.add(bug)
                     db.session.commit()
             except Exception as e:
@@ -50,7 +49,6 @@ def cmspoc_check(oldurl,cmsurl):
                                   payload=payload, bugdetail=bugdetail)
                     redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
                     redispool.pfadd(bugname,bugurl)
-                    redispool.pfadd("havebugpc", bugurl)
                     db.session.add(bug)
                     db.session.commit()
             except Exception as e:
@@ -75,7 +73,6 @@ def industrial_check(oldurl,industrialurl):
                                   payload=payload, bugdetail=bugdetail)
                     redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
                     redispool.pfadd(bugname,bugurl)
-                    redispool.pfadd("havebugpc", bugurl)
                     db.session.add(bug)
                     db.session.commit()
             except Exception as e:
@@ -99,7 +96,6 @@ def hardware_check(oldurl,hardwareurl):
                                   payload=payload, bugdetail=bugdetail)
                     redispool.pfadd(redispool.hget('bugtype', bugname),bugurl)
                     redispool.pfadd(bugname,bugurl)
-                    redispool.pfadd("havebugpc", bugurl)
                     db.session.add(bug)
                     db.session.commit()
             except Exception as e:

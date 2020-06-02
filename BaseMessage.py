@@ -4,8 +4,6 @@ import re
 import time
 from Wappalyzer import WebPage
 import get_message
-import ImportToRedis
-import redis
 from WebLogicScan import WebLogicScan
 from init import app
 from exts import db

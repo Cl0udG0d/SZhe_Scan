@@ -253,7 +253,6 @@ def SenFileScan(domain,url):
                         SenFileMessage2+=url+"\n"
                         redispool.pfadd(redispool.hget('bugtype', "SenDir"), url)
                         redispool.pfadd("SenDir", url)
-                        redispool.pfadd("havebugpc", url)
                         db.session.add(bug)
                 except Exception as e:
                     # print(e)
@@ -379,4 +378,5 @@ if __name__ == "__main__":
     # print(SenFileScan("test.vulnweb.com",redispool))
     # for i in list:
     #     print(i)
-    print(SenFileScan("testphp.vulnweb.com","http://testphp.vulnweb.com/"))
+    print(GetSiteStation('202.202.157.110'))
+    # print(SenFileScan("testphp.vulnweb.com","http://testphp.vulnweb.com/"))

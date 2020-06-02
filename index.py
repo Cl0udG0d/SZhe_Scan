@@ -78,13 +78,6 @@ def POCmanage():
         return render_template('pocmanage.html',bugbit=bugbit,bugtype=bugtype)
 
 
-@app.route('/setting')
-# @login_required
-def setting():
-    bugbit,bugtype=core.GetBit()
-    return render_template('setting.html',bugbit=bugbit,bugtype=bugtype)
-
-
 @app.route('/editinfo',methods=['GET','POST'])
 # @login_required
 def editinfo():
