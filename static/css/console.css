@@ -229,6 +229,7 @@
 .content-mid {
   display: flex;
   flex-direction: row;
+  column-gap: 10px;
   position: relative;
   top: 15px;
   width: 100%;
@@ -238,16 +239,10 @@
   /* vertical-align: middle; */
   /* column-gap: 15px; */
 }
-.content-mid .myForm {
-  /* width: 90%; */
+.content-mid form {
   flex: 2.5;
   display: flex;
-  /* width: 175%; */
-  /* flex-direction: row;
-  align-items: center;
-  justify-items: center;
-  text-align: center;
-  vertical-align: middle; */
+  flex-direction: column;
   position: relative;
   left: 10px;
 }
@@ -266,20 +261,25 @@
 .content-mid form button {
   /* flex: 1; */
   /* width: 90%; */
-  width: 130px;
-  height: 45px;
-  border: #d3d3d3 solid 1px;
-  border-radius: 4px;
+  width: 98%;
+  line-height: 10px;
+  /* border: #d3d3d3 solid 1px;
+  border-radius: 4px; */
+  border: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
   margin-right: 10px;
   background-color: #0fbcf9;
+  opacity: 0.7;
+  align-items: center;
+  justify-content: center;
   /* background-color: rgb(214, 214, 212); */
   color: #fff;
   /* color: #4d4c4c; */
   padding: 10px 0;
   position: relative;
-  top: 94px;
-  left: -108px;
-  font-size: 18px;
+  top: -30px;
+  font-size: 16px;
 }
 .content-mid form button:hover {
   cursor: pointer;
@@ -296,7 +296,7 @@
   background-color: #f8f8ff;
   border-radius: 4px;
   position: relative;
-  left: -50px;
+  top: -15px;
 }
 .contentNums p {
   margin-bottom: 13px;
@@ -314,7 +314,7 @@
   justify-content: center;
   width: 100%;
   position: relative;
-  top: 10px;
+  top: -10px;
 }
 .bar-graph {
   flex: 1;

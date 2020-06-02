@@ -574,7 +574,7 @@ table .page-number td a:active {
   line-height: 40px;
   float: left;
 }
-.pageNumber .page_btn {
+.pageNumber .pageBtn {
   border-radius: 4px;
   /* border: 1px solid #e5e9ef; */
   border: 1px solid #d3d3d3;
@@ -588,7 +588,7 @@ table .page-number td a:active {
   outline: 0;
 }
 
-.pageNumber .page_btn:hover {
+.pageNumber .pageBtn:hover {
   border: 1px solid #4f90fb;
   color: #4f90fb;
   cursor: pointer;

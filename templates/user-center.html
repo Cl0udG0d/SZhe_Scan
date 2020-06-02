@@ -16,9 +16,10 @@
             <p class="name">{{username}}</p>
             <p>个人博客:{{profile.blog}}</p>
             <p>简介:{{profile.signature}}</p>
-            <button onclick="window.location.href='{{url_for('editinfo')}}'">修改信息</button>
+            <button onclick="window.location.href=" {{url_for('editinfo')}}"">修改信息</button>
         </div>
     </div>
+
     <div class="right-context">
         <div class="container-list">
             <div class="tab-custom">
@@ -32,7 +33,6 @@
                     <button class="tablinks" onclick="openList(event, 'tab_3')">
                         <p style="font-size: 18px;">邀请码</p>
                     </button>
-
                 </div>
                 <div class="tab-content">
                     <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')"
@@ -50,7 +50,11 @@
                             <li>关注列表一</li>
                         </ul>
                     </div>
-                    <div class="tabPane" id="tab_2" style="display:none;">
+                    <div class="tabPane tabAsset" id="tab_2" style="display:none;">
+                        <form class="myForm" method="POST" action="" id="task" name="myTask">
+                            <textarea name="urls" rows="10" cols="30" placeholder="请输入新建资产:"></textarea>
+                            <button class="newtask" type="submit">新建资产</button>
+                        </form>
                         <ul class="collect-list">
                             <li class="one">资产</li>
                             <li>资产</li>

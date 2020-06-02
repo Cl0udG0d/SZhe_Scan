@@ -18,12 +18,13 @@
 .right-context {
   width: 100%;
 }
+
 .pocContainer {
-  width: 92%;
+  width: 94%;
   background-color: #f8f8ff;
   border: 1px solid #d3d3d3;
   border-radius: 4px;
-  height: 400px;
+  height: 360px;
   display: flex;
   align-items: start;
   justify-content: center;
@@ -84,4 +85,64 @@ form button {
 form button:hover {
   cursor: pointer;
   background-color: #0394e7;
+}
+.pocLists {
+  width: 94%;
+  background-color: #f8f8ff;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  height: 1030px;
+  /* display: flex; */
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  left: 10px;
+  overflow-y: scroll;
+  position: relative;
+  top: 20px;
+}
+.pocLists h2 {
+  color: #474747;
+  line-height: 55px;
+  width: 100%;
+  background-color: rgb(228, 227, 227);
+  text-align: center;
+  display: block;
+  display: fixed;
+}
+.pocLists .tabContent {
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+.pocLists .tabContent .pocList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  top: 10px;
+}
+.pocLists .tabContent ul li {
+  flex: 1;
+  width: 97%;
+  line-height: 70px;
+  margin-bottom: 10px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  background-color: #f8f8ff;
+}
+.context {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 120px;
+  width: 100vw;
+  height: 1550px;
+  background-color: #f1f1f1;
+}
+.body-tail {
+  position: absolute;
+  top: 1630px;
 }

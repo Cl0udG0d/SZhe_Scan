@@ -6,6 +6,7 @@
 {% block js %}
 <script src="{{url_for('static',filename='js/home.js')}}"></script>
 <script type="text/javascript" src="../static/libs/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../static/js/home.js"></script>
 <script type="text/javascript" src="../static/libs/echarts.min.js"></script>
 {% endblock %}
 {% block rightcontext %}
@@ -29,7 +30,7 @@
     </div>
     <div class="tab-pane">{{info.responseheader}}<br /></div>
   </div>{% endfor %}
-  <table frame=void class="page-number" style="position: absolute;
+  <!-- <table frame=void class="page-number" style="position: absolute;
   top: 1530px;left:390px;">
     <tr>
       <td class=" td" style="margin-right:10px;white-space: nowrap;position: relative;left:15px;color: #4b4a4a;">
@@ -56,6 +57,47 @@
           style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:280px;">下一页</a>
         {% endif %}</td>
     </tr>
-  </table>
+  </table> -->
+  <div class="pageNumber">
+    <ul>
+      <li class="pageLi">
+        {% if paginate.has_prev %}
+        <button class="pageBtn" style="width:100px" id="prePage">上一页</button>
+        {% endif %}
+      </li>
+      <li class="pageLi">
+        <button class="pageBtn" id="btn1">1</button>
+      </li>
+      <li class="pageLi">
+        <span class="pages_span" id="prePoint">...</span>
+      </li>
+      <li class="pageLi">
+        <button class="pageBtn" id="btn2">7</button>
+      </li>
+      <li class="pageLi">
+        <button class="pageBtn" id="btn3">8</button>
+      </li>
+      <li class="page_li">
+        <button class="pageBtn" id="btn4">9</button>
+      </li>
+      <li class="pageLi">
+        <button class="pageBtn" id="btn5">10</button>
+      </li>
+      <li class="pageLi">
+        <button class="pageBtn" id="btn6">11</button>
+      </li>
+      <li class="pageLi">
+        <span class="pages_span" id="sufPoint">...</span>
+      </li>
+      <li class="pageLi">
+        <button class="pageBtn" id="btn7">20</button>
+      </li>
+      <li class="pageLi">
+        {% if paginate.has_next %}
+        <button class="pageBtn" style="width:100px" id="sufPage">下一页</button>
+        {% endif %}
+      </li>
+    </ul>
+  </div>
 </div>
 {% endblock %}
