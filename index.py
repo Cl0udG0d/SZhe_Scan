@@ -164,10 +164,16 @@ def bugdetail(id=None):
 
 
 @app.route('/assetdetail/')
-@app.route('/assetdetail/<int:page>', methods=['GET'])
+@app.route('/assetdetail/<name>', methods=['GET'])
 # @login_required
-def assetdetail(aid=None):
-    return render_template('assetDetail.html')
+def assetdetail(name=None):
+    if not name:
+        return redirect(url_for('index'))
+    else:
+        assetdetail=redispool.hget('assets',name)
+        return render_template('assetDetail.html',name=name,assetdetail=assetdetail)
+
+
 
 @app.route('/user', methods=['GET', 'POST'])
 # @login_required
@@ -177,13 +183,14 @@ def user():
     nowuser = User.query.filter(User.id == user_id).first()
     username = nowuser.username
     profile = Profile.query.filter(Profile.userid == user_id).first()
+    assetname=redispool.hkeys('assets')
     if request.method == 'GET':
-        return render_template('user-center.html',allcode=allcode,username=username,profile=profile)
+        return render_template('user-center.html',allcode=allcode,username=username,profile=profile,assetname=assetname)
     else:
-        name="testassets"
+        name=request.form.get('asset')
         urls=request.form.get('assets')
         redispool.hset('assets',name,urls)
-        return render_template('user-center.html',allcode=allcode,username=username,profile=profile)
+        return render_template('user-center.html',allcode=allcode,username=username,profile=profile,assetname=assetname)
 
 
 @app.route('/test_console', methods=['GET', 'POST'])

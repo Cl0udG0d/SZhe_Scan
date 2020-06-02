@@ -318,6 +318,7 @@ header .burger {
 }
 .assetDetail {
   overflow-y: scroll;
+  white-space: pre-line;
   height: 540px;
   padding: 10px 15px;
 }
