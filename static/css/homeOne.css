@@ -540,68 +540,10 @@ header .burger {
   box-shadow: 5px 5px 8px #d3d3d3; */
   cursor: pointer;
 }
-/* table {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-items: center;
-  margin-bottom: 13px;
-  line-height: 40px;
-  position: relative;
-  top: 17px;
-  left: 10px;
-}
-table td {
-  flex: 1;
-  color: #2e2e2e;
-}
-table td a:active {
-  color: #0fbcf9;
-}
-table:hover {
-  background-color: #f8f8ff;
-}
-
-table .page-number {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-items: center;
-  width: 90%;
-  margin-bottom: 13px;
-  line-height: 40px;
-  border: #d3d3d3 solid 1px;
-  border-radius: 4px;
-  color: #4b4a4a;
-  width: 70%;
-  position: absolute;
-  top: 1550px;
-  left: 370px;
-}
-table .page-number td {
-  flex: 1;
-  color: #4b4a4a;
-} */
-/* .page-number td a {
-  flex: 1;
-} */
-/* table .page-number td a:hover {
-  color: #0fbcf9;
-}
-table .page-number td a:link {
-  color: rgb(43, 43, 248);
-}
-table .page-number td a:visited {
-  color: rgb(43, 43, 248);
-} */
-/* table .page-number:hover {
-  background-color: #f8f8ff;
-} */
 
 .pageNumber {
   position: relative;
-  left: 325px;
+  left: 455px;
   top: 5px;
 }
 .pageNumber ul {
@@ -632,7 +574,14 @@ table .page-number td a:visited {
   color: #4f90fb;
   cursor: pointer;
 }
-
+.pageNumber .pageBtn:focus {
+  border: 1px solid #4f90fb;
+  color: #4f90fb;
+}
+.pageNumber .pageBtn:active {
+  border: 1px solid #4f90fb;
+  color: #4f90fb;
+}
 .pageNumber span.pages_span {
   margin-right: 10px;
   width: 38px;
@@ -647,9 +596,7 @@ table .page-number td a:visited {
   width: 100vw;
   height: 35px;
   display: flex;
-  /*弹性布局*/
   justify-content: center;
-  /*元素在页面上居中排列*/
   align-items: center;
   border-top: 1px rgb(129, 129, 129) solid;
   background-color: rgb(238, 238, 238);

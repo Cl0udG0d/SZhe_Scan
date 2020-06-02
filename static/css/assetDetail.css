@@ -215,16 +215,7 @@ h1 a {
 }
 .navigation ul .one::after {
   content: "";
-  display: block;
-  background-color: #0fbcf9;
-  width: 100px;
-  height: 5px;
-  border-radius: 4px;
-  position: absolute;
-  top: 42px;
-  left: 10px;
-  z-index: 1;
-  transition: all ease, 0.3s;
+  display: none;
 }
 .navigation ul li a:focus::after {
   content: "";
@@ -307,8 +298,8 @@ header .burger {
 }
 
 .assetDetails {
-  width: 80%;
-  height: 650px;
+  width: 70%;
+  height: 600px;
   background-color: #f8f8ff;
   position: relative;
   top: 100px;
@@ -327,5 +318,26 @@ header .burger {
 }
 .assetDetail {
   overflow-y: scroll;
-  height: 580px;
+  height: 540px;
+  padding: 10px 15px;
+}
+.assetDetail span {
+  font-size: 22px;
+  color: #424141;
+}
+.body-tail {
+  position: absolute;
+  top: 800px;
+  width: 100vw;
+  height: 40px;
+  display: flex;
+  /*弹性布局*/
+  justify-content: center;
+  /*元素在页面上居中排列*/
+  align-items: center;
+  border-top: 1px rgb(129, 129, 129) solid;
+  background-color: rgb(238, 238, 238);
+  color: #7a7a7a;
+  font-size: 14px;
+  z-index: 101;
 }

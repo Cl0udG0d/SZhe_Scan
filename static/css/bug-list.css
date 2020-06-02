@@ -562,7 +562,7 @@ table .page-number td a:active {
 } */
 .pageNumber {
   position: relative;
-  left: 285px;
+  left: 5px;
   top: 25px;
 }
 .pageNumber ul {
@@ -587,7 +587,11 @@ table .page-number td a:active {
   margin-top: 6px;
   outline: 0;
 }
-
+.pageNumber button a {
+  width: 38px;
+  height: 38px;
+  font-size: 14px;
+}
 .pageNumber .pageBtn:hover {
   border: 1px solid #4f90fb;
   color: #4f90fb;
