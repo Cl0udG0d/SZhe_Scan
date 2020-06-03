@@ -95,8 +95,8 @@ def SZheScan(url):
                                 domainaddr=domaininfo.FindDomainAdd())
                 db.session.add(domaininfo)
             db.session.commit()
-            #默认url深度爬取为 1 ，避免大站链接过多，可在设置中进行修改
-            SpiderGetUrl2(attackurl,deepth=1)
+            #默认url深度爬取为 2 ，避免大站链接过多，可在设置中进行修改
+            SpiderGetUrl2(attackurl,deepth=2)
             print("对该网站爬取到的url进行常规漏扫 :D")
             BugScanConsole(url)
             try:

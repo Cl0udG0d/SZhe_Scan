@@ -121,15 +121,15 @@ if __name__=='__main__':
     # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
     # redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
     try:
-        rep=requests.get(url="http://testphp.vulnweb.com",headers=core.GetHeaders(),timeout=10)
-        test=GetBaseMessage("testphp.vulnweb.com","http://testphp.vulnweb.com",rep)
+        rep=requests.get(url="https://www.nowcoder.com",headers=core.GetHeaders(),timeout=10)
+        test=GetBaseMessage("www.nowcoder.com","https://www.nowcoder.com",rep)
         # test.AngelSwordMain()
-        # print(test.GetStatus())
-        # print(test.GetTitle())
-        # print(test.GetResponseHeader())
+        print(test.GetStatus())
+        print(test.GetTitle())
+        print(test.GetResponseHeader())
         print(test.GetFinger())
-        # print(test.PortScan())
-        # print(test.SenDir())
+        print(test.PortScan())
+        print(test.SenDir())
 
     except Exception as e:
         print(e)

@@ -42,7 +42,7 @@ class BaseInfo(db.Model):
     title = db.Column(db.String(50), nullable=True)
     date = db.Column(db.String(30), nullable=False)
     responseheader = db.Column(db.Text, nullable=False)
-    Server = db.Column(db.String(100), nullable=True)
+    Server = db.Column(db.Text, nullable=True)
     portserver = db.Column(db.Text, nullable=True)
     sendir = db.Column(db.Text, nullable=True)
 

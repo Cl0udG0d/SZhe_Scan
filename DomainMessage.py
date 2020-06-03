@@ -59,7 +59,7 @@ class DomainMessage:
             return "None"
 
 if __name__=='__main__':
-    test=DomainMessage("www.runoob.com")
+    test=DomainMessage("www.nowcoder.com")
     try:
         print(test.GetSiteStation())
         print(test.GetBindingIP())
