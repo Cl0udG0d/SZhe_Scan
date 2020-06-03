@@ -542,9 +542,11 @@ header .burger {
 }
 
 .pageNumber {
-  position: relative;
-  left: 455px;
-  top: 5px;
+  position: absolute;
+  top: 1524px;
+  left: 845px;
+  /* left: 455px;
+  top: 5px; */
 }
 .pageNumber ul {
   height: 100%;
