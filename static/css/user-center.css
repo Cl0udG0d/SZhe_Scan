@@ -490,7 +490,13 @@ form ol li input {
 }
 .assetList {
   height: 250px;
-  padding-top: 20px;
+  padding-top: 190px;
+  overflow: auto;
+  width: 97%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .tabAsset {
   width: 100%;
@@ -498,17 +504,18 @@ form ol li input {
   justify-content: center;
   align-items: center;
 }
-.tabAsset input {
+.tabAsset form input {
   background-color: #f8f8ff;
   border: #d3d3d3 solid 1px;
   border-radius: 4px;
-  width: 93%;
+  width: 100%;
   height: 40px;
   color: #494949;
   position: relative;
-  top: 10px;
+  top: -10px;
   padding-left: 10px;
 }
+
 .tabAsset form {
   position: relative;
   top: 20px;
@@ -516,8 +523,6 @@ form ol li input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* column-gap: 10px; */
-  /* padding: 0 10px; */
   width: 93%;
   margin: 0 auto;
 }
@@ -567,14 +572,32 @@ form ol li input {
   border-radius: 4px;
   background-color: #f8f8ff;
 }
-
+.assetList li {
+  width: 90%;
+  flex: 1;
+  line-height: 70px;
+  margin-bottom: 10px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  background-color: #f8f8ff;
+}
+.assetList li a {
+  width: 690px;
+  line-height: 70px;
+}
+.assetList li a:link {
+  color: rgb(65, 65, 224);
+}
+.assetList li a:visited {
+  color: rgb(65, 65, 224);
+}
 .collect-list .one {
   position: relative;
   margin-top: 100px;
 }
 .assetList .one {
   position: relative;
-  margin-top: 550px;
+  margin-top: 50px;
 }
 .user-bottom .whatever {
   flex: 1;

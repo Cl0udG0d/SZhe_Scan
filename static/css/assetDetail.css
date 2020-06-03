@@ -317,13 +317,16 @@ header .burger {
   /* display: fixed; */
 }
 .assetDetail {
-  overflow-y: scroll;
+  overflow-y: auto;
   white-space: pre-line;
   height: 540px;
   padding: 10px 15px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 .assetDetail span {
-  font-size: 22px;
+  font-size: 16px;
   color: #424141;
 }
 .body-tail {
