@@ -27,7 +27,6 @@ class BugScan:
 
     def POCScan(self):
         POCScan.POCScanConsole(self.oldurl,self.url)
-        return False,None,None
 
 if __name__=='__main__':
     # test=BugScan('http://testphp.vulnweb.com/listproducts.php?cat=1')

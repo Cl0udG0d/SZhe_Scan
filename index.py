@@ -76,6 +76,7 @@ def POCmanage():
         redispool.pfadd("poc", pocname)
         db.session.add(poc)
         db.session.commit()
+        poclist = POC.query.order_by(POC.id.desc()).all()
         return render_template('pocmanage.html',bugbit=bugbit,bugtype=bugtype,poclist=poclist)
 
 
@@ -190,10 +191,11 @@ def user():
         name=request.form.get('asset')
         urls=request.form.get('assets')
         redispool.hset('assets',name,urls)
+        assetname = redispool.hkeys('assets')
         return render_template('user-center.html',allcode=allcode,username=username,profile=profile,assetname=assetname)
 
 
-@app.route('/console', methods=['GET', 'POST'])
+@app.route('/test_console', methods=['GET', 'POST'])
 @login_required
 def console():
     bugbit,bugtype=core.GetBit()
@@ -215,6 +217,7 @@ def console():
         for url in urls:
             redispool.hincrby('targetscan', 'waitcount', 1)
         executor.submit(SZheConsole, urls)
+        target = core.GetTargetCount()
         return render_template('console.html',bugbit=bugbit,bugtype=bugtype,counts=counts,lastscantime=lastscantime,ports=ports,services=services,target=target)
 
 

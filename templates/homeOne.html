@@ -63,17 +63,17 @@
       <li class="pageLi">
         {% if paginate.has_prev %}
         <button class="pageBtn" style="width:100px" id="prePage"><a
-            href="{{url_for('buglist',page=paginate.prev_num)}}">上一页</a></button>
+            href="{{url_for('index',page=paginate.prev_num)}}">上一页</a></button>
         {% endif %}
       </li>
       {% for i in paginate.iter_pages() %}
       <li class="pageLi">
-        <button class="pageBtn" id="{{ i }}"><a href="{{url_for('buglist',page=i)}}">{{ i }}</a></button>
+        <button class="pageBtn" id="{{ i }}"><a href="{{url_for('index',page=i)}}">{{ i }}</a></button>
       </li>
       {% endfor %}
       {% if paginate.has_next %}
       <button class="pageBtn" style="width:100px" id="sufPage"> <a
-          href="{{url_for('buglist',page=paginate.next_num)}}">下一页</a></button>
+          href="{{url_for('index',page=paginate.next_num)}}">下一页</a></button>
       {% endif %}
       </li>
     </ul>

@@ -101,7 +101,7 @@ def SZheScan(url):
             BugScanConsole(url)
             try:
                 count=redispool.hget('targetscan', 'waitcount')
-                if type(count) =="string":
+                if 'str' in str(type(count)):
                     waitcount=int(count)-1
                     redispool.hset("targetscan", "waitcount", str(waitcount))
                 else:
@@ -165,6 +165,17 @@ def inputfilter(url):
             return url,attackurl2,rep2
         else:
             print("None data")
+            try:
+                count=redispool.hget('targetscan', 'waitcount')
+                if 'str' in str(type(count)):
+                    waitcount=int(count)-1
+                    redispool.hset("targetscan", "waitcount", str(waitcount))
+                else:
+                    redispool.hset("targetscan", "waitcount", "0")
+                redispool.hdel("targetscan", "nowscan")
+            except Exception as e:
+                print(e)
+                pass
             return None,None,None
     if "http://" in url or "https://" in url:
         attackurl=url

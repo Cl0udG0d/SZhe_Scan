@@ -20,4 +20,3 @@ def POCScanConsole(attackurl,url):
                 print(e)
                 pass
         db.session.commit()
-    return None
