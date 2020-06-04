@@ -2,6 +2,8 @@ CREATE DATABASE IF NOT EXISTS SZheScan default charset utf8 COLLATE utf8_general
 
 use SZheScan;
 
+
+
 CREATE TABLE `user` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 `email` varchar(20) NOT NULL,
