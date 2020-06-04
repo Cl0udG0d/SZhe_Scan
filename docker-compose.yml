@@ -1,0 +1,25 @@
+version: '3'
+services:
+  redis:
+    image: "redis"
+    restart: always
+  mysql:
+    image: mysql:5.7
+    build: ./mysql
+    environment:
+      - MYSQL_DATABASE=SZheScan
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  web:
+    build: .
+    ports:
+     - "5000:5000"
+    links:
+     - mysql:mysql
+     - redis:redis
+    depends_on:
+     - mysql
+    restart: always
