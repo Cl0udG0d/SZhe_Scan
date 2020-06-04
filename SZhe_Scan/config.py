@@ -8,10 +8,10 @@ import redis
     数据库名为SZheScan
         python3:https://blog.csdn.net/qq562029186/article/details/81325074
 '''
-DEBUG=True
+DEBUG=False
 SECRET_KEY=os.urandom(24)
 
-HOSTNAME='127.0.0.1'
+HOSTNAME='mysql'
 PORT='3306'
 DATABASE='SZheScan'
 USERNAME='root'
@@ -22,5 +22,5 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(U
 SQLALCHEMY_TRACK_MODIFICATIONS=False
 
 # PASSWORD = "123456"
-HOST = "127.0.0.1"
+HOST = 'redis'
 redisPool = redis.ConnectionPool(host=HOST, port=6379, db=0, decode_responses=True)

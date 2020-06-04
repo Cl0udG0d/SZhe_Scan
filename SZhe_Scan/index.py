@@ -195,7 +195,7 @@ def user():
         return render_template('user-center.html',allcode=allcode,username=username,profile=profile,assetname=assetname)
 
 
-@app.route('/test_console', methods=['GET', 'POST'])
+@app.route('/console', methods=['GET', 'POST'])
 @login_required
 def console():
     bugbit,bugtype=core.GetBit()
