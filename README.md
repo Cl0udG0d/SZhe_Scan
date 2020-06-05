@@ -26,7 +26,7 @@
    + 依次输入以下三条命令:  
    > git clone https://github.com/Cl0udG0d/SZhe_Scan   
    > cd SZhe_Scan  
-   > docker-compose up –d  
+   > docker-compose up -d  
    + 运行结束后访问 http://ip:5000 ,默认账户登录邮箱为:springbird@qq.com,默认密码为:springbird,登录之后请第一时间修改密码:)
 
 ## 运行截图  
@@ -75,7 +75,7 @@
    + 自添加POC漏洞检测
 ## 启动  
    + 源码安装启动方式 在开启MySQL和Redis的情况下，命令行运行 python3 index.py，浏览器访问 127.0.0.1:5000即可  
-   + docker安装启动方式 在SZhe_Scan文件夹下,使用 docker-compose up –d  启动docker服务,访问 http://ip:5000 登录进行访问
+   + docker安装启动方式 在SZhe_Scan文件夹下,使用 docker-compose up -d  启动docker服务,访问 http://ip:5000 登录进行访问
 ## 修Bug交流群  
    > xxxxxxxxxx 暂无
 ## 扫描器名字-->碎遮 的来由:
