@@ -24,7 +24,7 @@
    + 在服务器或本机上安装docker,网上有很多安装文章,这里不再赘述  
    + (建议使用阿里云等docker加速,建议  
    + 依次输入以下三条命令:  
-   > git clone git@github.com:Cl0udG0d/SZhe_Scan.git  
+   > git clone https://github.com/Cl0udG0d/SZhe_Scan 
    > cd SZhe_Scan  
    > docker-compose up –d  
    + 运行结束后访问 http://ip:5000 ,默认账户登录邮箱为:springbird@qq.com,默认密码为:springbird,登录之后请第一时间修改密码:)
