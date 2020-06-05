@@ -14,7 +14,7 @@
 ## 安装方法(择其一即可):
    ### 源码安装(不建议使用源码安装，相比较于docker安装)
    + Python版本:3.X，数据库:MySQL，Redis 
-   + Git bash界面输入 git clone git@github.com:Cl0udG0d/SZhe_Scan.git进行下载（或直接下载源代码）
+   + Git bash界面输入 git clone https://github.com/Cl0udG0d/SZhe_Scan 进行下载（或直接下载源代码）
    + 安装python类库: pip3 install -r requirements.txt
    + 修改config.py数据库账号密码为本地账号密码,将config.py 中 HOSTNAME='mysql' 修改为 HOSTNAME='127.0.0.1',HOST = 'redis' 修改为 HOST = '127.0.0.1'
    + 在phpmyadmin界面导入init.sql.zip文件，自动初始化数据库和表，以及初始用户  
@@ -24,7 +24,7 @@
    + 在服务器或本机上安装docker,网上有很多安装文章,这里不再赘述  
    + (建议使用阿里云等docker加速,建议  
    + 依次输入以下三条命令:  
-   > git clone https://github.com/Cl0udG0d/SZhe_Scan 
+   > git clone https://github.com/Cl0udG0d/SZhe_Scan   
    > cd SZhe_Scan  
    > docker-compose up –d  
    + 运行结束后访问 http://ip:5000 ,默认账户登录邮箱为:springbird@qq.com,默认密码为:springbird,登录之后请第一时间修改密码:)
