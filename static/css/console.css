@@ -270,6 +270,8 @@
   border-bottom-right-radius: 4px;
   margin-right: 10px;
   background-color: #0fbcf9;
+
+  background-color: rgb(22, 122, 253);
   opacity: 0.7;
   align-items: center;
   justify-content: center;
@@ -283,7 +285,7 @@
 }
 .content-mid form button:hover {
   cursor: pointer;
-  background-color: #0394e7;
+  opacity: 1;
 }
 .contentNums {
   flex: 1;
@@ -302,10 +304,10 @@
   margin-bottom: 13px;
   align-items: flex-start;
 }
-.contentNums .p1 {
+/* .contentNums .p1 {
   position: relative;
   left: -40px;
-}
+} */
 .charts {
   /* flex: 1; */
   display: flex;

@@ -11,3 +11,15 @@ function openList(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
+function show1() {
+  var True = document.getElementsByClassName(true);
+  var False = document.getElementsByClassName(false);
+  var x = 1;
+  if (True[0].style.display != "none") {
+    True[0].style.display = "none";
+    False[0].style.display = "inline";
+  } else {
+    True[0].style.display = "inline";
+    False[0].style.display = "none";
+  }
+}

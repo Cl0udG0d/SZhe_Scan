@@ -56,6 +56,40 @@
   border-left: 5px solid #0fbcf9;
   padding: 1px 10px;
 }
+.content-titles form {
+  display: block;
+  position: absolute;
+  top: 53px;
+  left: 620px;
+  width: 120px;
+  z-index: 100;
+}
+.follow {
+  display: block;
+  width: 90%;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 8px;
+  background-color: #0fbcf9;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  color: #f8f8ff;
+  outline: none;
+}
+.follow:hover {
+  background-color: #0bb1ee;
+  cursor: pointer;
+}
+.follow span {
+  font-size: 15px;
+  font-weight: 500;
+}
+.true {
+  display: inline;
+}
+.false {
+  display: none;
+}
 .domain-details {
   font-size: 16px;
   position: relative;

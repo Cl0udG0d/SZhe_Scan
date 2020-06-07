@@ -12,73 +12,47 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script> -->
 {% endblock %}
-<div class="bugLists">
-    {% block rightcontext %}
-    {% for bug in bugs %}
-    <div class="list domain">
-        <div class="domain-name">
-            <div class="two-p">
-                <a href="{{url_for('bugdetail',id=bug.id)}}">
-                    <i class="fa fa-link"></i>
-                    <p class="pgr">{{bug.bugurl}}</p>
-                </a>
-            </div>
-            <!-- <div class="three-p">
+<!-- <div class="bugLists"> -->
+{% block rightcontext %}
+{% for bug in bugs %}
+<div class="list domain">
+    <div class="domain-name">
+        <div class="two-p">
+            <a href="{{url_for('bugdetail',id=bug.id)}}">
+                <i class="fa fa-link"></i>
+                <p class="pgr">{{bug.bugurl}}</p>
+            </a>
+        </div>
+        <!-- <div class="three-p">
                 <i class="fa fa-clock-o"></i>
                 <p>所属: {{bug.oldurl}}</p>
             </div> -->
-            <p>所属: {{bug.oldurl}}</p>
-            <p>漏洞: {{bug.bugname}}</p>
-            <p>漏洞等级: {{bug.buggrade}}</p>
-        </div>
-        <div class="tab-pane">{{bug.bugdetail}}<br /></div>
+        <p>所属: {{bug.oldurl}}</p>
+        <p>漏洞: {{bug.bugname}}</p>
+        <p>漏洞等级: {{bug.buggrade}}</p>
+    </div>
+    <div class="tab-pane">{{bug.bugdetail}}<br /></div>
 
-    </div>
-    {% endfor %}
-    <!-- <table frame=void class="page-number" style="position: absolute;top:1550px;left:190px;background-color: #f8f8ff;">
-        <tr>
-            <td class="td" style="margin-right:10px;white-space: nowrap;position: relative;left:-170px;color: #4b4a4a;">
-                当前页数:
-                {{paginate.page}}</td>
-            <td class="td" style="margin-right:20px;position: relative;left:-130px;color: #4b4a4a;">总页数:
-                {{paginate.pages}}</td>
-            <td class="td" style="position: relative;left:-80px;color: #4b4a4a;">共有 {{paginate.total}} 条数据</td>
-            <td class="td" style="position: relative;left:90px;color: #4b4a4a;">
-                页码：
-                {% for i in paginate.iter_pages() %}
-                <a href="{{url_for('buglist',page=i)}}"
-                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius:2px;">{{ i }}</a>
-                {% endfor %}</td>
+</div>
+{% endfor %}
+<div class="pageNumber">
+    <ul>
+        <li class="pageLi">
             {% if paginate.has_prev %}
-            <td class="td" style="margin-right:20px;">
-                <a href="{{url_for('buglist',page=paginate.prev_num)}}"
-                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:110px;">上一页</a>
-                {% endif %}</td>
-            <td class="td" style="margin-right:20px;">
-                {% if paginate.has_next %}
-                <a href="{{url_for('buglist',page=paginate.next_num)}}"
-                    style="border:#d3d3d3 solid 1px;padding:2px 5px;border-radius: 4px;position: relative;left:110px;">下一页</a>
-                {% endif %}</td>
-        </tr>
-    </table> -->
-    <div class="pageNumber">
-        <ul>
-            <li class="pageLi">
-                {% if paginate.has_prev %}
-                <button class="pageBtn" style="width:100px" id="prePage"><a
-                        href="{{url_for('buglist',page=paginate.prev_num)}}">上一页</a></button>
-                {% endif %}
-            </li>
-            {% for i in paginate.iter_pages() %}
-            <li class="pageLi">
-                <button class="pageBtn" id="{{ i }}"><a href="{{url_for('buglist',page=i)}}">{{ i }}</a></button>
-            </li>
-            {% endfor %}
-            {% if paginate.has_next %}
-            <button class="pageBtn" style="width:100px" id="sufPage"> <a
-                    href="{{url_for('buglist',page=paginate.next_num)}}">下一页</a></button>
+            <button class="pageBtn" style="width:100px" id="prePage"><a
+                    href="{{url_for('buglist',page=paginate.prev_num)}}">上一页</a></button>
             {% endif %}
-            </li>
-        </ul>
-    </div>
+        </li>
+        {% for i in paginate.iter_pages() %}
+        <li class="pageLi">
+            <button class="pageBtn" id="{{ i }}"><a href="{{url_for('buglist',page=i)}}">{{ i }}</a></button>
+        </li>
+        {% endfor %}
+        {% if paginate.has_next %}
+        <button class="pageBtn" style="width:100px" id="sufPage"> <a
+                href="{{url_for('buglist',page=paginate.next_num)}}">下一页</a></button>
+        {% endif %}
+        </li>
+    </ul>
+</div>
 </div>{% endblock %}

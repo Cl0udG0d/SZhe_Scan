@@ -87,23 +87,23 @@
 <script>
 
     //漏洞类型部分
-        $('.skill-per').each(function () {
-            var $this = $(this);
-            var per = $this.attr('per');
-            $this.css("width", per + '%');
-            $({ animatedValue: 0 }).animate(
-                { animatedValue: per },
-                {
-                    duration: 300,
-                    step: function () {
-                        $this.attr('per', Math.floor(this.animatedValue) + '%');
-                    },
-                    complete: function () {
-                        $this.attr('per', Math.floor(this.animatedValue) + '%');
-                    }
+    $('.skill-per').each(function () {
+        var $this = $(this);
+        var per = $this.attr('per');
+        $this.css("width", per + '%');
+        $({ animatedValue: 0 }).animate(
+            { animatedValue: per },
+            {
+                duration: 300,
+                step: function () {
+                    $this.attr('per', Math.floor(this.animatedValue) + '%');
+                },
+                complete: function () {
+                    $this.attr('per', Math.floor(this.animatedValue) + '%');
                 }
-            );
-        });
+            }
+        );
+    });
 
     //饼状图部分
     var dom = document.getElementById("container");

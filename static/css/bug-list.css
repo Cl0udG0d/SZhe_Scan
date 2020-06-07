@@ -467,11 +467,8 @@ header .burger {
   /* height: 2000px; */
   /* padding: 15px 0; */
 }
-.bugLists {
-  height: 1500px;
-}
+
 .right-context .list {
-  /* flex-basis: 120px; */
   flex: 1;
   width: 100%;
   height: 100px;
@@ -479,6 +476,7 @@ header .burger {
   margin-left: 20px;
   display: flex;
   flex-direction: row;
+  column-gap: 15px;
   align-items: flex-start;
   justify-items: center;
   border-bottom: 1px solid #b6b6b6;
@@ -494,10 +492,11 @@ header .burger {
   margin-right: 10px;
   position: relative;
   left: -20px;
-  width: 100%;
+  /* width: 50%; */
   height: 120px;
   color: #747373;
   font-size: 14px;
+  word-break: break-all;
   /* flex-basis: 300px; */
 }
 .right-context .list .domain-name p {
@@ -505,6 +504,10 @@ header .burger {
 }
 .right-context .list .domain-name .two-p {
   flex: 1;
+}
+.right-context .list .domain-name .two-p a {
+  word-break: break-all;
+  width: 100%;
 }
 .right-context .list .domain-name .two-p a:link {
   color: rgb(43, 43, 248);

@@ -162,6 +162,8 @@
 }
 .tab-content .tanPane .historys p {
   margin-bottom: 10px;
+  width: 100%;
+  word-break: break-all;
 }
 
 .tab-custom .tab button.active,
