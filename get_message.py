@@ -378,5 +378,5 @@ if __name__ == "__main__":
     # print(SenFileScan("test.vulnweb.com",redispool))
     # for i in list:
     #     print(i)
-    print(GetSiteStation('202.202.157.110'))
+    print(CScanConsole('202.205.190.0'))
     # print(SenFileScan("testphp.vulnweb.com","http://testphp.vulnweb.com/"))

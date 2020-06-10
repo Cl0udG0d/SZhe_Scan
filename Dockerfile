@@ -5,5 +5,5 @@ ENV FLASK_RUN_HOST 0.0.0.0
 COPY . .
 RUN apt-get update && \
     apt-get install nmap -y && \
-    pip install -r requirements.txt
+    pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 CMD ["flask", "run"]
