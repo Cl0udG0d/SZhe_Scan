@@ -32,14 +32,14 @@
 ## 运行截图  
 ![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2.png)
 ![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E6%B3%A8%E5%86%8C%E7%95%8C%E9%9D%A2.png)
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E4%B8%BB%E9%A1%B5.png)
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E6%8E%A7%E5%88%B6%E5%8F%B0.png)
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E6%BC%8F%E6%B4%9E%E5%88%97%E8%A1%A8.png)
+![主页.png](https://i.loli.net/2020/06/11/lYEJ19wDTZ8PgiV.png)
+![控制台.png](https://i.loli.net/2020/06/11/RCDdPvjFb4EgOx2.png)
+![漏洞列表.png](https://i.loli.net/2020/06/12/HsQTRjbghrLnizp.png)
 ![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E6%BC%8F%E6%B4%9E%E8%AF%A6%E6%83%85.png)
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6.png)
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%83.png)
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/POC%E7%AE%A1%E7%90%86.png)
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E5%85%B3%E4%BA%8E.png)
+![日志界面.png](https://i.loli.net/2020/06/12/4JgW32dmvTscrxu.png)
+![邀请码界面.png](https://i.loli.net/2020/06/12/qLG5uFDtTJBWX2z.png)
+![POC界面.png](https://i.loli.net/2020/06/12/12utocw3FilBCUO.png)
+![团队.png](https://i.loli.net/2020/06/12/q3p2ToInPalfUZ4.png)
 ## 主要功能:
    ### 信息搜集:
    #### 基础信息搜集  
@@ -109,4 +109,6 @@
 ## 如果对你有帮助的话要不请作者喝杯奶茶?~~(嘿嘿)~~  
 > 开个玩笑hhh，对你有帮助已经让作者们很开心啦！:D  
 > 给个Star趴  
+呜呜呜，还是留个赞赏码吧，说不定大师傅愿意赞助一下卑微秃头大学生们一顿午饭呢，手动笔芯
+![赞赏码.jpg](https://i.loli.net/2020/06/12/jARa3vKDrXZPcQB.jpg)
 ## cheer!!! 向每个为我国安全事业默默做贡献的白帽子致敬!!! :D
