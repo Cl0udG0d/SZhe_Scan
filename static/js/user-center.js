@@ -11,3 +11,8 @@ function openList(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
+function dele() {
+  var follow;
+  follow = document.getElementsByClassName("myFollow");
+  follow.style.display = "none";
+}

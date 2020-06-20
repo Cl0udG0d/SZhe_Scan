@@ -9,6 +9,7 @@ CREATE TABLE `user` (
 `email` varchar(20) NOT NULL,
 `username` varchar(50) NOT NULL,
 `pw_hash` varchar(128) NOT NULL,
+`photoname` varchar(30) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

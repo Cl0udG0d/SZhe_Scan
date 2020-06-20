@@ -14,19 +14,19 @@
     <form action="" method="post" class="formWrapper">
         <ul>
             <li>
-                <label>pocname</label>
+                <label>POC名称</label>
                 <input type="text" name="pocname" placeholder="">
             </li>
             <li>
-                <label>rule</label>
+                <label>POC规则</label>
                 <input type="text" name="rule" placeholder="">
             </li>
             <li>
-                <label>expression</label>
+                <label>页面回显</label>
                 <input type="text" name="expression" placeholder="">
             </li>
             <li>
-                <label>buggrade</label>
+                <label>漏洞等级</label>
                 <select name="buggrade">
                     <option>serious</option>
                     <option>high</option>
@@ -34,7 +34,7 @@
                     <option>low</option>
                 </select>
             </li>
-            <button type="submit">Submit</button>
+            <button type="submit">提交</button>
         </ul>
     </form>
 </div>
@@ -46,7 +46,7 @@
                 <li>
                     <p>POC名: {{poc.name}}</p>
                     <p>POC规则: {{poc.rule}}</p>
-                    <p>POC回显: {{poc.expression}}</p>
+                    <p>页面回显: {{poc.expression}}</p>
                 </li>
             {% endfor %}
 

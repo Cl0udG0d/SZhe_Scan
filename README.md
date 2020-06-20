@@ -1,6 +1,7 @@
-# SZhe_Scan 碎遮Web漏洞扫描器  
+# SZhe_Scan 碎遮Web漏洞扫描器
+![](https://img.shields.io/badge/python-3.6-blue) ![](https://img.shields.io/badge/flask-1.1.1-green) ![](https://img.shields.io/badge/docker-yes-blue) ![](https://img.shields.io/badge/MySQL-%3E%3D5.5.53-brightgreen) ![](https://img.shields.io/badge/redis-%3E%3D1.0-red)
 ## (~~懒癌晚期~~该项目于6月4日docker打包完毕,cheer!!碎遮1.0版本,该项目会持续维护更新,欢迎各位大师傅疯狂Star!!!  
-![image](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E7%A2%8E%E9%81%AE%E5%9B%BE%E6%A0%87.jpg)
+![碎遮图标.jpg](https://i.loli.net/2020/06/19/u7wmLygdJaTS2lY.jpg)
 
 ## 特点  
 + 对输入的域名或IP进行自动化信息搜集与漏洞扫描，支持添加POC进行漏洞检测，扫描结果可视化显示在web界面上  
@@ -9,8 +10,7 @@
 + 使用邀请码注册，团队协作共用,打造良好安全生态
 + 为方便安装，将项目Docker化实现快速部署。  
 ## 项目架构  
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E7%A2%8E%E9%81%AE%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg)
-
+![碎遮架构图.jpg](https://i.loli.net/2020/06/19/521tqXxYywUCZVB.png)
 ## 安装方法(择其一即可):
    ### 源码安装(不建议使用源码安装，相比较于docker安装)
    + Python版本:3.X，数据库:MySQL，Redis 另外本地需要安装nmap并添加进环境变量
@@ -21,7 +21,7 @@
    + 运行python3 index.py，浏览器输入127.0.0.1:5000访问漏洞扫描系统
    + 默认登录邮箱为:springbird@qq.com,密码为:springbird,登录之后请第一时间修改密码:D
    ### docker安装
-   + 在服务器或本机上安装docker,网上有很多安装文章,这里不再赘述  
+   + 在服务器或本机上安装docker以及docker-compose,网上有很多安装文章,这里不再赘述
    + (建议使用阿里云等docker加速,建议  
    + 依次输入以下三条命令:  
    > git clone https://github.com/Cl0udG0d/SZhe_Scan   
@@ -30,12 +30,12 @@
    + 运行结束后访问 http://ip:5000 ,默认账户登录邮箱为:springbird@qq.com,默认密码为:springbird,登录之后请第一时间修改密码:)
 
 ## 运行截图  
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2.png)
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E6%B3%A8%E5%86%8C%E7%95%8C%E9%9D%A2.png)
+![登录界面.png](https://i.loli.net/2020/06/19/jfNCvX4BsPiO8mT.png)
+![注册界面.png](https://i.loli.net/2020/06/19/U6ivq79DfFklJ2r.png)
 ![主页.png](https://i.loli.net/2020/06/11/lYEJ19wDTZ8PgiV.png)
 ![控制台.png](https://i.loli.net/2020/06/11/RCDdPvjFb4EgOx2.png)
 ![漏洞列表.png](https://i.loli.net/2020/06/12/HsQTRjbghrLnizp.png)
-![](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/static/images/%E6%BC%8F%E6%B4%9E%E8%AF%A6%E6%83%85.png)
+![漏洞详情.png](https://i.loli.net/2020/06/19/mXqYPB6AKy2QeHz.png)
 ![日志界面.png](https://i.loli.net/2020/06/12/4JgW32dmvTscrxu.png)
 ![邀请码界面.png](https://i.loli.net/2020/06/12/qLG5uFDtTJBWX2z.png)
 ![POC界面.png](https://i.loli.net/2020/06/12/12utocw3FilBCUO.png)
@@ -76,6 +76,19 @@
 ## 启动  
    + 源码安装启动方式 在开启MySQL和Redis的情况下，命令行运行 python3 index.py，浏览器访问 127.0.0.1:5000即可  
    + docker安装启动方式 在SZhe_Scan文件夹下,使用 docker-compose up -d  启动docker服务,访问 http://ip:5000 登录进行访问
+## 开始扫描
+   + 在控制台界面创建任务即可，每行输入一个url，输入的url格式可为下面四种的任意一种:
+> http://www.baidu.com  
+> www.baidu.com  
+>http://127.0.0.1    
+>127.0.0.1  
+   + 支持单个url或者批量url的扫描
+   + 当前的扫描速度比较慢，本月内会改进哒！！！
+## 可能会出现的问题以及解决方案  
++ 问题： 如何修改头像
++ 解决方案： 项目已添加修改头像的功能，点击个人主页的头像即可进行修改
++ 问题：上传头像后个人主页头像未变化 
++ 解决方案：头像上传功能经我们检测后无错，应该是本地浏览器缓存的问题，可以上网查一下自动清空浏览器缓存的办法，或者是直接使用ctrl+f5强制刷新，即可看到修改的头像啦
 ## 修Bug交流群  
    > 672408351 (入群答案是U1poZVNjYW4=的base64解密，相信大师傅们是知道的
 ## 扫描器名字-->碎遮 的来由:

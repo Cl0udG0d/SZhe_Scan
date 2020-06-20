@@ -16,28 +16,29 @@
                     text-align: left;
                     font-size: 16px;
                     color: #2e2e2e;">用户名</label>
-                    <p style="width:240px;text-align: center;">{{username}}</p>
-                    <!-- <input type="password" name="oldpassword" placeholder="******" id="oldpassword"> -->
+                    <textarea type="text" rows="1" cols="25" name="username" id="username">{{username}}</textarea>
+
+
                 </li>
                 <li>
                     <label>个人博客</label>
-                    <input type="text" name="blog" placeholder="{{blog}}" id="blog">
+                    <textarea type="text" rows="1" cols="25" name="blog" id="blog">{{blog}}</textarea>
                 </li>
                 <li>
                     <label>个人签名</label>
-                    <input type="text" name="signature" placeholder="{{signature}}" id="signature">
+                    <textarea type="text" rows="1" cols="25" name="signature" id="signature">{{signature}}</textarea>
                 </li>
                 <li>
                     <label>旧密码</label>
-                    <input type="password" name="oldpassword" placeholder="******" id="oldpassword">
+                    <input type="password" name="oldpassword" id="oldpassword">
                 </li>
                 <li>
                     <label>新密码</label>
-                    <input type="password" name="password1" placeholder="*******" id="password1">
+                    <input type="password" name="password1" id="password1">
                 </li>
                 <li>
                     <label>确认密码</label>
-                    <input type="password" name="password2" placeholder="********" id="password2">
+                    <input type="password" name="password2" id="password2">
                 </li>
             </ol>
             <button>Submit</button>

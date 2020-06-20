@@ -316,6 +316,15 @@ form ol li label {
   font-size: 16px;
   color: #2e2e2e;
 }
+form ol li textarea {
+  height: 35px;
+  width: 240px;
+  background-color: #f8f8ff;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  padding-top: 6px;
+  color: #2e2e2e;
+}
 form ol li input {
   height: 35px;
   width: 240px;

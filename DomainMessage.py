@@ -1,18 +1,19 @@
 import get_message
 from init import redispool
 
+
 class DomainMessage:
-    def __init__(self,domain):
-        self.domain=domain
-        self.redispool=redispool
-        self.TrueDomain=self.domain.split('.',1)[1]
+    def __init__(self, domain):
+        self.domain = domain
+        self.redispool = redispool
+        self.TrueDomain = self.domain.split('.', 1)[1]
 
     def GetSubDomain(self):
         print("正在使用主动与被动方式获取目标子域名!")
         try:
-            SubDomainBurst=get_message.SubDomainBurst(self.TrueDomain,self.redispool)
-            SubDomainOnline=get_message.GetSubDomain(self.domain)
-            SubDomain=SubDomainBurst+SubDomainOnline
+            SubDomainBurst = get_message.SubDomainBurst(self.TrueDomain, self.redispool)
+            SubDomainOnline = get_message.GetSubDomain(self.domain)
+            SubDomain = SubDomainBurst + SubDomainOnline
             return SubDomain
         except Exception as e:
             print(e)
@@ -58,8 +59,9 @@ class DomainMessage:
             print(e)
             return "None"
 
-if __name__=='__main__':
-    test=DomainMessage("www.nowcoder.com")
+
+if __name__ == '__main__':
+    test = DomainMessage("www.nowcoder.com")
     try:
         print(test.GetSiteStation())
         print(test.GetBindingIP())

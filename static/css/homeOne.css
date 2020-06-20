@@ -510,13 +510,11 @@ header .burger {
 .newest .domain-name .three-p {
   flex: 1;
 }
-
 .newest .domain-name i {
   /* display: inline-block; */
   float: left;
   margin-right: 5px;
 }
-
 .newest .tab-pane {
   flex: 1.2;
   height: 130px;

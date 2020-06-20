@@ -12,14 +12,14 @@
 <div class="context">
     <div class="left-context">
         <div class="user-self">
-            <img src="../static/images/dn.jpg">
+            <!--"../static/userhead/head.jpg"-->
+            <a href="{{url_for('photo')}}"><img src="{{url_for('static',filename='photo/'+photoname)}}"></a>
             <p class="name">{{username}}</p>
             <p>个人博客:{{profile.blog}}</p>
             <p>简介:{{profile.signature}}</p>
             <button onclick="window.location.href='{{url_for('editinfo')}}'">修改信息</button>
         </div>
     </div>
-
     <div class="right-context">
         <div class="container-list">
             <div class="tab-custom">
@@ -37,21 +37,17 @@
                 <div class="tab-content">
                     <div class="tabPane active" id="tab_1" onmouseover="showAlter('alter')"
                         onmouseout="hideAlter('alter')" style="display:block;">
-                        <ul class="collect-list">
-                            <li class="one">关注列表一</li>
-                            <li>关注列表一</li>
-                            <li>关注列表一</li>
-                            <li>关注列表一</li>
-                            <li>关注列表一</li>
-                            <li>关注列表一</li>
-                            <li>关注列表一</li>
-                            <li>关注列表一</li>
-                            <li>关注列表一</li>
-                            <li>关注列表一</li>
+                        <ul class="collect-list attention" style="position: relative;left:35px;width:92%;">
+                            {% for bugid,follow in followlist.items() %}
+                            <li class="myFollow" style="width:95%;padding-bottom:10px;">
+                                <a href="{{url_for('bugdetail',id=bugid)}}">{{follow}}</a>
+                                <button
+                                    onclick="window.location.href='{{ url_for('UnFollow',bugid=bugid)}}'">取消关注</button>
+                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="tabPane tabAsset" id="tab_2" style="display:none;">
-
                         <form class="myForm" method="POST" action="" id="task" name="myTask">
                             <input type="text" placeholder="请输入资产名：" name="asset" />
                             <textarea name="assets" rows="10" cols="30" placeholder="请输入新建资产:"></textarea>

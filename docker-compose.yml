@@ -4,7 +4,6 @@ services:
     image: "redis"
     restart: always
   mysql:
-    image: mysql:5.7
     build: ./mysql
     environment:
       - MYSQL_DATABASE=SZheScan

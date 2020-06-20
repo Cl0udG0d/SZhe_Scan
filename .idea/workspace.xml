@@ -1,77 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f95e139d-1067-4c07-b310-cfb821c523e0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="c405c447-f4c6-465d-96a4-e357e2c6c7c5" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="HTML File" />
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1ZmetfYsPYM2Bb7Os5CPMaAuMFY" />
+  <component name="ProjectId" id="1dX8MkLh6VHgdGIQnA4PTEOf3yH" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-<<<<<<< HEAD
-=======
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
->>>>>>> 735a8be6c71371ff15a48a2f6b9fdf625edbf09f
-  <component name="RunManager" selected="Python.index">
-    <configuration name="get_message" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WebScan" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_message.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WebScan" />
+  <component name="RunManager">
+    <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="SZheTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -91,32 +61,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WebScan" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.index" />
-        <item itemvalue="Python.get_message" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -125,11 +72,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f95e139d-1067-4c07-b310-cfb821c523e0" name="Default Changelist" comment="" />
-      <created>1585448912498</created>
+      <changelist id="c405c447-f4c6-465d-96a4-e357e2c6c7c5" name="Default Changelist" comment="" />
+      <created>1592560032324</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1585448912498</updated>
+      <updated>1592560032324</updated>
     </task>
     <servers />
   </component>
@@ -138,50 +85,37 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="233" y="0" key="#Notifications" timestamp="1586151036605">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="460" y="118" key="FileChooserDialogImpl" timestamp="1592561217530">
+      <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state x="233" y="0" key="#Notifications/0.0.1280.680@0.0.1280.680" timestamp="1586151036605" />
-    <state x="351" y="0" key="#get_message" timestamp="1586095228453">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="460" y="118" key="FileChooserDialogImpl/0.0.1360.728@0.0.1360.728" timestamp="1592561217530" />
+    <state width="1339" height="247" key="GridCell.Tab.0.bottom" timestamp="1592673276199">
+      <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state x="351" y="0" key="#get_message/0.0.1280.680@0.0.1280.680" timestamp="1586095228453" />
-    <state x="405" y="178" key="FileChooserDialogImpl" timestamp="1586150771819">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1339" height="247" key="GridCell.Tab.0.bottom/0.0.1360.728@0.0.1360.728" timestamp="1592673276199" />
+    <state width="1339" height="247" key="GridCell.Tab.0.center" timestamp="1592673276199">
+      <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state x="405" y="178" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1586150771819" />
-    <state width="1259" height="267" key="GridCell.Tab.0.bottom" timestamp="1586151039981">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1339" height="247" key="GridCell.Tab.0.center/0.0.1360.728@0.0.1360.728" timestamp="1592673276199" />
+    <state width="1339" height="247" key="GridCell.Tab.0.left" timestamp="1592673276198">
+      <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1259" height="267" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1586151039981" />
-    <state width="1259" height="267" key="GridCell.Tab.0.center" timestamp="1586151039980">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1339" height="247" key="GridCell.Tab.0.left/0.0.1360.728@0.0.1360.728" timestamp="1592673276198" />
+    <state width="1339" height="247" key="GridCell.Tab.0.right" timestamp="1592673276199">
+      <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1259" height="267" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1586151039980" />
-    <state width="1259" height="267" key="GridCell.Tab.0.left" timestamp="1586151039980">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1339" height="247" key="GridCell.Tab.0.right/0.0.1360.728@0.0.1360.728" timestamp="1592673276199" />
+    <state x="181" y="8" key="SettingsEditor" timestamp="1592656548982">
+      <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state width="1259" height="267" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1586151039980" />
-    <state width="1259" height="267" key="GridCell.Tab.0.right" timestamp="1586151039980">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1259" height="267" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1586151039980" />
-    <state x="142" y="0" key="SettingsEditor" timestamp="1586152183114">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1586152183114" />
-    <state x="325" y="165" key="com.intellij.ide.util.TipDialog" timestamp="1586152149835">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="325" y="165" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1586152149835" />
+    <state x="181" y="8" key="SettingsEditor/0.0.1360.728@0.0.1360.728" timestamp="1592656548982" />
   </component>
 </project>

@@ -321,6 +321,10 @@ header .burger {
   padding: 20px 0px;
   height: 600px;
 }
+.context .left-context .user-self a {
+  width: 260px;
+  height: 260px;
+}
 .context .left-context .user-self img {
   width: 260px;
   height: 260px;
@@ -439,7 +443,7 @@ header .burger {
 .user-bottom .container-list .tab {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-items: center;
   flex-direction: row;
 }
@@ -450,43 +454,103 @@ header .burger {
   border-right: 3px solid #f8f8ff;
   border-top: 1px solid #d3d3d3;
   border-radius: 4px 4px 0 0;
+  outline: none;
 }
-form ol li {
+form ul li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   margin-bottom: 10px;
 }
-form ol li label {
+form ul li label {
   display: inline-block;
   width: 200px;
   text-align: left;
   font-size: 16px;
   color: #2e2e2e;
 }
-form ol li input {
+form ul li input {
   height: 35px;
   width: 240px;
   background-color: #f8f8ff;
   border: 1px solid #d3d3d3;
   border-radius: 4px;
 }
-.tab-pane {
-  display: block;
-  color: #2e2e2e;
-}
+/* .tab-content {
+  position: relative;
+  top: -20px;
+} */
 
 .collect-list {
   position: relative;
   top: 30px;
-  /* margin-top: 10px; */
   width: 97%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: auto;
   height: 400px;
+}
+.attention {
+  display: block;
+}
+.attention .myFollow {
+  height: 80px;
+  margin-bottom: 10px;
+  word-break: break-all;
+  display: flex;
+  flex-direction: row;
+  column-gap: 30px;
+  font-size: 14px;
+  padding: 10px 10px;
+}
+.attention li a {
+  flex: 4;
+}
+.attention li button {
+  flex: 1;
+  position: relative;
+  top: -10px;
+  left: 0px;
+}
+/* .attention {
+  height: 250px;
+  padding-top: 190px;
+  overflow: auto;
+  width: 99%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  left: 18px;
+} */
+.collect-list li {
+  padding: 0 10px;
+}
+.collect-list li a {
+  white-space: pre-line;
+  word-break: break-all;
+}
+.collect-list li button {
+  background-color: #0fbcf9;
+  color: #f8f8ff;
+  width: 85px;
+  height: 35px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  margin-top: 20px;
+  float: right;
+  position: relative;
+  right: 15px;
+}
+.collect-list li button:hover {
+  cursor: pointer;
+  background-color: #0bb1ee;
+}
+.attention li a {
+  line-height: 35px;
 }
 .assetList {
   height: 250px;

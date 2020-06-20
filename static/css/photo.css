@@ -1,0 +1,96 @@
+.navigation ul li .one::after {
+  content: "";
+  display: none;
+}
+.content {
+  position: absolute;
+  top: 180px;
+  left: 80px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.content button {
+  position: absolute;
+  top: 330px;
+  display: block;
+  width: 150px;
+  height: 43px;
+  background-color: #0fbcf9;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  color: #f8f8ff;
+  outline: none;
+  font-size: 15px;
+}
+.content button:hover {
+  cursor: pointer;
+  background-color: #0dafeb;
+}
+.content form img {
+  border: 1px solid #fff;
+}
+.file-box {
+  display: inline-block;
+  position: relative;
+  padding: 5px 10px;
+  overflow: hidden;
+  color: #f8f8ff;
+  background-color: #0fbcf9;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.file-box:hover {
+  cursor: pointer;
+}
+.file-btn {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  outline: none;
+  background-color: transparent;
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+}
+.file-btn:hover {
+  cursor: pointer;
+  background-color: #0db1ec;
+}
+.btn {
+  position: relative;
+  left: -300px;
+  top: 40px;
+  color: #f8f8ff;
+  background-color: #0fbcf9;
+  border: 1px solid #fff;
+  padding: 5px 10px;
+  width: 120px;
+  height: 40px;
+  border-radius: 4px;
+}
+.btn:hover {
+  cursor: pointer;
+  background-color: #0db1ec;
+}
+.body-tail {
+  position: absolute;
+  top: 700px;
+  width: 100vw;
+  height: 45px;
+  display: flex;
+  /*弹性布局*/
+  justify-content: center;
+  /*元素在页面上居中排列*/
+  align-items: center;
+  border-top: 1px rgb(129, 129, 129) solid;
+  background-color: rgb(238, 238, 238);
+  color: #7a7a7a;
+  font-size: 14px;
+  z-index: 101;
+}

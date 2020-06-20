@@ -16,9 +16,12 @@
         <!-- <div class="contentTitle"> -->
         <h2>漏洞详情</h2>
         <form class="Follows" method="POST" action="" id="follows" name="myFollow">
-            <button class="follow" onclick="show1()">
-                <span class="true" id="true">关 注</span>
-                <span class="false" id="false">已关注</span>
+            <button class="follow" id="follow">
+                {% if flag %}
+                <span id="true">+关注</span>
+                {% else %}
+                <span id="false">已关注</span>
+                {% endif %}
             </button>
         </form>
         <!-- </div> -->

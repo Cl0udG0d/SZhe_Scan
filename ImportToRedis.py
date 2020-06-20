@@ -14,6 +14,7 @@ def ToRedis():
     r.delete("XSSpayloads")
     r.delete("bugtype")
     r.delete("useragents")
+    # r.delete("FollowList")
     file1 = open(r"dict/SUB_scan.txt", "r", encoding='utf-8')
     for line1 in file1.readlines():
         r.lpush("SubScan", line1.replace("\n", ''))

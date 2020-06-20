@@ -1,6 +1,7 @@
 from exts import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+
 '''
 存放模型
 '''
@@ -13,7 +14,7 @@ class User(db.Model):
     username = db.Column(db.String(50), nullable=False)
     pw_hash = db.Column(db.String(128), nullable=False)
 
-    def __init__(self, email, username, password):
+    def __init__(self, email, username, password, photoname):
         self.email = email
         self.username = username
         self.set_password(password)
@@ -24,12 +25,13 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
 
+
 class Profile(db.Model):
     __tablename__ = 'profile'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    userid=db.Column(db.Integer, nullable=False)
-    blog=db.Column(db.String(100), nullable=True)
-    signature=db.Column(db.Text, nullable=True)
+    userid = db.Column(db.Integer, nullable=False)
+    blog = db.Column(db.String(100), nullable=True)
+    signature = db.Column(db.Text, nullable=True)
 
 
 # boolcheck  ->true 即 ip       ->false 即 domain
@@ -75,9 +77,16 @@ class BugList(db.Model):
     oldurl = db.Column(db.String(50), nullable=True)
     bugurl = db.Column(db.String(200), nullable=True)
     bugname = db.Column(db.String(100), nullable=False)
-    buggrade=db.Column(db.String(7),nullable=False)
+    buggrade = db.Column(db.String(7), nullable=False)
     payload = db.Column(db.String(200), nullable=True)
     bugdetail = db.Column(db.Text(16777216), nullable=True)
+
+
+# class Followlist(db.Model):
+#     __tablename__ = 'followlist'
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     userid = db.Column(db.Integer, nullable=False)
+#     bugurl = db.Column(db.String(200), nullable=False)
 
 
 '''
@@ -95,11 +104,12 @@ buglist表
 
 
 class POC(db.Model):
-    __tablename__='poc'
+    __tablename__ = 'poc'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name=db.Column(db.String(100),nullable=False)
-    rule=db.Column(db.Text,nullable=True)
-    expression=db.Column(db.Text,nullable=True)
+    name = db.Column(db.String(100), nullable=False)
+    rule = db.Column(db.Text, nullable=True)
+    expression = db.Column(db.Text, nullable=True)
+
 
 class Log(db.Model):
     __tablename__ = 'log'

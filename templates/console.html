@@ -14,48 +14,65 @@
 {% block rightcontext %}
 <div class="content-wrapper">
     <div class="features">
+
         <div class="feature one">
-            <i class="fa fa-tags"></i>
-            <h3 class="right-title">域名</h3>
-            <h5 class="right-content">总数:{{counts.domaincount}}</h5>
+            <a href="{{url_for('domainName')}}">
+                <i class="fa fa-tags"></i>
+                <h3 class="right-title">域名</h3>
+                <h5 class="right-content">总数:{{counts.domaincount}}</h5>
+            </a>
         </div>
 
         <div class="feature one">
-            <i class="fa fa-magnet"></i>
-            <h3 class="right-title">IP</h3>
-            <h5 class="right-content">总数:{{counts.ipcount}}</h5>
+            <a href="#">
+                <i class="fa fa-magnet"></i>
+                <h3 class="right-title">IP</h3>
+                <h5 class="right-content">总数:{{counts.ipcount}}</h5>
+            </a>
         </div>
         <div class="feature one">
-            <i class="fa fa-bug"></i>
-            <h3 class=" right-title">漏洞</h3>
-            <h5 class="right-content">总数：{{counts.bugcount}}</h5>
+            <a href="{{url_for('buglist')}}">
+                <i class="fa fa-bug"></i>
+                <h3 class=" right-title">漏洞</h3>
+                <h5 class="right-content">总数：{{counts.bugcount}}</h5>
+            </a>
         </div>
         <div class="feature one">
-            <i class="fa fa-clipboard"></i>
-            <h3 class="right-title">POC</h3>
-            <h5 class="right-content">总数：{{counts.poccount}}</h5>
+            <a href="{{url_for('POCmanage')}}">
+                <i class="fa fa-clipboard"></i>
+                <h3 class="right-title">POC</h3>
+                <h5 class="right-content">总数：{{counts.poccount}}</h5>
+            </a>
         </div>
     </div>
     <div class="contents">
         <div class="content">
-            <i class="fa fa-bar-chart"></i>
-            <h3>最近扫描</h3>
-            <h5>{{lastscantime}}</h5>
+            <a href="{{url_for('domaindetail')}}">
+                <i class="fa fa-bar-chart"></i>
+                <h3>最近扫描</h3>
+                <h5>{{lastscantime}}</h5>
+            </a>
         </div>
         <div class="content">
-            <i class="fa fa-desktop"></i>
-            <h3>受影响主机</h3>
-            <h5>{{counts.havebugpc}}</h5>
+            <a href="{{url_for('index')}}">
+                <i class="fa fa-desktop"></i>
+                <h3>受影响主机</h3>
+                <h5>{{counts.havebugpc}}</h5>
+            </a>
         </div>
         <div class="content">
-            <i class="fa fa-exclamation-circle" style="font-size: 38px;"></i>
-            <h3>严重漏洞</h3>
-            <h5>{{counts.seriouscount}}</h5>
+            <a href="{{url_for('seriousBug')}}">
+                <i class="fa fa-exclamation-circle" style="font-size: 38px;"></i>
+                <h3>严重漏洞</h3>
+                <h5>{{counts.seriouscount}}</h5>
+            </a>
         </div>
         <div class="content">
-            <i class="fa fa-github" style="font-size: 38px;"></i>
-            <h3>泄露总数</h3>
-            <h5>{{counts.sencount}}</h5>
+            <a href="{{url_for('FileLeakBug')}}">
+                <i class="fa fa-github" style="font-size: 38px;"></i>
+                <h3>泄露总数</h3>
+                <h5>{{counts.sencount}}</h5>
+            </a>
         </div>
 
     </div>

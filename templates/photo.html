@@ -1,0 +1,28 @@
+{% extends 'basenav.html' %}
+{%block title%}About{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/photo.css')}}" />
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+{% endblock %}
+{% block context %}
+<div class="content">
+    <form action="" method="POST" name="myPhoto" enctype="multipart/form-data">
+        <img id="preview_img" src="" alt="" class="img-rounded" style="border-radius:0px; width:300px;height:300px;">
+        <div class="file-box">
+            <input class="file-btn" type="file" value="用户名"
+                style="width:142px;height:40px;background-color: #0fbcf9;color:white;" id="avatar" name="photo"
+                onchange="mypit()">选择本地文件
+        </div>
+        <input type="submit" value="保存头像" class="btn">
+    </form>
+    <script>
+        let $ = (elem) => { return document.querySelector(elem) };
+        function mypit() {
+            var url = '';
+            url = window.URL.createObjectURL($("#avatar").files[0]);
+            $("#preview_img").src = url;
+        }
+    </script>
+</div>
+{% endblock %}
