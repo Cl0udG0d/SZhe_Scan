@@ -401,7 +401,7 @@ def photo():
             ext = img.filename.rsplit('.', 1)[1]
             email = nowuser.email
             photoname = email.split('@')[0]+"."+ext
-            img.save(os.path.join(os.getcwd()+"\static\photo", photoname))
+            img.save(os.path.join(os.getcwd()+"/static/photo", photoname))
             redispool.hset('imagename', email, photoname)
             return redirect(url_for('user'))
         return '<p> 上传失败</p>'
