@@ -21,8 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c405c447-f4c6-465d-96a4-e357e2c6c7c5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/init/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/init/init.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,10 +96,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="460" y="118" key="FileChooserDialogImpl" timestamp="1592561217530">
+    <state x="460" y="118" key="FileChooserDialogImpl" timestamp="1592679217401">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
-    <state x="460" y="118" key="FileChooserDialogImpl/0.0.1360.728@0.0.1360.728" timestamp="1592561217530" />
+    <state x="460" y="118" key="FileChooserDialogImpl/0.0.1360.728@0.0.1360.728" timestamp="1592679217401" />
     <state width="1339" height="247" key="GridCell.Tab.0.bottom" timestamp="1592673276199">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
