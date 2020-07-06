@@ -4,6 +4,9 @@
   box-sizing: border-box;
   font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
+a {
+  outline: none;
+}
 .navigation ul .one::after {
   content: "";
   display: none;
@@ -152,6 +155,7 @@
   display: block;
   width: 100%;
   height: 100%;
+  outline: none;
 }
 .feature i {
   flex: 1;
@@ -213,9 +217,10 @@
   display: block;
   width: 100%;
   height: 100%;
+  outline: none;
 }
-.content a:linked {
-  color: #2e2e2e;
+.content a:link {
+  color: black;
 }
 .content a:visited {
   color: black;
@@ -329,6 +334,126 @@
   position: relative;
   left: -40px;
 } */
+
+/* 中间进度条 */
+.con {
+  width: 700px;
+  margin: 30px;
+}
+
+.progressBar {
+  display: inline-block;
+  width: 81%;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #cacaca;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  margin-right: 3%;
+}
+
+#progressFill {
+  width: 0%;
+  height: 10px;
+  position: relative;
+  background-color: #0fbcf9;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  background-size: 3em 3em;
+  background-image: linear-gradient(
+    -45deg,
+    transparent 0em,
+    transparent 0.8em,
+    #0fbcf9 0.9em,
+    #0fbcf9 2.1em,
+    transparent 2.1em,
+    transparent 2.9em,
+    #0fbcf9 3.1em
+  );
+  -webkit-animation: warning-animation 750ms infinite linear;
+  -moz-animation: warning-animation 750ms infinite linear;
+  animation: warning-animation 750ms infinite linear;
+}
+
+#progressFill:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  background-image: linear-gradient(
+    to bottom,
+    #0fbcf9,
+    rgbA(37, 117, 188, 0.8) 15%,
+    transparent 60%,
+    #0fbcf9
+  );
+}
+
+@-moz-keyframes warning-animation {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 3em 0;
+  }
+}
+
+@-webkit-keyframes warning-animation {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 3em 0;
+  }
+}
+
+@-ms-keyframes warning-animation {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 3em 0;
+  }
+}
+
+@-o-keyframes warning-animation {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 3em 0;
+  }
+}
+
+@keyframes warning-animation {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 3em 0;
+  }
+}
+
+.progressText,
+#percentage {
+  display: inline-block;
+  margin-top: -11px;
+  vertical-align: middle;
+}
+
 .charts {
   /* flex: 1; */
   display: flex;

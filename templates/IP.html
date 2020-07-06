@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block css %}
 <link rel="stylesheet" href="{{url_for('static',filename='css/homeOne.css')}}" />
-<link rel="stylesheet" href="{{url_for('static',filename='css/IP.css')}}" />
 <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
 {% endblock %}
 {% block js %}
@@ -12,45 +11,45 @@
 {% endblock %}
 {% block rightcontext %}
 <div class="contentwrapper">
-    {% for info in infos %}
-    <div class="newest">
-        <div class="domain-name">
-            <div class="two-p">
-                <a href="{{url_for('domaindetail',id=info.id)}}">
-                    <i class="fa fa-link"></i>
-                    <p class="pgr">{{info.url}}</p>
-                </a>
-            </div>
-            <div class="three-p">
-                <i class="fa fa-clock-o"></i>
-                <p>{{info.date}}</p>
-            </div>
-            <p>标题: {{info.title}}</p>
-            <p>状态: {{info.status}}</p>
-            <p>指纹: {{info.Server}}</p>
-        </div>
-        <div class="tab-pane">{{info.responseheader}}<br /></div>
-    </div>{% endfor %}
-
-    <div class="pageNumber">
-        <ul>
-            <li class="pageLi">
-                {% if paginate.has_prev %}
-                <button class="pageBtn" style="width:100px" id="prePage"><a
-                        href="{{url_for('index',page=paginate.prev_num)}}">上一页</a></button>
-                {% endif %}
-            </li>
-            {% for i in paginate.iter_pages() %}
-            <li class="pageLi">
-                <button class="pageBtn" id="{{ i }}"><a href="{{url_for('index',page=i)}}">{{ i }}</a></button>
-            </li>
-            {% endfor %}
-            {% if paginate.has_next %}
-            <button class="pageBtn" style="width:100px" id="sufPage"> <a
-                    href="{{url_for('index',page=paginate.next_num)}}">下一页</a></button>
-            {% endif %}
-            </li>
-        </ul>
+  {% for info in infos %}
+  <div class="newest">
+    <div class="domain-name">
+      <div class="two-p">
+        <a href="{{url_for('domaindetail',id=info.id)}}">
+          <i class="fa fa-link"></i>
+          <p class="pgr">{{info.url}}</p>
+        </a>
+      </div>
+      <div class="three-p">
+        <i class="fa fa-clock-o"></i>
+        <p>{{info.date}}</p>
+      </div>
+      <p>标题: {{info.title}}</p>
+      <p>状态: {{info.status}}</p>
+      <p>指纹: {{info.Server}}</p>
     </div>
+    <div class="tab-pane">{{info.responseheader}}<br /></div>
+  </div>{% endfor %}
+
+  <div class="pageNumber">
+    <ul>
+      <li class="pageLi">
+        {% if paginate.has_prev %}
+        <button class="pageBtn" style="width:100px" id="prePage"><a
+            href="{{url_for('index',page=paginate.prev_num)}}">上一页</a></button>
+        {% endif %}
+      </li>
+      {% for i in paginate.iter_pages() %}
+      <li class="pageLi">
+        <button class="pageBtn" id="{{ i }}"><a href="{{url_for('index',page=i)}}">{{ i }}</a></button>
+      </li>
+      {% endfor %}
+      {% if paginate.has_next %}
+      <button class="pageBtn" style="width:100px" id="sufPage"> <a
+          href="{{url_for('index',page=paginate.next_num)}}">下一页</a></button>
+      {% endif %}
+      </li>
+    </ul>
+  </div>
 </div>
 {% endblock %}

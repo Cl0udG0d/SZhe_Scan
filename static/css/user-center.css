@@ -4,6 +4,12 @@
   box-sizing: border-box;
   font-family: Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
+a {
+  outline: none;
+}
+button {
+  outline: none;
+}
 body {
   background-color: #f1f1f1;
   width: 100vw;

@@ -7,9 +7,10 @@
 {% endblock %}
 {% block js %}
 <script src="{{url_for('static',filename='js/home.js')}}"></script>
+<script src="{{url_for('static',filename='js/console.js')}}"></script>
 <script type="text/javascript" src="../static/libs/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../static/libs/echarts.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.js"></script>
+<script type="text/javascript" src="../static/libs/Chart.js"></script>
 {% endblock %}
 {% block rightcontext %}
 <div class="content-wrapper">
@@ -24,7 +25,7 @@
         </div>
 
         <div class="feature one">
-            <a href="#">
+            <a href="{{url_for('IP')}}">
                 <i class="fa fa-magnet"></i>
                 <h3 class="right-title">IP</h3>
                 <h5 class="right-content">总数:{{counts.ipcount}}</h5>
@@ -74,13 +75,12 @@
                 <h5>{{counts.sencount}}</h5>
             </a>
         </div>
-
     </div>
 </div>
 <div class="content-mid">
     <form class="myForm" method="POST" action="" id="task" name="myTask">
         <textarea name="urls" rows="10" cols="30" placeholder="请输入新建任务:"></textarea>
-        <button class="newtask" type="submit">新建任务</button>
+        <button class="newtask" id="begin" type="submit">新建任务</button>
     </form>
     <div class="contentNums">
         <p class="p1">正扫描:{{target.nowscan}}</p>
@@ -88,6 +88,15 @@
         <p class="p3">已扫描:{{target.sumcount}}</p>
     </div>
 </div>
+<!-- <div class="con">
+    <span class="progressBar">
+        <div id="progressFill"></div>
+    </span>
+    <span class="progressText"> 扫描进度 </span>
+    <span id="percentage">0%</span>
+</div> -->
+
+
 <div class="charts">
     <div class="bar-graph">
         <h5 class="bar-title">开放端口</h5>
@@ -104,6 +113,7 @@
 <script>
 
     //漏洞类型部分
+
     $('.skill-per').each(function () {
         var $this = $(this);
         var per = $this.attr('per');
@@ -188,7 +198,44 @@
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
+    //扫描进度条部分
+    //总数量{{target.sumcount+target.waitcount}}
+    //已扫描数量{{target.sumcount}}
 
+
+    // $("#begin").on("click", function () {
+    //     $("#progressFill").animate(
+    //         {
+    //             width: "100%",
+    //         },
+    //         10 * 1000
+    //     );
+    //     var count = 0;
+    //     var timer = setInterval(function () {
+    //         count++;
+    //         var percentageValue = count + "%";
+    //         $("#percentage").html(percentageValue);
+    //         if (count >= 100) clearInterval(timer);
+    //     }, 99);
+    // });
+
+    $('.skill-per').each(function () {
+        var $this = $(this);
+        var per = $this.attr('per');
+        $this.css("width", per + '%');
+        $({ animatedValue: 0 }).animate(
+            { animatedValue: per },
+            {
+                duration: 300,
+                step: function () {
+                    $this.attr('per', Math.floor(this.animatedValue) + '%');
+                },
+                complete: function () {
+                    $this.attr('per', Math.floor(this.animatedValue) + '%');
+                }
+            }
+        );
+    });
     // 柱状图部分
     var ctx = document.getElementById("myChart").getContext("2d");
     var data = {
@@ -241,7 +288,7 @@
     }
     /// 动画效果call
     var options = {
-        scaleFontStyle: "normal"
+        // scaleFontStyle: "normal"
     }
     /// 创建对象，生成折线图表
     new Chart(ctx).Line(data, options);

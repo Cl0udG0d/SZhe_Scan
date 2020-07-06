@@ -22,7 +22,10 @@ class phpstudy_phpmyadmin_defaultpwd_BaseVerify:
             "Content-Type":"application/x-www-form-urlencoded",
         }
         payload = "/phpmyadmin/index.php"
-        vulnurl = self.url + payload
+        if self.url.endswith("/"):
+            vulnurl = self.url + "phpmyadmin/index.php"
+        else:
+            vulnurl = self.url + payload
         post_data = {
             "pma_username":"root",
             "pma_password":"root",

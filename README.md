@@ -12,12 +12,20 @@
 ## 项目架构  
 ![碎遮架构图.jpg](https://i.loli.net/2020/06/19/521tqXxYywUCZVB.png)
 ## 安装方法(择其一即可):
-   ### 源码安装(不建议使用源码安装，相比较于docker安装)
+   ### 源码安装(强烈不建议使用源码安装，相比较于docker安装，源码安装中或许会遇到很多的坑，真的强烈不建议！！！如果遇到问题可以加群交流)
    + Python版本:3.X，数据库:MySQL，Redis 另外本地需要安装nmap并添加进环境变量
    + Git bash界面输入 git clone https://github.com/Cl0udG0d/SZhe_Scan 进行下载（或直接下载源代码）
    + 安装python类库: pip3 install -r requirements.txt
-   + 修改config.py数据库账号密码为本地账号密码,将config.py 中 HOSTNAME='mysql' 修改为 HOSTNAME='127.0.0.1',HOST = 'redis' 修改为 HOST = '127.0.0.1'
+   + 修改config.py数据库账号密码为本地账号密码,将config.py 中 HOSTNAME='mysql' 修改为 HOSTNAME='127.0.0.1',HOST = 'redis' 修改为 HOST = '127.0.0.1'  
+   + 将celerytask.py中的  
+    # app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'  
+    # app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'  
+    上面这两行注释去掉  
+    app.config['CELERY_BROKER_URL'] = 'redis://redis:6379/0'  
+    app.config['CELERY_RESULT_BACKEND'] = 'redis://redis:6379/0'  
+    上面这两行删除掉或者注释掉
    + 在phpmyadmin界面导入init.sql.zip文件，自动初始化数据库和表，以及初始用户  
+   + 运行 celery worker -A celerytask.celery -l INFO ,以启动celery分布式任务队列服务  
    + 运行python3 index.py，浏览器输入127.0.0.1:5000访问漏洞扫描系统
    + 默认登录邮箱为:springbird@qq.com,密码为:springbird,登录之后请第一时间修改密码:D
    ### docker安装

@@ -3,10 +3,18 @@ import requests
 from init import redispool
 import random
 
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'JPG', 'PNG', 'gif', 'GIF', 'jpeg'])
+
 def GetTargetCount():
+    count = redispool.hget('targetscan', 'waitcount')
+    if 'str' in str(type(count)):
+        waitcount=int(redispool.hget('targetscan', 'waitcount'))
+    else:
+        waitcount=0
     target={
         "sumcount":redispool.pfcount("domain")+redispool.pfcount("ip"),
-        "waitcount":redispool.hget('targetscan', 'waitcount'),
+        "waitcount":waitcount,
         "nowscan":redispool.hget("targetscan", "nowscan")
     }
     return target
@@ -141,6 +149,14 @@ def wordlistimport(file):
     except Exception as e:
         print(e)
         pass
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+# def get_newname(filename):
+#     return "head."+filename.rsplit('.', 1)[1]
 
 
 def is_similar_page(res1, res2, radio):

@@ -7,7 +7,8 @@
   <title>用户登录</title>
   <link rel="stylesheet" href="{{url_for('static',filename='css/sign_in.css')}}" />
   <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
-  <script src="{{url_for('static',filename='js/login.js')}}"></script>
+  <!-- <script src="{{url_for('static',filename='js/login.js')}}"></script> -->
+  <script type="text/javascript" src="../static/js/login.js"></script>
   <style>
     input::placeholder {
       color: #fff !important;
@@ -36,8 +37,8 @@
             <i class="fa fa-user"></i>
           </div>
           <div class="input-num passw">
-            <input type="password" placeholder="密 码" name="password" />
-            <i class="fa fa-eye-slash"></i>
+            <input type="password" id="pwd" name="password" placeholder="密 码" />
+            <i class="fa fa-eye" onclick="showhide()" id="eye"></i>
           </div>
           <div class="remember-btn">
             <input type="checkbox" value="true" checked="checked" name="remeber"
@@ -79,6 +80,21 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+    var eye = document.getElementById("eye");
+    var pwd = document.getElementById("pwd");
+
+    function showhide() {
+
+      if (pwd.type == "password") {
+        pwd.type = "text";
+        eye.className = 'fa fa-eye-slash'
+      } else {
+        pwd.type = "password";
+        eye.className = 'fa fa-eye'
+      }
+    }
+  </script>
 </body>
 
 </html>

@@ -14,7 +14,7 @@ class User(db.Model):
     username = db.Column(db.String(50), nullable=False)
     pw_hash = db.Column(db.String(128), nullable=False)
 
-    def __init__(self, email, username, password, photoname):
+    def __init__(self, email, username, password):
         self.email = email
         self.username = username
         self.set_password(password)

@@ -24,13 +24,13 @@
         <div class="container-list">
             <div class="tab-custom">
                 <div class="tab">
-                    <button class="tablinks active" onclick="openList(event, 'tab_1')">
+                    <button class="tablinks active" onclick="openList(event, 'tab_1')" style="outline:none;">
                         <p style="font-size: 18px;">关注</p>
                     </button>
-                    <button class="tablinks" onclick="openList(event, 'tab_2')">
+                    <button class="tablinks" onclick="openList(event, 'tab_2')" style="outline:none;">
                         <p style="font-size: 18px;">资产</p>
                     </button>
-                    <button class="tablinks" onclick="openList(event, 'tab_3')">
+                    <button class="tablinks" onclick="openList(event, 'tab_3')" style="outline:none;">
                         <p style="font-size: 18px;">邀请码</p>
                     </button>
                 </div>
@@ -39,7 +39,7 @@
                         onmouseout="hideAlter('alter')" style="display:block;">
                         <ul class="collect-list attention" style="position: relative;left:35px;width:92%;">
                             {% for bugid,follow in followlist.items() %}
-                            <li class="myFollow" style="width:95%;padding-bottom:10px;">
+                            <li class="myFollow" style="width:95%;">
                                 <a href="{{url_for('bugdetail',id=bugid)}}">{{follow}}</a>
                                 <button
                                     onclick="window.location.href='{{ url_for('UnFollow',bugid=bugid)}}'">取消关注</button>

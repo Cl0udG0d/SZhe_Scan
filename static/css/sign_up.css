@@ -186,7 +186,9 @@ input::placeholder {
   margin-left: -163px;
   color: #fff;
 }
-
+.context .paw i:hover {
+  cursor: pointer;
+}
 .context .sign-up-msg {
   margin: 10px 0 0 0;
   padding: 0;

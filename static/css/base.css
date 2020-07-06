@@ -1,23 +1,26 @@
-*{
-    margin:0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }
-.container-fluid{
-    position:relative
+a {
+  outline: none;
 }
-.logo{
-    z-index:1;
-    position:absolute;
-    margin-top:10;
-    width: 50px;
+.container-fluid {
+  position: relative;
 }
-body{
-    background: #f3f3f3;
+.logo {
+  z-index: 1;
+  position: absolute;
+  margin-top: 10;
+  width: 50px;
 }
-.main{
-    background:#fff;
-    width:730px;
-    margin: 0 auto;
-    overflow: hidden;
-    padding: 10px;
+body {
+  background: #f3f3f3;
+}
+.main {
+  background: #fff;
+  width: 730px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 10px;
 }

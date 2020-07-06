@@ -22,3 +22,12 @@ services:
     depends_on:
      - mysql
     restart: always
+  celery:
+    build: .
+    command: "celery worker -A celerytask.celery -l INFO"
+    user: nobody
+    links:
+      - redis:redis
+    depends_on:
+      - redis
+    restart: always

@@ -1,25 +1,14 @@
-# -*- coding:utf-8 -*-
 import os
-
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import render_template, request, redirect, url_for, session, flash
 import uuid
 from models import User, Log, BaseInfo, InvitationCode, BugList, POC, IPInfo, DomainInfo, Profile
 from exts import db
 from init import app, redispool
-# from concurrent.futures import ThreadPoolExecutor
-from concurrent.futures import ProcessPoolExecutor
-from SZheConsole import SZheConsole
+from celerytask import SZheScan
 import core
 from decorators import login_required
-from POCScan import selfpocscan
-
-# executor = ThreadPoolExecutor()
-from werkzeug.utils import secure_filename
 
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'JPG', 'PNG', 'gif', 'GIF', 'jpeg'])
-
-executor = ProcessPoolExecutor()
 
 
 def save_log(ip, email):
@@ -103,6 +92,7 @@ def editinfo():
         else:
             signature = profile.signature
             blog = profile.blog
+        # print("hi! {} {} {}".format(username, blog, signature))
         return render_template('user-infor.html', username=username, blog=blog, signature=signature)
     else:
         username = request.form.get('username')
@@ -139,6 +129,8 @@ def domaindetail(id=None):
     bugbit, bugtype = core.GetBit()
     if not id:
         baseinfo = BaseInfo.query.order_by(BaseInfo.id.desc()).first()
+        if not baseinfo:
+            return "请添加扫描任务"
     else:
         baseinfo = BaseInfo.query.filter(BaseInfo.id == id).order_by(BaseInfo.id.desc()).first()
     if baseinfo.boolcheck:
@@ -173,17 +165,17 @@ def bugdetail(id=None):
     else:
         buginfo = BugList.query.filter(BugList.id == id).first()
     oldurlinfo = BaseInfo.query.filter(BaseInfo.url == buginfo.oldurl).first()
-    if redispool.hexists('FollowList',buginfo.id):
-        flag=False
+    if redispool.hexists('FollowList', buginfo.id):
+        flag = False
     else:
-        flag=True
+        flag = True
     if request.method == 'GET':
         return render_template('bug-details.html', buginfo=buginfo, oldurlinfo=oldurlinfo, bugbit=bugbit,
-                               bugtype=bugtype,flag=flag)
+                               bugtype=bugtype, flag=flag)
     else:
-        redispool.hset('FollowList', buginfo.id,buginfo.bugurl)
+        redispool.hset('FollowList', buginfo.id, buginfo.bugurl)
         return render_template('bug-details.html', buginfo=buginfo, oldurlinfo=oldurlinfo, bugbit=bugbit,
-                               bugtype=bugtype,flag=False)
+                               bugtype=bugtype, flag=False)
 
 
 @app.route('/assetdetail/')
@@ -200,13 +192,17 @@ def assetdetail(name=None):
 @app.route('/user', methods=['GET', 'POST'])
 @login_required
 def user():
+    if 'name' in session or 'urls' in session:
+        redispool.hset('assets', session['name'], session['urls'])
+        session.pop('name')
+        session.pop('urls')
     allcode = InvitationCode.query.order_by(InvitationCode.id.desc()).limit(10).all()
     user_id = session.get('user_id')
     nowuser = User.query.filter(User.id == user_id).first()
     username = nowuser.username
-    photoname=redispool.hget('imagename', nowuser.email)
+    photoname = redispool.hget('imagename', nowuser.email)
     if not photoname:
-        photoname='springbird.jpg'
+        photoname = 'springbird.jpg'
     profile = Profile.query.filter(Profile.userid == user_id).first()
     assetname = redispool.hkeys('assets')
     followlist = redispool.hgetall('FollowList')
@@ -214,12 +210,9 @@ def user():
         return render_template('user-center.html', allcode=allcode, username=username, profile=profile,
                                assetname=assetname, followlist=followlist, photoname=photoname)
     else:
-        name = request.form.get('asset')
-        urls = request.form.get('assets')
-        redispool.hset('assets', name, urls)
-        assetname = redispool.hkeys('assets')
-        return render_template('user-center.html', allcode=allcode, username=username, profile=profile,
-                               assetname=assetname, followlist=followlist, photoname=photoname)
+        session['name']=request.form.get('asset')
+        session['urls']=request.form.get('assets')
+        return redirect(url_for('user'))
 
 
 @app.route('/console', methods=['GET', 'POST'])
@@ -230,6 +223,12 @@ def console():
     ports = core.GetPort()
     services = core.GetServices()
     target = core.GetTargetCount()
+    if 'targetscan' in session:
+        urls=session['targetscan'].split()
+        redispool.hincrby('targetscan', 'waitcount', len(urls))
+        for url in urls:
+            SZheScan.delay(url)
+        session.pop('targetscan')
     try:
         lastscantime = BaseInfo.query.order_by(BaseInfo.id.desc()).first().date
     except:
@@ -239,15 +238,8 @@ def console():
         return render_template('console.html', bugbit=bugbit, bugtype=bugtype, counts=counts, lastscantime=lastscantime,
                                ports=ports, services=services, target=target)
     else:
-        urls = request.form.get('urls')
-        urls = urls.split()
-        print(urls)
-        for url in urls:
-            redispool.hincrby('targetscan', 'waitcount', 1)
-        executor.submit(SZheConsole, urls)
-        target = core.GetTargetCount()
-        return render_template('console.html', bugbit=bugbit, bugtype=bugtype, counts=counts, lastscantime=lastscantime,
-                               ports=ports, services=services, target=target)
+        session['targetscan']=request.form.get('urls')
+        return redirect(url_for('console'))
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -258,6 +250,7 @@ def login():
         email = request.form.get('email')
         remeber = request.form.get('remeber')
         password = request.form.get('password')
+        # print("{} {} {}".format(email,remeber,password))
         save_log(request.remote_addr, email)
         user = User.query.filter(User.email == email).first()
         if user and user.check_password(password):
@@ -277,11 +270,11 @@ def GenInvitationCode():
     user_id = session.get('user_id')
     nowuser = User.query.filter(User.id == user_id).first()
     profile = Profile.query.filter(Profile.userid == user_id).first()
-    assetname = redispool.hkeys('assets')
+    assetname = redispool.hkBugScanConsoleeys('assets')
     followlist = redispool.hgetall('FollowList')
     photoname = redispool.hget('imagename', nowuser.email)
     if not photoname:
-        photoname='springbird.jpg'
+        photoname = 'springbird.jpg'
     code = str(uuid.uuid1())
     Code = InvitationCode(code=code)
     db.session.add(Code)
@@ -323,7 +316,7 @@ def regist():
             flash("邀请码错误")
             return render_template('sign_up.html')
         else:
-            user = User(email=email, username=username, password=password1, photoname="head.jpg")
+            user = User(email=email, username=username, password=password1)
             db.session.add(user)
             db.session.delete(IsCode)
             db.session.commit()
@@ -379,14 +372,6 @@ def my_comtext_processor():
     return {}
 
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-def get_newname(filename):
-    return "head."+filename.rsplit('.', 1)[1]
-
-
 @app.route('/photo/', methods=['GET', 'POST'])
 @login_required
 def photo():
@@ -397,30 +382,41 @@ def photo():
         return render_template('photo.html', photoname=photoname)
     else:
         img = request.files['photo']
-        if img and allowed_file(img.filename):
+        if img and core.allowed_file(img.filename):
             ext = img.filename.rsplit('.', 1)[1]
             email = nowuser.email
-            photoname = email.split('@')[0]+"."+ext
-            img.save(os.path.join(os.getcwd()+"/static/photo", photoname))
+            photoname = email.split('@')[0] + "." + ext
+            img.save(os.path.join(os.getcwd() + "\static\photo", photoname))
             redispool.hset('imagename', email, photoname)
             return redirect(url_for('user'))
         return '<p> 上传失败</p>'
+
+
 @app.route('/domainName/<int:id>', methods=['GET'])
-@app.route('/domainName')
+@app.route('/domainName/', methods=['GET'])
 @login_required
 def domainName(id=None):
     bugbit, bugtype = core.GetBit()
     if not id:
-        baseinfo = BaseInfo.query.order_by(BaseInfo.id.desc()).first()
-    else:
-        baseinfo = BaseInfo.query.filter(BaseInfo.id == id).order_by(BaseInfo.id.desc()).first()
-    if baseinfo.boolcheck:
-        deepinfo = IPInfo.query.filter(IPInfo.baseinfoid == baseinfo.id).first()
-    else:
-        deepinfo = DomainInfo.query.filter(DomainInfo.baseinfoid == baseinfo.id).order_by(DomainInfo.id.desc()).first()
-    domainurl = deepinfo.subdomain
-    return render_template('domain-detail.html', domainurl=domainurl, bugbit=bugbit,
-                           bugtype=bugtype)
+        id = 1
+    per_page = 10
+    paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).filter(BaseInfo.boolcheck == 0).paginate(id, per_page, error_out=False)
+    infos = paginate.items
+    return render_template('domainName.html', paginate=paginate, infos=infos, bugbit=bugbit, bugtype=bugtype)
+
+
+@app.route('/IP/<int:id>', methods=['GET'])
+@app.route('/IP/', methods=['GET'])
+@login_required
+def IP(id=None):
+    bugbit, bugtype = core.GetBit()
+    if not id:
+        id = 1
+    per_page = 10
+    paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).filter(BaseInfo.boolcheck == 1).paginate(id, per_page, error_out=False)
+    infos = paginate.items
+    return render_template('IP.html', paginate=paginate, infos=infos, bugbit=bugbit, bugtype=bugtype)
+
 
 
 @app.route('/seriousBug/<int:page>', methods=['GET'])
@@ -431,14 +427,8 @@ def seriousBug(page=None):
     if not page:
         page = 1
     per_page = 10
-    paginate = BugList.query.order_by(BugList.id.desc()).paginate(page, per_page, error_out=False)
-    # bugs = paginate.items
-    seriousbug = []
-    seriousbugs = BugList.query.filter()
-    for bug in seriousbugs:
-        print(bug.buggrade)
-        if bug.buggrade == "Serious":
-            seriousbug.append(bug)
+    paginate = BugList.query.order_by(BugList.id.desc()).filter(BugList.buggrade == "Serious").paginate(page, per_page, error_out=False)
+    seriousbug = paginate.items
     return render_template('bug-list.html', paginate=paginate, bugs=seriousbug, bugbit=bugbit, bugtype=bugtype)
 
 

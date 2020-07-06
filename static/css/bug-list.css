@@ -1,3 +1,6 @@
+a {
+  outline: none;
+}
 .navigation ul .one::after {
   content: "";
   display: none;

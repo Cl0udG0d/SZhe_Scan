@@ -1,13 +1,16 @@
-*{
-    margin:0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }
-.container-fluid{
-    position:relative
+a {
+  outline: none;
 }
-.logo{
-    z-index:1;
-    position:absolute;
-    margin-top:10;
-    width: 50px;
+.container-fluid {
+  position: relative;
+}
+.logo {
+  z-index: 1;
+  position: absolute;
+  margin-top: 10;
+  width: 50px;
 }

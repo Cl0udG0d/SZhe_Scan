@@ -9,7 +9,7 @@ from init import app
 from exts import db
 from models import BugList
 from init import redispool
-from POCScan import selfpocscan
+from POCScan import selfpocscan2
 '''
 获取输入网址基础信息:
     1,WEB指纹识别,技术识别 Finger 
@@ -30,7 +30,8 @@ class GetBaseMessage():
         self.rep=rep
 
     def GetStatus(self):
-        print("正在获取网页状态码!")
+        redispool.append("runlog","正在获取{}网页状态码\n".format(self.url))
+        print("正在获取{}网页状态码".format(self.url))
         try:
             return str(self.rep.status_code)
         except Exception as e:
@@ -38,6 +39,7 @@ class GetBaseMessage():
             return "None"
 
     def GetTitle(self):
+        redispool.append("runlog", "正在获取{}网页标题!\n".format(self.url))
         print("正在获取网页标题!")
         if self.rep != None:
             try:
@@ -49,10 +51,12 @@ class GetBaseMessage():
         return None
 
     def GetDate(self):
+        redispool.append("runlog", "正在获取{}系统当前时间!\n".format(self.url))
         print("正在获取系统当前时间!")
         return str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
     def GetResponseHeader(self):
+        redispool.append("runlog", "正在获取{}网页响应头!\n".format(self.url))
         print("正在获取网页响应头!")
         context = ""
         try:
@@ -64,6 +68,7 @@ class GetBaseMessage():
             return context
 
     def GetFinger(self):
+        redispool.append("runlog", "正在获取{}网站指纹及技术!\n".format(self.url))
         print("正在获取网站指纹及技术!")
         try:
             finger=WebPage(self.url, self.rep).info()
@@ -73,6 +78,7 @@ class GetBaseMessage():
             return "Unknow"
 
     def PortScan(self):
+        redispool.append("runlog", "正在对{}目标进行端口扫描!\n".format(self.url))
         print("正在对目标进行端口扫描!")
         try:
             return get_message.PortScan(self.domain)
@@ -81,6 +87,7 @@ class GetBaseMessage():
             return "Unknow"
 
     def SenDir(self):
+        redispool.append("runlog", "正在进行{}敏感目录及文件探测!\n".format(self.url))
         print("正在进行敏感目录及文件探测!")
         try:
             return get_message.SenFileScan(self.domain,self.url)
@@ -89,6 +96,7 @@ class GetBaseMessage():
             return "None"
 
     def WebLogicScan(self):
+        redispool.append("runlog", "正在进行{}weblogic漏洞检测!\n".format(self.url))
         print("正在进行weblogic漏洞检测!")
         try:
             results=WebLogicScan.run(self.domain)
@@ -108,9 +116,10 @@ class GetBaseMessage():
             pass
 
     def AngelSwordMain(self):
+        redispool.append("runlog", "正在使用碎遮内置POC进行{}漏洞检测!\n".format(self.url))
         print("正在使用碎遮内置POC进行漏洞检测!")
         try:
-            selfpocscan.AngelSwordMain(self.url)
+            selfpocscan2.AngelSwordMain(self.url)
         except Exception as e:
             print(e)
             pass
@@ -121,17 +130,18 @@ if __name__=='__main__':
     # redispool=redis.ConnectionPool(host='127.0.0.1',port=6379, decode_responses=True)
     # redispool = redis.Redis(connection_pool=ImportToRedis.redisPool)
     try:
-        rep=requests.get(url="https://www.nowcoder.com",headers=core.GetHeaders(),timeout=10)
-        test=GetBaseMessage("www.nowcoder.com","https://www.nowcoder.com",rep)
+        rep=requests.get(url="http://127.0.0.1/",headers=core.GetHeaders(),timeout=10)
+        test=GetBaseMessage("127.0.0.1","http://127.0.0.1",rep)
+        print(test.GetDate())
         # test.AngelSwordMain()
-        print(test.GetStatus())
-        print(test.GetTitle())
-        print(test.GetResponseHeader())
-        print(test.GetFinger())
-        print(test.PortScan())
-        print(test.SenDir())
-
+        # print(test.GetStatus())
+        # print(test.GetTitle())
+        # print(test.GetResponseHeader())
+        # print(test.GetFinger())
+        # print(test.PortScan())
+        # print(test.SenDir())
     except Exception as e:
         print(e)
+        print(">>>>>>>>>超时", "cyan")
         pass
 

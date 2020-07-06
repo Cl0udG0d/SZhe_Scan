@@ -8,20 +8,49 @@
 {% block context %}
 <div class="content">
     <form action="" method="POST" name="myPhoto" enctype="multipart/form-data">
-        <img id="preview_img" src="" alt="" class="img-rounded" style="border-radius:0px; width:300px;height:300px;">
+        <img id="preview_img" src="window.URL.createObjectURL($(" #avatar").files[0])" alt="" class="img-rounded" style=" width:300px;
+        -webkit-width:300px;
+        -ms-width:300px;
+        -o-width:300px;
+        -moz-width:300px;
+
+        height:300px;
+        -webkit-height:300px;
+        -ms-height:300px;
+        -o-height:300px;
+        -moz-height:300px;
+        border:3px solid #adacac;
+            -webkit-border:3px solid #adacac;
+            -ms-border:3px solid #adacac;
+            -o-border:3px solid #adacac;
+            -moz-border:3px solid #adacac;
+            ">
         <div class="file-box">
-            <input class="file-btn" type="file" value="用户名"
+            <input class="file-btn" type="file" value="用户头像"
                 style="width:142px;height:40px;background-color: #0fbcf9;color:white;" id="avatar" name="photo"
-                onchange="mypit()">选择本地文件
+                onchange="fileChange(this);">选择本地文件
+
         </div>
+        <p style=" font-size: 12px;
+        color: red;
+        position: relative;
+        left: 20px;
+        top: 8px;">支持的格式:.png\.jpg\.JPG\.PNG\.gif\.GIF\.jpeg</p>
         <input type="submit" value="保存头像" class="btn">
     </form>
     <script>
         let $ = (elem) => { return document.querySelector(elem) };
-        function mypit() {
+        function fileChange(target) {
             var url = '';
             url = window.URL.createObjectURL($("#avatar").files[0]);
             $("#preview_img").src = url;
+            var name = target.value;
+            var fileName = name.substring(name.lastIndexOf(".") + 1).toLowerCase();
+            if (fileName != "png" && fileName != "jpg" && fileName != "JPG" && fileName != "PNG" && fileName != "gif" && fileName != "GIF" && fileName != "jpeg") {
+                alert("不支持此格式的文件！");
+                target.value = "";
+                return false;
+            }
         }
     </script>
 </div>

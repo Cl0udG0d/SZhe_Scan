@@ -1,12 +1,14 @@
 import get_message
 import re
+from init import redispool
 
 class IPMessage:
     def __init__(self,ip):
         self.ip=ip
 
     def GetBindingIP(self):
-        print("正在进行IP历史解析记录!")
+        redispool.append("runlog", "正在获取{}IP历史解析记录!\n".format(self.ip))
+        print("正在获取IP历史解析记录!")
         try:
             return get_message.GetBindingIP(self.ip)
         except Exception as e:
@@ -14,6 +16,7 @@ class IPMessage:
             return "None"
 
     def GetSiteStation(self):
+        redispool.append("runlog", "正在进行{}旁站查询!\n".format(self.ip))
         print("正在进行旁站查询!")
         try:
             return get_message.GetSiteStation(self.ip)
@@ -22,6 +25,7 @@ class IPMessage:
             return "None"
 
     def CScanConsole(self):
+        redispool.append("runlog", "正在进行{}C段信息搜集!\n".format(self.ip))
         print("正在进行C段信息搜集!")
         try:
             return get_message.CScanConsole(self.ip)
@@ -30,6 +34,7 @@ class IPMessage:
             return "Unknow"
 
     def FindIpAdd(self):
+        redispool.append("runlog", "正在查找{}IP地址\n".format(self.ip))
         print("正在查找IP地址查询")
         try:
             return get_message.FindIpAdd(self.ip)
