@@ -11,24 +11,43 @@ class BugScan:
         self.oldurl = oldurl
 
     def SQLBugScan(self):
-        vulnerable, payload, bugdetail = InjectionControl(self.url)
-        return vulnerable, payload, bugdetail
+        try:
+            vulnerable, payload, bugdetail = InjectionControl(self.url)
+            return vulnerable, payload, bugdetail
+        except Exception as e:
+            print(e)
+            return False, None,None
 
     def XSSBugScan(self):
-        vulnerable, payload, bugdetail = GetXSS(self.url)
-        return vulnerable, payload, bugdetail
+        try:
+            vulnerable, payload, bugdetail = GetXSS(self.url)
+            return vulnerable, payload, bugdetail
+        except Exception as e:
+            print(e)
+            return False, None, None
 
     def ComInScan(self):
-        vulnerable, payload, bugdetail = GetComIn(self.url)
-        return vulnerable, payload, bugdetail
+        try:
+            vulnerable, payload, bugdetail = GetComIn(self.url)
+            return vulnerable, payload, bugdetail
+        except Exception as e:
+            print(e)
+            return False, None, None
 
     def FileIncludeScan(self):
-        vulnerable, payload, bugdetail = CheckLocalFileInclude(self.url)
-        return vulnerable, payload, bugdetail
+        try:
+            vulnerable, payload, bugdetail = CheckLocalFileInclude(self.url)
+            return vulnerable, payload, bugdetail
+        except Exception as e:
+            print(e)
+            return False, None, None
 
     def POCScan(self):
-        POCScan.POCScanConsole(self.oldurl, self.url)
-
+        try:
+            POCScan.POCScanConsole(self.oldurl, self.url)
+        except Exception as e:
+            print(e)
+            pass
 
 if __name__ == '__main__':
     # test=BugScan('http://testphp.vulnweb.com/listproducts.php?cat=1')

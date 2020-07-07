@@ -80,8 +80,13 @@ class GetBaseMessage():
     def PortScan(self):
         redispool.append("runlog", "正在对{}目标进行端口扫描!\n".format(self.url))
         print("正在对目标进行端口扫描!")
+        if "/" in self.domain:
+            host=self.domain.split("/")[0]
+        else:
+            host=self.domain
+        print(host)
         try:
-            return get_message.PortScan(self.domain)
+            return get_message.PortScan(host)
         except Exception as e:
             print(e)
             return "Unknow"

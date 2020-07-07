@@ -59,8 +59,12 @@ class DomainMessage:
     def FindDomainAdd(self):
         redispool.append("runlog", "正在获取{}域名映射的真实地址!\n".format(self.domain))
         print("正在获取域名映射的真实地址!")
+        if "/" in self.domain:
+            host=self.domain.split("/")[0]
+        else:
+            host=self.domain
         try:
-            return get_message.FindDomainAdd(self.domain)
+            return get_message.FindDomainAdd(host)
         except Exception as e:
             print(e)
             return "None"

@@ -7,6 +7,7 @@ import core
 from init import redispool
 Bugs=["SQLBugScan","XSSBugScan","ComInScan","FileIncludeScan"]
 
+requests.packages.urllib3.disable_warnings()
 '''
 SZheConsole 碎遮扫描器的总控制代码
 获取baseinfo ->MySQL
@@ -40,6 +41,7 @@ def BugScanConsole(attackurl):
         print(e)
         pass
 
+
 def inputfilter(url):
     '''
     入口过滤函数
@@ -60,11 +62,11 @@ def inputfilter(url):
         attackurl1="http://"+url
         attackurl2="https://"+url
         try:
-            rep1=requests.get(attackurl1, headers=core.GetHeaders(), timeout=10, verify=False)
+            rep1=requests.get(attackurl1, headers=core.GetHeaders(), timeout=4, verify=False)
         except Exception as e:
             pass
         try:
-            rep2=requests.get(attackurl2, headers=core.GetHeaders(), timeout=10, verify=False)
+            rep2=requests.get(attackurl2, headers=core.GetHeaders(), timeout=4, verify=False)
         except Exception as e:
             pass
         if rep1:
@@ -85,10 +87,10 @@ def inputfilter(url):
                 print(e)
                 pass
             return None,None,None
-    if "http://" in url or "https://" in url:
+    else:
         attackurl=url
         try:
-            rep=requests.get(attackurl, headers=core.GetHeaders(), timeout=10, verify=False)
+            rep=requests.get(attackurl, headers=core.GetHeaders(), timeout=4, verify=False)
         except:
             pass
         if rep:
@@ -102,6 +104,6 @@ def inputfilter(url):
 
 
 if __name__=='__main__':
-    print(inputfilter("blog.csdn.net"))
+    print(inputfilter("https://www.cnblogs.com/"))
 #     SZheConsole("testphp.vulnweb.com",redispool)
     # BugScanConsole("testphp.vulnweb.com",redispool)

