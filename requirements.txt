@@ -1,4 +1,4 @@
-redis==2.10.6
+redis
 paramiko
 pexpect
 pymongo==3.10.1
@@ -55,5 +55,4 @@ Werkzeug==0.16.0
 zipp==3.1.0
 python-nmap
 changanya
-celery==3.1.24
-
+rq

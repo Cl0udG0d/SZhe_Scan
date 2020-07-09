@@ -1,5 +1,7 @@
 import os
 import redis
+from rq import Queue
+import rqsettings
 
 '''
 配置文件：
@@ -11,6 +13,7 @@ import redis
 '''
 DEBUG = False
 SECRET_KEY = os.urandom(24)
+
 
 
 HOSTNAME='mysql'
@@ -28,3 +31,5 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 HOST = 'redis'
 # HOST = '127.0.0.1'
 redisPool = redis.ConnectionPool(host=HOST, port=6379, db=0, decode_responses=True)
+db = redis.Redis(host=rqsettings.REDIS_HOST, port=rqsettings.REDIS_PORT, db=rqsettings.REDIS_DB, decode_responses=True)
+queue = Queue(connection=db)

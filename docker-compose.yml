@@ -3,15 +3,22 @@ services:
   redis:
     image: "redis"
     restart: always
+    environment:
+      - TZ=Asia/Shanghai
   mysql:
     build: ./mysql
     environment:
+      - TZ=Asia/Shanghai
       - MYSQL_DATABASE=SZheScan
       - MYSQL_ROOT_PASSWORD=root
     ports:
       - "3306:3306"
     restart: always
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: [
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci',
+    ]
+
   web:
     build: .
     ports:
@@ -22,12 +29,14 @@ services:
     depends_on:
      - mysql
     restart: always
-  celery:
+    environment:
+      - TZ=Asia/Shanghai
+  rq:
     build: .
-    command: "celery worker -A celerytask.celery -l INFO"
-    user: nobody
-    links:
-      - redis:redis
     depends_on:
       - redis
+      - web
+    command: "rq worker -c rqsettings"
     restart: always
+    environment:
+      - TZ=Asia/Shanghai

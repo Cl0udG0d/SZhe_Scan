@@ -4,10 +4,10 @@ import uuid
 from models import User, Log, BaseInfo, InvitationCode, BugList, POC, IPInfo, DomainInfo, Profile
 from exts import db
 from init import app, redispool
-from celerytask import SZheScan
 import core
 from decorators import login_required
-
+from config import queue
+from SZheConsole import SZheScan
 
 
 
@@ -215,7 +215,7 @@ def user():
         return redirect(url_for('user'))
 
 
-@app.route('/console', methods=['GET', 'POST'])
+@app.route('/test_console', methods=['GET', 'POST'])
 @login_required
 def console():
     bugbit, bugtype = core.GetBit()
@@ -227,7 +227,8 @@ def console():
         urls=session['targetscan'].split()
         redispool.hincrby('targetscan', 'waitcount', len(urls))
         for url in urls:
-            SZheScan.delay(url)
+            queue.enqueue(SZheScan,url)
+            # SZheScan.delay(url)
         session.pop('targetscan')
     try:
         lastscantime = BaseInfo.query.order_by(BaseInfo.id.desc()).first().date
