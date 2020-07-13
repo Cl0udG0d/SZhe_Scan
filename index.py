@@ -271,7 +271,7 @@ def GenInvitationCode():
     user_id = session.get('user_id')
     nowuser = User.query.filter(User.id == user_id).first()
     profile = Profile.query.filter(Profile.userid == user_id).first()
-    assetname = redispool.hkBugScanConsoleeys('assets')
+    assetname = redispool.hkeys('assets')
     followlist = redispool.hgetall('FollowList')
     photoname = redispool.hget('imagename', nowuser.email)
     if not photoname:
@@ -387,7 +387,7 @@ def photo():
             ext = img.filename.rsplit('.', 1)[1]
             email = nowuser.email
             photoname = email.split('@')[0] + "." + ext
-            img.save(os.path.join(os.getcwd() + "\static\photo", photoname))
+            img.save(os.path.join(os.getcwd() + "/static/photo", photoname))
             redispool.hset('imagename', email, photoname)
             return redirect(url_for('user'))
         return '<p> 上传失败</p>'
