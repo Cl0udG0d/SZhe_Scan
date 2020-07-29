@@ -330,6 +330,7 @@ form ol li textarea {
   border-radius: 4px;
   padding-top: 6px;
   color: #2e2e2e;
+  resize: none;
 }
 form ol li input {
   height: 35px;

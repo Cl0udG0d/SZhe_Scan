@@ -10,7 +10,6 @@ from config import queue
 from SZheConsole import SZheScan
 
 
-
 def save_log(ip, email):
     log = Log(ip=ip, email=email)
     db.session.add(log)
@@ -44,8 +43,8 @@ def validate(email, username, password1, password2):
 '''
 
 
-@app.route('/<int:page>', methods=['GET'])
-@app.route('/')
+@app.route('/<int:page>', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 @login_required
 def index(page=None):
     bugbit, bugtype = core.GetBit()
@@ -54,7 +53,13 @@ def index(page=None):
     per_page = 10
     paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).paginate(page, per_page, error_out=False)
     infos = paginate.items
-    return render_template('homeOne.html', paginate=paginate, infos=infos, bugbit=bugbit, bugtype=bugtype)
+    if request.method == 'GET':
+        return render_template('homeOne.html', paginate=paginate, infos=infos, bugbit=bugbit, bugtype=bugtype)
+    else:
+        newpage = request.form.get('page')
+        if not newpage:
+            newpage=page
+        return redirect(url_for('index', page=newpage))
 
 
 @app.route('/POCmanage', methods=['GET', 'POST'])
@@ -142,8 +147,8 @@ def domaindetail(id=None):
                            bugtype=bugtype)
 
 
-@app.route('/buglist/<int:page>', methods=['GET'])
-@app.route('/buglist')
+@app.route('/buglist/<int:page>', methods=['GET', 'POST'])
+@app.route('/buglist', methods=['GET', 'POST'])
 @login_required
 def buglist(page=None):
     bugbit, bugtype = core.GetBit()
@@ -152,7 +157,13 @@ def buglist(page=None):
     per_page = 10
     paginate = BugList.query.order_by(BugList.id.desc()).paginate(page, per_page, error_out=False)
     bugs = paginate.items
-    return render_template('bug-list.html', paginate=paginate, bugs=bugs, bugbit=bugbit, bugtype=bugtype)
+    if request.method == 'GET':
+        return render_template('bug-list.html', paginate=paginate, bugs=bugs, bugbit=bugbit, bugtype=bugtype)
+    else:
+        newpage = request.form.get('page')
+        if not newpage:
+            newpage=page
+        return redirect(url_for('buglist', page=newpage))
 
 
 @app.route('/bugdetail/<int:id>', methods=['GET', 'POST'])
@@ -210,8 +221,8 @@ def user():
         return render_template('user-center.html', allcode=allcode, username=username, profile=profile,
                                assetname=assetname, followlist=followlist, photoname=photoname)
     else:
-        session['name']=request.form.get('asset')
-        session['urls']=request.form.get('assets')
+        session['name'] = request.form.get('asset')
+        session['urls'] = request.form.get('assets')
         return redirect(url_for('user'))
 
 
@@ -224,10 +235,10 @@ def console():
     services = core.GetServices()
     target = core.GetTargetCount()
     if 'targetscan' in session:
-        urls=session['targetscan'].split()
+        urls = session['targetscan'].split()
         redispool.hincrby('targetscan', 'waitcount', len(urls))
         for url in urls:
-            queue.enqueue(SZheScan,url)
+            queue.enqueue(SZheScan, url)
             # SZheScan.delay(url)
         session.pop('targetscan')
     try:
@@ -239,7 +250,7 @@ def console():
         return render_template('console.html', bugbit=bugbit, bugtype=bugtype, counts=counts, lastscantime=lastscantime,
                                ports=ports, services=services, target=target)
     else:
-        session['targetscan']=request.form.get('urls')
+        session['targetscan'] = request.form.get('urls')
         return redirect(url_for('console'))
 
 
@@ -293,6 +304,28 @@ def UnFollow(bugid=None):
     if bugid:
         redispool.hdel('FollowList', bugid)
     return redirect(url_for('user'))
+
+
+# 删除资产
+@app.route('/DeleteAsset')
+@app.route('/DeleteAsset/<name>', methods=['GET'])
+@login_required
+def DeleteAsset(name=None):
+    if name:
+        redispool.hdel('assets', name)
+    return redirect(url_for('user'))
+
+
+# 删除POC
+@app.route('/DeletePOC')
+@app.route('/DeletePOC/<int:pocid>', methods=['GET'])
+@login_required
+def DeletePOC(pocid=None):
+    if pocid:
+        deletepoc = db.session.query(POC).filter_by(id=pocid).first()
+        db.session.delete(deletepoc)
+        db.session.commit()
+    return redirect(url_for('POCmanage'))
 
 
 @app.route('/regist/', methods=['GET', 'POST'])
@@ -393,62 +426,84 @@ def photo():
         return '<p> 上传失败</p>'
 
 
-@app.route('/domainName/<int:id>', methods=['GET'])
-@app.route('/domainName/', methods=['GET'])
+@app.route('/domainName/<int:page>', methods=['GET', 'POST'])
+@app.route('/domainName/', methods=['GET', 'POST'])
 @login_required
-def domainName(id=None):
+def domainName(page=None):
     bugbit, bugtype = core.GetBit()
-    if not id:
-        id = 1
+    if not page:
+        page = 1
     per_page = 10
-    paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).filter(BaseInfo.boolcheck == 0).paginate(id, per_page, error_out=False)
+    paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).filter(BaseInfo.boolcheck == 0).paginate(page, per_page,
+                                                                                                      error_out=False)
     infos = paginate.items
-    return render_template('domainName.html', paginate=paginate, infos=infos, bugbit=bugbit, bugtype=bugtype)
+    if request.method == 'GET':
+        return render_template('homeOne.html', paginate=paginate, infos=infos, bugbit=bugbit, bugtype=bugtype)
+    else:
+        newpage = request.form.get('page')
+        if not newpage:
+            newpage=page
+        return redirect(url_for('domainName', page=newpage))
 
 
-@app.route('/IP/<int:id>', methods=['GET'])
-@app.route('/IP/', methods=['GET'])
+@app.route('/IP/<int:page>', methods=['GET', 'POST'])
+@app.route('/IP/', methods=['GET', 'POST'])
 @login_required
-def IP(id=None):
+def IP(page=None):
     bugbit, bugtype = core.GetBit()
-    if not id:
-        id = 1
+    if not page:
+        page = 1
     per_page = 10
-    paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).filter(BaseInfo.boolcheck == 1).paginate(id, per_page, error_out=False)
+    paginate = BaseInfo.query.order_by(BaseInfo.date.desc()).filter(BaseInfo.boolcheck == 1).paginate(page, per_page,
+                                                                                                      error_out=False)
     infos = paginate.items
-    return render_template('IP.html', paginate=paginate, infos=infos, bugbit=bugbit, bugtype=bugtype)
+    if request.method == 'GET':
+        return render_template('homeOne.html', paginate=paginate, infos=infos, bugbit=bugbit, bugtype=bugtype)
+    else:
+        newpage = request.form.get('page')
+        if not newpage:
+            newpage=page
+        return redirect(url_for('IP', page=newpage))
 
 
-
-@app.route('/seriousBug/<int:page>', methods=['GET'])
-@app.route('/seriousBug')
+@app.route('/seriousBug/<int:page>', methods=['GET', 'POST'])
+@app.route('/seriousBug', methods=['GET', 'POST'])
 @login_required
 def seriousBug(page=None):
     bugbit, bugtype = core.GetBit()
     if not page:
         page = 1
     per_page = 10
-    paginate = BugList.query.order_by(BugList.id.desc()).filter(BugList.buggrade == "Serious").paginate(page, per_page, error_out=False)
+    paginate = BugList.query.order_by(BugList.id.desc()).filter(BugList.buggrade == "Serious").paginate(page, per_page,
+                                                                                                        error_out=False)
     seriousbug = paginate.items
-    return render_template('bug-list.html', paginate=paginate, bugs=seriousbug, bugbit=bugbit, bugtype=bugtype)
+    if request.method == 'GET':
+        return render_template('bug-list.html', paginate=paginate, bugs=seriousbug, bugbit=bugbit, bugtype=bugtype)
+    else:
+        newpage = request.form.get('page')
+        if not newpage:
+            newpage=page
+        return redirect(url_for('seriousBug', page=newpage))
 
 
-@app.route('/leaks/<int:page>', methods=['GET'])
-@app.route('/leaks')
+@app.route('/leaks/<int:page>', methods=['GET', 'POST'])
+@app.route('/leaks', methods=['GET', 'POST'])
 @login_required
 def FileLeakBug(page=None):
     bugbit, bugtype = core.GetBit()
     if not page:
         page = 1
     per_page = 10
-    paginate = BugList.query.order_by(BugList.id.desc()).paginate(page, per_page, error_out=False)
-    # bugs = paginate.items
-    leak = []
-    leaks = BugList.query.filter()
-    for bug in leaks:
-        if "文件泄露" in bug.bugname:
-            leak.append(bug)
-    return render_template('bug-list.html', paginate=paginate, bugs=leak, bugbit=bugbit, bugtype=bugtype)
+    paginate = BugList.query.filter(BugList.bugname == "SenDir").order_by(BugList.id.desc()).paginate(page, per_page,
+                                                                                                      error_out=False)
+    bugs = paginate.items
+    if request.method == 'GET':
+        return render_template('bug-list.html', paginate=paginate, bugs=bugs, bugbit=bugbit, bugtype=bugtype)
+    else:
+        newpage = request.form.get('page')
+        if not newpage:
+            newpage=page
+        return redirect(url_for('FileLeakBug', page=newpage))
 
 
 if __name__ == '__main__':

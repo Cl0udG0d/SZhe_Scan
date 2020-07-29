@@ -19,6 +19,7 @@ a {
   transition: all ease, 0.3s;
 }
 .contentwrapper {
+  /* position: relative; */
   width: 96%;
   background-color: #f8f8ff;
   height: 1590px;
@@ -29,8 +30,10 @@ a {
 .pageNumber {
   position: relative;
   position: absolute;
-  left: 380px;
-  top: 1545px;
+  /* float: right; */
+  right: 15px;
+  left: 840px;
+  top: 1540px;
 }
 .pageNumber ul {
   height: 100%;

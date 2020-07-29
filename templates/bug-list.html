@@ -8,7 +8,7 @@
 {% endblock %}
 {% block js %}
 <script type="text/javascript" src="../static/libs/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="../static/js/bug-list.js"></script>
+<script type="text/javascript" src="../static/js/home.js"></script>
 <script type="text/javascript" src="../static/libs/echarts.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script> -->
@@ -37,30 +37,40 @@
         <!-- </div> -->
     </div>
     {% endfor %}
+
+
     <div class="pageNumber">
         <ul>
             <li class="pageLi">
                 {% if paginate.has_prev %}
-                <a href="{{url_for('buglist',page=paginate.prev_num)}}"> <button class="pageBtn" style="width:100px"
-                        id="prePage">上一页</button></a>
+                <a href="{{url_for('buglist',page=paginate.prev_num)}}"><button class="pageBtn" style="width:38px"
+                        id="prePage">&lt</button></a>
                 {% endif %}
             </li>
-            {% for i in paginate.iter_pages() %}
+
+            <div class="Num" style="width:50px;height:50px;overflow:hidden;float:left;">
+                <li class="pageLi">
+                    <a href="{{url_for('buglist',page=paginate.page)}}"><button class="pageBtn"
+                            id="{{ paginate.page }}">{{paginate.page}}</button></a>
+                </li>
+            </div>
             <li class="pageLi">
-                <a href="{{url_for('buglist',page=i)}}"><button class="pageBtn" id="{{ i }}">{{ i }}</button></a>
+                {% if paginate.has_next %}
+                <a href="{{url_for('buglist',page=paginate.next_num)}}"><button class="pageBtn" style="width:38px"
+                        id="sufPage">&gt</button></a>
+                {% endif %}
             </li>
-            {% endfor %}
-            {% if paginate.has_next %}
-            <a href="{{url_for('buglist',page=paginate.next_num)}}"><button class="pageBtn" style="width:100px"
-                    id="sufPage">下一页</button></a>
-            {% endif %}
+            <li class="pageLi" style="font-size:14px;color:#2e2e2e;position: relative;top:4px;margin-right: 6px;">
+                总页数:{{paginate.pages}}
             </li>
+
+      <li class="pageLi" style="font-size:14px;color:#2e2e2e;">
+        <form id="pageForm" method="post" >跳至&nbsp<input type="text" name="page" class="pageBtn"
+            style="border-radius:4px;border:1px solid #d3d3d3;">页
+            <button class="pageBtn" id="pageGo">GO</button>
+        </form>
+      </li>
         </ul>
-    </div>
-    <input hidden="hidden" id="pageSize">
-
-    <div id="pageBtn">
-
     </div>
 
 </div>{% endblock %}

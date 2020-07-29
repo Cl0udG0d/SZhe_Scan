@@ -382,7 +382,7 @@ img {
   bottom: 0;
   height: 100%;
 }
-s .partner:hover {
+.partner:hover {
   cursor: pointer;
 }
 .intro1 p {

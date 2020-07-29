@@ -55,7 +55,10 @@
                         </form>
                         <ul class="collect-list assetList">
                             {% for asset in assetname %}
-                            <li> <a href="{{url_for('assetdetail',name=asset)}}">资产名称:{{asset}}</a></li>
+                            <li> <a href="{{url_for('assetdetail',name=asset)}}">资产名称:{{asset}}</a>
+                                <button
+                                    onclick="window.location.href='{{ url_for('DeleteAsset',name=asset)}}'">删除资产</button>
+                            </li>
                             {% endfor %}
                         </ul>
                     </div>

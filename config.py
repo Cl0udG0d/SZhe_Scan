@@ -11,13 +11,12 @@ import rqsettings
     数据库名为SZheScan
         python3:https://blog.csdn.net/qq562029186/article/details/81325074
 '''
+# DEBUG = True
 DEBUG = False
 SECRET_KEY = os.urandom(24)
 
-
-
 HOSTNAME='mysql'
-# HOSTNAME='127.0.0.1'
+# HOSTNAME = '127.0.0.1'
 PORT = '3306'
 DATABASE = 'SZheScan'
 USERNAME = 'root'

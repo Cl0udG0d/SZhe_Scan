@@ -341,7 +341,8 @@ a {
   margin: 30px;
 }
 
-.progressBar {
+.progressBar,
+.progress {
   display: inline-block;
   width: 81%;
   height: 10px;
@@ -353,7 +354,8 @@ a {
   margin-right: 3%;
 }
 
-#progressFill {
+#progressFill,
+.progress-bar {
   width: 0%;
   height: 10px;
   position: relative;

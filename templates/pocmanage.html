@@ -43,13 +43,14 @@
     <div class="tabContent">
         <ul class="pocList">
             {% for poc in poclist %}
-                <li>
-                    <p>POC名: {{poc.name}}</p>
-                    <p>POC规则: {{poc.rule}}</p>
-                    <p>页面回显: {{poc.expression}}</p>
-                </li>
-            {% endfor %}
+            <li>
+                <p class="p1">POC名: {{poc.name}}</p>
+                <p class="p2">POC规则: {{poc.rule}}</p>
+                <p class="p3">页面回显: {{poc.expression}}</p>
+                <button onclick="window.location.href='{{ url_for('DeletePOC', pocid=poc.id)}}'">删除POC</button>
+            </li>
 
+            {% endfor %}
         </ul>
     </div>
 </div>

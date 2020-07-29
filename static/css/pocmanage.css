@@ -127,6 +127,8 @@ form button:hover {
   width: 97%;
   position: relative;
   top: 10px;
+  display: flex;
+  flex-direction: column;
 }
 .pocLists .tabContent ul li {
   flex: 1;
@@ -138,6 +140,40 @@ form button:hover {
   background-color: #f8f8ff;
   color: #333333;
   font-size: 16px;
+  display: grid;
+  grid-template-areas:
+    "phg1 btn"
+    "phg2 btn"
+    "phg3 btn";
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: 800px 100px;
+  grid-template-rows: 1fr;
+}
+.pocLists .tabContent ul li .p1 {
+  grid-area: phg1;
+}
+.pocLists .tabContent ul li .p2 {
+  grid-area: phg2;
+}
+.pocLists .tabContent ul li .p3 {
+  grid-area: phg3;
+}
+.pocLists .tabContent ul li button {
+  grid-area: btn;
+  float: right;
+  background-color: #0fbcf9;
+  color: #f8f8ff;
+  width: 85px;
+  height: 35px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  position: relative;
+  left: -120px;
+}
+.pocLists .tabContent ul li button:hover {
+  cursor: pointer;
+  background-color: #0394e7;
 }
 .context {
   display: flex;
