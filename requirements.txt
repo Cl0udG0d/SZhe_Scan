@@ -40,7 +40,7 @@ python-dateutil==2.8.1
 python-editor==1.0.4
 query-string==2019.4.13
 regex==2019.12.19
-request==2019.4.13
+request
 requests==2.22.0
 schedule==0.6.0
 six==1.14.0

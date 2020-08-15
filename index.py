@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for, session, flash
 import uuid
 from models import User, Log, BaseInfo, InvitationCode, BugList, POC, IPInfo, DomainInfo, Profile
 from exts import db
-from init import app, redispool
+from Init import app, redispool
 import core
 from decorators import login_required
 from config import queue

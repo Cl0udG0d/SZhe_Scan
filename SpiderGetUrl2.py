@@ -1,7 +1,7 @@
 import re,requests
 import time
 import core
-from init import redispool
+from Init import redispool
 
 '''
     原来的SpiderGetUrl写的不太好，但还是留在同文件里：SpiderGetUrl.py

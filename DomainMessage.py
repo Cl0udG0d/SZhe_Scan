@@ -1,5 +1,5 @@
-import get_message
-from init import redispool
+import GetMessage
+from Init import redispool
 
 
 class DomainMessage:
@@ -12,8 +12,8 @@ class DomainMessage:
         redispool.append("runlog", "正在使用主动与被动方式获取{}目标子域名!\n".format(self.domain))
         print("正在使用主动与被动方式获取目标子域名!")
         try:
-            SubDomainBurst = get_message.SubDomainBurst(self.TrueDomain, self.redispool)
-            SubDomainOnline = get_message.GetSubDomain(self.domain)
+            SubDomainBurst = GetMessage.SubDomainBurst(self.TrueDomain, self.redispool)
+            SubDomainOnline = GetMessage.GetSubDomain(self.domain)
             SubDomain = SubDomainBurst + SubDomainOnline
             return SubDomain
         except Exception as e:
@@ -24,7 +24,7 @@ class DomainMessage:
         redispool.append("runlog", "正在获取网站{}Whois信息!\n".format(self.domain))
         print("正在获取网站Whois信息!")
         try:
-            return get_message.GetWhois(self.TrueDomain)
+            return GetMessage.GetWhois(self.TrueDomain)
         except Exception as e:
             print(e)
             return "None"
@@ -33,7 +33,7 @@ class DomainMessage:
         redispool.append("runlog", "正在获取{}域名历史解析记录 :D\n".format(self.domain))
         print("正在获取域名历史解析记录 :D")
         try:
-            return get_message.GetBindingIP(self.domain)
+            return GetMessage.GetBindingIP(self.domain)
         except Exception as e:
             print(e)
             return "None"
@@ -42,7 +42,7 @@ class DomainMessage:
         redispool.append("runlog", "正在进行{}旁站查询 :)\n".format(self.domain))
         print("正在进行旁站查询 :)")
         try:
-            return get_message.GetSiteStation(self.domain)
+            return GetMessage.GetSiteStation(self.domain)
         except Exception as e:
             print(e)
             return "None"
@@ -51,7 +51,7 @@ class DomainMessage:
         redispool.append("runlog", "正在获取{}域名的公开备案信息 :-)\n".format(self.domain))
         print("正在获取域名的公开备案信息 :-)")
         try:
-            return get_message.GetRecordInfo(self.domain)
+            return GetMessage.GetRecordInfo(self.domain)
         except Exception as e:
             print(e)
             return "None"
@@ -64,7 +64,7 @@ class DomainMessage:
         else:
             host=self.domain
         try:
-            return get_message.FindDomainAdd(host)
+            return GetMessage.FindDomainAdd(host)
         except Exception as e:
             print(e)
             return "None"

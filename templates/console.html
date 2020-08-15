@@ -79,7 +79,12 @@
 </div>
 <div class="content-mid">
     <form class="myForm" method="POST" action="" id="task" name="myTask">
-        <textarea name="urls" rows="10" cols="30" placeholder="请输入新建任务:"></textarea>
+        <textarea name="urls" rows="10" cols="30" placeholder="按行输入，输入格式例如：
+        http://www.baidu.com
+        www.baidu.com
+        http://127.0.0.1
+        127.0.0.1
+        "></textarea>
         <button class="newtask" id="begin" type="submit" onclick="submit_query()">新建任务</button>
     </form>
     <div class="contentNums">
@@ -103,9 +108,9 @@
     </div>
     <span class="progressText"> 扫描进度 </span>
     {% if target.sumcount+target.waitcount!=0 %}
-        <span id="percentage" class="skill-per" per="{{target.sumcount/(target.sumcount+target.waitcount)}}">%</span>
+    <span id="percentage" class="skill-per" per="{{target.sumcount/(target.sumcount+target.waitcount)}}">%</span>
     {% else %}
-        <span id="percentage1" class="skill-per" per="0">%</span>
+    <span id="percentage1" class="skill-per" per="0">%</span>
     {% endif %}
 </div>
 

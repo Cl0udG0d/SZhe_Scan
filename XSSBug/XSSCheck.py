@@ -1,6 +1,6 @@
 import urllib.parse as urlparse
 import core
-from init import redispool
+from Init import redispool
 '''
 使用XSS的payload对目标进行请求，在返回文本中查找关键字，存在输入的payload，证明存在反射型xss漏洞
 Get_XSS函数传入url和flag参数

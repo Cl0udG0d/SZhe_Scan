@@ -3,7 +3,7 @@ import sys
 import time
 # import warnings
 from termcolor import cprint
-from init import app,redispool
+from Init import app,redispool
 from exts import db
 from models import BugList
 try:

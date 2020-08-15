@@ -3,12 +3,12 @@ import core
 import re
 import time
 from Wappalyzer import WebPage
-import get_message
+import GetMessage
 from WebLogicScan import WebLogicScan
-from init import app
+from Init import app
 from exts import db
 from models import BugList
-from init import redispool
+from Init import redispool
 from POCScan import selfpocscan2
 '''
 获取输入网址基础信息:
@@ -86,7 +86,7 @@ class GetBaseMessage():
             host=self.domain
         print(host)
         try:
-            return get_message.PortScan(host)
+            return GetMessage.PortScan(host)
         except Exception as e:
             print(e)
             return "Unknow"
@@ -95,7 +95,7 @@ class GetBaseMessage():
         redispool.append("runlog", "正在进行{}敏感目录及文件探测!\n".format(self.url))
         print("正在进行敏感目录及文件探测!")
         try:
-            return get_message.SenFileScan(self.domain,self.url)
+            return GetMessage.SenFileScan(self.domain, self.url)
         except Exception as e:
             print(e)
             return "None"
