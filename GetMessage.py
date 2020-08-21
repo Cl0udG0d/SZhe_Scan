@@ -130,11 +130,11 @@ def GetRecordInfo(domain):
         rep = requests.get(icpurl, headers=core.GetHeaders(),timeout=4)
         rep = etree.HTML(rep.text)
         companyname = rep.xpath('//ul[@id="first"]/li/p/a/text()')[0]
-        type=rep.xpath('//ul[@id="first"]/li/p/strong/text()')[0]
-        icpnum=rep.xpath('//ul[@id="first"]/li/p/font/text()')[0]
-        wwwname=rep.xpath('//ul[@id="first"]/li/p/text()')[1]
-        wwwurl=rep.xpath('//ul[@id="first"]/li/p/text()')[2]
-        icpdate=rep.xpath('//ul[@id="first"]/li/p/text()')[3]
+        type = rep.xpath('//ul[@id="first"]/li/p/strong/text()')[0]
+        icpnum = rep.xpath('//ul[@id="first"]/li/p/font/text()')[0]
+        wwwname = rep.xpath('//ul[@id="first"]/li/p/text()')[2]
+        wwwurl = rep.xpath('//ul[@id="first"]/li/p/text()')[3]
+        icpdate = rep.xpath('//ul[@id="first"]/li/p/text()')[11]
         context='''主办单位名称:{}\n主办单位性质:{}\n网站备案许可证号:{}\n网站名称:{}\n网站首页地址:{}\n审核时间:{}\n'''.format(companyname,type,icpnum,wwwname,wwwurl,icpdate)
     except Exception as e:
         pass
