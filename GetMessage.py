@@ -71,7 +71,9 @@ def GetSubDomain(domain):
             chinaz_url = chinaz_base_url + next_url
         except:
             break
-    attacklist[0]="http://"+attacklist[0]
+            
+    if len(attacklist) > 0:
+        attacklist[0] = "http://" + attacklist[0]
     return "\nhttp://".join(attacklist)
 
 
@@ -127,7 +129,7 @@ def GetRecordInfo(domain):
     try:
         rep = requests.get(icpurl, headers=core.GetHeaders(),timeout=4)
         rep = etree.HTML(rep.text)
-        companyname=rep.xpath('//ul[@id="first"]/li/p/text()')[0]
+        companyname = rep.xpath('//ul[@id="first"]/li/p/a/text()')[0]
         type=rep.xpath('//ul[@id="first"]/li/p/strong/text()')[0]
         icpnum=rep.xpath('//ul[@id="first"]/li/p/font/text()')[0]
         wwwname=rep.xpath('//ul[@id="first"]/li/p/text()')[1]
