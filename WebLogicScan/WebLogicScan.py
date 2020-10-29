@@ -11,6 +11,7 @@ import WebLogicScan.poc.CVE_2018_2893
 import WebLogicScan.poc.CVE_2018_2894
 import WebLogicScan.poc.CVE_2019_2725
 import WebLogicScan.poc.CVE_2019_2729
+import WebLogicScan.poc.CVE_2019_2890
 
 '''
 白嫖魔改自rabbitmask师傅的Weblogic一键漏洞检测工具，V1.3
@@ -95,6 +96,11 @@ def PocS(rip,rport):
     except:
         print("[-]CVE_2019_2729 not detected.")
 
+    print('[*]CVE_2019_2890 is testing...')
+    try:
+        result.append(WebLogicScan.poc.CVE_2019_2890.run(rip, rport, 0))
+    except:
+        print("[-]CVE_2019_2890 not detected.")
     print ("[*]Happy End,the goal is {}:{}".format(rip,rport))
     return result
 
