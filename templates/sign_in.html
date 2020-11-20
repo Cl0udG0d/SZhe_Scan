@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>用户登录</title>
+  <!-- <link rel="stylesheet" href="../static/css/sign_in.css">
+  <link rel="stylesheet" href="../static/css/font-awesome.min.css"> -->
   <link rel="stylesheet" href="{{url_for('static',filename='css/sign_in.css')}}" />
   <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
   <!-- <script src="{{url_for('static',filename='js/login.js')}}"></script> -->
@@ -23,12 +25,12 @@
     <div class="logo">
       <h1>
         <a href="#" title="Web漏洞扫描器"
-          style="position:absolute;top:40px;font-size:65px;color:white;left:50px;font-family:Arial, Helvetica, sans-serif;">SZHE</a>
+          style="position:absolute;top:40px;font-size:65px;color:#3e3e3e;left:50px;font-family:Arial, Helvetica, sans-serif;">SZHE</a>
       </h1>
     </div>
     <div class="container">
       <h2 class="title">
-        Welcome
+        登陆
       </h2>
       <div class="login-form">
         <form action="" method="POST" id="form" name="myform" onsubmit="checkform();">
@@ -49,7 +51,7 @@
           </div>
           <button class="sign-in-button" style="margin-top: 40px;">
             <span id="sign-in-loading"></span>
-            登录
+            登 录
           </button>
         </form>
       </div>
