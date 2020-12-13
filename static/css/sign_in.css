@@ -4,7 +4,7 @@
 }
 body {
   /* background-color: #f1f1f1; */
-  background-image: url("../images/40.jpg");
+  /* background-image: url("../images/40.jpg"); */
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -48,7 +48,8 @@ a {
   /* background-color: #fff; */
   /* opacity: 0.9; */
   border-radius: 4px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  /* border:1px solid black; */
+  box-shadow: 0px 0px 28px 8px rgba(0, 0, 0, 0.1);
   vertical-align: middle;
   display: inline-block;
   -webkit-box-sizing: border-box;
@@ -60,8 +61,9 @@ a {
   margin: 0 auto 50px;
   padding: 10px;
   font-weight: 500;
-  color: white;
+  /* color: white; */
   font-size: 48px;
+  color:#3e3e3e;
 }
 
 .context .login-form {
@@ -72,61 +74,28 @@ a {
   justify-content: center;
   position: relative;
   left: -15px;
-  color: #fff;
+  /* color: #fff; */
 }
 
-/* .context .title a:hover {
-  border-bottom: 2px solid #ea6f5a;
-}
-.context .title .active {
-  font-weight: 700;
-  color: #ea6f5a;
-  border-bottom: 2px solid #ea6f5a;
-}
-.context .title b {
-  padding: 10px;
-} */
-/* .context form {
-  position: relative;
-  margin-bottom: 30px;
-  margin-top: 30px;
-} */
 .context form .input-num {
   position: relative;
   width: 285px;
   top: -20px;
 }
 .context form .input-num input {
-  width: 100%;
+  width: 93%;
   height: 40px;
   margin-bottom: 15px;
   padding: 4px 12px 4px 35px;
-  border: 2px solid white;
+  border: 1px solid rgba(20, 19, 19, 0.6);
   border-radius: 4px;
   background: inherit;
   /* background-color: hsla(0, 0%, 71%, 0.1); */
   opacity: 0.9;
   /* background-color: #f8f8ff; */
   vertical-align: middle;
-  color: white;
+  /* color: white; */
 }
-/* input::-webkit-input-placeholder {
-  color: white !important;
-  z-index: 1000;
-}
-::-moz-placeholder {
-  color: white !important;
-  z-index: 1000;
-}
-input:-ms-input-placeholde {
-  z-index: 1000;
-  color: white !important;
-}
-input:-moz-placeholder {
-  color: white !important;
-  z-index: 1000;
-} */
-
 .context .remember-btn {
   float: left;
   margin: 15px 0;
@@ -137,7 +106,7 @@ input:-moz-placeholder {
 .context .remember-btn span {
   margin-left: 5px;
   font-size: 15px;
-  color: white;
+  /* color: white; */
   vertical-align: middle;
 }
 .context .forget-btn {
@@ -150,7 +119,7 @@ input:-moz-placeholder {
   left: 15px;
 }
 .context .forget-btn span {
-  color: white;
+  /* color: white; */
 }
 .context .forget-btn a {
   color: #3194d0;
@@ -173,12 +142,14 @@ input:-moz-placeholder {
   background-color: rgb(22, 122, 253);
   background-color: rgb(5, 5, 65);
   background-color: rgba(6, 6, 77, 0.8);
+  background-color: #21a0f0;
   border: none;
   border-radius: 25px;
-  color: #fff;
+  /* color: #fff; */
   cursor: pointer;
   display: block;
   clear: both;
+  color:#fff;
   outline: none;
   /* opacity: 0; */
 }
@@ -186,6 +157,7 @@ input:-moz-placeholder {
   /* background: #187cb7; */
   /* background-color: rgb(10, 108, 236); */
   background-color: rgb(4, 4, 80);
+  background-color: #0f92e4;
 }
 
 .context .restyle {
@@ -205,8 +177,8 @@ input:-moz-placeholder {
   margin-top: -50px;
   margin-left: -160px;
   color: #969696;
-  color: #fff;
-  color: white;
+  /* color: #fff;
+  color: white; */
 }
 
 .context .passw i {
@@ -217,8 +189,8 @@ input:-moz-placeholder {
   margin-top: -50px;
   margin-left: -160px;
   color: #969696;
-  color: #fff;
-  color: white;
+  /* color: #fff;
+  color: white; */
 }
 
 .context .passw i:hover {

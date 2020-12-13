@@ -4,7 +4,7 @@
 }
 
 body {
-  background-image: url("../images/45.jpg");
+  /* background-image: url("../images/45.jpg"); */
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -31,12 +31,13 @@ a {
 
 .context .container {
   width: 400px;
-  height: 450px;
+  height: 560px;
   margin: -10px auto 0px;
-  padding: 0px 50px 20px;
+  padding: 20px 50px 20px;
   /* background-color: #fff; */
   border-radius: 4px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 28px 8px rgba(0, 0, 0, 0.1);
   vertical-align: middle;
   /* display: flex; */
   align-items: center;
@@ -53,6 +54,7 @@ a {
   font-size: 48px;
   font-weight: 500;
   color: white;
+  color: #3e3e3e;
 }
 
 .context .logo img {
@@ -84,6 +86,7 @@ a {
   margin-bottom: 7px;
   padding: 4px 12px 4px 35px;
   border: 2px solid #e9e6e6;
+  border: 1px solid rgba(20, 19, 19, 0.6);
 
   border-radius: 4px;
   /* background-color: hsla(0, 0%, 71%, 0.1); */
@@ -140,6 +143,7 @@ input::placeholder {
   border-radius: 25px;
   color: #fff;
   background-color: rgba(6, 6, 77, 0.8);
+  background-color: #21a0f0;
   outline: none;
   display: block;
   clear: both;
@@ -150,6 +154,7 @@ input::placeholder {
   /* background: #3db922;
   background-color: rgb(10, 108, 236); */
   background-color: rgb(3, 3, 54);
+  background-color: #0f92e4;
   cursor: pointer;
 }
 
@@ -165,6 +170,7 @@ input::placeholder {
   margin-top: -45px;
   margin-left: -163px;
   color: #fff;
+  color: #969696;
 }
 
 .context .passw i {
@@ -175,6 +181,7 @@ input::placeholder {
   margin-top: -45px;
   margin-left: -163px;
   color: #fff;
+  color: #969696;
 }
 
 .context .input-prepend i {
@@ -185,6 +192,7 @@ input::placeholder {
   margin-top: -45px;
   margin-left: -163px;
   color: #fff;
+  color: #969696;
 }
 .context .paw i:hover {
   cursor: pointer;
@@ -196,6 +204,7 @@ input::placeholder {
   font-size: 12px;
   line-height: 20px;
   color: #fff;
+  color: #3e3e3e;
   position: relative;
   left: 22px;
 }
@@ -204,19 +213,3 @@ input::placeholder {
 .context .sign-up-msg a:hover {
   color: #3194d0;
 }
-
-/* #sign-in-form-submit-btn {
-  position: absolute;
-} */
-/* .error {
-  position: absolute;
-  margin-top: -30px;
-  width: 100%;
-  height: 10px;
-  margin-bottom: 0px;
-  border: 2px red solid;
-  font-size: 64px;
-  color: red;
-  z-index: 100;
-  border-radius: 4px 4px 0 0;
-} */
