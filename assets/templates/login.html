@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>登录</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/css/animate.min.css" rel="stylesheet">
+    <link href="../static/css/style.min.css" rel="stylesheet">
+    <link href="../static/css/login.min.css" rel="stylesheet">
+    <script>
+        if(window.top!==window.self){window.top.location=window.location};
+    </script>
+
+</head>
+
+<body class="signin">
+    <div class="signinpanel  loginscreen  animated fadeInDown" >
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="signin-info">
+                    <div class="logopanel m-b">
+                        <h1>[ 碎遮-风起 ]</h1>
+                    </div>
+                    <div class="m-b"></div>
+                    <h4>欢迎使用 <strong>碎遮-风起Web漏洞扫描器</strong></h4>
+                    {#获取闪现#}
+                    {% for msg in get_flashed_messages() %}
+                        <div class="alert alert-warning" role="alert"><strong>Warning!</strong> {{ msg }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <form method="post" action="#" class="m-t" role="form">
+                    <h4 class="no-margins">登录</h4>
+                    <input name="username" type="text" class="form-control uname" required=""  placeholder="用户名" />
+                    <input name="password" type="password" class="form-control pword m-b" required=""  placeholder="密码" />
+                    <button class="btn btn-success btn-block" >登录</button>
+                </form>
+            </div>
+        </div>
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2021 All Rights Reserved. 风起于青萍之末
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>
