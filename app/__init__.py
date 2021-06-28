@@ -22,9 +22,5 @@ def create_app():
     app = Flask(__name__, static_folder="../assets/static", template_folder="../assets/templates")
     register_blueprints(app)
     load_app_config(app)
-    app.logger.warning(
-        """
-        路由:\n{}
-        """.format(app.url_map)
-    )
+
     return app

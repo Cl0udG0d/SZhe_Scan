@@ -16,4 +16,9 @@ if __name__ == "__main__":
         ----------------------------
         """
     )
+    app.logger.warning(
+        """
+        路由:\n{}
+        """.format(app.url_map)
+    )
     app.run()

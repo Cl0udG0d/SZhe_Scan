@@ -1,3 +1,11 @@
 '''
-    tasks
+    tasks:
+        /tasks
+        route:
+            /
+            /addtask
+            /deltask
+            /stoptask
+            /outreport
+            /detail
 '''
