@@ -3,7 +3,9 @@ from app.config import base
 
 def register_blueprints(Tempapp):
     from app.api.admin.log import admin
+    from app.api.tasks import tasks
     Tempapp.register_blueprint(admin,url_prefix="/admin")
+    Tempapp.register_blueprint(tasks,url_prefix="/tasks")
     # app.register_blueprint(create_cms(), url_prefix="/pocs")
     # app.register_blueprint(create_cms(), url_prefix="/tasks")
 
