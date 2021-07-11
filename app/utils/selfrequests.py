@@ -7,3 +7,9 @@ def normalReq(url,timeout=5,verify=False,allow_redirects=False):
         return rep
     except:
         raise ("ERROR:{}请求超时".format(url))
+
+def checkReq(url,timeout=5,verify=False,allow_redirects=False):
+    rep=requests.get(url,timeout=timeout,verify=verify,allow_redirects=allow_redirects,headers=randomAgent.getRandomUserAgent())
+    return rep
+
+
