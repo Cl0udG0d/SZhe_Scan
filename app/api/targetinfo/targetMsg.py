@@ -1,3 +1,6 @@
+import re
+import time
+
 from app.utils.selfrequests import normalReq
 
 class TargetMsg:
@@ -17,12 +20,24 @@ class TargetMsg:
         return
 
     def getResponse(self):
-
+        self.rep = normalReq(self.target)
         return
 
     def getStatus(self):
 
-        return
+        return self.rep.status_code
+
+    def getTitle(self):
+        value=re.findall('<title>(.*?)</title>', self.rep.text)
+        if type(value) is list:
+            title=value[0]
+        else:
+            title='no title'
+        return title
+
+    def GetDate(self):
+        print("正在获取系统当前时间!")
+        return str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 
     def getTargetPort(self):
         return

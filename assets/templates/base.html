@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    {%block css%}{% endblock %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-clearmin.min.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/roboto.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/material-design.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/small-n-flat.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}" />
+    <title>{%block title%}主页{% endblock %}</title>
+  </head>
+  <body class="cm-no-transition cm-1-navbar">
+    <div id="cm-menu">
+      <nav class="cm-navbar cm-navbar-primary">
+        <div class="cm-flex"><div style="text-align:center;"><h4>碎遮-风起</h4></div></div>
+      </nav>
+      <div id="cm-menu-content">
+        <div id="cm-menu-items-wrapper">
+          <div id="cm-menu-scroller">
+            <ul class="cm-menu-items">
+              <li class="active"><a href="#" class="sf-house">主页</a></li>
+              <li class="active"><a href="#" class="sf-dashboard">任务管理</a></li>
+              <li class="active"><a href="#" class="sf-notepad">POC列表</a></li>
+              <li class="active"><a href="#" class="sf-keyring">插件列表</a></li>
+              <li class="active"><a href="#" class="sf-keyring">策略配置</a></li>
+              <li class="active"><a href="#" class="sf-wrench">个人中心</a></li>
+              <li class="active"><a href="#" class="md-exit-to-app">注销</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <header id="cm-header">
+      <nav class="cm-navbar cm-navbar-primary">
+        <div class="btn btn-primary md-menu-white hidden-md hidden-lg" data-toggle="cm-menu"></div>
+        <div class="cm-flex"><h1>{%block header%}BASE{% endblock %}</h1></div>
+      </nav>
+    </header>
+    <div id="global">
+        <div class="container-fluid">
+          {%block content%}{% endblock %}
+        </div>
+      <footer class="cm-footer"><span class="pull-right" onclick="javascript:window.open('https://cl0udg0d.github.io/szhe-docs/')" style="cursor:pointer;">&copy; 碎遮-风起</span></footer>
+    </div>
+    <link rel="stylesheet" href="{{url_for('static',filename='js/jquery.min.js')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='js/jquery.mousewheel.min.js')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='js/jquery.cookie.min.js')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='js/fastclick.min.js')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='js/bootstrap.min.js')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='js/clearmin.min.js')}}" />
+    {%block javascript %}{% endblock %}
+  </body>
+</html>
