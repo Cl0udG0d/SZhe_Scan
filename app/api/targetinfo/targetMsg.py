@@ -1,7 +1,8 @@
 import re
 import time
-
-from app.utils.selfrequests import normalReq
+from . import getMsgUnit
+import socket
+from app.utils.selfrequests import normalReq,checkReq
 
 class TargetMsg:
     def __init__(self,url):
@@ -24,8 +25,11 @@ class TargetMsg:
     def getDomain(self):
         # 获取 domain
         if self.url.startswith("http://") or self.url.startswith("https://"):
-
-        return
+            return self.url.split('/')[2] if ':' not in self.url else self.url.split('/')[2].split(':')[0]
+        elif '/' in self.url:
+            return self.url.split('/')[0] if ':' not in self.url else self.url.split('/')[0].split(':')[0]
+        else:
+            return self.url if ':' not in self.url else self.url.split(':')[0]
 
     def getTargetMsg(self):
         # 获取目标的基础信息
@@ -66,15 +70,20 @@ class TargetMsg:
 
     def getTargetPort(self):
         # 端口识别
-        return
+        host=socket.gethostbyname(self.domain) if self.isDomain else self.domain
+        content=getMsgUnit.PortScan(host)
+        return content
 
     def getTargetSensitiveMsg(self):
-        # 敏感信息
+        # 被动信息收集中的敏感信息
         return
 
     def checkDomain(self):
         # check domain or IP
-        pass
+        # pattern = re.compile('^\d+\.\d+\.\d+\.\d+(:(\d+))?$')
+        pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
+        return False if pattern.findall(self.domain) else True
+
 
     def useRepCheckTarget(self):
         # 利用 rep 检测 http or https 
@@ -82,5 +91,16 @@ class TargetMsg:
             tempTarget=self.url.split('/')[0]
         else:
             tempTarget=self.url
-
-        return
+        try:
+            tempurl="http://"+tempTarget
+            rep1=checkReq(url=tempurl)
+            return tempurl
+        except:
+            pass
+        try:
+            tempurl = "https://"+tempTarget
+            rep2=checkReq(url=tempurl)
+            return tempurl
+        except:
+            pass
+        raise ("目标WEB端口无响应或URL格式错误")
