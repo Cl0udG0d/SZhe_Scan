@@ -1,9 +1,22 @@
 import re
 import time
-from . import getMsgUnit
+from . import getMsgUnit,Wappalyzer
 import socket
 from app.utils.selfrequests import normalReq,checkReq
 
+'''
+    基础信息收集:
+            目标网址
+            域名
+            响应
+            状态码
+            标题
+            时间
+            响应头
+            指纹识别
+            端口识别
+            被动信息收集中的敏感信息收集
+'''
 class TargetMsg:
     def __init__(self,url):
         self.url=url
@@ -11,6 +24,7 @@ class TargetMsg:
         self.target=self.getTarget()
         self.isDomain=self.checkDomain()
         self.rep=None
+        self.havaWaf=False
 
         return
 
@@ -66,7 +80,8 @@ class TargetMsg:
 
     def getFinger(self):
         # 指纹识别
-        return
+        finger = Wappalyzer.WebPage(self.target, self.rep)
+        return finger.info()
 
     def getTargetPort(self):
         # 端口识别
@@ -74,8 +89,30 @@ class TargetMsg:
         content=getMsgUnit.PortScan(host)
         return content
 
-    def getTargetSensitiveMsg(self):
+    # def getTargetSensitiveMsg(self):
         # 被动信息收集中的敏感信息
+        # 是否存在WAF JS敏感信息 WAF识别 github敏感信息泄露 邮箱收集 物理地址 旁站查询
+        # return
+
+
+    def getTargetSenInJs(self):
+        # js敏感信息获取
+        return
+
+    def getTargetWafMsg(self):
+        # 目标WAF信息识别
+        return
+
+    def getGithubSenMsg(self):
+        # Github 敏感信息获取
+        return
+
+    def getTargetEmail(self):
+        # 邮箱收集
+        return
+
+    def getSiteStation(self):
+        # 旁站查询
         return
 
     def checkDomain(self):
@@ -84,6 +121,10 @@ class TargetMsg:
         pattern = re.compile('^\d+\.\d+\.\d+\.\d+$')
         return False if pattern.findall(self.domain) else True
 
+    def checkHavaWaf(self):
+        # 检测是否存在 waf
+
+        return
 
     def useRepCheckTarget(self):
         # 利用 rep 检测 http or https 

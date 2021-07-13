@@ -1,5 +1,7 @@
 import requests
 from app.utils import randomAgent
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def normalReq(url,timeout=5,verify=False,allow_redirects=False):
     try:
