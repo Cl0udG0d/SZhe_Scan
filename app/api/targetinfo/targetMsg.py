@@ -94,6 +94,9 @@ class TargetMsg:
         # 是否存在WAF JS敏感信息 WAF识别 github敏感信息泄露 邮箱收集 物理地址 旁站查询
         # return
 
+    def getDNSMsg(self):
+        # 获取DNS解析记录
+        return
 
     def getTargetSenInJs(self):
         # js敏感信息获取
