@@ -1,5 +1,6 @@
 import os
 
+
 DEBUG = True
 # DEBUG = False
 SECRET_KEY = os.urandom(24)
@@ -15,4 +16,7 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(U
                                                                                DATABASE)
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+CELERY_BROKER_URL= 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND= 'redis://localhost:6379/0'
 
