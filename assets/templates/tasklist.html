@@ -28,11 +28,46 @@
 
 {% endblock %}
 {% block content %}
+{% for msg in get_flashed_messages() %}
+<div class="alert alert-success">
+	<strong class="default">添加成功 </strong> {{ msg }}
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+</div>
+
+{% endfor %}
+
 <div class="row">
 			  <div class="col-md-12">
 				  	<div class="panel panel-default">
 					  <div class="panel-body">
 						  <button class="btn btn-success" data-toggle="modal" data-target="#modalform"><i class="fa fa-plus"></i> 新增任务</button>
+							<!-- Modal Form -->
+							<div class="modal fade" id="modalform" tabindex="-1" role="dialog" aria-hidden="true">
+							   <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							        <h4 class="modal-title" id="myModalLabel">新增任务</h4>
+							      </div>
+							      <div class="modal-body" style="margin-bottom:-30px;">
+									  <form class="form-horizontal" role="form" action="{{url_for('tasks.addtask')}}" method="POST">
+										  <div class="form-group">
+											<label  class="col-sm-2 control-label">任务名称</label>
+											<div class="col-sm-10">
+											  <input type="text" name="targetname" class="form-control" placeholder="任务名称">
+											</div>
+										 </div>
+										  <br>
+										  <textarea name="targets" class="form-control" rows="5" placeholder="每行一个URL"></textarea>
+										  <div class="modal-footer">
+											<button type="submit" class="btn btn-info">提交</button>
+										  </div>
+										</form>
+							      </div>
+
+							    </div>
+							  </div>
+							</div>
 						  <button class="btn btn-primary"><i class="fa fa-flash"></i> 批量导入</button>
 						  <button type="button" class="btn btn-default" id="tooltip-right" data-toggle="tooltip" data-placement="right" title="" data-original-title="扫描" style="border:none"><i class="fa fa-ellipsis-h"></i></button>
 						  <br>
@@ -67,8 +102,10 @@
 								</tbody>
 
 								</table>
+
 					  </div>
 				  	</div>
+
 			  </div>
             </div>
 

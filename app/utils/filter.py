@@ -1,4 +1,25 @@
 
+def check2filter(targets):
+    '''
+    去重和规范化输入
+    '''
+    targets = targets.split()
+    targetsSet=set()
+    newTarget=list()
+    for i, tempurl in enumerate(targets):
+
+        url = tempurl[:-1] if tempurl.endswith("/") else tempurl
+        url = url.replace("http://","") if "http://" in url else url
+        url =url.replace("https://","") if "http://" in url else url
+
+        url= url.split('/')[0] if "/" in url else url
+
+        if url not in targetsSet:
+            targetsSet.add(url)
+            newTarget.append(url)
+
+    return newTarget,len(newTarget)
+
 def inputfilter(url):
     rep,rep1,rep2=None,None,None
     if url.endswith("/"):
@@ -47,18 +68,5 @@ def inputfilter(url):
             print("{}访问超时".format(attackurl))
             return None,None,None
 
-def inputFilter(urls):
-    targetList = urls.split()
-
-    for i, tempurl in enumerate(targetList):
-        targetList[i]=targetFilter(tempurl)
-
-    return targetList
 
 
-def uploadFilter():
-    return
-
-def targetFilter(url):
-
-    return

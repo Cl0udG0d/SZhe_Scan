@@ -1,7 +1,4 @@
 import os
-import redis
-from rq import Queue
-import rqsettings
 
 # DEBUG = True
 # DEBUG = False
@@ -19,9 +16,18 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(U
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-# HOST = 'redis'
-HOST = '127.0.0.1'
-redisPool = redis.ConnectionPool(host=HOST, port=6379, db=0, decode_responses=True)
-db = redis.Redis(host=rqsettings.REDIS_HOST, port=rqsettings.REDIS_PORT, db=rqsettings.REDIS_DB, decode_responses=True)
-queue = Queue(connection=db)
+# REDIS_HOST = 'redis'
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379
+REDIS_DB = 0
+# REDIS_PASSWORD = 'very secret'
+
+# 监听的队列
+# QUEUES = ['high', 'default', 'low']
+# redisPool = redis.ConnectionPool(host=HOST, port=6379, db=0, decode_responses=True)
+# db = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB, decode_responses=True)
+# queue = Queue(connection=db)
+
+CELERY_BROKER_URL= 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND= 'redis://localhost:6379/0'
 

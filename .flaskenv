@@ -1,3 +1,0 @@
-FLASK_ENV=development
-
-FLASK_DBEUG=1
