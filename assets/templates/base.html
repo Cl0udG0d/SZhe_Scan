@@ -1,68 +1,161 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-clearmin.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/roboto.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/material-design.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/small-n-flat.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
-      {% block css %}{% endblock %}
-    <title>{%block title%}管理员后台主页{% endblock %}</title>
-  </head>
-  <body class="cm-no-transition cm-1-navbar">
-    <div id="cm-menu">
-      <nav class="cm-navbar cm-navbar-primary">
-        <div class="cm-flex" style="text-align:center"><h4>碎遮-风起</h4></div>
-        <div class="btn btn-primary md-menu-white" data-toggle="cm-menu"></div>
-      </nav>
-      <div id="cm-menu-content">
-        <div id="cm-menu-items-wrapper">
-          <div id="cm-menu-scroller">
-            <ul class="cm-menu-items">
-              {% block menu %}
-              <li class="active"><a href="#" class="sf-house">主页</a></li>
-              <li class="active"><a href="#" class="sf-dashboard">任务管理</a></li>
-              <li class="active"><a href="#" class="sf-notepad">POC列表</a></li>
-              <li class="active"><a href="#" class="sf-keyring">插件列表</a></li>
-              <li class="active"><a href="#" class="sf-wrench">策略配置</a></li>
-              <li class="active"><a href="#" class="md-exit-to-app">注销</a></li>
-              {% endblock %}
-            </ul>
-          </div>
+<html><head>
+<meta charset="utf-8">
+<title>{% block title %}base{% endblock %}</title>
+	{% block css %} {% endblock %}
+	<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static',filename='lib/c3js/c3.css')}}">
+	<link rel="stylesheet" href="{{url_for('static',filename='lib/switchery/switchery.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static',filename='lib/weather-icons/css/weather-icons.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/weather-icons/css/weather-icons.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/calendario/css/calendar.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-override.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/layout.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/library.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+
+</head>
+<body id="body">
+		<!-- Header -->
+		<header class="navbar main-header">
+		  		<a class="navbar-brand" href="index.html">
+                    SZHE
+                </a>
+               <ul class="nav navbar-nav navbar-left sidebar-toggle-ul">
+                    <li class="navbar-main hidden-lg hidden-md">
+                        <a href="javascript:void(0);" id="sidebar-toggle">
+                            <span class="meta">
+                                <span class="icon"><i class="fa fa-bars"></i></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="navbar-main hidden-sm hidden-xs">
+                        <a href="javascript:void(0);" id="sidebar-collapse">
+                            <span class="meta">
+                                <span class="icon"><i class="fa fa-outdent"></i></span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                 <ul class="nav navbar-nav navbar-right">
+                 	<li class="dropdown icons-dropdown">
+			          <ul class="dropdown-menu list-group">
+						  <li class="list-group-item heading"><p>Notification</p></li>
+						  <a href="#" class="list-group-item"><i class="fa fa-user"></i> <p>John sent you friend request</p></a>
+						  <a href="#" class="list-group-item"><i class="fa fa-envelope-o"></i> <p>Sam sent important mail</p></a>
+						  <a href="#" class="list-group-item"><i class="fa fa-calendar"></i> <p>You have pending job</p></a>
+						  <a href="#" class="list-group-item"><i class="fa fa-money"></i> <p>Received $1826 from client</p></a>
+			          </ul>
+			        </li>
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">admin <b class="caret"></b></a>
+			          <ul class="dropdown-menu">
+			            <li><a href="#"><i class="fa fa-user"></i> 个人</a></li>
+			            <li><a href="{{url_for('home.logout')}}"><i class="fa fa-share"></i> 退出登录</a></li>
+			          </ul>
+			        </li>
+			     </ul>
+	   </header>
+
+
+        <div class="sidebar sidebar-left">
+        	<div class="content">
+				<div class="tab-content sidetabs">
+				  <div class="tab-pane active" id="home">
+					  	 <ul class="sidemenu">
+						    <li class="active">
+						        <a href="{{url_for('home.index')}}">
+						            <span class="icon"><i class="fa fa-dashboard"></i></span>
+						            <span class="name">仪表盘</span>
+						            <span class="number pull-right"><span class="label label-primary">5</span></span>
+						        </a>
+						    </li>
+							 <li>
+						        <a href="javascript:void(0);">
+						            <span class="icon"><i class="fa fa-anchor"></i></span>
+						            <span class="name">扫描任务</span>
+						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
+						        </a>
+						        <ul class="sidebar-dropdown">
+						        		<li><a href="{{url_for('tasks.tasklist')}}">任务列表</a></li>
+			                            <li><a href="typography-elements.html">扫描策略</a></li>
+			                    </ul>
+						    </li>
+						    <li>
+						        <a href="javascript:void(0);">
+						            <span class="icon"><i class="fa fa-bug"></i></span>
+						            <span class="name">漏洞</span>
+						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
+						        </a>
+						        <ul class="sidebar-dropdown">
+						        		<li class="sidebar-dropdown-title"><p>Elements</p></li>
+						        		<li><a href="general-elements.html">漏洞列表</a></li>
+			                    </ul>
+						    </li>
+						     <li>
+						        <a href="javascript:void(0);">
+						            <span class="icon"><i class="fa fa-gavel"></i></span>
+						            <span class="name">POC管理</span>
+						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
+						        </a>
+						        <ul class="sidebar-dropdown">
+						        		<li class="sidebar-dropdown-title"><p>Components</p></li>
+			                            <li><a href="grids.html">Grids</a></li>
+			                            <li><a href="calendar.html">Calendar</a></li>
+			                            <li><a href="gallery.html">Gallery</a></li>
+			                            <li><a href="draggable.html">Draggable Portlet</a></li>
+			                            <li><a href="font-awesome.html">Font Awesome</a></li>
+			                    </ul>
+						    </li>
+						    <li>
+						        <a href="javascript:void(0);">
+						            <span class="icon"><i class="fa fa fa-puzzle-piece"></i></span>
+						            <span class="name">扩展插件</span>
+						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
+						        </a>
+						        <ul class="sidebar-dropdown">
+						        		<li class="sidebar-dropdown-title"><p>Forms</p></li>
+			                            <li><a href="form-elements.html">Form Elements</a></li>
+			                            <li><a href="form-validation.html">Form Validation</a></li>
+			                    </ul>
+
+						    </li>
+						     <li>
+						        <a href="javascript:void(0);">
+						            <span class="icon"><i class="fa fa-calendar"></i></span>
+						            <span class="name">日志</span>
+						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
+						        </a>
+						        <ul class="sidebar-dropdown">
+						        		<li><a href="{{url_for('log.loginlog')}}">登录日志</a></li>
+			                            <li><a href="{{url_for('log.runlog')}}">运行日志</a></li>
+
+			                    </ul>
+						    </li>
+					</ul>
+				  </div>
+				</div>
+        	</div>
         </div>
-      </div>
-    </div>
-    <header id="cm-header">
-      <nav class="cm-navbar cm-navbar-primary">
-        <div class="btn btn-primary md-menu-white hidden-md hidden-lg" data-toggle="cm-menu"></div>
-        <div class="cm-flex"> <div class="dropdown pull-right">
-                    <button class="btn btn-primary md-account-circle-white" data-toggle="dropdown"></button>
-                    <ul class="dropdown-menu">
-                        <li class=" text-center">
-                            <a href="#">Admin</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-sign-out"></i> 退出</a>
-                        </li>
-                    </ul>
-                </div>
-        </div>
-      </nav>
-    </header>
-    <div id="global">
-      <div class="container-fluid">
-          {%block content%}{% endblock %}
-      </div>
-        <footer class="cm-footer"><span class="pull-right" onclick="javascript:window.open('https://cl0udg0d.github.io/szhe-docs/')" style="cursor:pointer;">&copy; 碎遮-风起</span></footer>
-    </div>
-    <script src="../static/js/jquery.min.js"></script>
-    <script src="../static/js/jquery.mousewheel.min.js"></script>
-    <script src="../static/js/jquery.cookie.min.js"></script>
-    <script src="../static/js/fastclick.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/clearmin.min.js"></script>
-  {% block javascript %}{% endblock %}
-  </body>
+		<!-- Header -->
+		<section id="main-wrapper" style="min-height:500px">
+			<h3 class="subtitle">{% block subtitle %}副标题{% endblock %}</h3>
+          <hr/>
+
+		{% block content %}{% endblock %}
+		</section>
+{% block javascript %} {% endblock %}
+
+<!--<script type="text/javascript" src="{{url_for('static',filename='js/jquery-1.11.0.min.js')}}"></script>-->
+<!--<script type="text/javascript" src="{{url_for('static',filename='lib/jqueryui/js/jquery-ui-1.10.4.custom.min.js')}}"></script>-->
+<!--<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>-->
+<!--<script type="text/javascript" src="{{url_for('static',filename='lib/switchery/switchery.min.js')}}"></script>-->
+<!--<script type="text/javascript" src="{{url_for('static',filename='lib/customscroll/jquery.mCustomScrollbar.concat.min.js')}}"></script>-->
+<!--<script type="text/javascript" src="{{url_for('static',filename='lib/jquery-easing/jquery.easing.1.3.js')}}"></script>-->
+<!--<script type="text/javascript" src="{{url_for('static',filename='lib/calendario/js/jquery.calendario.js')}}"></script>-->
+<!--<script type="text/javascript" src="{{url_for('static',filename='lib/offlinejs/offline.min.js')}}"></script>-->
+
+</body>
 </html>

@@ -1,0 +1,41 @@
+/*Mail app overrides from original*/
+
+.main-header .navbar-brand
+{
+	background: #444a64;
+}
+.mail{
+	padding-left: 240px !important;
+}
+.mailapp .mail-sidebar{
+	width: 240px;
+	left: 0;
+	margin-left: 0px;
+}
+
+.mailapp .mail-options .btn-compose{
+	padding: 10px 50px;
+}
+
+
+@media(max-width:992px){
+	.mail{
+		padding: 0 !important;
+	}
+	.mailapp .mail-sidebar{
+		margin-left: -240px;
+		left: 0;
+		top:0;
+		position: absolute;
+	}
+
+	.mailapp .mail-sidebar.active{
+		margin-left: 0px;
+		left: 0;
+	}
+
+	.mailapp .mail-options .btn-compose{
+		margin-top: -10px;
+	}
+
+}

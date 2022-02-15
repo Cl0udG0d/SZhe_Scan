@@ -6,7 +6,7 @@ __pycache__/
 .idea/
 # C extensions
 *.so
-
+.env
 .idea/
 venv/
 # Distribution / packaging

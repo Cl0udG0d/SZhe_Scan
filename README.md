@@ -1,11 +1,5 @@
-#                SZhe_Scan 碎遮Web漏洞扫描器
+# SZhe_Scan 碎遮Web漏洞扫描器
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-
-> 风起于青萍之末
-
-
-
-目前项目在**重构**中，如需使用请下载老版本:trident:[老版本下载](https://github.com/Cl0udG0d/SZhe_Scan/releases/tag/v1.0) :sparkles:[老版文档](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/docs/oldVersionREADME.md)
 
 
 
@@ -13,26 +7,18 @@
 
 **在使用之前，请务必遵守当地相关法律，勿用于非授权测试，如作他用所承受的法律责任一概与作者无关**
 
-:smiling_imp:[使用文档](https://cl0udg0d.github.io/szhe-docs/) ⬇️[下载地址](#) :trident:[老版本下载](https://github.com/Cl0udG0d/SZhe_Scan/releases/tag/v1.0) :sparkles:[老版文档](https://github.com/Cl0udG0d/SZhe_Scan/blob/master/docs/oldVersionREADME.md)
 
-具体使用与安装参考使用文档，建议下载使用`releases`版本
-
-另，碎遮-风起 Web漏洞扫描器属于开源社区，禁止商用
 
 ## :watermelon:项目特色
 
++ 对输入的域名或IP进行自动化信息搜集与漏洞扫描，支持添加POC进行漏洞检测，扫描结果可视化显示在web界面上  
++ 使用python3编写，多线程+多进程进行资产扫描，前端使用html+css+javascript进行漏洞扫描系统的可视化，后端基于python-flask框架  
++ 使用MySQL数据库进行持久化存储，Redis数据库作为消息队列和攻击载荷payload等会大量重复使用到的数据的存储  
++ 为方便安装，将项目Docker化实现快速部署。  
 
 
-## :checkered_flag:检测模块
-
-+ 目前还在重构中，敬请期待
 
 
-
-## :beer:TODO
-
-+ [ ] 重构代码结构，优化界面
-+ [ ] 编写项目文档
 
 ## :moyai:讨论交流
 
@@ -42,4 +28,12 @@
 + 如需合作可联系微信：Cl0udG0d
 
 
+
+## :beer:社群和公众号
+
+建了一个微信的安全交流群，欢迎添加我微信备注`进群`，一起来聊天吹水哇，以及一个会发布安全学习相关内容的公众号，欢迎关注 :)
+
+[![JPG](https://github.com/Cl0udG0d/Cl0udG0d/raw/main/images/cgn.jpg)](https://github.com/Cl0udG0d/Cl0udG0d/blob/main/images/cgn.jpg)
+
+[![JPG](https://github.com/Cl0udG0d/Cl0udG0d/raw/main/images/gzh.jpg)](https://github.com/Cl0udG0d/Cl0udG0d/blob/main/images/gzh.jpg)
 

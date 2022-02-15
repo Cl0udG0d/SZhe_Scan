@@ -1,129 +1,59 @@
 {% extends 'base.html' %}
-{%block title%}主页{% endblock %}
-{% block css %}
-        <link rel="stylesheet" type="text/css" href="../static/css/bootstrap-clearmin.min.css">
-        <link rel="stylesheet" type="text/css" href="../static/css/roboto.css">
-        <link rel="stylesheet" type="text/css" href="../static/css/material-design.css">
-        <link rel="stylesheet" type="text/css" href="../static/css/small-n-flat.css">
-        <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="../static/css/c3.min.css">
+{% block title %}仪表盘{% endblock %}
+{% block subtitle %}仪表盘{% endblock %}
+{% block content %}
+
+
+		  <div class="row">
+			<div class="col-sm-3">
+
+					<div class="easypiechart" id="chart1" data-percent="75">
+			            <div class="text">$551 <h4>Expenses</h4></div>
+			        </div>
+
+			</div>
+			<div class="col-sm-3">
+
+				<div class="easypiechart" id="chart2" data-percent="58">
+			            <div class="text">2270 <h4>Visitors</h4></div>
+			     </div>
+			</div>
+
+			<div class="col-sm-3">
+
+				<div class="easypiechart" id="chart3" data-percent="88">
+			            <div class="text">$1350 <h4>Earning</h4></div>
+			     </div>
+
+			</div>
+
+			<div class="col-sm-3">
+				<div class="easypiechart" id="chart4" data-percent="88">
+			            <div class="text">$1350 <h4>Earning</h4></div>
+			     </div>
+
+			</div>
+		  </div>
+			<br><br><br><br>
+		  <div class="row">
+			  <div class="col-md-11">
+			  	<div id='spline-chart'></div>
+			  </div>
+		  </div><!-- row-->
+
 {% endblock %}
 {% block javascript %}
-        <script src="../static/js/jquery.min.js"></script>
-        <script src="../static/js/jquery.mousewheel.min.js"></script>
-        <script src="../static/js/jquery.cookie.min.js"></script>
-        <script src="../static/js/fastclick.min.js"></script>
-        <script src="../static/js/bootstrap.min.js"></script>
-        <script src="../static/js/clearmin.min.js"></script>
-        <script src="../static/js/d3.min.js"></script>
-        <script src="../static/js/c3.min.js"></script>
-        <script src="../static/js/dashboard.js"></script>
-{% endblock %}
-{% block menu %}
-              <li class="active"><a href="#" class="sf-house">主页</a></li>
-              <li ><a href="#" class="sf-dashboard">任务管理</a></li>
-              <li ><a href="#" class="sf-notepad">POC列表</a></li>
-              <li ><a href="#" class="sf-keyring">插件列表</a></li>
-              <li ><a href="#" class="sf-wrench">策略配置</a></li>
-              <li ><a href="#" class="md-exit-to-app">注销</a></li>
-{% endblock %}
-{% block content %}
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">C3 Gauge</div>
-                            <div class="panel-body">
-                                <div id="d1-c1" style="height:150px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">C3 Gauge</div>
-                            <div class="panel-body">
-                                <div id="d1-c2" style="height:150px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">C3 Gauge</div>
-                            <div class="panel-body">
-                                <div id="d1-c3" style="height:150px"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">C3 Bars</div>
-                    <div class="panel-body">
-                        <div id="d1-c5" style="height:320px"></div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">C3 Splines</div>
-                    <div class="panel-body">
-                        <div id="d1-c4" style="height:320px"></div>
-                    </div>
-                </div>
-                <div class="alert alert-info shadowed" role="alert"> <i class="fa fa-fw fa-info-circle"></i> C3.js chart library by Masayuki Tanaka (MIT): <a href="http://c3js.org/">http://c3js.org/</a> </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">Native progress bars</div>
-                    <table class="table table-bordered">
-                        <tr>
-                            <td style="white-space:nowrap">Nemo enim ipsam</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" style="width:3%"></div>
-                                </div>
-                            </td>
-                            <td>3%</td>
-                        </tr>
-                        <tr>
-                            <td style="white-space:nowrap">Neque porro quisquam</td>
-                            <td style="width:100%">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" style="width:9%"></div>
-                                </div>
-                            </td>
-                            <td>9%</td>
-                        </tr>
-                        <tr>
-                            <td style="white-space:nowrap">Et quoniam inedia</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width:12%"></div>
-                                </div>
-                            </td>
-                            <td>12%</td>
-                        </tr>
-                        <tr>
-                            <td style="white-space:nowrap">Catoni anteponas</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width:38%"></div>
-                                </div>
-                            </td>
-                            <td>38%</td>
-                        </tr>
-                        <tr>
-                            <td style="white-space:nowrap">Haec dum oriens diu perferret</td>
-                            <td style="width:100%">
-                                <div class="progress">
-                                    <div class="progress-bar" style="width:47%"></div>
-                                </div>
-                            </td>
-                            <td>47%</td>
-                        </tr>
-                        <tr>
-                            <td style="white-space:nowrap">Nam libero tempore</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width:73%"></div>
-                                </div>
-                            </td>
-                            <td>73%</td>
-                        </tr>
-                    </table>
-                </div>
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery-1.11.0.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/jqueryui/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/script.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/switchery/switchery.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/customscroll/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/jquery-easing/jquery.easing.1.3.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/calendario/js/jquery.calendario.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/offlinejs/offline.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/easypiechart/jquery.easypiechart.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/c3js/d3.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/c3js/c3.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/dashboard.js')}}"></script>
 {% endblock %}

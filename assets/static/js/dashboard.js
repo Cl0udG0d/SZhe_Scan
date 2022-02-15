@@ -1,88 +1,97 @@
-$(function(){
+$('#chart1').easyPieChart({
+        size:180,
+        barColor:'#3ba0ff',
+        lineWidth:5,
+    });
 
-    this.makeGauge = function(selector, value, color)
-    {
-	c3.generate({
-	    bindto: selector,
-	    data: {
-		columns: [
-		    ['data', value]
-		],
-		type: 'gauge'
-	    },
-	    tooltip: {
-		show: false
-	    },
-	    gauge: {
-		label: {
-		    format: function(value, ratio) {
-			return value + '%';
-		    },
-		    show: false
+    $('#chart2').easyPieChart({
+        size:180,
+        barColor:'#57BE85',
+        lineWidth:5,
+    });
+
+    $('#chart3').easyPieChart({
+        size:180,
+        barColor:'#ff6c60',
+        lineWidth:5,
+    });
+    $('#chart4').easyPieChart({
+        size:180,
+        barColor:'black',
+        lineWidth:5,
+    });
+
+	window.chart = c3.generate({
+ 	bindto: '#spline-chart',
+    data: {
+        columns: [
+            ['Speed', 210, 170, 145, 200, 220, 210],
+            ['Time', 130, 100, 130, 180, 150, 50],
+            ['Visitors', 80, 110, 70, 150, 110, 140],
+        ],
+        types: {
+            Speed: 'area-spline',
+            Time: 'spline',
+            Visitors:'area-spline'
+        }
+    },
+    color: {
+        pattern: ['#57BE85','#ff6c60','#3ba0ff']
+        },
+        size: {
+		height: 300
 		},
-		min: 0,
-		max: 100,
-		units: ' %',
-		width: 50
-	    },
-	    color: {
-		pattern: [color, color, color], // the 3 color levels for the percentage values.
-	    }
+    });
+
+	//charts sidebar toggle resize
+	$('#sidebar-collapse').on('click',function(){
+
+		setTimeout(function() {
+			window.chart.resize({height:300});
+		},100);
+
 	});
-    };
 
-    this.makeGauge('#d1-c1', 42, '#1abc9c');
-    this.makeGauge('#d1-c2', 22, '#3498db');
-    this.makeGauge('#d1-c3', 72, '#f39c12');
+    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
-    this.makeChart = function(selector, type, colors, legend)
-    {
-	c3.generate({
-	    bindto: selector,
-	    data: {
-		x: 'x',
-		//        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
-		columns: [
-		    ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06',
-		     '2013-01-07', '2013-01-08', '2013-01-09', '2013-01-10', '2013-01-11', '2013-01-12'],
-		    ['Catoni anteponas', 130, 340, 200, 500, 250, 350, 130, 333, 200, 500, 220, 350],
-		    ['Et quoniam inedia', 30, 200, 100, 400, 150, 250, 30, 200, 112, 322, 70, 300]
-		],
-		//type: 'spline'
-		type: type
-	    },
-	    axis: {
-		x: {
-		    type: 'timeseries',
-		    tick: {
-			format: '%Y-%m-%d'
-		    }
-		},
+	elems.forEach(function(html) {
+	  var switchery = new Switchery(html);
+	});
 
-		y: {
-		    max: 500,
-		    tick: {
-			values: [100, 200, 300, 400, 500]
-		    }
+	// Switch Buttons :
+
+	var blue = document.querySelector('.js-switch-blue');
+	var switchery = new Switchery(blue, { color: '#3ba0ff' });
+
+	var green = document.querySelector('.js-switch-green');
+	var switchery = new Switchery(green, { color: '#57BE85' });
+
+	var teal = document.querySelector('.js-switch-teal');
+	var switchery = new Switchery(teal, { color: '#3cc8ad' });
+
+	var sky = document.querySelector('.js-switch-sky');
+	var switchery = new Switchery(sky, { color: '#54D1F1' });
+
+
+	//Calendar
+	$wrapper = $('#custom-inner'), $calendar = $('#calendar'), cal = $calendar.calendario({
+	onDayClick: function($el, $contentEl, dateProperties) {
+		if ($contentEl.length > 0) {
+			showEvents($contentEl, dateProperties);
 		}
+	},
+	displayWeekAbbr: true
+	}), $month = $('#custom-month').html(cal.getMonthName()), $year = $('#custom-year').html(cal.getYear());
 
-	    },
-
-	    legend: {
-		show: legend,
-		position: 'inset'
-	    },
-
-	    color: {
-		pattern: colors
-	    }
-
+	$('#custom-next').on('click', function() {
+		cal.gotoNextMonth(updateMonthYear);
 	});
-    }  
 
-    //this.makeChart('#d1-c4', 'area-spline', ['#3498db', '#f39c12'], true);
-    this.makeChart('#d1-c4', 'spline', ['#1abc9c', '#3498db'], true);
-    //this.makeChart('#d1-c5', 'bar', ['#1abc9c', '#16a085', '#f39c12'], false);
-    this.makeChart('#d1-c5', 'bar', ['#3498db', '#2980b9'], false);
+	$('#custom-prev').on('click', function() {
+		cal.gotoPreviousMonth(updateMonthYear);
+	});
 
-});
+	function updateMonthYear() {
+		$month.html(cal.getMonthName());
+		$year.html(cal.getYear());
+	}

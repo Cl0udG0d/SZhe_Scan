@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}扫描任务{% endblock %}
+{% block subtitle %}任务列表{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery-1.11.0.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/jqueryui/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/datatables/TableTools/js/TableTools.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/datatables.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/customscroll/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/jquery-easing/jquery.easing.1.3.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/offlinejs/offline.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/script.js')}}"></script>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-override.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/layout.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/library.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/TableTools/css/TableTools.css')}}">
+
+{% endblock %}
+{% block content %}
+<div class="row">
+			  <div class="col-md-12">
+				  	<div class="panel panel-default">
+					  <div class="panel-body">
+						  <button class="btn btn-success" data-toggle="modal" data-target="#modalform"><i class="fa fa-plus"></i> 新增任务</button>
+						  <button class="btn btn-primary"><i class="fa fa-flash"></i> 批量导入</button>
+						  <button type="button" class="btn btn-default" id="tooltip-right" data-toggle="tooltip" data-placement="right" title="" data-original-title="扫描" style="border:none"><i class="fa fa-ellipsis-h"></i></button>
+						  <br>
+						  <br>
+					  		<table cellpadding="0" cellspacing="0" border="0"
+					  		class="table table-bordered">
+									<thead>
+									<tr>
+										<th>id</th>
+										<th>任务名称</th>
+										<th>开始时间</th>
+										<th>结束时间</th>
+										<th>进度</th>
+										<th>删除</th>
+										<th>查看</th>
+										<th>暂停</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for templog in logs %}
+									<tr >
+										<td>{{templog.id}}</td>
+										<td>{{templog.email}}</td>
+										<td>{{templog.ip}}</td>
+										<td>{{templog.ip}}</td>
+										<td><a class="delete" href="{{url_for('log.delLoginLog',id=templog.id)}}">Delete</a></td>
+										<td><a class="delete" href="{{url_for('log.delLoginLog',id=templog.id)}}">Delete</a></td>
+										<td><a class="delete" href="{{url_for('log.delLoginLog',id=templog.id)}}">Delete</a></td>
+										<td><a class="delete" href="{{url_for('log.delLoginLog',id=templog.id)}}">Delete</a></td>
+									</tr>
+								{% endfor %}
+								</tbody>
+
+								</table>
+					  </div>
+				  	</div>
+			  </div>
+            </div>
+
+
+{% endblock %}
