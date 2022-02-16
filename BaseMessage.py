@@ -5,10 +5,10 @@ import time
 from Wappalyzer import WebPage
 import GetMessage
 from app.scan.self.vul.WebLogicScan import WebLogicScan
-from Init import app
+from init import app
 from exts import db
 from models import BugList
-from Init import redispool
+from init import redispool
 from app.scan.self.vul.POCScan import selfpocscan2
 
 '''

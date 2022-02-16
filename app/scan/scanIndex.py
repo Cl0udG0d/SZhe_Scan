@@ -4,11 +4,7 @@
 # @Author  : Cl0udG0d
 # @File    : scanIndex.py
 # @Github: https://github.com/Cl0udG0d
-from wsgi import scantask
-@scantask.task
-def startScan(targetname,targets):
-    print("a")
-    return
+
 
 def scanConsole():
     return

@@ -1,4 +1,4 @@
-from Init import app,redispool
+from init import app,redispool
 from exts import db
 from models import POC,BugList
 import core

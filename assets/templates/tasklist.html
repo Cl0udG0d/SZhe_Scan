@@ -80,23 +80,20 @@
 										<th>任务名称</th>
 										<th>开始时间</th>
 										<th>结束时间</th>
-										<th>进度</th>
-										<th>删除</th>
+										<th>状态</th>
 										<th>查看</th>
 										<th>暂停</th>
+										<th>删除</th>
 									</tr>
 								</thead>
 								<tbody>
-									{% for templog in logs %}
+									{% for task in tasks %}
 									<tr >
-										<td>{{templog.id}}</td>
-										<td>{{templog.email}}</td>
-										<td>{{templog.ip}}</td>
-										<td>{{templog.ip}}</td>
-										<td><a class="delete" href="{{url_for('log.delLoginLog',id=templog.id)}}">Delete</a></td>
-										<td><a class="delete" href="{{url_for('log.delLoginLog',id=templog.id)}}">Delete</a></td>
-										<td><a class="delete" href="{{url_for('log.delLoginLog',id=templog.id)}}">Delete</a></td>
-										<td><a class="delete" href="{{url_for('log.delLoginLog',id=templog.id)}}">Delete</a></td>
+										<td>{{task.id}}</td>
+										<td>{{task.name}}</td>
+										<td>{{task.starttime}}</td>
+										<td>{{task.endtime}}</td>
+										<td><a class="delete" href="">Delete</a></td>
 									</tr>
 								{% endfor %}
 								</tbody>

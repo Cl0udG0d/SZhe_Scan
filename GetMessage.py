@@ -6,10 +6,10 @@ import re
 from multiprocessing.pool import ThreadPool
 import socket
 import urllib3
-from Init import app
+from init import app
 from exts import db
 from models import BugList
-from Init import redispool
+from init import redispool
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # 禁用安全警告
 

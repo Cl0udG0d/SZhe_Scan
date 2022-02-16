@@ -1,6 +1,6 @@
 from changanya.simhash import Simhash
 import requests
-from Init import redispool
+from init import redispool
 import random
 
 

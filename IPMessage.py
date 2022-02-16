@@ -1,6 +1,6 @@
 import GetMessage
 import re
-from Init import redispool
+from init import redispool
 
 class IPMessage:
     def __init__(self,ip):

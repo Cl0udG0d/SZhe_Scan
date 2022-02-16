@@ -1,11 +1,11 @@
 import re
 import requests
 import core
-from Init import app
+from init import app
 from exts import db
 from models import BaseInfo,IPInfo,DomainInfo,BugList
 from BugScan import BugScan
-from Init import redispool
+from init import redispool
 from SpiderGetUrl2 import SpiderGetUrl2
 from BaseMessage import GetBaseMessage
 from IPMessage import IPMessage

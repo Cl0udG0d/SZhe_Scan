@@ -1,5 +1,5 @@
 import GetMessage
-from Init import redispool
+from init import redispool
 
 
 class DomainMessage:

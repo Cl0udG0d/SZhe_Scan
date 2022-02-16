@@ -5,7 +5,7 @@ import core
 import urllib3
 import ImportToRedis
 import redis
-from Init import redispool
+from init import redispool
 '''
 因为每深入一层，链接数增大很多，所以截止层数暂定为2，添加多线程之后将层数提高
 爬取截止条件为：层数为2，或者队列中无新的链接
