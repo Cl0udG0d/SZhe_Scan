@@ -10,6 +10,8 @@ from celery import Celery
 from init import app
 from app.model.models import Task,scanTask
 from app.model.exts import db
+from app.scan.scanIndex import scanConsole
+
 '''
 celery -A app.celery.celerytask:scantask worker -c 10 --loglevel=info -P eventlet
 '''
@@ -36,7 +38,12 @@ scantask.conf.update(app.config)
 def scanTarget(self,url):
     # task = Task.query.filter(Task.key == key).first()
     self.update_state(state="PROGRESS")
-    print(url)
+    try:
+        scanConsole(url)
+    except Exception as e:
+        self.update_state(state="FAILURE")
+    else:
+        self.update_state(state="SUCCESS")
     return
 
 @scantask.task(bind=True)

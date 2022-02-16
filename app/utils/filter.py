@@ -13,6 +13,7 @@ def check2filter(targets):
         url =url.replace("https://","") if "http://" in url else url
 
         url= url.split('/')[0] if "/" in url else url
+        # url=url.split(':')[0] if ":" in url else url
 
         if url not in targetsSet:
             targetsSet.add(url)

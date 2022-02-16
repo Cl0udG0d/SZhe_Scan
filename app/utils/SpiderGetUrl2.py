@@ -3,11 +3,7 @@ import time
 import core
 from init import redispool
 
-'''
-    原来的SpiderGetUrl写的不太好，但还是留在同文件里：SpiderGetUrl.py
-    本文件修改自 重剑无锋:https://github.com/TideSec/Common_Spider
-    如觉得之前那个文件爬取较好，可以手动修改回去，thanks :)
-'''
+
 def url_protocol(url):
     domain = re.findall(r'.*(?=://)', url)
     if domain:

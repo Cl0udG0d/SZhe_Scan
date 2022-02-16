@@ -51,19 +51,17 @@ class scanTask(db.Model):
 
 
 # boolcheck  ->true 即 ip       ->false 即 domain
-# class BaseInfo(db.Model):
-#     __tablename__ = 'baseinfo'
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     boolcheck = db.Column(db.Boolean, nullable=True)
-#     url = db.Column(db.String(50), nullable=False)
-#     status = db.Column(db.String(3), nullable=False)
-#     title = db.Column(db.String(50), nullable=True)
-#     date = db.Column(db.String(30), nullable=False)
-#     responseheader = db.Column(db.Text, nullable=False)
-#     Server = db.Column(db.Text, nullable=True)
-#     portserver = db.Column(db.Text, nullable=True)
-#     sendir = db.Column(db.Text, nullable=True)
-#
+class BaseInfo(db.Model):
+    __tablename__ = 'baseinfo'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # boolcheck = db.Column(db.Boolean, nullable=True)
+    url = db.Column(db.String(50), nullable=False)
+    status = db.Column(db.String(3))
+    title = db.Column(db.String(50))
+    date = db.Column(db.String(30))
+    responseheader = db.Column(db.Text)
+    Server = db.Column(db.Text)
+
 #
 # class IPInfo(db.Model):
 #     __tablename__ = 'ipinfo'

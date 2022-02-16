@@ -2,7 +2,6 @@ import re
 import json
 import requests
 from bs4 import BeautifulSoup
-import core
 
 class WebPage(object):
     """
@@ -69,7 +68,7 @@ class Wappalyzer(object):
             with open(apps_file, 'r') as fd:
                 obj = json.load(fd)
         else:
-            with open("./apps.json", 'r') as fd:
+            with open("../../dict/apps.json", 'r') as fd:
                 obj = json.load(fd)
 
         self.categories = obj['categories']
