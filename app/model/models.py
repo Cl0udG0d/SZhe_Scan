@@ -62,38 +62,16 @@ class BaseInfo(db.Model):
     responseheader = db.Column(db.Text)
     Server = db.Column(db.Text)
 
-#
-# class IPInfo(db.Model):
-#     __tablename__ = 'ipinfo'
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     baseinfoid = db.Column(db.Integer, nullable=False)
-#     bindingdomain = db.Column(db.Text, nullable=True)
-#     sitestation = db.Column(db.Text, nullable=True)
-#     CMessage = db.Column(db.Text, nullable=False)
-#     ipaddr = db.Column(db.String(100), nullable=False)
-#
-#
-# class DomainInfo(db.Model):
-#     __tablename__ = 'domaininfo'
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     baseinfoid = db.Column(db.Integer, nullable=False)
-#     subdomain = db.Column(db.Text, nullable=True)
-#     whois = db.Column(db.Text, nullable=True)
-#     bindingip = db.Column(db.Text, nullable=True)
-#     sitestation = db.Column(db.Text, nullable=True)
-#     recordinfo = db.Column(db.Text(16777216), nullable=True)
-#     domainaddr = db.Column(db.String(200), nullable=True)
 
+class VulList(db.Model):
+    __tablename__ = 'VulList'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    url=db.Column(db.String(128), nullable=True)
+    pocname=db.Column(db.String(128), nullable=False)
+    pocDesc=db.Column(db.Text(), nullable=True)
+    references=db.Column(db.String(128), nullable=False)
+    created=db.Column(db.String(128), nullable=False)
 
-# class BugList(db.Model):
-#     __tablename__ = 'buglist'
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     oldurl = db.Column(db.String(50), nullable=True)
-#     bugurl = db.Column(db.String(200), nullable=True)
-#     bugname = db.Column(db.String(100), nullable=False)
-#     buggrade = db.Column(db.String(7), nullable=False)
-#     payload = db.Column(db.String(200), nullable=True)
-#     bugdetail = db.Column(db.Text(16777216), nullable=True)
 
 
 

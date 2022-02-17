@@ -1,15 +1,26 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 18/4/14 上午2:07
+# @Author  : SecPlus
+# @Site    : www.SecPlus.org
+# @Email   : TideSecPlus@gmail.com
+
+# 2018.04.14 结合wdscan和其他爬虫，相对比较完善的spider
+
+import random
 import re,requests
 import time
-import core
-from init import redispool
+import logging
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 def url_protocol(url):
     domain = re.findall(r'.*(?=://)', url)
     if domain:
         return domain[0]
     else:
-        return url
+        return 'http'
 
 def same_url(urlprotocol,url):
     url = url.replace(urlprotocol + '://', '')
@@ -26,8 +37,33 @@ def same_url(urlprotocol,url):
         else:
             sameurl = url + '/'
             sameurl = 'www.' + re.findall(r'(?<=www.).*?(?=/)', sameurl)[0]
-    print('the domain is：' + sameurl)
+    exts_pattern=re.compile("([a-zA-Z0-9\-\/._~%!$&'()*+]+)?")
+    if '/' in url and len(url.split('/'))>1:
+        exts='/'.join(url.split('/')[:-1])
+        return exts
     return sameurl
+
+def requests_headers():
+    '''
+    Random UA  for every requests && Use cookie to scan
+    '''
+    user_agent = ['Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.8.1) Gecko/20061010 Firefox/2.0',
+    'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US) AppleWebKit/532.0 (KHTML, like Gecko) Chrome/3.0.195.6 Safari/532.0',
+    'Mozilla/5.0 (Windows; U; Windows NT 5.1 ; x64; en-US; rv:1.9.1b2pre) Gecko/20081026 Firefox/3.1b2pre',
+    'Opera/10.60 (Windows NT 5.1; U; zh-cn) Presto/2.6.30 Version/10.60','Opera/8.01 (J2ME/MIDP; Opera Mini/2.0.4062; en; U; ssr)',
+    'Mozilla/5.0 (Windows; U; Windows NT 5.1; ; rv:1.9.0.14) Gecko/2009082707 Firefox/3.0.14',
+    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
+    'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr; rv:1.9.2.4) Gecko/20100523 Firefox/3.6.4 ( .NET CLR 3.5.30729)',
+    'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr-FR) AppleWebKit/528.16 (KHTML, like Gecko) Version/4.0 Safari/528.16',
+    'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr-FR) AppleWebKit/533.18.1 (KHTML, like Gecko) Version/5.0.2 Safari/533.18.5']
+    UA = random.choice(user_agent)
+    headers = {
+    'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'User-Agent':UA,'Upgrade-Insecure-Requests':'1','Connection':'keep-alive','Cache-Control':'max-age=0',
+    'Accept-Encoding':'gzip, deflate, sdch','Accept-Language':'zh-CN,zh;q=0.8',
+    "Referer": "http://www.baidu.com/link?url=www.so.com&url=www.soso.com&&url=www.sogou.com"}
+    return headers
 
 
 class linkQuence:
@@ -77,7 +113,7 @@ class Spider():
             获取页面中的所有链接
         '''
         try:
-            headers = core.GetHeaders()
+            headers = requests_headers()
             content = requests.get(url, timeout=5, headers=headers, verify=False).text.encode('utf-8')
             links = []
             tags = ['a', 'A', 'link', 'script', 'area', 'iframe', 'form']  # img
@@ -97,8 +133,8 @@ class Spider():
                                 links.append(i)
 
             except Exception as e:
-                print(e)
-                print('[!] Get link error')
+                logging.warning(e)
+                logging.warning('[!] Get link error')
                 pass
             return links
         except:
@@ -108,9 +144,11 @@ class Spider():
         获取页面中的所有链接
         '''
         try:
-            headers = core.GetHeaders()
+
+            # pageSource=urllib2.urlopen(url).read()
+            headers = requests_headers()
             time.sleep(0.5)
-            pageSource = requests.get(url, timeout=5, headers=headers, verify=False).text.encode('utf-8')
+            pageSource = requests.get(url, timeout=5, headers=headers).text.encode('utf-8')
             pageLinks = re.findall(r'(?<=href=\").*?(?=\")|(?<=href=\').*?(?=\')', pageSource)
             # print pageLinks
         except:
@@ -124,26 +162,17 @@ class Spider():
         :return:
         '''
         true_url = []
-        in_link = []
-        excludeext = ['.zip', '.rar', '.pdf', '.doc', '.xls', '.jpg', '.mp3', '.mp4','.png', '.ico', '.gif','.svg', '.jpeg','.mpg', '.wmv', '.wma','mailto','javascript','data:image']
+        filter_exts=[]
         for suburl in self.getPageLinks(url):
-            exit_flag = 0
-            for ext in excludeext:
-                if ext in suburl:
-                    print("break:" + suburl)
-                    exit_flag = 1
-                    break
-            if exit_flag == 0:
-                if re.findall(r'/', suburl):
-                    if re.findall(r':', suburl):
-                        true_url.append(suburl)
-                    else:
-                        true_url.append(self.urlprotocol + '://' + self.domain_url + '/' + suburl)
+
+
+            if re.findall(r'/', suburl):
+                if re.findall(r':', suburl):
+                    true_url.append(suburl)
                 else:
                     true_url.append(self.urlprotocol + '://' + self.domain_url + '/' + suburl)
-
-        for suburl in true_url:
-            print('from:' + url + ' get suburl：' + suburl)
+            else:
+                true_url.append(self.urlprotocol + '://' + self.domain_url + '/' + suburl)
 
         return true_url
 
@@ -171,7 +200,7 @@ class Spider():
         正式的爬取，并依据深度进行爬取层级控制
         '''
         self.current_deepth=0
-        print("current_deepth:", self.current_deepth)
+        logging.info("current_deepth:", self.current_deepth)
         while self.current_deepth < crawl_deepth:
             if self.linkQuence.unvisitedUrlEmpty():break
             links=[]
@@ -179,63 +208,91 @@ class Spider():
                 visitedUrl = self.linkQuence.popUnvisitedUrl()
                 if visitedUrl is None or visitedUrl == '':
                     continue
-                print("#"*30 + visitedUrl +" :begin"+"#"*30)
                 for sublurl in self.unrepectUrl(visitedUrl):
                     links.append(sublurl)
                 # links = self.unrepectUrl(visitedUrl)
                 self.linkQuence.addVisitedUrl(visitedUrl)
-                print("#"*30 + visitedUrl +" :end"+"#"*30 +'\n')
             for link in links:
                 self.linkQuence.addUnvisitedUrl(link)
             self.current_deepth += 1
         # print(self.linkQuence.visited)
         # print (self.linkQuence.unvisited)
         urllist=[]
-        urllist.append("#" * 30 + ' VisitedUrl ' + "#" * 30)
+        # urllist.append("#" * 30 + ' VisitedUrl ' + "#" * 30)
         for suburl in self.linkQuence.getVisitedUrl():
             urllist.append(suburl)
-        urllist.append('\n'+"#" * 30 + ' UnVisitedUrl ' + "#" * 30)
+        # urllist.append('\n'+"#" * 30 + ' UnVisitedUrl ' + "#" * 30)
         for suburl in self.linkQuence.getUnvisitedUrl():
             urllist.append(suburl)
-        urllist.append('\n'+"#" * 30 + ' External_link ' + "#" * 30)
         for sublurl in self.linkQuence.getExternal_link():
             urllist.append(sublurl)
-        urllist.append('\n'+"#" * 30 + ' Active_link ' + "#" * 30)
-        actives = ['?', '.asp', '.jsp', '.php', '.aspx', '.do', '.action']
-        active_urls = []
-        for sublurl in urllist:
-            for active in actives:
-                if active in sublurl:
-                    active_urls.append(sublurl)
-                    break
+        active_urls=self.filter(urllist)
+
         for active_url in active_urls:
             urllist.append(active_url)
-        return urllist
+        return active_urls
 
-def writelog(domain,urllist):
-    # filename=log
-    # outfile=open(filename,'w')
-    # for suburl in urllist:
-    #     outfile.write(suburl+'\n')
-    # outfile.close()
-    for url in urllist:
-        redispool.sadd(domain, url)
+    def filter(self,urllist):
+        active_urls=[]
+        actives = ['?', '.asp', '.jsp', '.php', '.aspx', '.do', '.action']
+        filter_pattern = re.compile('/\w+.*\.(css|png|gif|jpg|jpeg|swf|tiff|pdf|ico|flv|mp4|mp3|avi|mpg|gz|mpeg|iso|dat|rar|mov|exe|tar|zip|bin|bz2|xsl|'
+        'doc|docx|ppt|pptx|xls|xlsx|csv|map|ttf|tif|woff|woff2|cab|apk'
+        '|bmp|svg|exif|xml|rss|webp|js|html)\?')
+        allown_pattern=re.compile('/\w+\.(asp|jsp|php|aspx|do|action)')
+        query_pattern=re.compile('\?[a-zA-Z0-9&=;%!@#$^()\[\]\{\}\'\":,.]+')
+        query_set=set()
+        for sublurl in urllist:
+            subdomain=sublurl.lstrip('http://') if sublurl.startswith('http://') else sublurl
+            subdomain=subdomain.lstrip('https://') if subdomain.startswith('https://') else subdomain
 
-def SpiderGetUrl2(url,deepth=2):
+            if subdomain.startswith(self.domain_url) and len(subdomain.split(self.domain_url))==2:
+                query_curr = query_pattern.findall(sublurl)
+
+                if sublurl.endswith('/') or allown_pattern.findall(sublurl):
+                    if '?' in sublurl:
+                        if query_curr and query_curr[0][:10] not in query_set:
+                            query_set.add(query_curr[0][:10])
+                            active_urls.append(sublurl)
+                    elif sublurl.endswith('//'):
+                        pass
+                    else:
+                        active_urls.append(sublurl)
+                else:
+
+                    if not filter_pattern.findall(sublurl):
+                        query_curr = query_pattern.findall(sublurl)
+                        if query_curr and query_curr[0][:10] not in query_set:
+                            query_set.add(query_curr[0][:10])
+                            active_urls.append(sublurl)
+                    elif allown_pattern.findall(sublurl):
+                        active_urls.append(sublurl)
+
+        return active_urls
+
+
+def writelog(log,urllist):
+    filename=log
+    outfile=open(filename,'w')
+    for suburl in urllist:
+        outfile.write(suburl+'\n')
+    outfile.close()
+
+
+def spider(url,craw_deepth =1):
     try:
-        craw_deepth=int(deepth)
-        urlprotocol = url_protocol(url)
+        urlprotocol = url_protocol(url)  # 获取协议
         domain_url = same_url(urlprotocol, url)
-        print("domain_url:" + domain_url)
+        logging.info("domain_url:" + domain_url)
         spider = Spider(url, domain_url, urlprotocol)
         urllist = spider.crawler(craw_deepth)
-        writelog(domain_url, urllist)
-        print('-' * 20 + url + '-' * 20)
-        for sublurl in urllist:
-            print(sublurl)
-        print("Spider Url Length is :" + str(len(urllist)))
-        print('\n' + 'SpiderGetUrl End ! ' + domain_url)
-    except:
-        pass
+        return urllist
+    except Exception as e:
+        logging.warning(e)
+        return []
+
+
 if __name__ == '__main__':
-    SpiderGetUrl2('https://www.cnblogs.com/Cl0ud/',1)
+    url = 'http://www.powermos.com/index.php?m=Index&a=index'
+    result=spider(url,craw_deepth =1)
+    print("spider end,result length is {}".format(len(result)))
+

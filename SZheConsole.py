@@ -6,7 +6,7 @@ from exts import db
 from models import BaseInfo,IPInfo,DomainInfo,BugList
 from BugScan import BugScan
 from init import redispool
-from app.utils.SpiderGetUrl2 import SpiderGetUrl2
+from app.utils.spider import SpiderGetUrl2
 from BaseMessage import GetBaseMessage
 from IPMessage import IPMessage
 from DomainMessage import DomainMessage

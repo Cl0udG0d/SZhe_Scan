@@ -12,7 +12,7 @@ class TestPOC(POCBase):
     vulLevel = 3
     vulID = ''
     version = '1.0'
-    author = ['360漏洞云']
+    author = ['']
     vulDate = '2016-07-24'
     createDate = '2016-07-24'
     updateDate = '2016-07-24'
