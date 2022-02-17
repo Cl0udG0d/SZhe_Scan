@@ -12,6 +12,7 @@ import re,requests
 import time
 import logging
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from app.utils.randomAgent import getRandomUserAgent
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -42,28 +43,6 @@ def same_url(urlprotocol,url):
         exts='/'.join(url.split('/')[:-1])
         return exts
     return sameurl
-
-def requests_headers():
-    '''
-    Random UA  for every requests && Use cookie to scan
-    '''
-    user_agent = ['Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.8.1) Gecko/20061010 Firefox/2.0',
-    'Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US) AppleWebKit/532.0 (KHTML, like Gecko) Chrome/3.0.195.6 Safari/532.0',
-    'Mozilla/5.0 (Windows; U; Windows NT 5.1 ; x64; en-US; rv:1.9.1b2pre) Gecko/20081026 Firefox/3.1b2pre',
-    'Opera/10.60 (Windows NT 5.1; U; zh-cn) Presto/2.6.30 Version/10.60','Opera/8.01 (J2ME/MIDP; Opera Mini/2.0.4062; en; U; ssr)',
-    'Mozilla/5.0 (Windows; U; Windows NT 5.1; ; rv:1.9.0.14) Gecko/2009082707 Firefox/3.0.14',
-    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
-    'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr; rv:1.9.2.4) Gecko/20100523 Firefox/3.6.4 ( .NET CLR 3.5.30729)',
-    'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr-FR) AppleWebKit/528.16 (KHTML, like Gecko) Version/4.0 Safari/528.16',
-    'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr-FR) AppleWebKit/533.18.1 (KHTML, like Gecko) Version/5.0.2 Safari/533.18.5']
-    UA = random.choice(user_agent)
-    headers = {
-    'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    'User-Agent':UA,'Upgrade-Insecure-Requests':'1','Connection':'keep-alive','Cache-Control':'max-age=0',
-    'Accept-Encoding':'gzip, deflate, sdch','Accept-Language':'zh-CN,zh;q=0.8',
-    "Referer": "http://www.baidu.com/link?url=www.so.com&url=www.soso.com&&url=www.sogou.com"}
-    return headers
 
 
 class linkQuence:
@@ -113,7 +92,7 @@ class Spider():
             获取页面中的所有链接
         '''
         try:
-            headers = requests_headers()
+            headers = getRandomUserAgent()
             content = requests.get(url, timeout=5, headers=headers, verify=False).text.encode('utf-8')
             links = []
             tags = ['a', 'A', 'link', 'script', 'area', 'iframe', 'form']  # img
@@ -146,7 +125,7 @@ class Spider():
         try:
 
             # pageSource=urllib2.urlopen(url).read()
-            headers = requests_headers()
+            headers = getRandomUserAgent()
             time.sleep(0.5)
             pageSource = requests.get(url, timeout=5, headers=headers).text.encode('utf-8')
             pageLinks = re.findall(r'(?<=href=\").*?(?=\")|(?<=href=\').*?(?=\')', pageSource)
