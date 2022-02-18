@@ -39,15 +39,15 @@ class Task(db.Model):
     name= db.Column(db.String(128), nullable=False)
     starttime = db.Column(db.String(30), nullable=False)
     endtime = db.Column(db.String(30), nullable=False)
-    key=db.Column(db.String(24), nullable=False)
 
 class scanTask(db.Model):
     __tablename__ = 'scanTask'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    pid= db.Column(db.String(128), nullable=False)
     tid= db.Column(db.String(128), nullable=False)
+    url= db.Column(db.String(128), nullable=False)
     starttime = db.Column(db.String(30), nullable=False)
     endtime = db.Column(db.String(30), nullable=False)
-    key=db.Column(db.String(128), nullable=False)
 
 
 # boolcheck  ->true 即 ip       ->false 即 domain
@@ -55,6 +55,7 @@ class BaseInfo(db.Model):
     __tablename__ = 'baseinfo'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # boolcheck = db.Column(db.Boolean, nullable=True)
+    tid = db.Column(db.String(128), nullable=False)
     url = db.Column(db.String(50), nullable=False)
     status = db.Column(db.String(3))
     title = db.Column(db.String(50))
@@ -66,9 +67,9 @@ class BaseInfo(db.Model):
 class VulList(db.Model):
     __tablename__ = 'VulList'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    tid = db.Column(db.String(128), nullable=False)
     url=db.Column(db.String(128), nullable=True)
     pocname=db.Column(db.String(128), nullable=False)
-    pocDesc=db.Column(db.Text(), nullable=True)
     references=db.Column(db.String(128), nullable=False)
     created=db.Column(db.String(128), nullable=False)
 

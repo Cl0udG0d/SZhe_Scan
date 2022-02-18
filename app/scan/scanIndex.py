@@ -12,6 +12,8 @@ from app.model.models import (
     BaseInfo,VulList
 )
 from app.model.exts import db
+from app.utils.spider import spider
+
 from init import app
 from pocsuite3.api import init_pocsuite
 from pocsuite3.api import start_pocsuite
@@ -24,10 +26,10 @@ def saveVul(result):
         db.session.add(vul)
         db.session.commit()
 
-def scanPoc(url,poc):
+def scanPoc(url,currdir,poc):
     config = {
         'url': url,
-        'poc': os.path.join(os.path.dirname(os.path.dirname(__file__)), "../pocs/",poc),
+        'poc': os.path.join(currdir,poc),
     }
     # print(config['poc'])
     # print(os.path.dirname(os.path.dirname(__file__)))
@@ -42,10 +44,10 @@ def scanPoc(url,poc):
 
 def scanPocs(url,curr=False):
 
-    listdir=os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/") if not curr else os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/currency/")
-    for files in os.listdir(listdir):
+    currdir=os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/") if not curr else os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/currency/")
+    for files in os.listdir(currdir):
         if os.path.splitext(files)[1] == '.py':
-            scanPoc(url,files)
+            scanPoc(url,currdir,files)
     return
 
 
@@ -59,8 +61,8 @@ def scanConsole(url):
         db.session.add(basemsgdb)
         db.session.commit()
     scanPocs(target)
-    results=spiderWebSite(target)
-    scanPocs(results)
+    results=spider(target)
+    scanPocs(results,curr=True)
     return
 
 def test():

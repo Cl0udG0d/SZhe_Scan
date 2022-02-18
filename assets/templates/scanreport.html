@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block title %}扫描详情{% endblock %}
+{% block subtitle %}<h3 class="subtitle">扫描详情</h3>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery-1.11.0.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/jqueryui/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/datatables/TableTools/js/TableTools.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/datatables.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/customscroll/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/jquery-easing/jquery.easing.1.3.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/offlinejs/offline.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/script.js')}}"></script>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-override.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/layout.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/library.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/TableTools/css/TableTools.css')}}">
+
+{% endblock %}
+{% block content %}
+
+
+<div class="row">
+			  <div class="col-sm-12">
+				  	<div class="panel panel-default invoice" id="invoice">
+					  <div class="panel-body">
+					    <div class="row">
+
+							<div class="col-sm-6 top-left">
+								<i class="fa fa-rocket">SZHE</i>
+							</div>
+
+							<div class="col-sm-6 top-right">
+									<h3 class="marginright">Test-xxx</h3>
+									<span class="marginright">12:00 to 20:00</span>
+						    </div>
+
+						</div>
+						<hr>
+						<div class="row">
+
+							<div class="col-xs-4 from">
+								<p>url</p>
+								<p>status</p>
+								<p>title</p>
+								<p>date</p>
+								<p>server</p>
+							</div>
+
+							<div class="col-xs-8 to">
+								<div class="panel panel-default">
+								  <div class="panel-heading">response header</div>
+								  <div class="panel-body" style="height: 100px;overflow: auto;">
+								   <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blandit.</p>
+								  </div>
+								</div>
+						    </div>
+
+						</div>
+
+						<hr>
+						  <div class="row">
+
+							<div class="col-xs-4 from">
+								<blockquote>
+								  <p>exts</p>
+								</blockquote>
+								<p>url</p>
+								<p>status</p>
+								<p>title</p>
+								<p>date</p>
+								<p>server</p>
+							</div>
+
+						</div>
+
+						<div class="row table-row">
+							<table class="table table-striped">
+						      <thead>
+						        <tr>
+						          <th class="text-center" style="width:5%">#</th>
+						          <th style="width:50%">Item</th>
+						          <th class="text-right" style="width:15%">Quantity</th>
+						          <th class="text-right" style="width:15%">Unit Price</th>
+						          <th class="text-right" style="width:15%">Total Price</th>
+						        </tr>
+						      </thead>
+						      <tbody>
+						        <tr>
+						          <td class="text-center">1</td>
+						          <td>Flatter Theme</td>
+						          <td class="text-right">10</td>
+						          <td class="text-right">$18</td>
+						          <td class="text-right">$180</td>
+						        </tr>
+						        <tr>
+						          <td class="text-center">2</td>
+						          <td>Flat Icons</td>
+						          <td class="text-right">6</td>
+						          <td class="text-right">$59</td>
+						          <td class="text-right">$254</td>
+						        </tr>
+						        <tr>
+						          <td class="text-center">3</td>
+						          <td>Wordpress version</td>
+						          <td class="text-right">4</td>
+						          <td class="text-right">$95</td>
+						          <td class="text-right">$285</td>
+						        </tr>
+						         <tr class="last-row">
+						          <td class="text-center">4</td>
+						          <td>Server Deployment</td>
+						          <td class="text-right">1</td>
+						          <td class="text-right">$300</td>
+						          <td class="text-right">$300</td>
+						        </tr>
+						       </tbody>
+						    </table>
+
+						</div>
+
+						<div class="row">
+						<div class="col-xs-6 text-right pull-right invoice-total">
+							<p class="lead marginbottom">SZHE_Scan</p>
+							<button class="btn btn-success" id="invoice-print"><i class="fa fa-print"></i> 打印报告</button>
+						</div>
+						</div>
+
+					  </div>
+					</div>
+				</div>
+          </div>
+
+
+{% endblock %}

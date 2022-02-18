@@ -11,6 +11,8 @@ from init import app
 from app.model.models import Task,scanTask
 from app.model.exts import db
 from app.scan.scanIndex import scanConsole
+from celery.utils.log import get_task_logger
+logger = get_task_logger(__name__)
 
 '''
 celery -A app.celery.celerytask:scantask worker -c 10 --loglevel=info -P eventlet
@@ -38,29 +40,32 @@ scantask.conf.update(app.config)
 def scanTarget(self,url):
     # task = Task.query.filter(Task.key == key).first()
     self.update_state(state="PROGRESS")
-    try:
-        scanConsole(url)
-    except Exception as e:
-        self.update_state(state="FAILURE")
-    else:
-        self.update_state(state="SUCCESS")
-    return
+    print(scanTarget.request.id)
+
+    # try:
+    #     scanConsole(url)
+    # except Exception as e:
+    #     self.update_state(state="FAILURE")
+    # else:
+    #     self.update_state(state="SUCCESS")
+    # return
 
 @scantask.task(bind=True)
-def startScan(self,targets,key):
+def startScan(self,targets):
     self.update_state(state="PROGRESS")
-    time.sleep(8)
+    time.sleep(3)
     for url in targets:
         scantask=scanTarget.delay(url)
-        temptask = scanTask(tid=scantask.task_id,
+        temptask = scanTask(pid=self.request.id,tid=scantask.task_id,url=url,
                             starttime=str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())),
-                            endtime=str("0-0-0 0:0:0"), key=str(key))
+                            endtime=str("0-0-0 0:0:0"))
         db.session.add(temptask)
     db.session.commit()
 
-def test():
-    print('hi')
+@scantask.task(bind=True)
+def test(self):
+    logger.info(self.request.id)
 
 
 if __name__ == '__main__':
-    test()
+    test.delay()

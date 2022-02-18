@@ -5,9 +5,7 @@
 # @Site    : www.SecPlus.org
 # @Email   : TideSecPlus@gmail.com
 
-# 2018.04.14 结合wdscan和其他爬虫，相对比较完善的spider
 
-import random
 import re,requests
 import time
 import logging
