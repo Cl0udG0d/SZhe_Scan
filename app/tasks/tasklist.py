@@ -82,7 +82,7 @@ def scanreport(id=None,tid=None):
     scantask=scanTask.query.filter(scanTask.tid == tid).first()
     info=BaseInfo.query.filter(BaseInfo.tid == tid).first()
     vuls=VulList.query.filter(VulList.tid == tid).first()
-    return render_template('scantask.html',task=task,scantask=scantask,info=info,vuls=vuls)
+    return render_template('scanreport.html',task=task,scantask=scantask,info=info,vuls=vuls)
 
 
 

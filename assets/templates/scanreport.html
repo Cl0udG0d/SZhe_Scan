@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}扫描详情{% endblock %}
-{% block subtitle %}<h3 class="subtitle">扫描详情</h3>
-{% endblock %}
+{% block subtitle %}<h3 class="subtitle">扫描详情</h3>{% endblock %}
 {% block javascript %}
 <script type="text/javascript" src="{{url_for('static',filename='js/jquery-1.11.0.min.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static',filename='lib/jqueryui/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
@@ -42,8 +41,8 @@
 							</div>
 
 							<div class="col-sm-6 top-right">
-									<h3 class="marginright">Test-xxx</h3>
-									<span class="marginright">12:00 to 20:00</span>
+									<h3 class="marginright">{{task.name}}</h3>
+									<span class="marginright">{{scantask.starttime}} to {{scantask.endtime}}</span>
 						    </div>
 
 						</div>
@@ -51,18 +50,18 @@
 						<div class="row">
 
 							<div class="col-xs-4 from">
-								<p>url</p>
-								<p>status</p>
-								<p>title</p>
-								<p>date</p>
-								<p>server</p>
+								<p><code>url</code>:{{info.url}}</p>
+								<p><code>status</code>:{{info.status}}</p>
+								<p><code>title</code>:{{info.title}}</p>
+								<p><code>date</code>:{{info.date}}</p>
+								<p><code>server</code>:{{info.server}}</p>
 							</div>
 
 							<div class="col-xs-8 to">
 								<div class="panel panel-default">
 								  <div class="panel-heading">response header</div>
 								  <div class="panel-body" style="height: 100px;overflow: auto;">
-								   <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blanditDonec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varsssssius blandit.</p>
+								   <p class="list-group-item-text">{{info.responseheader}}</p>
 								  </div>
 								</div>
 						    </div>
@@ -76,60 +75,33 @@
 								<blockquote>
 								  <p>exts</p>
 								</blockquote>
-								<p>url</p>
-								<p>status</p>
-								<p>title</p>
-								<p>date</p>
-								<p>server</p>
+								<p>扩展</p>
 							</div>
 
 						</div>
-
+						{% if vuls %}
 						<div class="row table-row">
 							<table class="table table-striped">
 						      <thead>
 						        <tr>
-						          <th class="text-center" style="width:5%">#</th>
-						          <th style="width:50%">Item</th>
-						          <th class="text-right" style="width:15%">Quantity</th>
-						          <th class="text-right" style="width:15%">Unit Price</th>
-						          <th class="text-right" style="width:15%">Total Price</th>
+						          <th style="width:50%">pocname</th>
+						          <th class="text-right" style="width:15%">ref</th>
+						          <th class="text-right" style="width:15%">时间</th>
 						        </tr>
 						      </thead>
 						      <tbody>
+							  {% for vul in vuls %}
 						        <tr>
-						          <td class="text-center">1</td>
-						          <td>Flatter Theme</td>
-						          <td class="text-right">10</td>
-						          <td class="text-right">$18</td>
-						          <td class="text-right">$180</td>
+						          <td>{{vul.pocname}}</td>
+						          <td class="text-right">{{vul.references}}</td>
+						          <td class="text-right">{{vul.created}}</td>
 						        </tr>
-						        <tr>
-						          <td class="text-center">2</td>
-						          <td>Flat Icons</td>
-						          <td class="text-right">6</td>
-						          <td class="text-right">$59</td>
-						          <td class="text-right">$254</td>
-						        </tr>
-						        <tr>
-						          <td class="text-center">3</td>
-						          <td>Wordpress version</td>
-						          <td class="text-right">4</td>
-						          <td class="text-right">$95</td>
-						          <td class="text-right">$285</td>
-						        </tr>
-						         <tr class="last-row">
-						          <td class="text-center">4</td>
-						          <td>Server Deployment</td>
-						          <td class="text-right">1</td>
-						          <td class="text-right">$300</td>
-						          <td class="text-right">$300</td>
-						        </tr>
+							  {% endfor %}
 						       </tbody>
 						    </table>
-
+							<hr>
 						</div>
-
+						  {% endif %}
 						<div class="row">
 						<div class="col-xs-6 text-right pull-right invoice-total">
 							<p class="lead marginbottom">SZHE_Scan</p>

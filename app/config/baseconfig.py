@@ -4,6 +4,8 @@ DEBUG = True
 # DEBUG = False
 SECRET_KEY = os.urandom(24)
 
+
+
 # HOSTNAME='mysql'
 HOSTNAME = '127.0.0.1'
 PORT = '3306'
@@ -31,3 +33,5 @@ REDIS_DB = 0
 CELERY_BROKER_URL= 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND= 'redis://localhost:6379/0'
 
+if __name__ == '__main__':
+    print(UPLOADED_POCS_DEST)

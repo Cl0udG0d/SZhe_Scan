@@ -11,7 +11,6 @@ from flask import (
 scan = Blueprint('scan', __name__)
 
 from . import buglist
-from . import poclist
 
 def test():
     print('hi')
