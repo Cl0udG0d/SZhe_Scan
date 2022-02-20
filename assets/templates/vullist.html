@@ -50,72 +50,25 @@
 			  <div class="col-md-12">
 				  	<div class="panel panel-default">
 					  <div class="panel-body">
-						  <a href="{{url_for('pocs.refreshPoc')}}"><button class="btn btn-success" ><i class="fa fa-anchor"></i> 刷新poc</button></a>
-						  <button class="btn btn-primary" data-toggle="modal" data-target="#modalform"><i class="fa  fa-globe"></i> 远程加载</button>
-						  <div class="modal fade" id="modalform" tabindex="-1" role="dialog" aria-hidden="true">
-							   <div class="modal-dialog">
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							        <h4 class="modal-title" id="myModalLabel">远程URL</h4>
-							      </div>
-							      <div class="modal-body" style="margin-bottom:-30px;">
-									  <form class="form-horizontal" role="form" action="{{url_for('tasks.addtask')}}" method="POST">
-										  <div class="form-group" style="height:80px">
-											<label  class="col-sm-2 control-label">任务名称</label>
-											<div class="col-sm-10">
-											  <input type="text" name="targetname" class="form-control" placeholder="任务名称">
-											</div>
-										 </div>
-										</form>
-							      </div>
-
-							    </div>
-							  </div>
-							</div>
-						  <button type="button" class="btn btn-default" id="tooltip-right" data-toggle="tooltip" data-placement="right" title="" data-original-title="扫描" style="border:none"><i class="fa fa-ellipsis-h"></i></button>
-
-						  <div style="float:right; ">
-							  <form  method="post" action="{{url_for('pocs.uploadPoc')}}" enctype="multipart/form-data">
-					<div>
-						<span class="btn btn-success fileinput-button">
-							<i class="fa fa-folder"></i>
-							<span>选择文件</span>
-							<input class="btn btn-success" type="file" name="files" multiple/>
-						</span>
-						<button type="submit" class="btn btn-primary start">
-							<i class="fa fa-cloud-upload"></i>
-							<span>提交</span>
-						</button>
-					</div>
-				</form>
-						  </div>
-						  <br>
-						  <br>
 					  		<table cellpadding="0" cellspacing="0" border="0"
 					  		class="table table-bordered">
 									<thead>
 									<tr>
 										<th>id</th>
-										<th>filename</th>
-										<th>状态</th>
-										<th>查看</th>
-										<th>删除</th>
+										<th>url</th>
+										<th>pocname</th>
+										<th>ref</th>
+										<th>时间</th>
 									</tr>
 								</thead>
 								<tbody>
-									{% for poc in pocs %}
+									{% for vul in vuls %}
 									<tr >
-										<td>{{poc.id}}</td>
-										<td>{{poc.filename}}</td>
-										<td>
-											<div class="switch-box">
-												<input id="{{poc.id}}" type="checkbox" class="switch" onclick="reverseStatus({{poc.id}})" {% if poc.status %}checked{% endif %}/>
-												<label for="{{poc.id}}"></label>
-											</div>
-										</td>
-										<td>status</td>
-										<td>status</td>
+										<td>{{vul.id}}</td>
+										<td>{{vul.url}}</td>
+										<td>{{vul.pocname}}</td>
+										<td>{{vul.references}}</td>
+										<td>{{vul.created}}</td>
 									</tr>
 								{% endfor %}
 								</tbody>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python 
 # -*- coding: utf-8 -*-
-# @Time    : 2021/12/31 19:27
+# @Time    : 2022/2/20 23:02
 # @Author  : Cl0udG0d
 # @File    : __init__.py
 # @Github: https://github.com/Cl0udG0d
@@ -8,8 +8,9 @@ from flask import (
     Blueprint
 )
 
-scan = Blueprint('scan', __name__)
+api = Blueprint('api', __name__)
 
+from . import apis
 
 def test():
     print('hi')

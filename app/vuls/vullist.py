@@ -16,7 +16,7 @@ from flask import (
 @vuls.route('/vuls/')
 @vuls.route('/vuls/<int:page>', methods=['GET'])
 # @login_required
-def tasklist(page=1,msg=None):
+def vullist(page=1,msg=None):
     per_page = 20
     paginate = VulList.query.order_by(VulList.id.desc()).paginate(page, per_page, error_out=False)
     vuls = paginate.items

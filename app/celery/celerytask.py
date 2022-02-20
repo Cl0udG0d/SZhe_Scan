@@ -38,6 +38,17 @@ def make_celery(app):
 scantask = make_celery(app)
 scantask.conf.update(app.config)
 
+
+def updateTaskEndTime(id):
+    '''
+    更新任务结束时间
+    '''
+    task = scanTask.query.filter_by(tid=id).first()
+    task.endtime=str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+    db.session.commit()
+
+
+
 @scantask.task(bind=True)
 def scanTarget(self,url):
     # task = Task.query.filter(Task.key == key).first()
@@ -55,7 +66,9 @@ def scanTarget(self,url):
         self.update_state(state="FAILURE")
     else:
         self.update_state(state="SUCCESS")
-    return
+    updateTaskEndTime(self.request.id)
+
+
 
 @scantask.task(bind=True)
 def startScan(self,targets):
