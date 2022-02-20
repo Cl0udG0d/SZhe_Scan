@@ -13,8 +13,10 @@
 <script type="text/javascript" src="{{url_for('static',filename='lib/jquery-easing/jquery.easing.1.3.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static',filename='lib/offlinejs/offline.min.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static',filename='js/script.js')}}"></script>
+
 <script>
 	function reverseStatus(id){
+
 		$.get("/pocs/reverse/"+id);
 	}
 </script>
@@ -31,10 +33,9 @@
 <link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/TableTools/css/TableTools.css')}}">
-<link rel="stylesheet" href="{{url_for('static',filename='css/poclist.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload-ui.css')}}">
-
+<link rel="stylesheet" href="{{url_for('static',filename='css/poclist.css')}}">
 {% endblock %}
 {% block content %}
 {% for msg in get_flashed_messages() %}
@@ -109,8 +110,8 @@
 										<td>{{poc.filename}}</td>
 										<td>
 											<div class="switch-box">
-												<input id="switchButton" type="checkbox" class="switch" onclick="reverseStatus({{poc.id}})" {% if poc.status %}checked{% endif %}/>
-												<label for="switchButton"></label>
+												<input id="{{poc.id}}" type="checkbox" class="switch" onclick="reverseStatus({{poc.id}})" {% if poc.status %}checked{% endif %}/>
+												<label for="{{poc.id}}"></label>
 											</div>
 										</td>
 										<td>status</td>

@@ -177,7 +177,6 @@ class Spider():
         正式的爬取，并依据深度进行爬取层级控制
         '''
         self.current_deepth=0
-        logging.info("current_deepth:", self.current_deepth)
         while self.current_deepth < crawl_deepth:
             if self.linkQuence.unvisitedUrlEmpty():break
             links=[]
@@ -264,7 +263,7 @@ def spider(url,craw_deepth =1):
         urllist = spider.crawler(craw_deepth)
         return urllist
     except Exception as e:
-        logging.warning(e)
+        print(e)
         return []
 
 

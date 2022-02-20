@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block title %}漏洞管理{% endblock %}
+{% block subtitle %}漏洞列表{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery-1.11.0.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/jqueryui/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/datatables/js/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/datatables/TableTools/js/TableTools.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/datatables.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/customscroll/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/jquery-easing/jquery.easing.1.3.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='lib/offlinejs/offline.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/script.js')}}"></script>
+
+<script>
+	function reverseStatus(id){
+
+		$.get("/pocs/reverse/"+id);
+	}
+</script>
+{% endblock %}
+{% block css %}
+
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-override.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/layout.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/library.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/TableTools/css/TableTools.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload-ui.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/poclist.css')}}">
+{% endblock %}
+{% block content %}
+{% for msg in get_flashed_messages() %}
+<div class="alert alert-success">
+	<strong class="default">{{ msg }} </strong>
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+</div>
+
+{% endfor %}
+
+<div class="row">
+			  <div class="col-md-12">
+				  	<div class="panel panel-default">
+					  <div class="panel-body">
+						  <a href="{{url_for('pocs.refreshPoc')}}"><button class="btn btn-success" ><i class="fa fa-anchor"></i> 刷新poc</button></a>
+						  <button class="btn btn-primary" data-toggle="modal" data-target="#modalform"><i class="fa  fa-globe"></i> 远程加载</button>
+						  <div class="modal fade" id="modalform" tabindex="-1" role="dialog" aria-hidden="true">
+							   <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							        <h4 class="modal-title" id="myModalLabel">远程URL</h4>
+							      </div>
+							      <div class="modal-body" style="margin-bottom:-30px;">
+									  <form class="form-horizontal" role="form" action="{{url_for('tasks.addtask')}}" method="POST">
+										  <div class="form-group" style="height:80px">
+											<label  class="col-sm-2 control-label">任务名称</label>
+											<div class="col-sm-10">
+											  <input type="text" name="targetname" class="form-control" placeholder="任务名称">
+											</div>
+										 </div>
+										</form>
+							      </div>
+
+							    </div>
+							  </div>
+							</div>
+						  <button type="button" class="btn btn-default" id="tooltip-right" data-toggle="tooltip" data-placement="right" title="" data-original-title="扫描" style="border:none"><i class="fa fa-ellipsis-h"></i></button>
+
+						  <div style="float:right; ">
+							  <form  method="post" action="{{url_for('pocs.uploadPoc')}}" enctype="multipart/form-data">
+					<div>
+						<span class="btn btn-success fileinput-button">
+							<i class="fa fa-folder"></i>
+							<span>选择文件</span>
+							<input class="btn btn-success" type="file" name="files" multiple/>
+						</span>
+						<button type="submit" class="btn btn-primary start">
+							<i class="fa fa-cloud-upload"></i>
+							<span>提交</span>
+						</button>
+					</div>
+				</form>
+						  </div>
+						  <br>
+						  <br>
+					  		<table cellpadding="0" cellspacing="0" border="0"
+					  		class="table table-bordered">
+									<thead>
+									<tr>
+										<th>id</th>
+										<th>filename</th>
+										<th>状态</th>
+										<th>查看</th>
+										<th>删除</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for poc in pocs %}
+									<tr >
+										<td>{{poc.id}}</td>
+										<td>{{poc.filename}}</td>
+										<td>
+											<div class="switch-box">
+												<input id="{{poc.id}}" type="checkbox" class="switch" onclick="reverseStatus({{poc.id}})" {% if poc.status %}checked{% endif %}/>
+												<label for="{{poc.id}}"></label>
+											</div>
+										</td>
+										<td>status</td>
+										<td>status</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+
+								</table>
+
+					  </div>
+				  	</div>
+
+			  </div>
+            </div>
+
+
+{% endblock %}

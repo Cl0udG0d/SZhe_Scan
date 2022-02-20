@@ -16,7 +16,6 @@ from app.celery.celerytask import startScan
 from app.utils.filter import check2filter
 from app.model.exts import db
 import time
-from sqlalchemy import func
 
 
 @tasks.route('/tasks/')
@@ -81,7 +80,7 @@ def scanreport(id=None,tid=None):
     task= Task.query.filter(Task.id == id).first()
     scantask=scanTask.query.filter(scanTask.tid == tid).first()
     info=BaseInfo.query.filter(BaseInfo.tid == tid).first()
-    vuls=VulList.query.filter(VulList.tid == tid).first()
+    vuls=VulList.query.filter(VulList.tid == tid).all()
     return render_template('scanreport.html',task=task,scantask=scantask,info=info,vuls=vuls)
 
 

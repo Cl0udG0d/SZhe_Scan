@@ -4,6 +4,7 @@
 # @Author  : Cl0udG0d
 # @File    : scanIndex.py
 # @Github: https://github.com/Cl0udG0d
+import logging
 import re
 
 from app.utils.selfrequests import getRep
@@ -20,16 +21,16 @@ from pocsuite3.api import start_pocsuite
 from pocsuite3.api import get_results
 import os
 
-def saveVul(result):
+def saveVul(result,tid,poc):
     with app.app_context():
-        vul=VulList(url=result['url'],pocname=result['poc_name'],pocDesc=result['poc_attrs']['pocDesc'],references=result['poc_attrs']['references'],created=result['created'])
+        vul=VulList(url=result['url'],tid=tid,pocname=poc,references=result['poc_attrs']['references'],created=result['created'])
         db.session.add(vul)
         db.session.commit()
 
-def scanPoc(url,currdir,poc):
+def scanPoc(url,currdir,poc,tid):
     config = {
         'url': url,
-        'poc': os.path.join(currdir,poc),
+        'poc': os.path.join(currdir,poc+'.py'),
     }
     # print(config['poc'])
     # print(os.path.dirname(os.path.dirname(__file__)))
@@ -38,44 +39,38 @@ def scanPoc(url,currdir,poc):
     start_pocsuite()
     result = get_results().pop()
     if result['status']=='success':
-        saveVul(result)
+        saveVul(result,tid,poc)
 
 
 
-def scanPocs(url,curr=False):
-
+def scanPocs(url,poc,tid,curr=False):
     currdir=os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/") if not curr else os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/currency/")
-    for files in os.listdir(currdir):
-        if os.path.splitext(files)[1] == '.py':
-            scanPoc(url,currdir,files)
-    return
+    scanPoc(url,currdir,poc,tid)
 
 
-def scanConsole(url):
+def scanConsole(url,poclist,tid):
     rep,target=getRep(url)
     if not rep:
         raise "error"
     basemsg=GetBaseMessage(url,target,rep)
     with app.app_context():
-        basemsgdb=BaseInfo(url=url,status=basemsg.GetStatus(),title=basemsg.GetTitle(),date=basemsg.GetDate(),responseheader=basemsg.GetResponseHeader(),Server=basemsg.GetFinger())
+        basemsgdb=BaseInfo(url=url,tid=tid,status=basemsg.GetStatus(),title=basemsg.GetTitle(),date=basemsg.GetDate(),responseheader=basemsg.GetResponseHeader(),Server=basemsg.GetFinger())
         db.session.add(basemsgdb)
         db.session.commit()
-    scanPocs(target)
+    try:
+        for poc in poclist:
+            scanPocs(target,poc,tid)
+    except Exception as e:
+        print(e)
+
     results=spider(target)
-    scanPocs(results,curr=True)
-    return
+    logging.info("end")
+
+    # scanPocs(results,curr=True)
+    # return
 
 def test():
-    url = "https://www.cnblogs.com//css/blog-common.min.css?v=oyR94yG9E65eGarh4GfroLpfiKQIbUAj9f7aXieEDQQ"
-    filter_pattern = re.compile(
-        '/\w+.*\.(css|png|gif|jpg|jpeg|swf|tiff|pdf|ico|flv|mp4|mp3|avi|mpg|gz|mpeg|iso|dat|rar|mov|exe|tar|zip|bin|bz2|xsl|'
-        'doc|docx|ppt|pptx|xls|xlsx|csv|map|ttf|tif|woff|woff2|cab|apk'
-        '|bmp|svg|exif|xml|rss|webp|js|html)\?')
-    # 判断IP是否存在端口
-    if filter_pattern.findall(url):
-        print(filter_pattern.findall(url))
-    else:
-        infourl = url
+
     print('hi')
 
 

@@ -68,7 +68,7 @@ class Wappalyzer(object):
             with open(apps_file, 'r') as fd:
                 obj = json.load(fd)
         else:
-            with open("../../dict/apps.json", 'r') as fd:
+            with open("dict/apps.json", 'r') as fd:
                 obj = json.load(fd)
 
         self.categories = obj['categories']

@@ -9,8 +9,8 @@ def check2filter(targets):
     for i, tempurl in enumerate(targets):
 
         url = tempurl[:-1] if tempurl.endswith("/") else tempurl
-        url = url.replace("http://","") if "http://" in url else url
-        url =url.replace("https://","") if "http://" in url else url
+        url = url.replace("http://","") if url.startswith("http://") else url
+        url =url.replace("https://","") if url.startswith("https://") else url
 
         url= url.split('/')[0] if "/" in url else url
         # url=url.split(':')[0] if ":" in url else url

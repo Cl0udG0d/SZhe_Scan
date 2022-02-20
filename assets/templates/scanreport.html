@@ -54,14 +54,15 @@
 								<p><code>status</code>:{{info.status}}</p>
 								<p><code>title</code>:{{info.title}}</p>
 								<p><code>date</code>:{{info.date}}</p>
-								<p><code>server</code>:{{info.server}}</p>
+								<p><code>server</code>:{{info.Server}}</p>
 							</div>
 
 							<div class="col-xs-8 to">
 								<div class="panel panel-default">
 								  <div class="panel-heading">response header</div>
 								  <div class="panel-body" style="height: 100px;overflow: auto;">
-								   <p class="list-group-item-text">{{info.responseheader}}</p>
+									  <pre>{{info.responseheader}}</pre>
+<!--								   <p class="list-group-item-text"></p>-->
 								  </div>
 								</div>
 						    </div>
@@ -84,17 +85,17 @@
 							<table class="table table-striped">
 						      <thead>
 						        <tr>
-						          <th style="width:50%">pocname</th>
-						          <th class="text-right" style="width:15%">ref</th>
-						          <th class="text-right" style="width:15%">时间</th>
+						          <th style="width:34%">pocname</th>
+						          <th class="text-left" style="width:33%">ref</th>
+						          <th class="text-left" style="width:33%">时间</th>
 						        </tr>
 						      </thead>
 						      <tbody>
 							  {% for vul in vuls %}
 						        <tr>
 						          <td>{{vul.pocname}}</td>
-						          <td class="text-right">{{vul.references}}</td>
-						          <td class="text-right">{{vul.created}}</td>
+						          <td class="text-left">{{vul.references}}</td>
+						          <td class="text-left">{{vul.created}}</td>
 						        </tr>
 							  {% endfor %}
 						       </tbody>

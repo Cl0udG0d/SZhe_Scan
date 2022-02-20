@@ -68,11 +68,10 @@ class VulList(db.Model):
     __tablename__ = 'VulList'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tid = db.Column(db.String(128), nullable=False)
-    pid = db.Column(db.String(128), nullable=False)
-    url=db.Column(db.String(128), nullable=True)
+    url=db.Column(db.String(128))
+    pocname=db.Column(db.String(128))
     references = db.Column(db.String(128), nullable=False)
     created = db.Column(db.String(128), nullable=False)
-    code = db.Column(db.Text, nullable=False)
 
 
 class PocList(db.Model):

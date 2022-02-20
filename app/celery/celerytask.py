@@ -8,7 +8,9 @@ import time
 
 from celery import Celery
 from init import app
-from app.model.models import Task,scanTask
+from app.model.models import (
+    Task,scanTask,PocList
+)
 from app.model.exts import db
 from app.scan.scanIndex import scanConsole
 from celery.utils.log import get_task_logger
@@ -40,15 +42,20 @@ scantask.conf.update(app.config)
 def scanTarget(self,url):
     # task = Task.query.filter(Task.key == key).first()
     self.update_state(state="PROGRESS")
-    print(scanTarget.request.id)
-
-    # try:
-    #     scanConsole(url)
-    # except Exception as e:
-    #     self.update_state(state="FAILURE")
-    # else:
-    #     self.update_state(state="SUCCESS")
-    # return
+    # print(scanTarget.request.id)
+    pocs=PocList.query.all()
+    poclist=list()
+    for poc in pocs:
+        if poc.status:
+            poclist.append(poc.filename)
+    try:
+        scanConsole(url,poclist,self.request.id)
+    except Exception as e:
+        print(e)
+        self.update_state(state="FAILURE")
+    else:
+        self.update_state(state="SUCCESS")
+    return
 
 @scantask.task(bind=True)
 def startScan(self,targets):
