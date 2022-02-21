@@ -51,7 +51,7 @@ def scanPocs(url,poc,tid,curr=False):
 def scanConsole(url,poclist,tid):
     rep,target=getRep(url)
     if not rep:
-        raise "error"
+        raise
     basemsg=GetBaseMessage(url,target,rep)
     with app.app_context():
         basemsgdb=BaseInfo(url=url,tid=tid,status=basemsg.GetStatus(),title=basemsg.GetTitle(),date=basemsg.GetDate(),responseheader=basemsg.GetResponseHeader(),Server=basemsg.GetFinger())

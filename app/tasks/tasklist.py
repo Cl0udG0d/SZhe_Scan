@@ -4,6 +4,7 @@
 # @Author  : Cl0udG0d
 # @File    : tasklist.py
 # @Github: https://github.com/Cl0udG0d
+import logging
 import random
 from app.tasks import tasks
 from flask import (
@@ -67,6 +68,23 @@ def deltask(id=1,tid=None):
     flash("删除成功")
     return redirect(url_for('tasks.seetask',id=id))
 
+
+
+@tasks.route('/tasks/delAllTask', methods=['GET'])
+def delAllTask():
+    tasks = Task.query.all()
+    [db.session.delete(task) for task in tasks]
+
+
+    scantasks = scanTask.query.all()
+    [db.session.delete(task) for task in scantasks]
+
+    db.session.commit()
+    flash("删除成功")
+    return redirect(url_for('tasks.tasklist'))
+
+
+
 @tasks.route('/tasks/seetask/<id>', methods=['GET'])
 def seetask(id=None):
     tasks= Task.query.filter(Task.id == id).first()
@@ -81,6 +99,9 @@ def scanreport(id=None,tid=None):
     scantask=scanTask.query.filter(scanTask.tid == tid).first()
     info=BaseInfo.query.filter(BaseInfo.tid == tid).first()
     vuls=VulList.query.filter(VulList.tid == tid).all()
+    if not info:
+        flash("任务正在执行或执行出错，无法查看")
+        return redirect(url_for('tasks.seetask', id=id))
     return render_template('scanreport.html',task=task,scantask=scantask,info=info,vuls=vuls)
 
 

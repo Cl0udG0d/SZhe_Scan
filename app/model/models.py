@@ -37,6 +37,7 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tid= db.Column(db.String(128), nullable=False)
     name= db.Column(db.String(128), nullable=False)
+    status= db.Column(db.String(30), default='PENDING')
     starttime = db.Column(db.String(30), nullable=False)
     endtime = db.Column(db.String(30), nullable=False)
 
@@ -46,6 +47,7 @@ class scanTask(db.Model):
     pid= db.Column(db.String(128), nullable=False)
     tid= db.Column(db.String(128), nullable=False)
     url= db.Column(db.String(128), nullable=False)
+    status= db.Column(db.String(30), nullable=False, default='PENDING')
     starttime = db.Column(db.String(30), nullable=False)
     endtime = db.Column(db.String(30), nullable=False)
 

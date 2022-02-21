@@ -33,5 +33,8 @@ REDIS_DB = 0
 CELERY_BROKER_URL= 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND= 'redis://localhost:6379/0'
 
+CELERY_TRACK_STARTED=True
+
+
 if __name__ == '__main__':
-    print(UPLOADED_POCS_DEST)
+    print(CELERY_TRACK_STARTED)

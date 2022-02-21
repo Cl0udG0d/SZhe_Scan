@@ -70,6 +70,11 @@
 							</div>
 						  <button class="btn btn-primary"><i class="fa fa-flash"></i> 批量导入</button>
 						  <button type="button" class="btn btn-default" id="tooltip-right" data-toggle="tooltip" data-placement="right" title="" data-original-title="扫描" style="border:none"><i class="fa fa-ellipsis-h"></i></button>
+							<div style="float:right; ">
+								<div>
+									<a href="{{url_for('tasks.delAllTask')}}"><button class="btn btn-danger" ><i class="fa fa-fire"></i> 清空任务</button></a>
+								</div>
+						  </div>
 						  <br>
 						  <br>
 					  		<table cellpadding="0" cellspacing="0" border="0"
@@ -82,7 +87,6 @@
 										<th>结束时间</th>
 										<th>状态</th>
 										<th>查看</th>
-										<th>暂停</th>
 										<th>删除</th>
 									</tr>
 								</thead>
@@ -93,9 +97,18 @@
 										<td>{{task.name}}</td>
 										<td>{{task.starttime}}</td>
 										<td>{{task.endtime}}</td>
-										<td>status</td>
+										{% if task.status=='SUCCESS' %}
+										<td><span class="label label-success">{{task.status}}</span></td>
+										{% elif task.status=='PENDING'%}
+										<td><span class="label label-default">{{task.status}}</span></td>
+										{% elif task.status=='STARTED' %}
+										<td><span class="label label-primary">{{task.status}}</span></td>
+										{% elif task.status=='PROGRESS' %}
+										<td><span class="label label-info">{{task.status}}</span></td>
+										{% else %}
+										<td><span class="label label-danger">{{task.status}}</span></td>
+										{% endif %}
 										<td><a href="{{url_for('tasks.seetask',id=task.id)}}"><i class="fa fa-sign-in"></i></a></td>
-										<td><a href="../icon/eye"><i class="fa fa-stop"></i></a></td>
 										<td><a href="{{url_for('tasks.deltasks',tid=task.tid)}}"><i class="fa fa-times"></i></a></td>
 									</tr>
 								{% endfor %}

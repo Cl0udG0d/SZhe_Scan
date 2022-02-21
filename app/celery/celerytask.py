@@ -4,6 +4,7 @@
 # @Author  : Cl0udG0d
 # @File    : celerytask.py
 # @Github: https://github.com/Cl0udG0d
+import logging
 import time
 
 from celery import Celery
@@ -62,17 +63,16 @@ def scanTarget(self,url):
     try:
         scanConsole(url,poclist,self.request.id)
     except Exception as e:
-        print(e)
+        # print(e)
         self.update_state(state="FAILURE")
+        raise
     else:
-        self.update_state(state="SUCCESS")
-    updateTaskEndTime(self.request.id)
+        updateTaskEndTime(self.request.id)
 
 
 
 @scantask.task(bind=True)
 def startScan(self,targets):
-    self.update_state(state="PROGRESS")
     time.sleep(3)
     for url in targets:
         scantask=scanTarget.delay(url)

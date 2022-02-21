@@ -1,5 +1,5 @@
 from flask import (
-    Flask,render_template
+    render_template
 )
 from init import app
 
@@ -10,7 +10,6 @@ from app.scan import scan
 from app.tasks import tasks
 from app.pocs import poc
 from app.vuls import vuls
-from app.api import api
 
 app.register_blueprint(home)
 app.register_blueprint(log)
@@ -18,7 +17,6 @@ app.register_blueprint(scan)
 app.register_blueprint(tasks)
 app.register_blueprint(poc)
 app.register_blueprint(vuls)
-app.register_blueprint(api)
 
 
 
@@ -33,8 +31,10 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+from app.utils.scheduler import schedulerStart
 if __name__=='__main__':
     # print(app.url_map)
+    schedulerStart()
     app.run()
 
 

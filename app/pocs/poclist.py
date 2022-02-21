@@ -65,6 +65,17 @@ def reverse(id=None):
     return 'success'
 
 
+
+@poc.route('/pocs/reverseAllStatus/', methods=['GET'])
+def reverseAllStatus():
+    pocs = PocList.query.all()
+    for poc in pocs:
+        poc.status = not poc.status
+    db.session.commit()
+    return redirect(url_for('pocs.poclist'))
+
+
+
 @poc.route('/pocs/uploadPoc/',methods=['POST','GET'])
 def uploadPoc():
     if request.method=='GET':

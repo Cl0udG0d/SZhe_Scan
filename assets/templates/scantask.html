@@ -2,7 +2,7 @@
 {% block title %}扫描任务{% endblock %}
 {% block subtitle %}<span class="label label-primary" style="margin-left:20px">{{tasks.name}} </span>
 
-<p><code style="font-size:10%;float:right;">from:{{tasks.starttime}};to:{{tasks.endtime}}</code></p>
+<p><code style="font-size:10%;float:right;">{{tasks.starttime}} to {{tasks.endtime}}</code></p>
 
 {% endblock %}
 {% block javascript %}
@@ -17,6 +17,7 @@
 <script type="text/javascript" src="{{url_for('static',filename='lib/jquery-easing/jquery.easing.1.3.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static',filename='lib/offlinejs/offline.min.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static',filename='js/script.js')}}"></script>
+
 {% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
@@ -32,7 +33,13 @@
 
 {% endblock %}
 {% block content %}
+{% for msg in get_flashed_messages() %}
+<div class="alert alert-success">
+	<strong class="default">添加成功 </strong> {{ msg }}
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+</div>
 
+{% endfor %}
 
 <div class="row">
 			  <div class="col-md-12">
@@ -49,7 +56,6 @@
 										<th>结束时间</th>
 										<th>状态</th>
 										<th>查看</th>
-										<th>暂停</th>
 										<th>删除</th>
 									</tr>
 								</thead>
@@ -60,14 +66,22 @@
 										<td>{{task.url}}</td>
 										<td>{{task.starttime}}</td>
 										<td>{{task.endtime}}</td>
-										<td>status</td>
+										{% if task.status=='SUCCESS' %}
+										<td><span class="label label-success">{{task.status}}</span></td>
+										{% elif task.status=='PENDING'%}
+										<td><span class="label label-default">{{task.status}}</span></td>
+										{% elif task.status=='STARTED' %}
+										<td><span class="label label-primary">{{task.status}}</span></td>
+										{% elif task.status=='PROGRESS' %}
+										<td><span class="label label-info">{{task.status}}</span></td>
+										{% else %}
+										<td><span class="label label-danger">{{task.status}}</span></td>
+										{% endif %}
 										<td><a href="{{url_for('tasks.scanreport',id=tasks.id,tid=task.tid)}}"><i class="fa fa-sign-in"></i></a></td>
-										<td><a href="../icon/eye"><i class="fa fa-stop"></i></a></td>
 										<td><a href="{{url_for('tasks.deltask',id=tasks.id,tid=task.tid)}}"><i class="fa fa-times"></i></a></td>
 									</tr>
 								{% endfor %}
 								</tbody>
-
 								</table>
 
 					  </div>
