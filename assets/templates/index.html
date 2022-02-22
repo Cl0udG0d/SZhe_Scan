@@ -2,7 +2,13 @@
 {% block title %}仪表盘{% endblock %}
 {% block subtitle %}仪表盘{% endblock %}
 {% block content %}
+{% for msg in get_flashed_messages() %}
+<div class="alert alert-success">
+	<strong class="default"></strong> {{ msg }}
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+</div>
 
+{% endfor %}
 
 		  <div class="row">
 			<div class="col-sm-3">

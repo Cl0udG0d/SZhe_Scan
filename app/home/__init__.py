@@ -15,8 +15,6 @@ from . import index
 from . import login
 from . import logout
 from . import user
-from . import about
-from . import console
 
 def test():
     print('hi')

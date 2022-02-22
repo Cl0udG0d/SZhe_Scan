@@ -52,13 +52,41 @@
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">admin <b class="caret"></b></a>
 			          <ul class="dropdown-menu">
-			            <li><a href="#"><i class="fa fa-user"></i> 个人</a></li>
+			            <li><a  data-target="#editPasswd" data-toggle="modal"><i class="fa fa-sun-o"></i> 修改密码</a> </li>
 			            <li><a href="{{url_for('home.logout')}}"><i class="fa fa-share"></i> 退出登录</a></li>
 			          </ul>
 			        </li>
 			     </ul>
 	   </header>
-
+    <!-- modal -->
+    <div class="modal fade" id="editPasswd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Basic Form</h3>
+					    			<div class="panel-options pull-right">
+                                           <i class="fa fa-chevron-down"></i>
+                                           <i class="fa fa-times"></i>
+                                      </div>
+					  </div>
+					  <div class="panel-body">
+					    <!-- Basic Form -->
+					    <form role="form" action="{{url_for('home.editPasswd')}}" method="post">
+						  <div class="form-group">
+						    <label for="exampleInputEmail1">原密码</label>
+						    <input name="oldpasswd" type="password" class="form-control info" id="exampleInputEmail1" placeholder="输入原密码">
+						  </div>
+						  <div class="form-group">
+						    <label for="exampleInputPassword1">新密码</label>
+						    <input name="newpasswd" type="password" class="form-control info" id="exampleInputPassword1" placeholder="输入新密码">
+						  </div>
+						  <button type="submit" class="btn btn-info">确定</button>
+						</form>
+					    <!-- Basic form ends -->
+						</div>
+						</div>
+        </div>
+    </div>
 
         <div class="sidebar sidebar-left">
         	<div class="content">
@@ -142,15 +170,6 @@
 		{% block content %}{% endblock %}
 		</section>
 {% block javascript %} {% endblock %}
-
-<!--<script type="text/javascript" src="{{url_for('static',filename='js/jquery-1.11.0.min.js')}}"></script>-->
-<!--<script type="text/javascript" src="{{url_for('static',filename='lib/jqueryui/js/jquery-ui-1.10.4.custom.min.js')}}"></script>-->
-<!--<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>-->
-<!--<script type="text/javascript" src="{{url_for('static',filename='lib/switchery/switchery.min.js')}}"></script>-->
-<!--<script type="text/javascript" src="{{url_for('static',filename='lib/customscroll/jquery.mCustomScrollbar.concat.min.js')}}"></script>-->
-<!--<script type="text/javascript" src="{{url_for('static',filename='lib/jquery-easing/jquery.easing.1.3.js')}}"></script>-->
-<!--<script type="text/javascript" src="{{url_for('static',filename='lib/calendario/js/jquery.calendario.js')}}"></script>-->
-<!--<script type="text/javascript" src="{{url_for('static',filename='lib/offlinejs/offline.min.js')}}"></script>-->
 
 </body>
 </html>
