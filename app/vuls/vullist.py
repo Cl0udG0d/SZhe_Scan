@@ -11,16 +11,21 @@ from app.model.models import (
 from flask import (
     render_template
 )
+from app.utils.decorators import login_required
+
+
 
 
 @vuls.route('/vuls/')
 @vuls.route('/vuls/<int:page>', methods=['GET'])
-# @login_required
+@login_required
 def vullist(page=1,msg=None):
     per_page = 20
     paginate = VulList.query.order_by(VulList.id.desc()).paginate(page, per_page, error_out=False)
     vuls = paginate.items
     return render_template('vullist.html', paginate=paginate, vuls=vuls)
+
+
 
 def test():
     print('hi')

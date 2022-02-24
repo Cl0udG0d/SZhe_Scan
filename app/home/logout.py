@@ -10,6 +10,7 @@ from flask import (
 )
 from app.utils.decorators import login_required
 
+
 @home.route('/logout/')
 @login_required
 def logout():

@@ -26,16 +26,21 @@ UPLOADED_POCS_DEST=os.path.join(os.path.dirname(os.path.dirname(__file__)), "../
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+
+
 @poc.route('/pocs/')
 @poc.route('/pocs/<int:page>', methods=['GET'])
-# @login_required
+@login_required
 def poclist(page=1,msg=None):
     per_page = 20
     paginate = PocList.query.order_by(PocList.id.desc()).paginate(page, per_page, error_out=False)
     pocs = paginate.items
     return render_template('poclist.html', paginate=paginate, pocs=pocs)
 
+
+
 @poc.route('/pocs/refresh', methods=['GET'])
+@login_required
 def refreshPoc():
     try:
         currdir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "../pocs/")
@@ -53,7 +58,10 @@ def refreshPoc():
         pass
     return redirect(url_for('pocs.poclist'))
 
+
+
 @poc.route('/pocs/reverse/<int:id>', methods=['GET'])
+@login_required
 def reverse(id=None):
     try:
         poc = PocList.query.filter(PocList.id == id).first()
@@ -67,6 +75,7 @@ def reverse(id=None):
 
 
 @poc.route('/pocs/reverseAllStatus/', methods=['GET'])
+@login_required
 def reverseAllStatus():
     pocs = PocList.query.all()
     for poc in pocs:
@@ -77,6 +86,7 @@ def reverseAllStatus():
 
 
 @poc.route('/pocs/uploadPoc/',methods=['POST','GET'])
+@login_required
 def uploadPoc():
     if request.method=='GET':
         return render_template('uploadPoc.html')

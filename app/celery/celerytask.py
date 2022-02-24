@@ -4,7 +4,6 @@
 # @Author  : Cl0udG0d
 # @File    : celerytask.py
 # @Github: https://github.com/Cl0udG0d
-import logging
 import time
 
 from celery import Celery
@@ -15,6 +14,7 @@ from app.model.models import (
 from app.model.exts import db
 from app.scan.scanIndex import scanConsole
 from celery.utils.log import get_task_logger
+from app.utils.decorators import login_required
 logger = get_task_logger(__name__)
 
 '''
@@ -51,6 +51,7 @@ def updateTaskEndTime(id):
 
 
 @scantask.task(bind=True)
+@login_required
 def scanTarget(self,url):
     # task = Task.query.filter(Task.key == key).first()
     self.update_state(state="PROGRESS")
@@ -72,6 +73,7 @@ def scanTarget(self,url):
 
 
 @scantask.task(bind=True)
+@login_required
 def startScan(self,targets):
     time.sleep(3)
     for url in targets:
@@ -82,10 +84,7 @@ def startScan(self,targets):
         db.session.add(temptask)
     db.session.commit()
 
-@scantask.task(bind=True)
-def test(self):
-    logger.info(self.request.id)
 
 
 if __name__ == '__main__':
-    test.delay()
+    print('a')

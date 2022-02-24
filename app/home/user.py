@@ -16,8 +16,8 @@ from app.utils.decorators import login_required
 
 
 
-@login_required
 @home.route('/editPasswd', methods=['POST'])
+@login_required
 def editPasswd():
     user_id = session.get('user_id')
     if not user_id:
