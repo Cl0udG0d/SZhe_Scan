@@ -63,7 +63,7 @@
         <div class="modal-dialog">
             <div class="panel panel-default">
 					  <div class="panel-heading">
-					    <h3 class="panel-title">Basic Form</h3>
+					    <h3 class="panel-title">修改密码</h3>
 					    			<div class="panel-options pull-right">
                                            <i class="fa fa-chevron-down"></i>
                                            <i class="fa fa-times"></i>
@@ -108,7 +108,6 @@
 						        </a>
 						        <ul class="sidebar-dropdown">
 						        		<li><a href="{{url_for('tasks.tasklist')}}">任务列表</a></li>
-			                            <li><a href="typography-elements.html">扫描策略</a></li>
 			                    </ul>
 						    </li>
 						    <li>
@@ -129,7 +128,8 @@
 						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
 						        </a>
 						        <ul class="sidebar-dropdown">
-			                            <li><a href="{{url_for('pocs.poclist')}}">poc列表</a></li>
+			                            <li><a href="{{url_for('pocs.poclist')}}">poc市场</a></li>
+			                            <li><a href="{{url_for('pocs.poclist')}}">本地poc</a></li>
 			                    </ul>
 						    </li>
 						    <li>
@@ -139,23 +139,10 @@
 						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
 						        </a>
 						        <ul class="sidebar-dropdown">
-						        		<li class="sidebar-dropdown-title"><p>Forms</p></li>
-			                            <li><a href="form-elements.html">Form Elements</a></li>
-			                            <li><a href="form-validation.html">Form Validation</a></li>
+			                            <li><a href="form-elements.html">插件市场</a></li>
+			                            <li><a href="form-validation.html">本地插件</a></li>
 			                    </ul>
 
-						    </li>
-						     <li>
-						        <a href="javascript:void(0);">
-						            <span class="icon"><i class="fa fa-calendar"></i></span>
-						            <span class="name">日志</span>
-						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
-						        </a>
-						        <ul class="sidebar-dropdown">
-						        		<li><a href="{{url_for('log.loginlog')}}">登录日志</a></li>
-			                            <li><a href="{{url_for('log.runlog')}}">运行日志</a></li>
-
-			                    </ul>
 						    </li>
 					</ul>
 				  </div>

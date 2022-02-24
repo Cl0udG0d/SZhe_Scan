@@ -16,9 +16,33 @@ from app.model.models import *
 @home.route('/home/', methods=['GET', 'POST'])
 @home.route('/', methods=['GET', 'POST'])
 # @login_required
-def index():
-    return render_template('index.html')
+def index(page=1):
+    per_page = 38
+    paginate = Log.query.order_by(Log.date.desc()).paginate(page, per_page, error_out=False)
+    logs = paginate.items
+    result={
+        'targets':len(BaseInfo.query.all()),
+        'pocs':len(PocList.query.all()),
+        'vuls':len(VulList.query.all()),
+        'exts':0
+    }
+    return render_template('index.html', paginate=paginate, logs=logs,result=result)
 
+@home.route('/home/delLoginLog/<int:id>', methods=['GET'])
+# @login_required
+def delLoginLog(id):
+    delLog=db.session.query(Log).filter_by(id=id).first()
+    db.session.delete(delLog)
+    db.session.commit()
+    return redirect(url_for('log.loginlog'))
+
+@home.route('/home/delAllLoginLog/', methods=['GET'])
+# @login_required
+def delAllLoginLog():
+    delLogs = db.session.query(Log).all()
+    [db.session.delete(delLog) for delLog in delLogs]
+    db.session.commit()
+    return redirect(url_for('log.loginlog'))
 
 def test():
     print('hi')

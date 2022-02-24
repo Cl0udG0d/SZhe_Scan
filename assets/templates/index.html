@@ -14,10 +14,10 @@
 				  	<div class="panel panel-default">
 					  <div class="panel-body">
 						  <div class="facebook-followers text-center">
-							  <button class="btn btn-facebook-follower btn-lg"><i class="fa fa-facebook"></i></button>
+							  <button class="btn btn-facebook-follower btn-lg"><i class="fa fa-check-circle"></i></button>
 							  <p class="lead">有效目标</p>
 							  <hr>
-							  <p class="value">476 Followers</p>
+							  <p class="value">{{result.targets}} targets</p>
 						  </div>
 					  </div>
 					</div>
@@ -27,10 +27,10 @@
 				  	<div class="panel panel-default">
 					  <div class="panel-body">
 						  <div class="twitter-followers text-center">
-							  <button class="btn btn-twitter-follower btn-lg"><i class="fa fa-twitter"></i></button>
+							  <button class="btn btn-twitter-follower btn-lg"><i class="fa fa-flask"></i></button>
 							  <p class="lead">POC数量</p>
 							  <hr>
-							  <p class="value">945 Followers</p>
+							  <p class="value">{{result.pocs}} pocs</p>
 						  </div>
 					  </div>
 					</div>
@@ -40,10 +40,10 @@
 				  	<div class="panel panel-default">
 					  <div class="panel-body">
 						  <div class="google-followers text-center">
-							  <button class="btn btn-google-follower btn-lg"><i class="fa fa-google-plus"></i></button>
+							  <button class="btn btn-google-follower btn-lg"><i class="fa fa-bug"></i></button>
 							  <p class="lead">漏洞数量</p>
 							  <hr>
-							  <p class="value">1415 Followers</p>
+							  <p class="value">{{result.vuls}} vuls</p>
 						  </div>
 					  </div>
 					</div>
@@ -53,21 +53,53 @@
 				  	<div class="panel panel-default">
 					  <div class="panel-body">
 						  <div class="dribbble-followers text-center">
-							  <button class="btn btn-dribbble-follower btn-lg"><i class="fa fa-dribbble"></i></button>
+							  <button class="btn btn-dribbble-follower btn-lg"><i class="fa  fa-plus-square-o"></i></button>
 							  <p class="lead">插件数量</p>
 							  <hr>
-							  <p class="value">235 Followers</p>
+							  <p class="value">{{result.exts}} exts</p>
 						  </div>
 					  </div>
 					</div>
 				</div>
           	</div>
-			<br><br><br><br>
-		  <div class="row">
-			  <div class="col-md-11">
-			  	<div id='spline-chart'></div>
-			  </div>
-		  </div><!-- row-->
+			<div class="col-md-6" >
+								<div class="panel panel-default" >
+								  <div class="panel-body" >
+										<p><a  class="btn btn-danger" href="{{url_for('home.delAllLoginLog')}}"><i class="fa  fa-exclamation"></i> 清空日志</a></p><br>
+										<table cellpadding="0" cellspacing="0" border="0"
+										class="table table-bordered" >
+												<thead>
+												<tr>
+													<th>id</th>
+													<th>邮箱</th>
+													<th>登录ip</th>
+													<th>删除</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for templog in logs %}
+												{% if templog.boolcheck %}<tr class="success">{% else %}<tr class="warning">{% endif %}
+													<td>{{templog.id}}</td>
+													<td>{{templog.email}}</td>
+													<td>{{templog.ip}}</td>
+													<td><a class="delete" href="{{url_for('home.delLoginLog',id=templog.id)}}">Delete</a></td>
+												</tr>
+											{% endfor %}
+											</tbody>
+
+											</table>
+								  </div>
+								</div>
+						  </div>
+
+<div class="col-md-6">
+								<div class="panel panel-default">
+								  <div class="panel-body">
+									  <h4>运行日志</h4>
+										<textarea style="height:500px;width:750px"></textarea>
+								  </div>
+								</div>
+</div>
 
 {% endblock %}
 {% block javascript %}
