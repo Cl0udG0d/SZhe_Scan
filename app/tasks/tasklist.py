@@ -5,7 +5,6 @@
 # @File    : tasklist.py
 # @Github: https://github.com/Cl0udG0d
 import logging
-import random
 from app.tasks import tasks
 from flask import (
     render_template,redirect,url_for,request,flash
@@ -18,6 +17,7 @@ from app.utils.filter import check2filter
 from app.model.exts import db
 import time
 from app.utils.decorators import login_required
+from init import app
 
 
 @tasks.route('/tasks/')
@@ -37,23 +37,14 @@ def addtask():
     targets=request.form.get('targets')
     targetname=request.form.get('targetname')
     newTarget,length=check2filter(targets)
-    task = startScan.delay(newTarget)
-    temptask = Task(tid=task.task_id, name=targetname,
-                    starttime=str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())),
-                    endtime=str("0-0-0 0:0:0"))
-    db.session.add(temptask)
-    db.session.commit()
+    with app.app_context():
+        task = startScan.delay(newTarget)
+        temptask = Task(tid=task.task_id, name=targetname,
+                        starttime=str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())),
+                        endtime=str("0-0-0 0:0:0"))
+        db.session.add(temptask)
+        db.session.commit()
     flash("任务名称:{} 扫描数量:{} ".format(targetname,length))
-    return redirect(url_for('tasks.tasklist'))
-
-
-
-@tasks.route('/tasks/stoptask', methods=['POST'])
-@login_required
-def stoptask():
-    targets=request.form.get('targets')
-    targetname=request.form.get('targetname')
-    print(targets)
     return redirect(url_for('tasks.tasklist'))
 
 
@@ -61,12 +52,13 @@ def stoptask():
 @tasks.route('/tasks/deltasks/<tid>', methods=['GET'])
 @login_required
 def deltasks(tid=None):
-    tasks= Task.query.filter(Task.tid == tid).first()
-    scantasks=scanTask.query.filter(scanTask.pid == tasks.tid)
-    [db.session.delete(task) for task in scantasks]
-    db.session.delete(tasks)
-    db.session.commit()
-    flash("删除成功")
+    with app.app_context():
+        tasks= Task.query.filter(Task.tid == tid).first()
+        scantasks=scanTask.query.filter(scanTask.pid == tasks.tid)
+        [db.session.delete(task) for task in scantasks]
+        db.session.delete(tasks)
+        db.session.commit()
+        flash("删除成功")
     return redirect(url_for('tasks.tasklist'))
 
 
@@ -76,9 +68,10 @@ def deltasks(tid=None):
 @tasks.route('/tasks/deltask/<id>/<tid>', methods=['GET'])
 @login_required
 def deltask(id=1,tid=None):
-    tasks = scanTask.query.filter(scanTask.tid == tid).first()
-    db.session.delete(tasks)
-    db.session.commit()
+    with app.app_context():
+        tasks = scanTask.query.filter(scanTask.tid == tid).first()
+        db.session.delete(tasks)
+        db.session.commit()
     flash("删除成功")
     return redirect(url_for('tasks.seetask',id=id))
 
@@ -88,14 +81,15 @@ def deltask(id=1,tid=None):
 @tasks.route('/tasks/delAllTask', methods=['GET'])
 @login_required
 def delAllTask():
-    tasks = Task.query.all()
-    [db.session.delete(task) for task in tasks]
+    with app.app_context():
+        tasks = Task.query.all()
+        [db.session.delete(task) for task in tasks]
 
 
-    scantasks = scanTask.query.all()
-    [db.session.delete(task) for task in scantasks]
+        scantasks = scanTask.query.all()
+        [db.session.delete(task) for task in scantasks]
 
-    db.session.commit()
+        db.session.commit()
     flash("删除成功")
     return redirect(url_for('tasks.tasklist'))
 

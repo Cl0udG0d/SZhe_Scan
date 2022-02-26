@@ -21,20 +21,18 @@ logger = get_task_logger(__name__)
 celery -A app.celery.celerytask:scantask worker -c 10 --loglevel=info -P eventlet
 '''
 def make_celery(app):
-    celery = Celery(
-        app.import_name,
-        backend=app.config['CELERY_RESULT_BACKEND'],
-        broker=app.config['CELERY_BROKER_URL']
-    )
+    celery = Celery(app.import_name, backend=app.config['CELERY_RESULT_BACKEND'],
+                    broker=app.config['CELERY_BROKER_URL'])
     celery.conf.update(app.config)
-
-    class ContextTask(celery.Task):
+    TaskBase = celery.Task
+    class ContextTask(TaskBase):
+        abstract = True
         def __call__(self, *args, **kwargs):
             with app.app_context():
-                return self.run(*args, **kwargs)
-
+                return TaskBase.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
     return celery
+
 
 scantask = make_celery(app)
 scantask.conf.update(app.config)
@@ -51,7 +49,6 @@ def updateTaskEndTime(id):
 
 
 @scantask.task(bind=True)
-@login_required
 def scanTarget(self,url):
     # task = Task.query.filter(Task.key == key).first()
     self.update_state(state="PROGRESS")
@@ -73,14 +70,13 @@ def scanTarget(self,url):
 
 
 @scantask.task(bind=True)
-@login_required
 def startScan(self,targets):
     time.sleep(3)
     for url in targets:
         scantask=scanTarget.delay(url)
         temptask = scanTask(pid=self.request.id,tid=scantask.task_id,url=url,
-                            starttime=str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())),
-                            endtime=str("0-0-0 0:0:0"))
+                                starttime=str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())),
+                                endtime=str("0-0-0 0:0:0"))
         db.session.add(temptask)
     db.session.commit()
 
