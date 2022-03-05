@@ -16,9 +16,21 @@
 
 <script>
 	function reverseStatus(id){
-
 		$.get("/pocs/reverse/"+id);
 	}
+
+	$('#onclickSelect').change(function(){
+		var id = $(this).find('option:selected').val();
+		var status=$(this).find('option:selected').text();
+		if(status == '前置'){
+			$.get("/pocs/beforePoc/"+id);
+		}else if(status == '后置'){
+			$.get("/pocs/afterPoc/"+id);
+		}else{
+			return
+		}
+	})
+
 </script>
 {% endblock %}
 {% block css %}
@@ -102,14 +114,14 @@
 										<th>id</th>
 										<th>filename</th>
 										<th>状态</th>
-										<th>查看</th>
+										<th>位置</th>
 										<th>删除</th>
 									</tr>
 								</thead>
 								<tbody>
 									{% for poc in pocs %}
 									<tr >
-										<td>{{poc.id}}</td>
+										<td><input name="pocid" type="hidden" class="" value="{{poc.id}}">{{poc.id}}</td>
 										<td>{{poc.filename}}</td>
 										<td>
 											<div class="switch-box">
@@ -117,7 +129,13 @@
 												<label for="{{poc.id}}"></label>
 											</div>
 										</td>
-										<td><a href=""><i class="fa fa-sign-in"></i></a></td>
+										<td>
+
+											<select id="onclickSelect">
+											   <option value="{{poc.id}}" {% if not poc.position %}selected="selected"{% endif %}>前置</option>
+											   <option value="{{poc.id}}" {% if poc.position %}selected="selected"{% endif %}>后置</option>
+											</select>
+										</td>
 										<td><a href=""><i class="fa fa-times"></i></a></td>
 									</tr>
 								{% endfor %}

@@ -43,9 +43,16 @@ def scanPoc(url,currdir,poc,tid):
 
 
 
-def scanPocs(url,poc,tid,curr=False):
-    currdir=os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/") if not curr else os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/currency/")
-    scanPoc(url,currdir,poc,tid)
+def scanPocs(url,poclist,tid,position=False):
+    for poc in poclist:
+        if poc[1]==position:
+            try:
+                currdir=os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/")
+                scanPoc(url,currdir,poc[0],tid)
+            except Exception as e:
+                logging.info(e)
+                pass
+
 
 
 def scanConsole(url,poclist,tid):
@@ -57,20 +64,16 @@ def scanConsole(url,poclist,tid):
         basemsgdb=BaseInfo(url=url,tid=tid,status=basemsg.GetStatus(),title=basemsg.GetTitle(),date=basemsg.GetDate(),responseheader=basemsg.GetResponseHeader(),Server=basemsg.GetFinger())
         db.session.add(basemsgdb)
         db.session.commit()
-    try:
-        for poc in poclist:
-            scanPocs(target,poc,tid)
-    except Exception as e:
-        print(e)
+    scanPocs(target,poclist,tid)
 
     results=spider(target)
-    logging.info("end")
+    for tempurl in results:
+        scanPocs(tempurl, poclist, tid, position=True)
+    logging.info("ScanEnd")
 
-    # scanPocs(results,curr=True)
-    # return
+
 
 def test():
-
     print('hi')
 
 

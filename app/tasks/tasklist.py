@@ -5,6 +5,8 @@
 # @File    : tasklist.py
 # @Github: https://github.com/Cl0udG0d
 import logging
+import os
+
 from app.tasks import tasks
 from flask import (
     render_template,redirect,url_for,request,flash
@@ -119,6 +121,36 @@ def scanreport(id=None,tid=None):
         return redirect(url_for('tasks.seetask', id=id))
     return render_template('scanreport.html',task=task,scantask=scantask,info=info,vuls=vuls)
 
+
+
+
+ALLOWED_EXTENSIONS = set(['txt'])
+from werkzeug.utils import secure_filename
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+
+@tasks.route('/tasks/uploadTarget/', methods=['POST'])
+@login_required
+def uploadTarget():
+    file = request.files.get("file")
+    if file and allowed_file(file.filename):
+        targets=file.read().decode('ascii')
+        targetname = secure_filename(file.filename).split('.')[0] if '.' in secure_filename(file.filename) else secure_filename(file.filename)
+        newTarget, length = check2filter(targets)
+        with app.app_context():
+            task = startScan.delay(newTarget)
+            temptask = Task(tid=task.task_id, name=targetname,
+                            starttime=str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())),
+                            endtime=str("0-0-0 0:0:0"))
+            db.session.add(temptask)
+            db.session.commit()
+        flash("任务名称:{} 扫描数量:{} ".format(targetname, length))
+    else:
+        flash('上传失败')
+    return redirect(url_for('tasks.tasklist'))
 
 
 

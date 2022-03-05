@@ -14,7 +14,6 @@ from app.model.models import (
 from app.model.exts import db
 from app.scan.scanIndex import scanConsole
 from celery.utils.log import get_task_logger
-from app.utils.decorators import login_required
 logger = get_task_logger(__name__)
 
 '''
@@ -57,7 +56,7 @@ def scanTarget(self,url):
     poclist=list()
     for poc in pocs:
         if poc.status:
-            poclist.append(poc.filename)
+            poclist.append([poc.filename,poc.position])
     try:
         scanConsole(url,poclist,self.request.id)
     except Exception as e:

@@ -45,12 +45,12 @@
 					  <div class="panel-body">
 						  <button class="btn btn-success" data-toggle="modal" data-target="#modalform"><i class="fa fa-plus"></i> 新增任务</button>
 						  <div style="display:inline-block;">
-							  <form  method="post" action="{{url_for('pocs.uploadPoc')}}" enctype="multipart/form-data">
+							  <form  method="post" action="{{url_for('tasks.uploadTarget')}}" enctype="multipart/form-data">
 									<div>
 										<span class="btn btn-info fileinput-button">
 											<i class="fa fa-folder"></i>
 											<span>批量导入</span>
-											<input class="btn btn-success" type="file" name="files" multiple/>
+											<input class="btn btn-success" type="file" name="file" />
 										</span>
 										<button type="submit" class="btn btn-primary start">
 											<i class="fa fa-cloud-upload"></i>
@@ -87,7 +87,7 @@
 							</div>
 						  
 
-						  <button type="button" class="btn btn-default" id="tooltip-right" data-toggle="tooltip" data-placement="right" title="" data-original-title="扫描" style="border:none"><i class="fa fa-ellipsis-h"></i></button>
+						  <button type="button" class="btn btn-default" id="tooltip-right" data-toggle="tooltip" data-placement="right" title="" data-original-title="批量导入txt文件" style="border:none"><i class="fa fa-ellipsis-h"></i></button>
 							<div style="float:right; ">
 								<div>
 									<a href="{{url_for('tasks.delAllTask')}}"><button class="btn btn-danger" ><i class="fa fa-fire"></i> 清空任务</button></a>

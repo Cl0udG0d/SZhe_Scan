@@ -102,3 +102,31 @@ def uploadPoc():
 
 
 
+@poc.route('/pocs/beforePoc/<int:id>',methods=['GET'])
+@login_required
+def beforePoc(id=None):
+    try:
+        poc = PocList.query.filter(PocList.id == id).first()
+        poc.position=False
+        db.session.commit()
+    except Exception as e:
+        logging.warning(e)
+        return 'fail'
+    return 'success'
+
+
+
+@poc.route('/pocs/afterPoc/<int:id>',methods=['POST','GET'])
+@login_required
+def afterPoc(id=None):
+    try:
+        poc = PocList.query.filter(PocList.id == id).first()
+        poc.position = True
+        db.session.commit()
+    except Exception as e:
+        logging.warning(e)
+        return 'fail'
+    return 'success'
+
+
+

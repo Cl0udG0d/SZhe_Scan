@@ -77,9 +77,13 @@ class VulList(db.Model):
 
 
 class PocList(db.Model):
+    '''
+    扫描位置position 默认为前置
+    '''
     __tablename__ = 'PocList'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     status=db.Column(db.Boolean, default=False)
+    position=db.Column(db.Boolean, default=False)
     filename=db.Column(db.String(128), nullable=False)
 
 
