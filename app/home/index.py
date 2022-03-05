@@ -30,14 +30,13 @@ def index(page=1):
 
 
 
-@login_required
 @home.route('/home/delLoginLog/<int:id>', methods=['GET'])
 @login_required
 def delLoginLog(id):
     delLog=db.session.query(Log).filter_by(id=id).first()
     db.session.delete(delLog)
     db.session.commit()
-    return redirect(url_for('log.loginlog'))
+    return redirect(url_for('home.index'))
 
 
 
@@ -48,7 +47,7 @@ def delAllLoginLog():
     delLogs = db.session.query(Log).all()
     [db.session.delete(delLog) for delLog in delLogs]
     db.session.commit()
-    return redirect(url_for('log.loginlog'))
+    return redirect(url_for('home.index'))
 
 
 

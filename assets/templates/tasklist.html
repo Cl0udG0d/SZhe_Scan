@@ -25,12 +25,15 @@
 <link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/TableTools/css/TableTools.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload-ui.css')}}">
 
 {% endblock %}
+{% block active2 %}class="active"{% endblock %}
 {% block content %}
 {% for msg in get_flashed_messages() %}
 <div class="alert alert-success">
-	<strong class="default">添加成功 </strong> {{ msg }}
+	{{ msg }}
 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 </div>
 
@@ -41,6 +44,21 @@
 				  	<div class="panel panel-default">
 					  <div class="panel-body">
 						  <button class="btn btn-success" data-toggle="modal" data-target="#modalform"><i class="fa fa-plus"></i> 新增任务</button>
+						  <div style="display:inline-block;">
+							  <form  method="post" action="{{url_for('pocs.uploadPoc')}}" enctype="multipart/form-data">
+									<div>
+										<span class="btn btn-info fileinput-button">
+											<i class="fa fa-folder"></i>
+											<span>批量导入</span>
+											<input class="btn btn-success" type="file" name="files" multiple/>
+										</span>
+										<button type="submit" class="btn btn-primary start">
+											<i class="fa fa-cloud-upload"></i>
+											<span>提交</span>
+										</button>
+									</div>
+								</form>
+						  </div>
 							<!-- Modal Form -->
 							<div class="modal fade" id="modalform" tabindex="-1" role="dialog" aria-hidden="true">
 							   <div class="modal-dialog">
@@ -64,11 +82,11 @@
 										  </div>
 										</form>
 							      </div>
-
 							    </div>
 							  </div>
 							</div>
-						  <button class="btn btn-primary"><i class="fa fa-flash"></i> 批量导入</button>
+						  
+
 						  <button type="button" class="btn btn-default" id="tooltip-right" data-toggle="tooltip" data-placement="right" title="" data-original-title="扫描" style="border:none"><i class="fa fa-ellipsis-h"></i></button>
 							<div style="float:right; ">
 								<div>

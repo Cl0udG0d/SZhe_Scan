@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}仪表盘{% endblock %}
 {% block subtitle %}仪表盘{% endblock %}
+{% block active1 %}class="active"{% endblock %}
 {% block content %}
 {% for msg in get_flashed_messages() %}
 <div class="alert alert-success">
@@ -9,6 +10,7 @@
 </div>
 
 {% endfor %}
+
 <div class="row">
 			  <div class="col-sm-3">
 				  	<div class="panel panel-default">
@@ -17,7 +19,7 @@
 							  <button class="btn btn-facebook-follower btn-lg"><i class="fa fa-check-circle"></i></button>
 							  <p class="lead">有效目标</p>
 							  <hr>
-							  <p class="value">{{result.targets}} targets</p>
+							  <p class="value" >{{result.targets}} targets</p>
 						  </div>
 					  </div>
 					</div>
@@ -62,7 +64,7 @@
 					</div>
 				</div>
           	</div>
-			<div class="col-md-6" >
+			<div class="col-md-12" >
 								<div class="panel panel-default" >
 								  <div class="panel-body" >
 										<p><a  class="btn btn-danger" href="{{url_for('home.delAllLoginLog')}}"><i class="fa  fa-exclamation"></i> 清空日志</a></p><br>
@@ -91,15 +93,6 @@
 								  </div>
 								</div>
 						  </div>
-
-<div class="col-md-6">
-								<div class="panel panel-default">
-								  <div class="panel-body">
-									  <h4>运行日志</h4>
-										<textarea style="height:500px;width:750px"></textarea>
-								  </div>
-								</div>
-</div>
 
 {% endblock %}
 {% block javascript %}

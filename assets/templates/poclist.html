@@ -37,6 +37,7 @@
 <link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload-ui.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='css/poclist.css')}}">
 {% endblock %}
+{% block active4 %}class="active"{% endblock %}
 {% block content %}
 {% for msg in get_flashed_messages() %}
 <div class="alert alert-success">
@@ -79,18 +80,18 @@
 
 						  <div style="float:right; ">
 							  <form  method="post" action="{{url_for('pocs.uploadPoc')}}" enctype="multipart/form-data">
-					<div>
-						<span class="btn btn-success fileinput-button">
-							<i class="fa fa-folder"></i>
-							<span>选择文件</span>
-							<input class="btn btn-success" type="file" name="files" multiple/>
-						</span>
-						<button type="submit" class="btn btn-primary start">
-							<i class="fa fa-cloud-upload"></i>
-							<span>提交</span>
-						</button>
-					</div>
-				</form>
+									<div>
+										<span class="btn btn-success fileinput-button">
+											<i class="fa fa-folder"></i>
+											<span>选择文件</span>
+											<input class="btn btn-success" type="file" name="files" multiple/>
+										</span>
+										<button type="submit" class="btn btn-primary start">
+											<i class="fa fa-cloud-upload"></i>
+											<span>提交</span>
+										</button>
+									</div>
+								</form>
 						  </div>
 						  <br>
 						  <br>
@@ -116,19 +117,16 @@
 												<label for="{{poc.id}}"></label>
 											</div>
 										</td>
-										<td>status</td>
-										<td>status</td>
+										<td><a href=""><i class="fa fa-sign-in"></i></a></td>
+										<td><a href=""><i class="fa fa-times"></i></a></td>
 									</tr>
 								{% endfor %}
 								</tbody>
-
 								</table>
-
 					  </div>
 				  	</div>
 
 			  </div>
             </div>
-
 
 {% endblock %}

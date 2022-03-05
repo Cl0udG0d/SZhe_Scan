@@ -37,6 +37,8 @@
 <link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload-ui.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='css/poclist.css')}}">
 {% endblock %}
+{% block active3 %}class="active"{% endblock %}
+
 {% block content %}
 {% for msg in get_flashed_messages() %}
 <div class="alert alert-success">
@@ -65,8 +67,8 @@
 									{% for vul in vuls %}
 									<tr >
 										<td>{{vul.id}}</td>
-										<td>{{vul.url}}</td>
-										<td>{{vul.pocname}}</td>
+										<td><a href="{{vul.url}}">{{vul.url}}</a></td>
+										<td><button class="btn btn-primary btn-transparent">{{vul.pocname}}</button></td>
 										<td>{{vul.references}}</td>
 										<td>{{vul.created}}</td>
 									</tr>

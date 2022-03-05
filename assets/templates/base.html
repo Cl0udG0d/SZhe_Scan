@@ -40,15 +40,6 @@
                     </li>
                 </ul>
                  <ul class="nav navbar-nav navbar-right">
-                 	<li class="dropdown icons-dropdown">
-			          <ul class="dropdown-menu list-group">
-						  <li class="list-group-item heading"><p>Notification</p></li>
-						  <a href="#" class="list-group-item"><i class="fa fa-user"></i> <p>John sent you friend request</p></a>
-						  <a href="#" class="list-group-item"><i class="fa fa-envelope-o"></i> <p>Sam sent important mail</p></a>
-						  <a href="#" class="list-group-item"><i class="fa fa-calendar"></i> <p>You have pending job</p></a>
-						  <a href="#" class="list-group-item"><i class="fa fa-money"></i> <p>Received $1826 from client</p></a>
-			          </ul>
-			        </li>
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">admin <b class="caret"></b></a>
 			          <ul class="dropdown-menu">
@@ -93,35 +84,25 @@
 				<div class="tab-content sidetabs">
 				  <div class="tab-pane active" id="home">
 					  	 <ul class="sidemenu">
-						    <li class="active">
+						    <li {% block active1 %}{% endblock %}>
 						        <a href="{{url_for('home.index')}}">
 						            <span class="icon"><i class="fa fa-dashboard"></i></span>
 						            <span class="name">仪表盘</span>
-						            <span class="number pull-right"><span class="label label-primary">5</span></span>
 						        </a>
 						    </li>
-							 <li>
-						        <a href="javascript:void(0);">
+							 <li {% block active2 %}{% endblock %}>
+						        <a href="{{url_for('tasks.tasklist')}}">
 						            <span class="icon"><i class="fa fa-anchor"></i></span>
 						            <span class="name">扫描任务</span>
-						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
 						        </a>
-						        <ul class="sidebar-dropdown">
-						        		<li><a href="{{url_for('tasks.tasklist')}}">任务列表</a></li>
-			                    </ul>
 						    </li>
-						    <li>
-						        <a href="javascript:void(0);">
+						    <li {% block active3 %}{% endblock %}>
+						        <a href="{{url_for('vuls.vullist')}}">
 						            <span class="icon"><i class="fa fa-bug"></i></span>
-						            <span class="name">漏洞</span>
-						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
+						            <span class="name">漏洞列表</span>
 						        </a>
-						        <ul class="sidebar-dropdown">
-						        		<li class="sidebar-dropdown-title"><p>Elements</p></li>
-						        		<li><a href="{{url_for('vuls.vullist')}}">漏洞列表</a></li>
-			                    </ul>
 						    </li>
-						     <li>
+						     <li {% block active4 %}{% endblock %}>
 						        <a href="javascript:void(0);">
 						            <span class="icon"><i class="fa fa-gavel"></i></span>
 						            <span class="name">POC管理</span>
@@ -132,7 +113,7 @@
 			                            <li><a href="{{url_for('pocs.poclist')}}">本地poc</a></li>
 			                    </ul>
 						    </li>
-						    <li>
+						    <li {% block active5 %}{% endblock %}>
 						        <a href="javascript:void(0);">
 						            <span class="icon"><i class="fa fa fa-puzzle-piece"></i></span>
 						            <span class="name">扩展插件</span>

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}日志{% endblock %}
-{% block subtitle %}登录日志{% endblock %}
+{% block title %}POC管理{% endblock %}
+{% block subtitle %}POC列表{% endblock %}
 {% block javascript %}
 <script type="text/javascript" src="{{url_for('static',filename='js/jquery-1.11.0.min.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static',filename='lib/jqueryui/js/jquery-ui-1.10.4.custom.min.js')}}"></script>
@@ -13,10 +13,11 @@
 <script type="text/javascript" src="{{url_for('static',filename='lib/jquery-easing/jquery.easing.1.3.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static',filename='lib/offlinejs/offline.min.js')}}"></script>
 <script type="text/javascript" src="{{url_for('static',filename='js/script.js')}}"></script>
+
+
 {% endblock %}
 {% block css %}
-<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.css')}}">
-<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/TableTools/css/TableTools.css')}}">
+
 <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-override.css')}}">
@@ -24,38 +25,32 @@
 <link rel="stylesheet" href="{{url_for('static',filename='css/layout.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='css/library.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/offlinejs/themes/offline-theme-dark.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/bootstrap/3/dataTables.bootstrap.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/datatables/TableTools/css/TableTools.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='lib/jquery-fileupload/css/jquery.fileupload-ui.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/poclist.css')}}">
 {% endblock %}
 {% block content %}
+{% for msg in get_flashed_messages() %}
+<div class="alert alert-success">
+	<strong class="default">{{ msg }} </strong>
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+</div>
+
+{% endfor %}
+
 <div class="row">
 			  <div class="col-md-12">
 				  	<div class="panel panel-default">
 					  <div class="panel-body">
-					 		<p><a  class="btn btn-danger" href="{{url_for('log.delAllLoginLog')}}"><i class="fa  fa-exclamation"></i> 清空日志</a></p><br>
-					  		<table cellpadding="0" cellspacing="0" border="0"
-					  		class="table table-bordered">
-									<thead>
-									<tr>
-										<th>id</th>
-										<th>邮箱</th>
-										<th>登录ip</th>
-										<th>删除</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for templog in logs %}
-									{% if templog.boolcheck %}<tr class="success">{% else %}<tr class="warning">{% endif %}
-										<td>{{templog.id}}</td>
-										<td>{{templog.email}}</td>
-										<td>{{templog.ip}}</td>
-										<td><a class="delete" href="{{url_for('log.delLoginLog',id=templog.id)}}">Delete</a></td>
-									</tr>
-								{% endfor %}
-								</tbody>
 
-								</table>
 					  </div>
 				  	</div>
+
 			  </div>
             </div>
+
 
 {% endblock %}
