@@ -24,7 +24,7 @@ def index(page=1):
         'targets':len(BaseInfo.query.all()),
         'pocs':len(PocList.query.all()),
         'vuls':len(VulList.query.all()),
-        'exts':0
+        'plugins':0
     }
     return render_template('index.html', paginate=paginate, logs=logs,result=result)
 

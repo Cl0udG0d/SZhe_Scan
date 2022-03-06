@@ -7,7 +7,7 @@ from multiprocessing.pool import ThreadPool
 import socket
 import urllib3
 from init import app
-from exts import db
+from plugins import db
 from models import BugList
 from init import redispool
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)

@@ -9,12 +9,14 @@ from app.scan import scan
 from app.tasks import tasks
 from app.pocs import poc
 from app.vuls import vuls
+from app.plugin import plugin
 
 app.register_blueprint(home)
 app.register_blueprint(scan)
 app.register_blueprint(tasks)
 app.register_blueprint(poc)
 app.register_blueprint(vuls)
+app.register_blueprint(plugin)
 
 
 

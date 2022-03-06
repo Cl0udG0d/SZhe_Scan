@@ -12,8 +12,6 @@ from app.pocs import poc
 from flask import (
     render_template, redirect, url_for, flash, request
 )
-from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileRequired, FileAllowed
 from werkzeug.utils import secure_filename
 from app.model.models import (
     PocList

@@ -1,5 +1,5 @@
 from init import app,redispool
-from exts import db
+from plugins import db
 from models import POC,BugList
 import core
 import requests
