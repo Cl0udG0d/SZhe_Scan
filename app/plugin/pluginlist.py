@@ -6,6 +6,9 @@
 # @Github: https://github.com/Cl0udG0d
 import logging
 import os
+
+from werkzeug.utils import secure_filename
+
 from app.utils.decorators import login_required
 from app.plugin import plugin
 from flask import (
@@ -15,7 +18,7 @@ from app.model.models import (
     pluginList
 )
 from app.model.exts import db
-
+from init import app
 
 ALLOWED_EXTENSIONS = set(['py'])
 UPLOADED_POCS_DEST=os.path.join(os.path.dirname(os.path.dirname(__file__)), "../plugins/")
@@ -47,6 +50,74 @@ def refreshPlugin():
         print(e)
         pass
     return redirect(url_for('plugin.pluginlist'))
+
+
+# @plugin.route('/plugin/reverse/<int:id>', methods=['GET'])
+# @login_required
+# def reverse(id=None):
+#     try:
+#         poc = PocList.query.filter(PocList.id == id).first()
+#         poc.status=not poc.status
+#         db.session.commit()
+#     except Exception as e:
+#         logging.warning(e)
+#         pass
+#     return 'success'
+
+
+@plugin.route('/plugin/reverseAllStatus/', methods=['GET'])
+@login_required
+def reverseAllStatus():
+    plugins = pluginList.query.all()
+    for plugin in plugins:
+        plugin.status = not plugin.status
+    db.session.commit()
+    return redirect(url_for('plugin.pluginlist'))
+
+
+ALLOWED_EXTENSIONS = set(['py'])
+UPLOADED_POCS_DEST=os.path.join(os.path.dirname(os.path.dirname(__file__)), "../pocs/")
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+@plugin.route('/plugin/uploadPlugin/',methods=['POST'])
+@login_required
+def uploadPlugin():
+    for file in request.files.getlist('files'):
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOADED_POCS_DEST, filename))
+            flash('{}上传成功'.format(filename))
+        else:
+            flash('上传失败')
+    return redirect(url_for('plugin.pluginlist'))
+
+
+def delPluginFile(filename):
+    '''
+    删除文件
+    因为这里的文件名是安全的，所以直接进行删除
+    '''
+    try:
+
+        os.remove(UPLOADED_POCS_DEST+filename)
+    except Exception as e:
+        logging.info(e)
+        pass
+
+@plugin.route('/plugin/delPlugin/<int:id>',methods=['GET'])
+@login_required
+def delPlugin(id=None):
+    with app.app_context():
+        plugin= pluginList.query.filter(pluginList.id == id).first()
+        delPluginFile(plugin.filename)
+        db.session.delete(plugin)
+        db.session.commit()
+        flash("删除成功")
+    return redirect(url_for('plugin.pluginlist'))
+
 
 def test():
     print('hi')

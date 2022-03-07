@@ -83,20 +83,17 @@ def reverseAllStatus():
 
 
 
-@poc.route('/pocs/uploadPoc/',methods=['POST','GET'])
+@poc.route('/pocs/uploadPoc/',methods=['POST'])
 @login_required
 def uploadPoc():
-    if request.method=='GET':
-        return render_template('uploadPoc.html')
-    else:
-        for file in request.files.getlist('files'):
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(UPLOADED_POCS_DEST, filename))
-                flash('{}上传成功'.format(filename))
-            else:
-                flash('上传失败')
-        return redirect(url_for('pocs.poclist'))
+    for file in request.files.getlist('files'):
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOADED_POCS_DEST, filename))
+            flash('{}上传成功'.format(filename))
+        else:
+            flash('上传失败')
+    return redirect(url_for('pocs.poclist'))
 
 
 
