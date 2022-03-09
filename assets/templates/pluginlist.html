@@ -114,7 +114,7 @@
 											   <option value="{{plugin.id}}" {% if plugin.position %}selected="selected"{% endif %}>后置</option>
 											</select>
 										</td>
-										<td><a href=""><i class="fa fa-times"></i></a></td>
+										<td><a href="{{url_for('plugin.delPlugin',id=plugin.id)}}"><i class="fa fa-times"></i></a></td>
 									</tr>
 								{% endfor %}
 								</tbody>

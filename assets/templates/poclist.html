@@ -114,7 +114,7 @@
 											   <option value="{{poc.id}}" {% if poc.position %}selected="selected"{% endif %}>后置</option>
 											</select>
 										</td>
-										<td><a href=""><i class="fa fa-times"></i></a></td>
+										<td><a href="{{url_for('pocs.delPoc',id=poc.id)}}"><i class="fa fa-times"></i></a></td>
 									</tr>
 								{% endfor %}
 								</tbody>

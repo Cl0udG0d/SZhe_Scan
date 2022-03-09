@@ -19,9 +19,8 @@ from app.model.models import (
 )
 from app.model.exts import db
 from init import app
+from app.config import baseconfig
 
-ALLOWED_EXTENSIONS = set(['py'])
-UPLOADED_POCS_DEST=os.path.join(os.path.dirname(os.path.dirname(__file__)), "../plugins/")
 
 @plugin.route('/plugin/')
 @plugin.route('/plugin/<int:page>', methods=['GET'])
@@ -39,7 +38,7 @@ def refreshPlugin():
     try:
         pluginlist = pluginList.query.all()
         [db.session.delete(plugin) for plugin in pluginlist]
-        for files in os.listdir(UPLOADED_POCS_DEST):
+        for files in os.listdir(baseconfig.UPLOADED_PLUGIN_DEST):
             if os.path.splitext(files)[1] == '.py' and not files.startswith("_"):
                 temptask = pluginList(filename=os.path.splitext(files)[0])
                 db.session.add(temptask)
@@ -75,11 +74,9 @@ def reverseAllStatus():
     return redirect(url_for('plugin.pluginlist'))
 
 
-ALLOWED_EXTENSIONS = set(['py'])
-UPLOADED_POCS_DEST=os.path.join(os.path.dirname(os.path.dirname(__file__)), "../pocs/")
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1] in baseconfig.ALLOWED_EXTENSIONS
 
 
 @plugin.route('/plugin/uploadPlugin/',methods=['POST'])
@@ -88,7 +85,7 @@ def uploadPlugin():
     for file in request.files.getlist('files'):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOADED_POCS_DEST, filename))
+            file.save(os.path.join(baseconfig.UPLOADED_PLUGIN_DEST, filename))
             flash('{}上传成功'.format(filename))
         else:
             flash('上传失败')
@@ -101,8 +98,9 @@ def delPluginFile(filename):
     因为这里的文件名是安全的，所以直接进行删除
     '''
     try:
-
-        os.remove(UPLOADED_POCS_DEST+filename)
+        filepath=baseconfig.UPLOADED_PLUGIN_DEST+filename+'.py'
+        os.remove(filepath)
+        logging.info("del file {}".format(filepath))
     except Exception as e:
         logging.info(e)
         pass

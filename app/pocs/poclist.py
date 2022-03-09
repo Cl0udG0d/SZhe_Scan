@@ -17,12 +17,12 @@ from app.model.models import (
     PocList
 )
 from app.model.exts import db
+from init import app
+from app.config import baseconfig
 
-ALLOWED_EXTENSIONS = set(['py'])
-UPLOADED_POCS_DEST=os.path.join(os.path.dirname(os.path.dirname(__file__)), "../pocs/")
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1] in baseconfig.ALLOWED_EXTENSIONS
 
 
 
@@ -89,7 +89,7 @@ def uploadPoc():
     for file in request.files.getlist('files'):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOADED_POCS_DEST, filename))
+            file.save(os.path.join(baseconfig.UPLOADED_POCS_DEST, filename))
             flash('{}上传成功'.format(filename))
         else:
             flash('上传失败')
@@ -123,5 +123,27 @@ def afterPoc(id=None):
         return 'fail'
     return 'success'
 
+def delPocFile(filename):
+    '''
+    删除文件
+    因为这里的文件名是安全的，所以直接进行删除
+    '''
+    try:
+        filepath=baseconfig.UPLOADED_POCS_DEST+filename+'.py'
+        os.remove(filepath)
+        logging.info("del file {}".format(filepath))
+    except Exception as e:
+        logging.info(e)
+        pass
 
+@poc.route('/plugin/delPlugin/<int:id>',methods=['GET'])
+@login_required
+def delPoc(id=None):
+    with app.app_context():
+        tempPoc= PocList.query.filter(PocList.id == id).first()
+        delPocFile(tempPoc.filename)
+        db.session.delete(tempPoc)
+        db.session.commit()
+        flash("删除成功")
+    return redirect(url_for('pocs.poclist'))
 

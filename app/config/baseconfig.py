@@ -35,6 +35,10 @@ CELERY_RESULT_BACKEND= 'redis://localhost:6379/0'
 
 CELERY_TRACK_STARTED=True
 
+ALLOWED_EXTENSIONS = set(['py'])
+UPLOADED_POCS_DEST=os.path.join(os.path.dirname(os.path.dirname(__file__)), "../pocs/")
+UPLOADED_PLUGIN_DEST=os.path.join(os.path.dirname(os.path.dirname(__file__)), "../plugins/")
+
 
 if __name__ == '__main__':
     print(CELERY_TRACK_STARTED)
