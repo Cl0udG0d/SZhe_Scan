@@ -103,27 +103,16 @@
 						        </a>
 						    </li>
 						     <li {% block active4 %}{% endblock %}>
-						        <a href="javascript:void(0);">
+						        <a href="{{url_for('pocs.poclist')}}">
 						            <span class="icon"><i class="fa fa-gavel"></i></span>
 						            <span class="name">POC管理</span>
-						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
 						        </a>
-						        <ul class="sidebar-dropdown">
-			                            <li><a href="{{url_for('pocs.poclist')}}">poc市场</a></li>
-			                            <li><a href="{{url_for('pocs.poclist')}}">本地poc</a></li>
-			                    </ul>
 						    </li>
 						    <li {% block active5 %}{% endblock %}>
-						        <a href="javascript:void(0);">
+						        <a href="{{url_for('plugin.pluginlist')}}">
 						            <span class="icon"><i class="fa fa fa-puzzle-piece"></i></span>
 						            <span class="name">扩展插件</span>
-						            <span class="arrow"><i class="arrow fa fa-angle-right pull-right"></i></span>
 						        </a>
-						        <ul class="sidebar-dropdown">
-			                            <li><a href="{{url_for('plugin.pluginlist')}}">插件市场</a></li>
-			                            <li><a href="{{url_for('plugin.pluginlist')}}">本地插件</a></li>
-			                    </ul>
-
 						    </li>
 					</ul>
 				  </div>

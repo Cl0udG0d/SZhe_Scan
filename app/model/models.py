@@ -92,7 +92,7 @@ class pluginList(db.Model):
     __tablename__ = 'pluginList'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     status = db.Column(db.Boolean, default=False)
-    position = db.Column(db.Integer, default=0)
+    position = db.Column(db.Boolean, default=False)
     filename = db.Column(db.String(128), nullable=False)
 
 

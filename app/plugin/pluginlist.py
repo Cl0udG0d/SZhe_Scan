@@ -96,7 +96,7 @@ def delPluginFile(filename):
 @plugin.route('/plugin/delPlugin/<int:id>',methods=['GET'])
 @login_required
 def delPlugin(id=None):
-    print(id)
+    # print(id)
     with app.app_context():
         plugin= pluginList.query.filter(pluginList.id == id).first()
         delPluginFile(plugin.filename)

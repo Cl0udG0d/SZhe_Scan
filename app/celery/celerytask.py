@@ -9,7 +9,7 @@ import time
 from celery import Celery
 from init import app
 from app.model.models import (
-    Task,scanTask,PocList
+    Task,scanTask,PocList,pluginList
 )
 from app.model.exts import db
 from app.scan.scanIndex import scanConsole
@@ -47,22 +47,38 @@ def updateTaskEndTime(id):
 
 
 
+def getPocAndPlugin():
+    pocs = PocList.query.all()
+    plugins = pluginList.query.all()
+    poclist,pluginlist = list(),list()
+
+    for poc in pocs:
+        if poc.status:
+            poclist.append([poc.filename, poc.position])
+
+
+    for plugin in plugins:
+        if plugin.status:
+            pluginlist.append([plugin.filename, plugin.position])
+
+    return poclist,pluginlist
+
+
+
 @scantask.task(bind=True)
 def scanTarget(self,url):
     # task = Task.query.filter(Task.key == key).first()
     self.update_state(state="PROGRESS")
     # print(scanTarget.request.id)
-    pocs=PocList.query.all()
-    poclist=list()
-    for poc in pocs:
-        if poc.status:
-            poclist.append([poc.filename,poc.position])
+
+    poclist,pluginlist=getPocAndPlugin()
     try:
-        scanConsole(url,poclist,self.request.id)
+        scanConsole(url,poclist,self.request.id,pluginlist)
     except Exception as e:
         # print(e)
         self.update_state(state="FAILURE")
-        raise
+        logger.warning(e)
+        pass
     else:
         updateTaskEndTime(self.request.id)
 
@@ -82,4 +98,9 @@ def startScan(self,targets):
 
 
 if __name__ == '__main__':
-    print('a')
+    from app.scan.scanIndex import scanPocs
+    with app.app_context():
+        poclist,pluginlist=getPocAndPlugin()
+
+        scanPocs("http://5.251.142.195:999/", poclist, "1")
+        # print(poclist)

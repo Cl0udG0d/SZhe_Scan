@@ -9,6 +9,9 @@ import re
 
 from app.utils.selfrequests import getRep
 from app.utils.baseMsg import GetBaseMessage
+from app.utils.szheException import (
+    reqBadExceptin
+)
 from app.model.models import (
     BaseInfo,VulList
 )
@@ -21,18 +24,28 @@ from pocsuite3.api import start_pocsuite
 from pocsuite3.api import get_results
 import os
 
+
+
 def saveVul(result,tid,poc):
     with app.app_context():
         vul=VulList(url=result['url'],tid=tid,pocname=poc,references=result['poc_attrs']['references'],created=result['created'])
         db.session.add(vul)
         db.session.commit()
 
+
+
+def saveExts():
+    return
+
+
+
 def scanPoc(url,currdir,poc,tid):
     config = {
         'url': url,
         'poc': os.path.join(currdir,poc+'.py'),
     }
-    # print(config['poc'])
+
+    print(config['poc'])
     # print(os.path.dirname(os.path.dirname(__file__)))
     # config字典的配置和cli命令行参数配置一模一样
     init_pocsuite(config)
@@ -44,10 +57,10 @@ def scanPoc(url,currdir,poc,tid):
 
 
 def scanPocs(url,poclist,tid,position=False):
+    currdir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "../pocs/")
     for poc in poclist:
         if poc[1]==position:
             try:
-                currdir=os.path.join(os.path.dirname(os.path.dirname(__file__)),"../pocs/")
                 scanPoc(url,currdir,poc[0],tid)
             except Exception as e:
                 logging.info(e)
@@ -55,20 +68,55 @@ def scanPocs(url,poclist,tid,position=False):
 
 
 
-def scanConsole(url,poclist,tid):
+def scanPlugins(url,pluginlist,tid,position=False):
+    currdir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "../pocs/")
+    for plugin in pluginlist:
+        if plugin[1]==position:
+            try:
+                scanPoc(url,currdir,plugin[0],tid)
+            except Exception as e:
+                logging.info(e)
+                pass
+
+
+
+def scanPlugin(url,currdir,plugin,tid):
+    config = {
+        'url': url,
+        'plugin': os.path.join(currdir, plugin + '.py'),
+    }
+    # print(config['poc'])
+    # print(os.path.dirname(os.path.dirname(__file__)))
+    # config字典的配置和cli命令行参数配置一模一样
+    init_pocsuite(config)
+    start_pocsuite()
+    result = get_results().pop()
+    if result['status'] == 'success':
+        saveVul(result, tid, poc)
+
+
+
+
+def scanConsole(url,poclist,tid,pluginlist):
     rep,target=getRep(url)
     if not rep:
-        raise
+        raise reqBadExceptin(url)
     basemsg=GetBaseMessage(url,target,rep)
     with app.app_context():
         basemsgdb=BaseInfo(url=url,tid=tid,status=basemsg.GetStatus(),title=basemsg.GetTitle(),date=basemsg.GetDate(),responseheader=basemsg.GetResponseHeader(),Server=basemsg.GetFinger())
         db.session.add(basemsgdb)
         db.session.commit()
-    scanPocs(target,poclist,tid) # 前置扫描
+
+    # 前置扫描
+    scanPocs(target,poclist,tid)
+    # scanPlugins(target,pluginlist,tid)
 
     results=spider(target)
+
+    # 后置扫描
     for tempurl in results:
-        scanPocs(tempurl, poclist, tid, position=True) # 后置扫描
+        scanPocs(tempurl, poclist, tid, position=True)
+        # scanPlugins(target, pluginlist, tid, position=True)
     logging.info("ScanEnd")
 
 
