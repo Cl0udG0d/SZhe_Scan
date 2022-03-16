@@ -51,18 +51,6 @@ def refreshPlugin():
     return redirect(url_for('plugin.pluginlist'))
 
 
-# @plugin.route('/plugin/reverse/<int:id>', methods=['GET'])
-# @login_required
-# def reverse(id=None):
-#     try:
-#         poc = PocList.query.filter(PocList.id == id).first()
-#         poc.status=not poc.status
-#         db.session.commit()
-#     except Exception as e:
-#         logging.warning(e)
-#         pass
-#     return 'success'
-
 
 @plugin.route('/plugin/reverseAllStatus/', methods=['GET'])
 @login_required
@@ -108,6 +96,7 @@ def delPluginFile(filename):
 @plugin.route('/plugin/delPlugin/<int:id>',methods=['GET'])
 @login_required
 def delPlugin(id=None):
+    print(id)
     with app.app_context():
         plugin= pluginList.query.filter(pluginList.id == id).first()
         delPluginFile(plugin.filename)

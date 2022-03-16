@@ -64,11 +64,11 @@ def scanConsole(url,poclist,tid):
         basemsgdb=BaseInfo(url=url,tid=tid,status=basemsg.GetStatus(),title=basemsg.GetTitle(),date=basemsg.GetDate(),responseheader=basemsg.GetResponseHeader(),Server=basemsg.GetFinger())
         db.session.add(basemsgdb)
         db.session.commit()
-    scanPocs(target,poclist,tid)
+    scanPocs(target,poclist,tid) # 前置扫描
 
     results=spider(target)
     for tempurl in results:
-        scanPocs(tempurl, poclist, tid, position=True)
+        scanPocs(tempurl, poclist, tid, position=True) # 后置扫描
     logging.info("ScanEnd")
 
 

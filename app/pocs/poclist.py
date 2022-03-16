@@ -136,7 +136,7 @@ def delPocFile(filename):
         logging.info(e)
         pass
 
-@poc.route('/plugin/delPlugin/<int:id>',methods=['GET'])
+@poc.route('/pocs/delPoc/<int:id>',methods=['GET'])
 @login_required
 def delPoc(id=None):
     with app.app_context():
