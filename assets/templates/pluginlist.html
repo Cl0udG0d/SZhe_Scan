@@ -16,16 +16,16 @@
 
 <script>
 	function reverseStatus(id){
-		$.get("/pocs/reverse/"+id);
+		$.get("/plugin/reverse/"+id);
 	}
 
 	$('#onclickSelect').change(function(){
 		var id = $(this).find('option:selected').val();
 		var status=$(this).find('option:selected').text();
 		if(status == '前置'){
-			$.get("/pocs/beforePoc/"+id);
+			$.get("/plugin/beforePlugin/"+id);
 		}else if(status == '后置'){
-			$.get("/pocs/afterPoc/"+id);
+			$.get("/plugin/afterPlugin/"+id);
 		}else{
 			return
 		}

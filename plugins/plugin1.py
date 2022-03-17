@@ -8,18 +8,8 @@ import requests
 import re
 
 def run(url):
-    result = {
-        'status': 'fail'
-    }
-    vul_url = '%s/veribaze/angelo.mdb' % url
-    response = requests.get(vul_url).text
 
-    if re.search('Standard Jet DB', response):
-        result['VerifyInfo'] = {}
-        result['VerifyInfo']['URL'] = url
-        result['VerifyInfo']['context'] = response
-        result['status'] = 'success'
-    return result
+    return "test {}".format(url)
 
 
 def test():

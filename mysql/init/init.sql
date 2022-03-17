@@ -14,7 +14,7 @@ PRIMARY KEY (`id`)
 
 INSERT INTO `user` (`id`, `email`, `username`, `pw_hash`)
 VALUES
-(1,'springbird@qq.com','springbird','pbkdf2:sha256:150000$XNEKW4J4$726b6b5f7d07c3e7f4280634b547b90c64055018f31290c05857aade0b983057');
+(1,'admin@admin.com','admin','pbkdf2:sha256:260000$lLcpJVgwBDSGP393$cc497e2610c6a7cd2369bf06c26cac914ca3d0b36b5d348045f6f9baab3ae2a0');
 
 CREATE TABLE `profile` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

@@ -12,7 +12,7 @@ from flask import (
     render_template,redirect,url_for,request,flash
 )
 from app.model.models import (
-    Log,Task,scanTask,BaseInfo,VulList
+    Log,Task,scanTask,BaseInfo,VulList,ExtList
 )
 from app.celery.celerytask import startScan
 from app.utils.filter import check2filter
@@ -116,10 +116,11 @@ def scanreport(id=None,tid=None):
     scantask=scanTask.query.filter(scanTask.tid == tid).first()
     info=BaseInfo.query.filter(BaseInfo.tid == tid).first()
     vuls=VulList.query.filter(VulList.tid == tid).all()
+    exts=ExtList.query.filter(ExtList.tid == tid).all()
     if not info:
         flash("任务正在执行或执行出错，无法查看")
         return redirect(url_for('tasks.seetask', id=id))
-    return render_template('scanreport.html',task=task,scantask=scantask,info=info,vuls=vuls)
+    return render_template('scanreport.html',task=task,scantask=scantask,info=info,vuls=vuls,exts=exts)
 
 
 

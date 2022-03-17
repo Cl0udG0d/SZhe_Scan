@@ -52,6 +52,19 @@ def refreshPlugin():
 
 
 
+@plugin.route('/plugin/reverse/<int:id>', methods=['GET'])
+@login_required
+def reverse(id=None):
+    try:
+        tempPlugin = pluginList.query.filter(pluginList.id == id).first()
+        tempPlugin.status=not tempPlugin.status
+        db.session.commit()
+    except Exception as e:
+        logging.warning(e)
+        pass
+    return 'success'
+
+
 @plugin.route('/plugin/reverseAllStatus/', methods=['GET'])
 @login_required
 def reverseAllStatus():
@@ -80,6 +93,36 @@ def uploadPlugin():
     return redirect(url_for('plugin.pluginlist'))
 
 
+
+
+@plugin.route('/plugin/beforePlugin/<int:id>',methods=['GET'])
+@login_required
+def beforePlugin(id=None):
+    try:
+        tempPlugin = pluginList.query.filter(pluginList.id == id).first()
+        tempPlugin.position=False
+        db.session.commit()
+    except Exception as e:
+        logging.warning(e)
+        return 'fail'
+    return 'success'
+
+
+
+@plugin.route('/plugin/afterPlugin/<int:id>',methods=['POST','GET'])
+@login_required
+def afterPlugin(id=None):
+    try:
+        tempPlugin = pluginList.query.filter(pluginList.id == id).first()
+        tempPlugin.position = True
+        db.session.commit()
+    except Exception as e:
+        logging.warning(e)
+        return 'fail'
+    return 'success'
+
+
+
 def delPluginFile(filename):
     '''
     删除文件
@@ -92,6 +135,8 @@ def delPluginFile(filename):
     except Exception as e:
         logging.info(e)
         pass
+
+
 
 @plugin.route('/plugin/delPlugin/<int:id>',methods=['GET'])
 @login_required

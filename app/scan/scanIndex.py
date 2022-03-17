@@ -13,7 +13,7 @@ from app.utils.szheException import (
     reqBadExceptin
 )
 from app.model.models import (
-    BaseInfo,VulList
+    BaseInfo, VulList, ExtList
 )
 from app.model.exts import db
 from app.utils.spider import spider
@@ -23,7 +23,7 @@ from pocsuite3.api import init_pocsuite
 from pocsuite3.api import start_pocsuite
 from pocsuite3.api import get_results
 import os
-
+import importlib
 
 
 def saveVul(result,tid,poc):
@@ -34,8 +34,12 @@ def saveVul(result,tid,poc):
 
 
 
-def saveExts():
-    return
+def saveExts(result,tid,pluginname):
+    with app.app_context():
+        extMsg=ExtList(pluginname=pluginname,tid=tid,result=result)
+
+        db.session.add(extMsg)
+        db.session.commit()
 
 
 
@@ -45,7 +49,7 @@ def scanPoc(url,currdir,poc,tid):
         'poc': os.path.join(currdir,poc+'.py'),
     }
 
-    print(config['poc'])
+    # print(config['poc'])
     # print(os.path.dirname(os.path.dirname(__file__)))
     # config字典的配置和cli命令行参数配置一模一样
     init_pocsuite(config)
@@ -69,30 +73,37 @@ def scanPocs(url,poclist,tid,position=False):
 
 
 def scanPlugins(url,pluginlist,tid,position=False):
-    currdir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "../pocs/")
+
+    # currdir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "../plugins/")
     for plugin in pluginlist:
         if plugin[1]==position:
-            try:
-                scanPoc(url,currdir,plugin[0],tid)
-            except Exception as e:
-                logging.info(e)
-                pass
+            # try:
+            scanPlugin(url,plugin[0],tid)
+            # except Exception as e:
+            #     logging.info(e)
+            #     pass
 
 
 
-def scanPlugin(url,currdir,plugin,tid):
-    config = {
-        'url': url,
-        'plugin': os.path.join(currdir, plugin + '.py'),
-    }
+def scanPlugin(url,plugin,tid):
+    # config = {
+    #     'url': url,
+    #     'plugin': os.path.join(currdir, plugin + '.py'),
+    # }
     # print(config['poc'])
     # print(os.path.dirname(os.path.dirname(__file__)))
     # config字典的配置和cli命令行参数配置一模一样
-    init_pocsuite(config)
-    start_pocsuite()
-    result = get_results().pop()
-    if result['status'] == 'success':
-        saveVul(result, tid, poc)
+    # plugin = __import__("plugins." + plugin, fromlist=[plugin])
+    logging.info(__file__)
+    tempPlugin = importlib.import_module("plugins." + plugin)
+    # Errors may be occured. Handle it yourself.
+    result=tempPlugin.run(url)
+    print(result)
+    saveExts(result, tid, plugin)
+    # if result['status'] == 'success':
+    #     logging.info("success")
+        # saveVul(result, tid, poc)
+
 
 
 
@@ -109,15 +120,15 @@ def scanConsole(url,poclist,tid,pluginlist):
 
     # 前置扫描
     scanPocs(target,poclist,tid)
-    # scanPlugins(target,pluginlist,tid)
+    scanPlugins(target,pluginlist,tid)
 
     results=spider(target)
 
     # 后置扫描
     for tempurl in results:
         scanPocs(tempurl, poclist, tid, position=True)
-        # scanPlugins(target, pluginlist, tid, position=True)
-    logging.info("ScanEnd")
+        scanPlugins(tempurl, pluginlist, tid, position=True)
+    logging.info("{} ScanEnd".format(url))
 
 
 
@@ -126,5 +137,18 @@ def test():
 
 
 if __name__ == '__main__':
-    # scanPoc('http://58.20.57.73:88/',"test")
-    test()
+    scanPlugin("http://127.0.0.1","plugin1","1")
+    # test()
+    # import importlib.util
+    # import importlib
+    #
+    #
+    # def check_module(module_name):
+    #     module_spec = importlib.util.find_spec(module_name)
+    #     if module_spec is None:
+    #         print("Module :{} not found".format(module_name))
+    #         return None
+    #     else:
+    #         print("Module:{} can be imported!".format(module_name))
+    #         return module_spec
+    # check_module("plugins.plugin1")

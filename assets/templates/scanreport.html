@@ -70,16 +70,35 @@
 						</div>
 
 						<hr>
-						  <div class="row">
-
-							<div class="col-xs-4 from">
-								<blockquote>
-								  <p>exts</p>
-								</blockquote>
-								<p>扩展</p>
+						  {% if exts %}
+						  	<div class="row">
+								<div class="col-xs-14 from">
+									<blockquote>
+									  <p>插件</p>
+									</blockquote>
+								<div class="panel-body">
+									{% for msg in exts %}
+									<div class="col-xs-14 to">
+										<div class="panel panel-default">
+											    <div class="panel-heading">
+											      <h4 class="panel-title">
+											        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
+											          {{msg.pluginname}} #{{msg.id}}
+											        </a>
+											      </h4>
+											    </div>
+											    <div id="collapseTwo" class="panel-collapse collapse" style="height: 0px;">
+											      <div class="panel-body">
+											      	{{msg.result}}
+												  </div>
+											    </div>
+											  </div>
+						    		</div>
+									{% endfor %}
+								</div>
 							</div>
-
-						</div>
+							</div>
+						  {% endif %}
 						{% if vuls %}
 						<div class="row table-row">
 							<table class="table table-striped">

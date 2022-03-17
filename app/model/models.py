@@ -98,6 +98,10 @@ class pluginList(db.Model):
 
 
 
-
-
+class ExtList(db.Model):
+    __tablename__ = 'ExtList'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    tid = db.Column(db.String(128), nullable=False)
+    pluginname=db.Column(db.String(128))
+    result = db.Column(db.Text)
 
