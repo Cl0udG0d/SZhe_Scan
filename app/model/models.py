@@ -72,7 +72,7 @@ class VulList(db.Model):
     tid = db.Column(db.String(128), nullable=False)
     url=db.Column(db.String(128))
     pocname=db.Column(db.String(128))
-    references = db.Column(db.String(128), nullable=False)
+    result=db.Column(db.Text)
     created = db.Column(db.String(128), nullable=False)
 
 
@@ -104,4 +104,5 @@ class ExtList(db.Model):
     tid = db.Column(db.String(128), nullable=False)
     pluginname=db.Column(db.String(128))
     result = db.Column(db.Text)
+    created = db.Column(db.String(128), nullable=False)
 

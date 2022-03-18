@@ -4,6 +4,8 @@
 # @Author  : Cl0udG0d
 # @File    : celerytask.py
 # @Github: https://github.com/Cl0udG0d
+import os
+import sys
 import time
 
 from celery import Celery
@@ -15,7 +17,7 @@ from app.model.exts import db
 from app.scan.scanIndex import scanConsole
 from celery.utils.log import get_task_logger
 logger = get_task_logger(__name__)
-
+sys.path.append(os.getcwd())
 '''
 celery -A app.celery.celerytask:scantask worker -c 10 --loglevel=info -P eventlet
 '''

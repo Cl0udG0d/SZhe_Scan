@@ -31,12 +31,12 @@ services:
     restart: always
     environment:
       - TZ=Asia/Shanghai
-  rq:
+  celery:
     build: .
     depends_on:
       - redis
       - web
-    command: "rq worker -c rqsettings"
+    command: "celery -A app.celery.celerytask:scantask worker -c 10 --loglevel=info -P eventlet"
     restart: always
     environment:
       - TZ=Asia/Shanghai

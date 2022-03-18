@@ -6,6 +6,7 @@
 # @Github: https://github.com/Cl0udG0d
 import logging
 import re
+import time
 
 from app.utils.selfrequests import getRep
 from app.utils.baseMsg import GetBaseMessage
@@ -23,12 +24,11 @@ from pocsuite3.api import init_pocsuite
 from pocsuite3.api import start_pocsuite
 from pocsuite3.api import get_results
 import os
-import importlib
-
+import json
 
 def saveVul(result,tid,poc):
     with app.app_context():
-        vul=VulList(url=result['url'],tid=tid,pocname=poc,references=result['poc_attrs']['references'],created=result['created'])
+        vul=VulList(url=result['url'],tid=tid,pocname=poc,result=json.dumps(result['result']['VerifyInfo']),created=result['created'])
         db.session.add(vul)
         db.session.commit()
 
@@ -36,7 +36,7 @@ def saveVul(result,tid,poc):
 
 def saveExts(result,tid,pluginname):
     with app.app_context():
-        extMsg=ExtList(pluginname=pluginname,tid=tid,result=result)
+        extMsg=ExtList(pluginname=pluginname,tid=tid,result=result,created=str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())))
 
         db.session.add(extMsg)
         db.session.commit()
@@ -94,11 +94,9 @@ def scanPlugin(url,plugin,tid):
     # print(os.path.dirname(os.path.dirname(__file__)))
     # config字典的配置和cli命令行参数配置一模一样
     # plugin = __import__("plugins." + plugin, fromlist=[plugin])
-    logging.info(__file__)
-    tempPlugin = importlib.import_module("plugins." + plugin)
+    tempPlugin = __import__("plugins.{}".format(plugin), fromlist=[plugin])
     # Errors may be occured. Handle it yourself.
     result=tempPlugin.run(url)
-    print(result)
     saveExts(result, tid, plugin)
     # if result['status'] == 'success':
     #     logging.info("success")
@@ -128,6 +126,7 @@ def scanConsole(url,poclist,tid,pluginlist):
     for tempurl in results:
         scanPocs(tempurl, poclist, tid, position=True)
         scanPlugins(tempurl, pluginlist, tid, position=True)
+
     logging.info("{} ScanEnd".format(url))
 
 
@@ -137,18 +136,4 @@ def test():
 
 
 if __name__ == '__main__':
-    scanPlugin("http://127.0.0.1","plugin1","1")
-    # test()
-    # import importlib.util
-    # import importlib
-    #
-    #
-    # def check_module(module_name):
-    #     module_spec = importlib.util.find_spec(module_name)
-    #     if module_spec is None:
-    #         print("Module :{} not found".format(module_name))
-    #         return None
-    #     else:
-    #         print("Module:{} can be imported!".format(module_name))
-    #         return module_spec
-    # check_module("plugins.plugin1")
+    scanPoc("http://127.0.0.1","C:\\Users\\Cl0udG0d\\Desktop\\SZhe_Scan\\pocs","phpMyAdmin 弱密码漏洞","1")

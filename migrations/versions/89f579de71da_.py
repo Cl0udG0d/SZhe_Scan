@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d590d2f7fb53
+Revision ID: 89f579de71da
 Revises: 
-Create Date: 2022-03-18 01:02:43.718950
+Create Date: 2022-03-18 14:20:42.140027
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd590d2f7fb53'
+revision = '89f579de71da'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,6 +23,7 @@ def upgrade():
     sa.Column('tid', sa.String(length=128), nullable=False),
     sa.Column('pluginname', sa.String(length=128), nullable=True),
     sa.Column('result', sa.Text(), nullable=True),
+    sa.Column('created', sa.String(length=128), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('PocList',
@@ -37,7 +38,7 @@ def upgrade():
     sa.Column('tid', sa.String(length=128), nullable=False),
     sa.Column('url', sa.String(length=128), nullable=True),
     sa.Column('pocname', sa.String(length=128), nullable=True),
-    sa.Column('references', sa.String(length=128), nullable=False),
+    sa.Column('result', sa.Text(), nullable=True),
     sa.Column('created', sa.String(length=128), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )

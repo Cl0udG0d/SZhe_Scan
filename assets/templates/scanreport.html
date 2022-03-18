@@ -76,51 +76,57 @@
 									<blockquote>
 									  <p>插件</p>
 									</blockquote>
-								<div class="panel-body">
-									{% for msg in exts %}
-									<div class="col-xs-14 to">
-										<div class="panel panel-default">
-											    <div class="panel-heading">
-											      <h4 class="panel-title">
-											        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
-											          {{msg.pluginname}} #{{msg.id}}
-											        </a>
-											      </h4>
-											    </div>
-											    <div id="collapseTwo" class="panel-collapse collapse" style="height: 0px;">
-											      <div class="panel-body">
-											      	{{msg.result}}
+									<div class="panel-body">
+										{% for msg in exts %}
+										<div class="col-xs-14 to">
+											<div class="panel panel-default">
+													<div class="panel-heading">
+													  <h4 class="panel-title">
+														<a data-toggle="collapse" data-parent="#accordion" href="#{{msg.id}}" class="collapsed">
+														  {{msg.pluginname}} #{{msg.created}}
+														</a>
+													  </h4>
+													</div>
+													<div id="{{msg.id}}" class="panel-collapse collapse" style="height: 0px;">
+													  <div class="panel-body">
+														{{msg.result}}
+													  </div>
+													</div>
 												  </div>
-											    </div>
-											  </div>
-						    		</div>
-									{% endfor %}
+										</div>
+										{% endfor %}
+									</div>
 								</div>
 							</div>
-							</div>
 						  {% endif %}
-						{% if vuls %}
-						<div class="row table-row">
-							<table class="table table-striped">
-						      <thead>
-						        <tr>
-						          <th style="width:34%">pocname</th>
-						          <th class="text-left" style="width:33%">ref</th>
-						          <th class="text-left" style="width:33%">时间</th>
-						        </tr>
-						      </thead>
-						      <tbody>
-							  {% for vul in vuls %}
-						        <tr>
-						          <td>{{vul.pocname}}</td>
-						          <td class="text-left">{{vul.references}}</td>
-						          <td class="text-left">{{vul.created}}</td>
-						        </tr>
-							  {% endfor %}
-						       </tbody>
-						    </table>
-							<hr>
-						</div>
+						  {% if vuls %}
+						  	<div class="row">
+								<div class="col-xs-14 from">
+									<blockquote>
+									  <p>漏洞</p>
+									</blockquote>
+									<div class="panel-body">
+										{% for vul in vuls %}
+										<div class="col-xs-14 to">
+											<div class="panel panel-default">
+													<div class="panel-heading">
+													  <h4 class="panel-title">
+														<a data-toggle="collapse" data-parent="#accordion" href="#{{vul.id}}" class="collapsed">
+														  {{vul.pocname}} #{{vul.created}}
+														</a>
+													  </h4>
+													</div>
+													<div id="{{vul.id}}" class="panel-collapse collapse" style="height: 0px;">
+													  <div class="panel-body">
+														{{vul.result}}
+													  </div>
+													</div>
+												  </div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
 						  {% endif %}
 						<div class="row">
 						<div class="col-xs-6 text-right pull-right invoice-total">
