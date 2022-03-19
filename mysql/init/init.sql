@@ -16,86 +16,109 @@ INSERT INTO `user` (`id`, `email`, `username`, `pw_hash`)
 VALUES
 (1,'admin@admin.com','admin','pbkdf2:sha256:260000$lLcpJVgwBDSGP393$cc497e2610c6a7cd2369bf06c26cac914ca3d0b36b5d348045f6f9baab3ae2a0');
 
-CREATE TABLE `profile` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`userid` int(11) NOT NULL,
-`blog` varchar(100) NULL,
-`signature` TEXT NULL,
 
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `baseinfo` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`url` varchar(50) NOT NULL,
-`status` varchar(4) NOT NULL,
-`title` varchar(50),
-`date` varchar(30) NOT NULL,
-`responseheader` TEXT NOT NULL,
-`Server` TEXT,
-`portserver` TEXT,
-`sendir` TEXT,
-`boolcheck` tinyint(1),
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE `ipinfo` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`baseinfoid` int(11) NOT NULL,
-`bindingdomain` TEXT,
-`sitestation` TEXT,
-`CMessage` TEXT NOT NULL,
-`ipaddr` varchar(100) NOT NULL,
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE `domaininfo` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`baseinfoid` int(11) NOT NULL,
-`subdomain` TEXT,
-`whois` TEXT,
-`bindingip` TEXT,
-`sitestation` TEXT,
-`recordinfo` TEXT,
-`domainaddr` varchar(200),
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `buglist` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`oldurl` varchar(50),
-`bugurl` varchar(200),
-`bugname` varchar(100) NOT NULL,
-`buggrade` varchar(7) NOT NULL,
-`payload` varchar(100),
-`bugdetail` TEXT,
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `poc` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`name` varchar(100) NOT NULL,
-`rule` TEXT,
-`expression` TEXT,
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `log` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 `ip` varchar(20) NOT NULL,
 `email` varchar(50) NOT NULL,
+`boolcheck` tinyint(1),
 `date` DATE,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `invitationcode` (
+
+
+CREATE TABLE `task` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`code` varchar(36) NOT NULL,
+`tid` varchar(128) NOT NULL,
+`name` varchar(128) NOT NULL,
+`status` varchar(30) NOT NULL DEFAULT 'PENDING',
+`starttime` varchar(30) NOT NULL,
+`endtime` varchar(30) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+CREATE TABLE `scanTask` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`pid` varchar(128) NOT NULL,
+`tid` varchar(128) NOT NULL,
+`url` varchar(128) NOT NULL,
+`status` varchar(30) NOT NULL DEFAULT 'PENDING',
+`starttime` varchar(30) NOT NULL,
+`endtime` varchar(30) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+CREATE TABLE `baseinfo` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`tid` varchar(128) NOT NULL,
+`url` varchar(50) NOT NULL,
+`status` varchar(3) NOT NULL,
+`title` varchar(50),
+`date` varchar(30),
+`responseheader` TEXT,
+`Server` TEXT,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+CREATE TABLE `VulList` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`tid` varchar(128) NOT NULL,
+`url` varchar(50) NOT NULL,
+`pocname` varchar(128),
+`result`  TEXT,
+`created` varchar(128) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+CREATE TABLE `PocList` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`status` tinyint(1) DEFAULT 0,
+`position` tinyint(1) DEFAULT 0,
+`filename` varchar(128) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+CREATE TABLE `pluginList` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`status` tinyint(1) DEFAULT 0,
+`position` tinyint(1) DEFAULT 0,
+`filename` varchar(128) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+CREATE TABLE `ExtList` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`tid` varchar(128) NOT NULL,
+`pluginname` varchar(128),
+`result` TEXT,
+`created` varchar(128) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 

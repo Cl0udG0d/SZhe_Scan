@@ -1,13 +1,13 @@
 import os
-
+import platform
 DEBUG = True
 # DEBUG = False
 SECRET_KEY = os.urandom(24)
 
-
-
+HOSTNAME = '127.0.0.1' if platform.system().lower()=="windows" else "mysql"
+REDIS_HOST = '127.0.0.1' if platform.system().lower()=="windows" else "redis"
 # HOSTNAME='mysql'
-HOSTNAME = '127.0.0.1'
+# HOSTNAME = '127.0.0.1'
 PORT = '3306'
 DATABASE = 'SZheScan'
 USERNAME = 'root'
@@ -19,7 +19,7 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(U
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # REDIS_HOST = 'redis'
-REDIS_HOST = '127.0.0.1'
+# REDIS_HOST = '127.0.0.1'
 REDIS_PORT = 6379
 REDIS_DB = 0
 # REDIS_PASSWORD = 'very secret'
@@ -30,8 +30,8 @@ REDIS_DB = 0
 # db = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB, decode_responses=True)
 # queue = Queue(connection=db)
 
-CELERY_BROKER_URL= 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND= 'redis://localhost:6379/0'
+CELERY_BROKER_URL= 'redis://localhost:6379/0' if platform.system().lower()=="windows" else 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND= 'redis://localhost:6379/0' if platform.system().lower()=="windows" else 'redis://redis:6379/0'
 
 CELERY_TRACK_STARTED=True
 
