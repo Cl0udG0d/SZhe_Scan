@@ -8,7 +8,7 @@ import os
 import sys
 import time
 
-from celery import Celery
+from celery import Celery, platforms
 from init import app
 from app.model.models import (
     Task,scanTask,PocList,pluginList
@@ -36,6 +36,7 @@ def make_celery(app):
 
 
 scantask = make_celery(app)
+platforms.C_FORCE_ROOT = True
 scantask.conf.update(app.config)
 
 

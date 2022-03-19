@@ -37,6 +37,8 @@ services:
       - redis
       - web
     command: "celery -A app.celery.celerytask:scantask worker -c 10 --loglevel=info -P eventlet"
+    links:
+      - redis:redis
     restart: always
     environment:
       - TZ=Asia/Shanghai
