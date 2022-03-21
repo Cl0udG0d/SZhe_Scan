@@ -42,7 +42,7 @@ docker-compose up -d
 
 <div style="display: flex;padding: 25px 0;border-bottom: 1px dotted #ddd;">
     <div class="avatar" style="flex: 0 0 80px;display: block;">
-        <img src="/szhe-docs/Cl0udG0d.jpg" width="80" height="80" style="border-radius: 50%;object-fit: cover;max-width: 100%;">
+        <img src="https://avatars.githubusercontent.com/u/45556496" width="80" height="80" style="border-radius: 50%;object-fit: cover;max-width: 100%;">
     </div>
     <div class="profile" style="padding-left: 26px;flex: 1;display: block;">
         <h3 style="margin: 0;font-size: 1.3em;">

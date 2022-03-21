@@ -11,7 +11,7 @@
 
 在这些情况下原有的大型扫描器可能不太适用，所以我重构了原来的碎遮扫描器
 
-使用文档：待定
+使用文档：[碎遮文档](https://cl0udg0d.github.io/SZhe_Scan/)
 
 demo(小水管轻压)：http://1.14.93.41:8000/  (admin@admin.com / admin)
 
