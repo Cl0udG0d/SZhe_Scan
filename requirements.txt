@@ -49,7 +49,7 @@ lxml==4.6.5
 Mako==1.1.6
 MarkupSafe==2.0.1
 mmh3==3.0.0
-pipenv==2021.11.23
+pipenv==2022.1.8
 platformdirs==2.4.0
 pocsuite3==1.8.11
 prettytable==2.5.0
