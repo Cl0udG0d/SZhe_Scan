@@ -6,7 +6,7 @@
 # @Github: https://github.com/Cl0udG0d
 import requests
 import re
-
+import BeautifulReport
 def run(url):
 
     return "test {}".format(url)

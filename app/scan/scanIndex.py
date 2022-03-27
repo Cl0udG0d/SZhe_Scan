@@ -25,6 +25,9 @@ from pocsuite3.api import start_pocsuite
 from pocsuite3.api import get_results
 import os
 import json
+from app.utils.beforeScan import getPluginDepends
+
+
 
 def saveVul(result,tid,poc):
     with app.app_context():
@@ -115,6 +118,11 @@ def scanConsole(url,poclist,tid,pluginlist):
         basemsgdb=BaseInfo(url=url,tid=tid,status=basemsg.GetStatus(),title=basemsg.GetTitle(),date=basemsg.GetDate(),responseheader=basemsg.GetResponseHeader(),Server=basemsg.GetFinger())
         db.session.add(basemsgdb)
         db.session.commit()
+
+    # 预处理
+    getPluginDepends()
+
+    time.sleep(5)
 
     # 前置扫描
     scanPocs(target,poclist,tid)
