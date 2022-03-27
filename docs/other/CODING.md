@@ -1,38 +1,38 @@
 Pocsuite3 开发文档及 PoC 编写规范及要求说明
 ---
-* [概述](#overview)
-* [插件编写规范](#write_plugin)
-  * [TARGETS 类型插件](#plugin_targets)
-  * [POCS 类型插件](#plugin_pocs)
-  * [RESULTS 类型插件](#plugin_results)
-* [PoC 编写规范](#write_poc)
-  * [PoC python 脚本编写步骤](#pocpy)
-  * [可自定义参数的 PoC](#可自定义参数的插件<div-id="plugin_div"></div>)
-  * [PoC 编写注意事项](#attention)
-  * [Pocsuite3 远程调用文件列表](#inclue_files)
-  * [通用API列表](#common_api)
-    * [通用方法](#api_common)
-    * [参数调用](#api_params)
-  * [PoC 代码示例](#PoCexample)
-    * [PoC Python 代码示例](#pyexample)
-* [Pocsuite3 集成调用](#pocsuite_import)
-* [PoC 规范说明](#PoCstandard)
-  * [PoC 编号说明](#idstandard)
-  * [PoC 命名规范](#namedstandard)
-  * [PoC 第三方模块依赖说明](#requires)
-  * [PoC 结果返回规范](#resultstandard)
-    * [extra 字段说明](#result_extara)
-    * [通用字段说明](#result_common)
-  * [漏洞类型规范](#vulcategory)
+- [Pocsuite3 开发文档及 PoC 编写规范及要求说明](#pocsuite3-开发文档及-poc-编写规范及要求说明)
+  - [概述](#概述)
+  - [插件编写规范](#插件编写规范)
+    - [TARGETS 类型插件](#targets-类型插件)
+    - [POCS 类型插件](#pocs-类型插件)
+    - [RESULTS 类型插件](#results-类型插件)
+  - [PoC 编写规范](#poc-编写规范)
+    - [PoC python 脚本编写步骤](#poc-python-脚本编写步骤)
+    - [可自定义参数的 PoC](#可自定义参数的-poc)
+      - [自定义字段](#自定义字段)
+    - [PoC 编写注意事项](#poc-编写注意事项)
+    - [Pocsuite3 远程调用文件列表](#pocsuite3-远程调用文件列表)
+    - [通用 API 列表](#通用-api-列表)
+      - [ShellCode 生成支持](#shellcode-生成支持)
+      - [HTTP 服务内置](#http-服务内置)
+    - [PoC 代码示例](#poc-代码示例)
+      - [PoC Python 代码示例](#poc-python-代码示例)
+  - [Pocsuite3 集成调用](#pocsuite3-集成调用)
+  - [PoC 规范说明](#poc-规范说明)
+    - [PoC 编号说明](#poc-编号说明)
+    - [PoC 命名规范](#poc-命名规范)
+    - [PoC 第三方模块依赖说明](#poc-第三方模块依赖说明)
+    - [PoC 结果返回规范](#poc-结果返回规范)
+    - [漏洞类型规范](#漏洞类型规范)
 
 
-### 概述<div id="overview"></div>
+### 概述
  本文档为 Pocsuite3 插件及 PoC 脚本编写规范及要求说明，包含了插件、PoC 脚本编写的步骤以及相关 API 的一些说明。一个优秀的 PoC 离不开反复的调试、测试，在阅读本文档前，请先阅读 [《Pocsuite3 使用文档》](./USAGE.md)。或参考 https://paper.seebug.org/904/ 查看 Pocsuite3 的一些新特性。
 
-### 插件编写规范<div id="write_plugin"></div>
+### 插件编写规范
 Pocsuite3 共有三种类型的插件，定义在 `pocsuite3.lib.core.enums.PLUGIN_TYPE` 中。
 
-#### TARGETS 类型插件<div id="plugin_targets"></div>
+#### TARGETS 类型插件
 TARGETS 类型插件用来自定义在系统初始化时候加载检测目标的功能，例如从 redis 或数据库加载 targets
 
 ```python
@@ -58,7 +58,7 @@ class TargetPluginDemo(PluginBase):
 register_plugin(TargetPluginDemo)
 ```
 
-#### POCS 类型插件<div id="plugin_pocs"></div>
+#### POCS 类型插件
 POCS 类型插件用来自定义在系统初始化时候加载 PoC 脚本的功能，例如从 redis 或数据库加载 PoC 脚本代码
 
 ```python
@@ -84,7 +84,7 @@ class TargetPluginDemo(PluginBase):
 register_plugin(TargetPluginDemo)
 ```
 
-#### RESULTS 类型插件<div id="plugin_results"></div>
+#### RESULTS 类型插件
 RESULTS 类型插件用来自定义检测结果的导出，例如导出 html 报表等
 
 ```python
@@ -117,9 +117,9 @@ register_plugin(HtmlReport)
 
 若需要实时的保存结果，需要申明 `handle` 来处理，可参考 https://github.com/knownsec/pocsuite3/blob/master/pocsuite3/plugins/file_record.py 的写法。
 
-### PoC 编写规范<div id="write_poc"></div>
+### PoC 编写规范
 
-#### PoC python 脚本编写步骤<div id="pocpy"></div>
+#### PoC python 脚本编写步骤
 
 本小节介绍 PoC python 脚本编写
 
@@ -261,7 +261,7 @@ class DemoPOC(POCBase):
 register_poc(DemoPOC)
 ```
 
-#### 可自定义参数的 PoC<div id="plugin_div"></div>
+#### 可自定义参数的 PoC
 如果你需要编写一个可以交互参数的 PoC 文件(例如有的 PoC 脚本需要填写登录信息，或者任意命令执行时执行任意命令)，那么可以在 PoC 文件中声明一个 `_options` 方法。一个简单的例子如下：
 
 ```python
@@ -346,7 +346,7 @@ from pocsuite3.api import OptString, OptDict, OptIP, OptPort, OptBool, OptIntege
 
 需要注意的是，`console` 模式支持所有的参数类型，`cli` 模式除了`OptDict`、`OptBool`、`OptItems` 类型外都支持。
 
-#### PoC 编写注意事项<div id="attention"></div>
+#### PoC 编写注意事项
 1. 要求在编写 PoC 的时候，尽量的不要使用第三方模块，如果在无法避免的情况下，请认真填写 install_requires 字段，填写格式参考《PoC 第三方模块依赖说明》。
 2. 要求编写 PoC 的时候，尽量的使用 Pocsuite3 已经封装的 API 提供的方法，避免自己重复造轮子，对于一些通用方法可以加入到 API，具体参考《通用 API 列表》。
 3. 如果 PoC 需要包含远程文件等，统一使用 Pocsuite3 远程调用文件，具体可以参考[《Pocsuite3 远程调用文件列表》](#inclue_files)，不要引入第三方文件，如果缺少对应文件，联系管理员添加。
@@ -393,7 +393,7 @@ from pocsuite3.api import OptString, OptDict, OptIP, OptPort, OptBool, OptIntege
 10. 程序可以通过某些方法获取表前缀，just do it；若不行，保持默认表前缀。
 11. PoC 编写好后，务必进行测试，测试规则为：5 个不受漏洞影响的网站，确保 PoC 攻击不成功；5 个受漏洞影响的网站，确保 PoC 攻击成功
 
-#### Pocsuite3 远程调用文件列表<div id="inclue_files"></div>
+#### Pocsuite3 远程调用文件列表
 部分 PoC 需要采用包含远程文件的形式，要求基于 Pocsuite3 的 PoC 统一调用统一文件(如需引用未在以下文件列表内文件，请联系 404-team@knownsec.com 或者直接提交 issue)。
 统一 URL 调用路径：`https://pocsuite.org/include_files/`，如 `https://pocsuite.org/include_files/xxe_verify.xml`
 
@@ -408,10 +408,10 @@ from pocsuite3.api import OptString, OptDict, OptIP, OptPort, OptBool, OptIntege
 |xxe_verify.xml|XXE 验证文件|
 
 
-#### 通用 API 列表<div id="common_api"></div>
+#### 通用 API 列表
 在编写 PoC 的时候，相关方法请尽量调用通用的已封装的 API
 
-**通用方法**<div id="api_common"></div>
+**通用方法**
 
 |方法|说明|
 |---|----|
@@ -425,7 +425,7 @@ from pocsuite3.api import OptString, OptDict, OptIP, OptPort, OptBool, OptIntege
 |from pocsuite3.api import REVERSE_PAYLOAD|反向连接shell payload|
 |from pocsuite3.api import get_results|获取结果|
 
-**参数调用**<div id="api_params"></div>
+**参数调用**
 
 * self.headers 用来获取 http 请求头， 可以通过 --cookie, --referer，--user-agent，--headers 来修改和增加需要的部分
 * self.params 用来获取 --extra-params 赋值的变量，Pocsuite3 会自动转化成字典格式，未赋值时为空字典
@@ -448,9 +448,9 @@ _list = generate_shellcode_list(listener_ip=get_listener_ip(), listener_port=get
 
 可查看测试用例：https://github.com/knownsec/pocsuite3/blob/master/tests/test_httpserver.py
 
-#### PoC 代码示例<div id="PoCexample"></div>
+#### PoC 代码示例
 
-##### PoC Python 代码示例<div id="pyexample"></div>
+##### PoC Python 代码示例
 
 [Ecshop 2.x/3.x Remote Code Execution](http://www.seebug.org/vuldb/ssvid-97343) PoC:
 
@@ -653,7 +653,7 @@ register_poc(DemoPOC)
 ```
 
 
-### Pocsuite3 集成调用<div id="pocsuite_import"></div>
+### Pocsuite3 集成调用
 
 Pocsuite3 api 提供了集成调用` pocsuite3` 的全部功能函数，可参见测试用例 `tests/test_import_pocsuite_execute.py`。典型的集成调用方法如下：
 
@@ -676,15 +676,15 @@ def run_pocsuite():
 
 ```
 
-### PoC 规范说明<div id="PoCstandard"></div>
+### PoC 规范说明
 
-#### PoC 编号说明<div id="idstandard"></div>
+#### PoC 编号说明
 PoC 编号 ID 与漏洞 ID 一致.
 
 示例，漏洞库中的漏洞统一采用 “SSV-xxx” 编号的方式，则 PoC 编号为 xxx
 
 
-#### PoC 命名规范<div id="namedstandard"></div>
+#### PoC 命名规范
 
 PoC 命名分成3个部分组成漏洞应用名_版本号_漏洞类型名称 然后把文件名称中的所有字母改成小写，所有的符号改成 `_`
 文件名不能有特殊字符和大写字母，最后出来的文件名应该像这样：
@@ -692,7 +692,7 @@ PoC 命名分成3个部分组成漏洞应用名_版本号_漏洞类型名称 然
 ```
     _1847_seeyon_3_1_login_info_disclosure.py
 ```
-#### PoC 第三方模块依赖说明<div id="requires"></div>
+#### PoC 第三方模块依赖说明
 PoC 编写的时候要求尽量不要使用第三方模块，如果必要使用，请在 PoC 的基础信息部分，增加 install_requires 字段，按照以下格式填写依赖的模块名：
 ```
 install_requires =[str_item_, str_item, …] # 整个字段的值为 list，每个项为一个依赖模块
@@ -707,7 +707,7 @@ install_requires = ['pycryptodome:Crypto']
 ```
 
 
-#### PoC 结果返回规范<div id="resultstandard"></div>
+#### PoC 结果返回规范
 
 result 为 PoC 返回的结果数据类型，result 返回值要求返回完整的一项，暂不符合 result 字段的情况，放入 extra 字段中，此步骤必须尽可能的保证运行者能够根据信息 复现/理解 漏洞，若果步骤复杂，在取证信息中说明。例如：
 
@@ -720,7 +720,7 @@ result 为 PoC 返回的结果数据类型，result 返回值要求返回完整�
   result['AdminInfo']['Username']='xxxxx'
 ```
 
-**extra 字段说明**<div id="result_extara"></div>
+**extra 字段说明**
 extra 字段为通用结果字段的补充字段，如果需要返回的内容中不属于通用结果字段，那么可以使用 extra 字段进行赋值。extra 字段为 dict 格式，可自定义 key 进行赋值，如：
 ```
 result['extra' ]['field'] = 'aa'
@@ -731,7 +731,7 @@ result['extra' ]['field'] = 'aa'
 result['extra' ]['evidence'] = 'aa'
 ```
 
-**通用字段说明**<div id="result_common"></div>
+**通用字段说明**
 ```
 result：[
     {  name: 'DBInfo'，        value：'数据库内容' }，
@@ -778,7 +778,7 @@ result：[
 ```
 
 
-#### 漏洞类型规范<div id="vulcategory"></div>
+#### 漏洞类型规范
 
 <table border=1>
     <tr><td>英文名称</td><td>中文名称</td><td>缩写</td></tr>
