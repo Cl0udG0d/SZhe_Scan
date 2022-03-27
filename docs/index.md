@@ -13,8 +13,8 @@
 扫描器砍掉了非必要和耗时比较长的信息收集部分，用户可以自定义POC和插件来进行扫描，POC和插件支持本地上传，相关文档如下:
 
 + [Pocsuite3 开发文档及 PoC 编写规范及要求说明](./other/CODING.md)
-+ [python实现插件框架]()
-+ [插件编写]()
++ [python实现插件框架原理以及简单插件编写](./other/pythonPlugin.md)
++ [将pocsuite集成到扫描器里](./other/pocsuite2SZhe.md)
 
 
 项目使用了以下技术：
