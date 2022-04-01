@@ -123,7 +123,6 @@ def scanConsole(url,poclist,tid,pluginlist):
     getPluginDepends()
 
     time.sleep(5)
-
     # 前置扫描
     scanPocs(target,poclist,tid)
     scanPlugins(target,pluginlist,tid)
