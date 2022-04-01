@@ -30,7 +30,7 @@
 
 docker安装 
 ```bash
-git clone git@github.com:Cl0udG0d/SZhe_Scan.git
+git clone https://github.com/Cl0udG0d/SZhe_Scan
 cd SZhe_Scan
 docker-compose up -d 
 ``` 
@@ -61,6 +61,12 @@ docker-compose up -d
 </div>
 
 ## 常见问题 
++ docker和docker-compose安装
+  + Ubuntu系统 
+    + [Docker安装](https://www.runoob.com/docker/ubuntu-docker-install.html)
+    + [docker-compose安装](./other/docker-compose_install.md)
+  + Windows系统
+    + [Docker安装](https://www.runoob.com/docker/windows-docker-install.html)
 
 ## 联系我们
 - 提交一个[issue](https://github.com/Cl0udG0d/SZhe_Scan/issues/new)
