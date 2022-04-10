@@ -68,6 +68,7 @@ docker-compose up -d
   + Windows系统
     + [Docker安装](https://www.runoob.com/docker/windows-docker-install.html)
 
++ [关于前置扫描和后置扫描](./other/beforeAndPostScan.md)
 ## 联系我们
 - 提交一个[issue](https://github.com/Cl0udG0d/SZhe_Scan/issues/new)
 - 想要一起完善这个项目欢迎给我发邮件加入作者群：[2585614464@qq.com](mailto:2585614464@qq.com)
