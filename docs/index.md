@@ -28,7 +28,7 @@
 
 ## 快速开始 
 
-docker安装 
++ docker安装 
 ```bash
 git clone https://github.com/Cl0udG0d/SZhe_Scan
 cd SZhe_Scan
@@ -39,6 +39,7 @@ docker-compose up -d
 
 选择需要的POC和插件，添加任务进行扫描即可
 
++ [windows 源码安装](./other/winSetup.md)
 
 ## 开发团队
 

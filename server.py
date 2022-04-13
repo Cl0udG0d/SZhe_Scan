@@ -48,7 +48,7 @@ def internal_server_error(e):
 schedulerStart()
 
 s = HTTPServer(WSGIContainer(app))
-s.listen(8000) # 监听 8080 端口
+s.listen(8000) # 监听 8000 端口
 IOLoop.current().start()
 
 # if __name__=='__main__':
