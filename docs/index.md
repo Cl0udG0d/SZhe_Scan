@@ -28,9 +28,9 @@
 
 ## 快速开始 
 
-docker安装 
++ docker安装 
 ```bash
-git clone git@github.com:Cl0udG0d/SZhe_Scan.git
+git clone https://github.com/Cl0udG0d/SZhe_Scan
 cd SZhe_Scan
 docker-compose up -d 
 ``` 
@@ -39,6 +39,7 @@ docker-compose up -d
 
 选择需要的POC和插件，添加任务进行扫描即可
 
++ [windows 源码安装](./other/winSetup.md)
 
 ## 开发团队
 
@@ -61,7 +62,14 @@ docker-compose up -d
 </div>
 
 ## 常见问题 
++ docker和docker-compose安装
+  + Ubuntu系统 
+    + [Docker安装](https://www.runoob.com/docker/ubuntu-docker-install.html)
+    + [docker-compose安装](./other/docker-compose_install.md)
+  + Windows系统
+    + [Docker安装](https://www.runoob.com/docker/windows-docker-install.html)
 
++ [关于前置扫描和后置扫描](./other/beforeAndPostScan.md)
 ## 联系我们
 - 提交一个[issue](https://github.com/Cl0udG0d/SZhe_Scan/issues/new)
 - 想要一起完善这个项目欢迎给我发邮件加入作者群：[2585614464@qq.com](mailto:2585614464@qq.com)
