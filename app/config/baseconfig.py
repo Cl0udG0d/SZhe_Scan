@@ -1,8 +1,8 @@
 import os
 import platform
 
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 SECRET_KEY = os.urandom(24)
 HOSTNAME = '127.0.0.1' if platform.system().lower()=="windows" else "mysql"
 REDIS_HOST = '127.0.0.1' if platform.system().lower()=="windows" else "redis"

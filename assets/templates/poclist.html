@@ -119,6 +119,10 @@
 								{% endfor %}
 								</tbody>
 								</table>
+						  <div style="text-align:center">
+								{% import 'pages.html' as pg %}
+								{{ pg.my_paginate(pagination,'pocs.poclist') }}
+							</div>
 					  </div>
 				  	</div>
 

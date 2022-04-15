@@ -26,10 +26,9 @@ from app.config import baseconfig
 @plugin.route('/plugin/<int:page>', methods=['GET'])
 @login_required
 def pluginlist(page=1,msg=None):
-    per_page = 20
-    paginate = pluginList.query.order_by(pluginList.id.desc()).paginate(page, per_page, error_out=False)
+    paginate = pluginList.query.order_by(pluginList.id.desc()).paginate(page=page, per_page=10, error_out=False)
     plugins = paginate.items
-    return render_template('pluginlist.html', paginate=paginate, plugins=plugins)
+    return render_template('pluginlist.html', pagination=paginate, plugins=plugins)
 
 
 @plugin.route('/plugin/refresh', methods=['GET'])

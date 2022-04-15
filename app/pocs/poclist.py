@@ -30,10 +30,9 @@ def allowed_file(filename):
 @poc.route('/pocs/<int:page>', methods=['GET'])
 @login_required
 def poclist(page=1,msg=None):
-    per_page = 20
-    paginate = PocList.query.order_by(PocList.id.desc()).paginate(page, per_page, error_out=False)
+    paginate = PocList.query.order_by(PocList.id.desc()).paginate(page=page, per_page=10, error_out=False)
     pocs = paginate.items
-    return render_template('poclist.html', paginate=paginate, pocs=pocs)
+    return render_template('poclist.html', pagination=paginate, pocs=pocs)
 
 
 

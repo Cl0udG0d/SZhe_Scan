@@ -83,7 +83,10 @@
 								{% endfor %}
 								</tbody>
 								</table>
-
+							<div style="text-align:center">
+								{% import 'scanPages.html' as pg %}
+								{{ pg.my_paginate(pagination,'tasks.seetask',tasks.id) }}
+							</div>
 					  </div>
 				  	</div>
 

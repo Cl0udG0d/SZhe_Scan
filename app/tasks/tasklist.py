@@ -26,10 +26,9 @@ from init import app
 @tasks.route('/tasks/<int:page>', methods=['GET'])
 @login_required
 def tasklist(page=1,msg=None):
-    per_page = 38
-    paginate = Task.query.order_by(Task.id.desc()).paginate(page, per_page, error_out=False)
+    paginate = Task.query.order_by(Task.id.desc()).paginate(page=page, per_page=10, error_out=False)
     tasks = paginate.items
-    return render_template('tasklist.html', paginate=paginate, tasks=tasks)
+    return render_template('tasklist.html', pagination=paginate,tasks=tasks)
 
 
 
@@ -99,11 +98,13 @@ def delAllTask():
 
 
 @tasks.route('/tasks/seetask/<id>', methods=['GET'])
+@tasks.route('/tasks/seetask/<id>/<int:page>', methods=['GET'])
 @login_required
-def seetask(id=None):
+def seetask(page=1,id=1):
     tasks= Task.query.filter(Task.id == id).first()
-    scantasks=scanTask.query.filter(scanTask.pid == tasks.tid).all()
-    return render_template('scantask.html',tasks=tasks,scantasks=scantasks)
+    paginate=scanTask.query.filter(scanTask.pid == tasks.tid).order_by(scanTask.id.desc()).paginate(page=page, per_page=10, error_out=False)
+    scantasks=paginate.items
+    return render_template('scantask.html',pagination=paginate,tasks=tasks,scantasks=scantasks)
 
 
 

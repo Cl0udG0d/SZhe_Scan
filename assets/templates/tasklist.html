@@ -132,7 +132,11 @@
 								{% endfor %}
 								</tbody>
 
-								</table>
+							</table>
+						  <div style="text-align:center">
+								{% import 'pages.html' as pg %}
+								{{ pg.my_paginate(pagination,'tasks.tasklist') }}
+							</div>
 
 					  </div>
 				  	</div>

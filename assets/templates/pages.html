@@ -1,0 +1,28 @@
+{% macro my_paginate(pagination,url) %}
+<nav>
+    <ul class="pagination">
+ 
+        {%if pagination.has_prev%}
+        <li class="page-item active"><a class="page-link" href="{{url_for(url,page=pagination.page-1)}}">上一页</a></li>
+        {%else%}
+        <li class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
+        {%endif%}
+ 
+            {%for page in pagination.iter_pages(1,1,3,1)%}
+            {%if page%}
+                <li class="page-item {%if page==pagination.page%}active{%endif%}"><a class="page-link" href="{{url_for(url,page=page)}}">{{page}}</a></li>
+            {%else%}
+                <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>
+            {%endif%}
+ 
+        {%endfor%}
+ 
+        {%if pagination.has_next%}
+        <li class="page-item active"><a class="page-link" href="{{url_for(url,page=pagination.page+1)}}">下一页</a></li>
+        {%else%}
+        <li class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
+        {%endif%}
+ 
+    </ul>
+</nav>
+{% endmacro %}

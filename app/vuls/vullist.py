@@ -20,10 +20,9 @@ from app.utils.decorators import login_required
 @vuls.route('/vuls/<int:page>', methods=['GET'])
 @login_required
 def vullist(page=1,msg=None):
-    per_page = 20
-    paginate = VulList.query.order_by(VulList.id.desc()).paginate(page, per_page, error_out=False)
+    paginate = VulList.query.order_by(VulList.id.desc()).paginate(page=page, per_page=10, error_out=False)
     vuls = paginate.items
-    return render_template('vullist.html', paginate=paginate, vuls=vuls)
+    return render_template('vullist.html', pagination=paginate, vuls=vuls)
 
 
 
