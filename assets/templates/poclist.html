@@ -32,6 +32,18 @@
 	})
 
 </script>
+<script type="text/javascript">
+	$(function() {
+		$('#showpoc').on('shown.bs.modal',
+		function(e) {
+			var btn = $(e.relatedTarget),
+        	id = btn.data("id");
+        	$.get("/pocs/pocDetail/"+id, function(result){
+				$("#pocdetail").html(result);
+			  });
+		})
+	});
+</script>
 {% endblock %}
 {% block css %}
 
@@ -100,7 +112,7 @@
 									{% for poc in pocs %}
 									<tr >
 										<td><input name="pocid" type="hidden" class="" value="{{poc.id}}">{{poc.id}}</td>
-										<td>{{poc.filename}}</td>
+										<td><button class="btn" data-target="#showpoc" data-toggle="modal" data-id="{{poc.id}}">{{poc.filename}}</button></td>
 										<td>
 											<div class="switch-box">
 												<input id="{{poc.id}}" type="checkbox" class="switch" onclick="reverseStatus({{poc.id}})" {% if poc.status %}checked{% endif %}/>
@@ -119,6 +131,24 @@
 								{% endfor %}
 								</tbody>
 								</table>
+						  <div class="modal fade" id="showpoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+							<div class="modal-dialog">
+								<div class="panel panel-default">
+										  <div class="panel-heading">
+											<h3 class="panel-title">POC详情</h3>
+														<div class="panel-options pull-right">
+														  </div>
+										  </div>
+										  <div class="panel-body">
+<!--											  <div class="panel-body" id="pocdetail" style="height: 150px;overflow: auto;">-->
+<!--												  <pre></pre>-->
+			<!--								   <p class="list-group-item-text"></p>-->
+<!--											  </div>-->
+											<div  style="white-space: pre;"><pre id="pocdetail" style="max-height:500px"></pre></div>
+										  </div>
+								</div>
+							</div>
+						</div>
 						  <div style="text-align:center">
 								{% import 'pages.html' as pg %}
 								{{ pg.my_paginate(pagination,'pocs.poclist') }}

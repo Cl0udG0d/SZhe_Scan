@@ -146,3 +146,17 @@ def delPoc(id=None):
         flash("删除成功")
     return redirect(url_for('pocs.poclist'))
 
+@poc.route('/pocs/pocDetail/<int:id>',methods=['GET'])
+def pocDetail(id=None):
+    tempPoc= PocList.query.filter(PocList.id == id).first()
+    if not tempPoc:
+        flash('{} 加载失败'.format(id))
+        return redirect(url_for('pocs.poclist'))
+    filepath = baseconfig.UPLOADED_POCS_DEST + tempPoc.filename + '.py'
+    file_object = open(filepath,'r', encoding='UTF-8')
+    file_context = file_object.read()
+    # print(file_context)
+    return file_context
+
+if __name__ == '__main__':
+    print(pocDetail(1))
