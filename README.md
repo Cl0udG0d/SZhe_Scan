@@ -29,11 +29,13 @@ tips:本扫描器不适合纯小白使用
 
 
 ## TODO 
-+ readme 安装与文档
-+ 页码处理 
 + 输出报告 
 + 点击查看插件和POC内容
-+ 推送至docker image
++ poc模块兼容yak,yaml,mitm ...
++ 打磨插件框架
++ 维护poc和插件仓库
++ 漏洞和服务的归类
++ ...
 
 ## :moyai:讨论交流
 

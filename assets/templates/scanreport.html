@@ -131,7 +131,7 @@
 						<div class="row">
 						<div class="col-xs-6 text-right pull-right invoice-total">
 							<p class="lead marginbottom">SZHE_Scan</p>
-							<button class="btn btn-success" id="invoice-print"><i class="fa fa-print"></i> 打印报告</button>
+							<button class="btn btn-success" onclick="javascript:window.location.href='/tasks/outputreport/'+{{task.id}}+'/'+'{{scantask.tid}}'" id="invoice-print"><i class="fa fa-print"></i> 打印报告</button>
 						</div>
 						</div>
 

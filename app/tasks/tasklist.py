@@ -9,7 +9,7 @@ import os
 
 from app.tasks import tasks
 from flask import (
-    render_template,redirect,url_for,request,flash
+    render_template,redirect,url_for,request,flash,make_response
 )
 from app.model.models import (
     Log,Task,scanTask,BaseInfo,VulList,ExtList
@@ -20,6 +20,7 @@ from app.model.exts import db
 import time
 from app.utils.decorators import login_required
 from init import app
+import mimetypes
 
 
 @tasks.route('/tasks/')
@@ -124,6 +125,30 @@ def scanreport(id=None,tid=None):
     return render_template('scanreport.html',task=task,scantask=scantask,info=info,vuls=vuls,exts=exts)
 
 
+@tasks.route('/tasks/outputreport/<id>/<tid>', methods=['GET'])
+@login_required
+def outputReport(id=None,tid=None):
+    task= Task.query.filter(Task.id == id).first()
+    scantask=scanTask.query.filter(scanTask.tid == tid).first()
+    info=BaseInfo.query.filter(BaseInfo.tid == tid).first()
+    vuls=VulList.query.filter(VulList.tid == tid).all()
+    exts=ExtList.query.filter(ExtList.tid == tid).all()
+    if not info:
+        flash("任务正在执行或执行出错，无法查看")
+        return redirect(url_for('tasks.seetask', id=id))
+    # directory = os.getcwd()  # 假设在当前目录
+    filename="SHZE-{}-{}.html".format(id,tid)
+    # filecontent=tasks.send_static_file('outputReport.html',task=task,scantask=scantask,info=info,vuls=vuls,exts=exts)
+    filecontent=render_template('outputReport.html',task=task,scantask=scantask,info=info,vuls=vuls,exts=exts)
+    # pathname = os.path.join(os.path.join(os.getcwd(), "../../temp"),filename)
+    # f = open(pathname, "rb")
+    # response = Response(f.readlines())
+    response = make_response(filecontent)
+    mime_type = mimetypes.guess_type(filename)[0]
+    response.headers['Content-Type'] = mime_type
+    response.headers['Content-Disposition'] = 'attachment; filename={}'.format(filename.encode().decode('latin-1'))
+    return response
+    # return render_template('outputReport.html',task=task,scantask=scantask,info=info,vuls=vuls,exts=exts)
 
 
 ALLOWED_EXTENSIONS = set(['txt'])
@@ -157,4 +182,4 @@ def uploadTarget():
 
 
 if __name__ == '__main__':
-    print("a")
+    print(os.path.join(os.getcwd(), "../../temp"))
