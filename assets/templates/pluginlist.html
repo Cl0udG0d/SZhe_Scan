@@ -32,6 +32,18 @@
 	})
 
 </script>
+<script type="text/javascript">
+	$(function() {
+		$('#showplugin').on('shown.bs.modal',
+		function(e) {
+			var btn = $(e.relatedTarget),
+        	id = btn.data("id");
+        	$.get("/plugin/pluginDetail/"+id, function(result){
+				$("#plugindetail").html(result);
+			  });
+		})
+	});
+</script>
 {% endblock %}
 {% block css %}
 
@@ -100,7 +112,7 @@
 									{% for plugin in plugins %}
 									<tr >
 										<td><input name="pocid" type="hidden" class="" value="{{plugin.id}}">{{plugin.id}}</td>
-										<td>{{plugin.filename}}</td>
+										<td><button class="btn" data-target="#showplugin" data-toggle="modal" data-id="{{plugin.id}}">{{plugin.filename}}</button></td>
 										<td>
 											<div class="switch-box">
 												<input id="{{plugin.id}}" type="checkbox" class="switch" onclick="reverseStatus({{plugin.id}})" {% if plugin.status %}checked{% endif %}/>
@@ -119,6 +131,24 @@
 								{% endfor %}
 								</tbody>
 								</table>
+						  <div class="modal fade" id="showplugin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+							<div class="modal-dialog">
+								<div class="panel panel-default">
+										  <div class="panel-heading">
+											<h3 class="panel-title">插件详情</h3>
+														<div class="panel-options pull-right">
+														  </div>
+										  </div>
+										  <div class="panel-body">
+<!--											  <div class="panel-body" id="pocdetail" style="height: 150px;overflow: auto;">-->
+<!--												  <pre></pre>-->
+			<!--								   <p class="list-group-item-text"></p>-->
+<!--											  </div>-->
+											<div  style="white-space: pre;"><pre id="plugindetail" style="max-height:500px"></pre></div>
+										  </div>
+								</div>
+							</div>
+						</div>
 						  <div style="text-align:center">
 								{% import 'pages.html' as pg %}
 								{{ pg.my_paginate(pagination,'plugin.pluginlist') }}

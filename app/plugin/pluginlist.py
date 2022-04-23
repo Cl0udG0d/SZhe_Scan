@@ -150,6 +150,21 @@ def delPlugin(id=None):
     return redirect(url_for('plugin.pluginlist'))
 
 
+@plugin.route('/plugin/pluginDetail/<int:id>',methods=['GET'])
+@login_required
+def pluginDetail(id=None):
+    # print(id)
+    plugin= pluginList.query.filter(pluginList.id == id).first()
+    if not plugin:
+        flash('{} 加载失败'.format(id))
+        return redirect(url_for('plugin.pluginlist'))
+    filepath = baseconfig.UPLOADED_PLUGIN_DEST + plugin.filename + '.py'
+    file_object = open(filepath, 'r', encoding='UTF-8')
+    file_context = file_object.read()
+    # print(file_context)
+    return file_context
+
+
 def test():
     print('hi')
 
