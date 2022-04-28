@@ -11,6 +11,7 @@ services:
       - TZ=Asia/Shanghai
       - MYSQL_DATABASE=SZheScan
       - MYSQL_ROOT_PASSWORD=root
+      - @@global.sql_mode= ''
     ports:
       - "3306:3306"
     restart: always
