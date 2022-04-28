@@ -204,6 +204,7 @@ class Spider():
             urllist.append(sublurl)
         active_urls=self.filter(urllist)
 
+        # print(active_urls)
         for active_url in active_urls:
             urllist.append(active_url)
         return active_urls
@@ -221,6 +222,7 @@ class Spider():
             subdomain=sublurl.lstrip('http://') if sublurl.startswith('http://') else sublurl
             subdomain=subdomain.lstrip('https://') if subdomain.startswith('https://') else subdomain
 
+
             if subdomain.startswith(self.domain_url) and len(subdomain.split(self.domain_url))==2:
                 query_curr = query_pattern.findall(sublurl)
 
@@ -234,30 +236,23 @@ class Spider():
                     else:
                         active_urls.append(sublurl)
                 else:
-
                     if not filter_pattern.findall(sublurl):
                         query_curr = query_pattern.findall(sublurl)
                         if query_curr and query_curr[0][:10] not in query_set:
                             query_set.add(query_curr[0][:10])
                             active_urls.append(sublurl)
-                    elif allown_pattern.findall(sublurl):
-                        active_urls.append(sublurl)
+
 
         return active_urls
 
-
-def writelog(log,urllist):
-    filename=log
-    outfile=open(filename,'w')
-    for suburl in urllist:
-        outfile.write(suburl+'\n')
-    outfile.close()
 
 
 def spider(url,craw_deepth =1):
     try:
         urlprotocol = url_protocol(url)  # 获取协议
+        # print(urlprotocol)
         domain_url = same_url(urlprotocol, url)
+        # print(domain_url)
         logging.info("domain_url:" + domain_url)
         spider = Spider(url, domain_url, urlprotocol)
         urllist = spider.crawler(craw_deepth)
@@ -268,7 +263,8 @@ def spider(url,craw_deepth =1):
 
 
 if __name__ == '__main__':
-    url = 'http://www.powermos.com/index.php?m=Index&a=index'
-    result=spider(url,craw_deepth =1)
+    url = 'http://www.chinatbjt.com/sc/index.php'
+    result=spider(url,craw_deepth =2)
+    print(result)
     print("spider end,result length is {}".format(len(result)))
 

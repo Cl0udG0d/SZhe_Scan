@@ -16,6 +16,7 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
 
 class GetBaseMessage():
     def __init__(self, url, attackurl,rep):
+        rep.encoding = 'utf-8'
         self.domain = url
         self.url=attackurl
         self.rep=rep
