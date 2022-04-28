@@ -11,14 +11,13 @@ services:
       - TZ=Asia/Shanghai
       - MYSQL_DATABASE=SZheScan
       - MYSQL_ROOT_PASSWORD=root
-      - @@global.sql_mode= ''
     ports:
       - "3306:3306"
     restart: always
-    command: [
-      '--character-set-server=utf8mb4',
-      '--collation-server=utf8mb4_unicode_ci',
-    ]
+    command:
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --sql-mode=""
 
   web:
     build: .
