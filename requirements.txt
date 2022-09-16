@@ -47,7 +47,7 @@ itsdangerous==2.0.1
 Jinja2==3.0.3
 kombu==3.0.37
 lxml==4.6.1
-Mako==1.1.6
+Mako==1.2.2
 MarkupSafe==2.0.1
 mmh3==3.0.0
 pipenv==2021.11.23
