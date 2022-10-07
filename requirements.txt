@@ -46,7 +46,7 @@ importlib-resources==5.4.0
 itsdangerous==2.0.1
 Jinja2==3.0.3
 kombu==3.0.37
-lxml==4.6.1
+lxml==4.9.1
 Mako==1.2.2
 MarkupSafe==2.0.1
 mmh3==3.0.0
