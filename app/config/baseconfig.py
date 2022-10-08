@@ -30,8 +30,8 @@ REDIS_DB = 0
 # db = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB, decode_responses=True)
 # queue = Queue(connection=db)
 
-CELERY_BROKER_URL= 'redis://localhost:6379/0' if platform.system().lower()=="windows" else 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND= 'redis://localhost:6379/0' if platform.system().lower()=="windows" else 'redis://redis:6379/0'
+CELERY_BROKER_URL= 'redis://127.0.0.1:6379/0' if platform.system().lower()=="windows" else 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND= 'redis://127.0.0.1:6379/0' if platform.system().lower()=="windows" else 'redis://redis:6379/0'
 
 CELERY_TRACK_STARTED=True
 

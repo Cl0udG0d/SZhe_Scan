@@ -1,3 +1,4 @@
+setuptools==57.5.0
 alembic==1.7.5
 amqp==1.4.9
 anyio==3.5.0
@@ -38,7 +39,7 @@ Flask-WTF==1.0.0
 greenlet==1.1.2
 h11==0.12.0
 httpcore==0.14.7
-httpx==0.23.0
+httpx
 idna==3.3
 immutables==0.16
 importlib-metadata==4.8.3
@@ -47,7 +48,7 @@ itsdangerous==2.0.1
 Jinja2==3.0.3
 kombu==3.0.37
 lxml==4.9.1
-Mako==1.2.2
+Mako
 MarkupSafe==2.0.1
 mmh3==3.0.0
 pipenv==2021.11.23
