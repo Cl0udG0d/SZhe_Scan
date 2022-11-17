@@ -13,7 +13,7 @@
 
 使用文档：[碎遮文档](https://cl0udg0d.github.io/SZhe_Scan/)
 
-demo(小水管轻压)：http://66.42.101.59:8000/  (admin@admin.com / admin)
+demo(小水管轻压)：http://104.207.152.15:8000/  (admin@admin.com / admin)
 
 tips:本扫描器不适合纯小白使用
 
