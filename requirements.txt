@@ -11,7 +11,7 @@ beautifulsoup4==4.9.3
 billiard==3.3.0.23
 cached-property==1.5.2
 celery==3.1.18
-certifi==2021.10.8
+certifi==2022.12.7
 cffi==1.15.0
 changanya==0.5.0
 chardet==4.0.0
