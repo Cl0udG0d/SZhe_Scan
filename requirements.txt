@@ -1,4 +1,4 @@
-setuptools==57.5.0
+setuptools==65.5.1
 alembic==1.7.5
 amqp==1.4.9
 anyio==3.5.0
