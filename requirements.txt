@@ -84,7 +84,7 @@ virtualenv==20.13.0
 virtualenv-clone==0.5.7
 watchdog==2.1.6
 wcwidth==0.2.5
-Werkzeug==2.0.2
+Werkzeug==2.2.3
 WTForms==3.0.0
 zipp==3.6.0
 zope.event==4.5.0
